@@ -1,10 +1,10 @@
-import Apiclient from "./Apiclient";
+import Arquipelagos from "./Arquipelagos";
 import * as React from "react";
 
 function App() {
   return (
     <div className="App">
-      <Apiclient />
+      <Arquipelagos />
     </div>
   );
 }
