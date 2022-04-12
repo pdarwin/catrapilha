@@ -15,29 +15,25 @@ import { useNavigate } from "react-router-dom";
 import configData from "../Config.json";
 
 const initialState = {
-  items: null,
-  listItems: null,
-  tmpItems: null,
+  items: [],
+  listItems: [],
+  tmpItems: [],
   loading: false,
 };
 
 const actions = {
-  getItems_success: "getItems_success",
-  getListItems_success: "getListItems_success",
-  loaded: "loaded",
+  updateItems: "updateItems",
+  addListItem: "addListItem",
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case actions.getItems_success:
+    case actions.updateItems:
       return { ...state, items: action.payload };
-    case "getMoreItems_Success":
-      return { ...state, tmpItems: action.payload, listItems: null };
-    case actions.getListItems_success:
+    case actions.addListItem:
       return {
         ...state,
-        items: null,
-        listItems: action.payload,
+        listItems: [...state.listItems, action.payload],
         loading: true,
       };
     case actions.loaded:
@@ -69,25 +65,17 @@ export default function Arquipelagos({ data, setData }) {
   }, [page]);
 
   useEffect(() => {
-    //console.log("effect state items fora: items", state.items);
-    //console.log("effect state items fora: listItems", state.listItems);
-    if (state.items !== null) {
-      console.log("effect state items dentro: items", state.items);
-      console.log("effect state items dentro: listItems", state.listItems);
+    if (state.items.length > 0) {
       getListItems();
     }
   }, [state.items]);
 
   useEffect(() => {
-    console.log("effect state listitems fora", state.listItems);
-    if (state.items !== null) {
-      console.log("effect state listitems dentro", state.listItems);
-      dispatch({ type: actions.loaded });
+    if (state.listItems !== null) {
     }
   }, [state.listItems]);
 
   function getItems(page) {
-    //console.log(page);
     fetch("arqapi/wp-json/wp/v2/imagem?page=" + page, {
       headers: {
         "Content-type": "application/json",
@@ -103,43 +91,14 @@ export default function Arquipelagos({ data, setData }) {
         return response.json();
       })
       .then((parsedResponse) => {
-        if (state.items === null) {
+        if (state.items.length === 0) {
           const tmp = parsedResponse.filter(
             (item) =>
               !data[0].Arquipelagos.some((element) => element.id === item.id)
           );
           console.log("antes do return", tmp.length);
-          dispatch({ type: actions.getItems_success, payload: tmp });
+          dispatch({ type: actions.updateItems, payload: tmp });
         }
-        /* if (tmp.length >= 10) {
-            if (page === state.page) {
-              console.log("sucesso à 1ª", state.page);
-              dispatch({ type: "getItems_Success", payload: tmp });
-            } else {
-              console.log("teve items", state.page);
-              dispatch({ type: "getMoreItems_Success", payload: tmp });
-            }
-          } else {
-            console.log("faltam items, pede mais", state.page);
-            dispatch({ type: "getMoreItems", payload: page + 1 });
-            console.log("tmpItems1", state.tmpItems);
-            if (state.tmpItems !== null) {
-              let tmpItems = state.tmpItems;
-              const tmp2 = tmpItems.filter(
-                (item) =>
-                  !data[0].Arquipelagos.some(
-                    (element) => element.id === item.id
-                  )
-              );
-              tmp2.map((item) => {
-                tmp.push(item);
-              });
-              dispatch({ type: "getItems_Success", payload: tmp });
-            } else {
-              dispatch({ type: "getItems_Success", payload: tmp });
-            }
-          }
-        } */
       })
       .catch((error) => {
         alert(error);
@@ -147,10 +106,8 @@ export default function Arquipelagos({ data, setData }) {
   }
 
   function getListItems() {
-    //console.log("test", items);
-    let listItems = [];
-    for (let element of state.items) {
-      fetch(element.link.replace("https://www.arquipelagos.pt", "arqapi"))
+    for (let item of state.items) {
+      fetch(item.link.replace("https://www.arquipelagos.pt", "arqapi"))
         .then((response) => {
           // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
           if (response.status !== 200) {
@@ -164,21 +121,21 @@ export default function Arquipelagos({ data, setData }) {
             '(.*)(<img src="(.*?)" class="card-img mb-2")'
           );
 
-          listItems.push({
-            id: element.id,
-            linkhtml: parsedResponse,
-            image: testImg.exec(parsedResponse)[3],
-            content: element.content.rendered,
-            title: element.title.rendered,
+          dispatch({
+            type: actions.addListItem,
+            payload: {
+              id: item.id,
+              linkhtml: parsedResponse,
+              image: testImg.exec(parsedResponse)[3],
+              content: item.content.rendered,
+              title: item.title.rendered,
+            },
           });
         })
         .catch((error) => {
           alert(error);
         });
     }
-    //console.log("list", listItems);
-
-    dispatch({ type: actions.getListItems_success, payload: listItems });
   }
 
   function before() {
@@ -192,11 +149,7 @@ export default function Arquipelagos({ data, setData }) {
     console.log(state.items);
     console.log(state.listItems);
     console.log(state.loading);
-    dispatch({ type: actions.loaded });
   }
-
-  console.log("renderizou ", page);
-  console.log("renderizou ", state.listItems);
 
   return (
     <Grid container>
@@ -206,7 +159,7 @@ export default function Arquipelagos({ data, setData }) {
         rowHeight={200}
         gap={1}
       >
-        {state.listItems !== null && state.listItems.length > 0
+        {state.listItems.length > 0
           ? state.listItems.map((item) => (
               <ImageListItem key={item.id}>
                 <img

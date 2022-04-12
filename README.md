@@ -1,18 +1,21 @@
 # Catrapilha
 
-## Personalized image uploader worlking with Wikimedia Commons
+## Description
 
-### Sites
+Personalized image uploader worlking with Wikimedia Commons
+"Catrapilha" is Madeira dialect for anything big ressembling a building site machine (from "Caterpiller Inc.")
+
+## Sites
 
 - Working with Arquipelagos mediateca https://www.arquipelagos.pt/ (GLAM partnership with Wikimedia Portugal)
 
-### Features
+## Features
 
 - Image list of items that can be uploaded
 - Detail view
 - List of added / removed files from the main list (json format, stored in User:DarwIn/Catrapilha.data)
 
-### Licensing
+## Licensing
 
 Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 Bulldozer icon from SVG REPO
