@@ -9,31 +9,28 @@ import { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configData from "../Config.json";
 import { CheckCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
+import { actions } from "../ModalReducer";
+import { useCustomContext } from "../CustomContext";
 
-export default function ItemArq({
-  modalControls,
-  data,
-  setData,
-  tokenCSRF,
-  getTokenCSRF,
-}) {
-  const [page, setPage] = useState();
+export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
+  const [rawItem, setRawItem] = useState();
   const [item, setItem] = useState([{}]);
   const [file, setFile] = useState();
   const [info, setInfo] = useState();
   const [filename, setFilename] = useState("");
+  const { modalState, modalDispatch } = useCustomContext();
 
   useEffect(() => {
     if (data !== null) {
-      getItemList();
+      getItem();
     }
   }, []);
 
   useEffect(() => {
-    if (page !== undefined) {
-      getItemLink();
+    if (rawItem !== undefined) {
+      buildItem();
     }
-  }, [page]);
+  }, [rawItem]);
 
   useEffect(() => {
     if (tokenCSRF.token !== "") {
@@ -53,9 +50,9 @@ export default function ItemArq({
 
   const params = useParams();
 
-  function getItemList() {
-    setPage(undefined);
-    fetch("/arqapi/wp-json/wp/v2/imagem?page=1", {
+  function getItem() {
+    setRawItem(undefined);
+    fetch("arqapi/wp-json/wp/v2/imagem/" + params.id, {
       headers: {
         "Content-type": "application/json",
         "User-Agent": configData["User-Agent"],
@@ -64,30 +61,37 @@ export default function ItemArq({
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: response.status + ": " + response.statusText + "(getItem)",
+              level: "error",
+            },
+          });
         }
         console.log(response);
         return response.json();
       })
       .then((parsedResponse) => {
-        parsedResponse.map((element) => {
-          if (parseInt(element.id) === parseInt(params.id)) {
-            setPage(element);
-          }
-        });
-        //console.log(page);
+        setRawItem(parsedResponse);
       })
       .catch((error) => {
         alert(error);
       });
   }
 
-  function getItemLink() {
-    fetch(page.link.replace("https://www.arquipelagos.pt", "/arqapi"))
+  function buildItem() {
+    fetch(rawItem.link.replace("https://www.arquipelagos.pt", "/arqapi"))
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: response.status + ": " + response.statusText + "(buildItem)",
+              level: "error",
+            },
+          });
         }
         //console.log(response);
         return response.text();
@@ -99,18 +103,18 @@ export default function ItemArq({
         const testFilename = new RegExp('(.*)(/(.*?)" class="card-img mb-2")');
 
         setItem({
-          id: page.id,
-          link: page.link,
+          id: rawItem.id,
+          link: rawItem.link,
           linkhtml: parsedResponse,
           image: testImg.exec(parsedResponse)[3],
           filename: testFilename.exec(parsedResponse)[3],
-          content: page.content.rendered,
-          title: page.title.rendered,
+          content: rawItem.content.rendered,
+          title: rawItem.title.rendered,
         });
         setFilename(
           testFilename
             .exec(parsedResponse)[3]
-            .replace(".jpg", " - Image " + page.id + ".jpg")
+            .replace(".jpg", " - Image " + rawItem.id + ".jpg")
         );
       })
       .catch((error) => {
@@ -158,7 +162,13 @@ export default function ItemArq({
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: response.status + ": " + response.statusText + "(Upload)",
+              level: "error",
+            },
+          });
         }
         //console.log(response);
         return response.json();
@@ -166,31 +176,39 @@ export default function ItemArq({
       .then((parsedResponse) => {
         console.log(parsedResponse);
         if (parsedResponse.error) {
-          modalControls.setErr(
-            parsedResponse.error.code + ": " + parsedResponse.error.info
-          );
-          modalControls.setErrLevel("error");
-          modalControls.handleOpen();
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
+              level: "error",
+            },
+          });
         }
         if (parsedResponse.upload.result === "Warning") {
-          modalControls.setErr("Imagem existente no Commons:");
-          modalControls.setErrlink(
-            "https://commons.wikimedia.org/wiki/File:" +
-              (parsedResponse.upload.warnings.exists
-                ? parsedResponse.upload.warnings.exists
-                : parsedResponse.upload.warnings.duplicate)
-          );
-          modalControls.setErrLevel("warning");
-          modalControls.handleOpen();
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: "Imagem existente no Commons:",
+              level: "warning",
+              link:
+                "https://commons.wikimedia.org/wiki/File:" +
+                (parsedResponse.upload.warnings.exists
+                  ? parsedResponse.upload.warnings.exists
+                  : parsedResponse.upload.warnings.duplicate),
+            },
+          });
         }
         if (parsedResponse.upload.result === "Success") {
-          modalControls.setErr("Upload bem sucedido. Imagem disponível em ");
-          modalControls.setErrlink(
-            "https://commons.wikimedia.org/wiki/File:" +
-              parsedResponse.upload.filename
-          );
-          modalControls.setErrLevel("success");
-          modalControls.handleOpen();
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: "Upload bem sucedido. Imagem disponível em ",
+              level: "success",
+              link:
+                "https://commons.wikimedia.org/wiki/File:" +
+                parsedResponse.upload.filename,
+            },
+          });
         }
       })
       .catch((error) => {
@@ -244,15 +262,15 @@ export default function ItemArq({
   }
 
   function markN() {
-    console.log(data);
+    console.log("aqui", data[0].Arquipelagos);
     setData((data) => [
-      ...data,
-      {
-        Arquipelagos: {
+      ...data[0].Arquipelagos,
+      [
+        {
           id: item.id,
           status: "N",
         },
-      },
+      ],
     ]);
   }
   console.log(data);
@@ -269,11 +287,48 @@ export default function ItemArq({
 
   return (
     <Grid container>
+      <Grid item xs={2}>
+        <Button
+          variant="contained"
+          onClick={markN}
+          size="small"
+          sx={{ m: 1 }}
+          style={{ float: "left" }}
+          startIcon={<RemoveCircleOutline />}
+          color="error"
+        >
+          Não carregar
+        </Button>
+      </Grid>
+      <Grid item xs={8}>
+        <Button
+          variant="contained"
+          onClick={markY}
+          size="small"
+          sx={{ m: 1 }}
+          style={{ float: "left" }}
+          startIcon={<CheckCircleOutline />}
+          color="success"
+        >
+          Já no Commons
+        </Button>
+      </Grid>
+      <Grid>
+        <Button
+          variant="contained"
+          onClick={() => {
+            navigate(-1);
+          }}
+          size="small"
+          sx={{ m: 1 }}
+          style={{ float: "right" }}
+        >
+          Voltar
+        </Button>
+      </Grid>
       <Grid item xs={12}>
         {item.id !== undefined ? (
           <Grid item xs={12} key={item.id}>
-            <Typography variant="h5">{filename}</Typography>
-            <Typography variant="body1">ID: {item.id}</Typography>
             <Fragment>
               <div dangerouslySetInnerHTML={{ __html: item.linkhtml }} />
             </Fragment>
@@ -282,10 +337,20 @@ export default function ItemArq({
           ""
         )}
       </Grid>
+      <Grid item xs={6}>
+        <Typography variant="h6" style={{ float: "left" }}>
+          Nome: {filename}
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="body1" style={{ float: "right" }}>
+          ID: {item.id}
+        </Typography>
+      </Grid>
       <Grid item xs={12}>
         <FormControl fullWidth>
           <TextField
-            label="Filename"
+            label="Alterar"
             value={filename}
             onChange={(e) => {
               setFilename(e.target.value);
@@ -301,32 +366,7 @@ export default function ItemArq({
           <pre>{info}</pre>
         </Typography>
       </Grid>
-      <Grid item xs={2}>
-        <Button
-          variant="contained"
-          onClick={markN}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "left" }}
-          startIcon={<RemoveCircleOutline />}
-          color="error"
-        >
-          Não carregar
-        </Button>
-      </Grid>
-      <Grid item xs={3}>
-        <Button
-          variant="contained"
-          onClick={markY}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "left" }}
-          startIcon={<CheckCircleOutline />}
-          color="success"
-        >
-          Carregado
-        </Button>
-      </Grid>
+
       <Grid item xs={2}>
         <Button
           variant="contained"
@@ -347,19 +387,6 @@ export default function ItemArq({
           style={{ float: "right" }}
         >
           Carregar no Commons
-        </Button>
-      </Grid>
-      <Grid item xs={2}>
-        <Button
-          variant="contained"
-          onClick={() => {
-            navigate(-1);
-          }}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "right" }}
-        >
-          Voltar
         </Button>
       </Grid>
     </Grid>

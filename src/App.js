@@ -1,10 +1,12 @@
 import Arquipelagos from "./Arquipelagos/Arquipelagos";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ItemArq from "./Arquipelagos/ItemArq";
 import MyModal from "./MyModal";
 import NavBar from "./NavBar";
 import configData from "./Config.json";
+import { actions, initialState, ModalReducer } from "./ModalReducer";
+import CustomContext from "./CustomContext";
 
 function App() {
   const [data, setData] = useState(null);
@@ -26,19 +28,11 @@ function App() {
     console.log("Dados alterados", data);
   }, [data]);
 
-  //Gestão do MyModal
-  const [open, setOpen] = useState(false);
-  const [errLevel, setErrLevel] = useState("error");
-  const [err, setErr] = useState("");
-  const [errlink, setErrlink] = useState("");
+  const [modalState, modalDispatch] = useReducer(ModalReducer, initialState);
 
-  const handleOpen = () => setOpen(true);
-
-  const handleClose = () => {
-    setOpen(false);
-    setErrLevel("");
-    setErr("");
-    setErrlink("");
+  const providerState = {
+    modalState,
+    modalDispatch,
   };
 
   function getData() {
@@ -54,7 +48,20 @@ function App() {
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg:
+                response.status +
+                ": " +
+                response.statusText +
+                " " +
+                response.url +
+                " (getData)",
+              level: "error",
+            },
+          });
+          return Promise.reject(response);
         }
         console.log(response);
         return response.json();
@@ -63,7 +70,7 @@ function App() {
         setData(JSON.parse(parsedResponse.parse.wikitext["*"]));
       })
       .catch((error) => {
-        alert(error);
+        //não faz nada
       });
   }
 
@@ -87,7 +94,13 @@ function App() {
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: response.status + ": " + response.statusText + "(sendData)",
+              level: "error",
+            },
+          });
         }
         //console.log(response);
         return response.json();
@@ -95,9 +108,13 @@ function App() {
       .then((parsedResponse) => {
         console.log(parsedResponse);
         if (parsedResponse.error) {
-          setErr(parsedResponse.error.code + ": " + parsedResponse.error.info);
-          setErrLevel("error");
-          handleOpen();
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
+              level: "error",
+            },
+          });
         }
       })
       .catch((error) => {
@@ -116,7 +133,14 @@ function App() {
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg:
+                response.status + ": " + response.statusText + "(getTokenCSRF)",
+              level: "error",
+            },
+          });
         }
         //console.log(response);
         return response.json();
@@ -135,43 +159,30 @@ function App() {
 
   return (
     <div className="App">
-      <MyModal
-        open={open}
-        err={err}
-        errLevel={errLevel}
-        errlink={errlink}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-      />
-      <BrowserRouter>
-        <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
-        <Routes>
-          <Route
-            path="/"
-            element={<Arquipelagos data={data} setData={setData} />}
-          ></Route>
-          <Route
-            path="/item/:id"
-            element={
-              <ItemArq
-                modalControls={{
-                  setOpen: setOpen,
-                  setErr: setErr,
-                  setErrlink: setErrlink,
-                  setErrLevel: setErrLevel,
-                  handleOpen: handleOpen,
-                  handleClose: handleClose,
-                }}
-                data={data}
-                setData={setData}
-                tokenCSRF={tokenCSRF}
-                setTokenCSRF={setTokenCSRF}
-                getTokenCSRF={getTokenCSRF}
-              />
-            }
-          ></Route>
-        </Routes>
-      </BrowserRouter>
+      <CustomContext.Provider value={providerState}>
+        <MyModal />
+        <BrowserRouter>
+          <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
+          <Routes>
+            <Route
+              path="/"
+              element={<Arquipelagos data={data} setData={setData} />}
+            ></Route>
+            <Route
+              path="/item/:id"
+              element={
+                <ItemArq
+                  data={data}
+                  setData={setData}
+                  tokenCSRF={tokenCSRF}
+                  setTokenCSRF={setTokenCSRF}
+                  getTokenCSRF={getTokenCSRF}
+                />
+              }
+            ></Route>
+          </Routes>
+        </BrowserRouter>
+      </CustomContext.Provider>
     </div>
   );
 }

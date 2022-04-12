@@ -6,6 +6,7 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  LinearProgress,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -29,7 +30,7 @@ const actions = {
 function reducer(state, action) {
   switch (action.type) {
     case actions.updateItems:
-      return { ...state, items: action.payload };
+      return { ...state, items: action.payload, listItems: [] };
     case actions.addListItem:
       return {
         ...state,
@@ -53,14 +54,12 @@ export default function Arquipelagos({ data, setData }) {
   useEffect(() => {
     if (data !== null) {
       setPage(1);
-      console.log("effect data items ", state.items);
     }
   }, [data]);
 
   useEffect(() => {
     if (data !== null) {
       getItems(page);
-      console.log("effect data items ", state.items);
     }
   }, [page]);
 
@@ -69,11 +68,6 @@ export default function Arquipelagos({ data, setData }) {
       getListItems();
     }
   }, [state.items]);
-
-  useEffect(() => {
-    if (state.listItems !== null) {
-    }
-  }, [state.listItems]);
 
   function getItems(page) {
     fetch("arqapi/wp-json/wp/v2/imagem?page=" + page, {
@@ -91,14 +85,12 @@ export default function Arquipelagos({ data, setData }) {
         return response.json();
       })
       .then((parsedResponse) => {
-        if (state.items.length === 0) {
-          const tmp = parsedResponse.filter(
-            (item) =>
-              !data[0].Arquipelagos.some((element) => element.id === item.id)
-          );
-          console.log("antes do return", tmp.length);
-          dispatch({ type: actions.updateItems, payload: tmp });
-        }
+        const tmp = parsedResponse.filter(
+          (item) =>
+            !data[0].Arquipelagos.some((element) => element.id === item.id)
+        );
+        console.log("antes do return", tmp.length);
+        dispatch({ type: actions.updateItems, payload: tmp });
       })
       .catch((error) => {
         alert(error);
@@ -145,12 +137,6 @@ export default function Arquipelagos({ data, setData }) {
     setPage(page + 1);
   }
 
-  function test() {
-    console.log(state.items);
-    console.log(state.listItems);
-    console.log(state.loading);
-  }
-
   return (
     <Grid container>
       <ImageList
@@ -159,25 +145,42 @@ export default function Arquipelagos({ data, setData }) {
         rowHeight={200}
         gap={1}
       >
-        {state.listItems.length > 0
-          ? state.listItems.map((item) => (
-              <ImageListItem key={item.id}>
-                <img
-                  src={item.image}
-                  loading="lazy"
-                  onClick={() => {
-                    navigate("/item/" + item.id);
-                  }}
-                  style={{ cursor: "pointer" }}
-                />
-                <ImageListItemBar
-                  title={item.id}
-                  position="below"
-                  sx={{ color: indigo[100] }}
-                />
-              </ImageListItem>
-            ))
-          : ""}
+        {state.listItems.length === state.items.length ? (
+          state.listItems.map((item) => (
+            <ImageListItem key={item.id}>
+              <img
+                src={item.image}
+                loading="lazy"
+                onClick={() => {
+                  navigate("/item/" + item.id);
+                }}
+                style={{ cursor: "pointer" }}
+              />
+              <ImageListItemBar
+                title={item.id}
+                position="below"
+                sx={{ color: indigo[100] }}
+              />
+            </ImageListItem>
+          ))
+        ) : (
+          <Box
+            sx={{ display: "flex", alignItems: "center" }}
+            style={{ float: "center" }}
+          >
+            <Box sx={{ width: 800, mr: 3 }}>
+              <LinearProgress
+                variant="determinate"
+                value={state.listItems.length * 10}
+              />
+            </Box>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="body2" color="text.secondary">
+                Carregando {state.listItems.length + "de" + state.items.length}
+              </Typography>
+            </Box>
+          </Box>
+        )}
       </ImageList>
       <Grid item xs={12}>
         <Grid container>
@@ -200,8 +203,6 @@ export default function Arquipelagos({ data, setData }) {
               <NavigateNext />
             </Button>
           </Tooltip>
-
-          <Button onClick={test}>test</Button>
         </Grid>
       </Grid>
     </Grid>
