@@ -2,7 +2,7 @@
 
 ## Description
 
-Personalized image uploader worlking with Wikimedia Commons
+Personalized image uploader built in React. Works with Wikimedia Commons.
 "Catrapilha" is Madeira dialect for anything big ressembling a building site machine (from "Caterpiller Inc.")
 
 ## Sites
