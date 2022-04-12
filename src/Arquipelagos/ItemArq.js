@@ -361,6 +361,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
               style={{ backgroundColor: "white" }}
               type="text"
               required
+              fullWidth
             />
             <Grid item xs={12}>
               <Typography component={"span"} variant="body1">

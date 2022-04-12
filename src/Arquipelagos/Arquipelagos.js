@@ -147,7 +147,7 @@ export default function Arquipelagos({ data, setData }) {
     <Grid container>
       {data !== null ? (
         <ImageList
-          sx={{ width: 1000, height: 400 }}
+          sx={{ width: 1000, height: 400, mx: 3 }}
           cols={5}
           rowHeight={200}
           gap={1}
