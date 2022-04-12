@@ -15,6 +15,12 @@ Personalized image uploader worlking with Wikimedia Commons
 - Detail view
 - List of added / removed files from the main list (json format, stored in User:DarwIn/Catrapilha.data)
 
+## Screenshots
+![image](https://user-images.githubusercontent.com/46503478/163067394-e4eda108-7820-4932-87a5-22e79ad2ce33.png)
+![image](https://user-images.githubusercontent.com/46503478/163067412-a7e01523-f238-4140-b6b6-38630ca88018.png)
+![image](https://user-images.githubusercontent.com/46503478/163067470-a9200ef4-2788-49c3-b2ec-9a0aaee501c0.png)
+![image](https://user-images.githubusercontent.com/46503478/163067481-77ad4819-cf5e-4549-b6c3-52fd935cea53.png)
+
 ## Licensing
 
 Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
