@@ -1,3 +1,4 @@
+import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import {
   Button,
   Grid,
@@ -6,31 +7,50 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import { indigo } from "@mui/material/colors";
-import * as React from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import configData from "../Config.json";
 
-export default function Arquipelagos() {
-  const [pages, setPages] = React.useState();
-  const [items, setItems] = React.useState([{}]);
+const initialState = {
+  items: null,
+  page: 0,
+};
 
-  React.useEffect(() => {
-    getItemList();
-  }, []);
+export default function Arquipelagos({ data, setData }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [listItems, setListItems] = useState([{}]);
 
-  React.useEffect(() => {
-    console.log("Listening: ", pages);
-    if (pages !== undefined) {
+  useEffect(() => {
+    if (data !== null) {
+      dispatch({ type: "getItems", payload: 1 });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(state.items);
+    if (state.items !== null) {
       getItemLinks();
     }
-    console.log("Items: ", { items });
-  }, [pages]);
+    //console.log("Items: ", { items });
+  }, [state.items]);
 
   const navigate = useNavigate();
 
-  function getItemList() {
-    setPages(undefined);
-    fetch("arqapi/wp-json/wp/v2/imagem?page=1", {
+  function reducer(state, action) {
+    switch (action.type) {
+      case "getItems":
+        getItems(action.payload);
+        return { ...state, page: action.payload };
+      case "getItems_Success":
+        return { ...state, items: action.payload };
+      default:
+        throw new Error();
+    }
+  }
+
+  function getItems(page) {
+    console.log(page);
+    fetch("arqapi/wp-json/wp/v2/imagem?page=" + page, {
       headers: {
         "Content-type": "application/json",
         "User-Agent": configData["User-Agent"],
@@ -45,7 +65,25 @@ export default function Arquipelagos() {
         return response.json();
       })
       .then((parsedResponse) => {
-        setPages(parsedResponse);
+        if (state.items === null) {
+          const tmp = parsedResponse.filter(
+            (item) =>
+              !data[0].Arquipelagos.some((element) => element.id === item.id)
+          );
+          console.log("antes do return", tmp);
+          dispatch({ type: "getItems_Success", payload: tmp });
+        } /* else {
+          const tmp = getItems(pageN + 1).filter(
+            (item) =>
+              !data[0].Arquipelagos.some((element) => element.id === item.id)
+          );
+          const tmp2 = items;
+          console.log(tmp2);
+          tmp.map((item) => {
+            tmp2.push(item);
+          });
+          dispatch({ type: "getItems_Success", payload: tmp2 });
+        } */
       })
       .catch((error) => {
         alert(error);
@@ -53,8 +91,8 @@ export default function Arquipelagos() {
   }
 
   function getItemLinks() {
-    setItems([{}]);
-    for (let element of pages) {
+    setListItems([{}]);
+    for (let element of state.items) {
       fetch(element.link.replace("https://www.arquipelagos.pt", "arqapi"))
         .then((response) => {
           // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -69,8 +107,8 @@ export default function Arquipelagos() {
             '(.*)(<img src="(.*?)" class="card-img mb-2")'
           );
 
-          setItems((items) => [
-            ...items,
+          setListItems((listItems) => [
+            ...listItems,
             {
               id: element.id,
               linkhtml: parsedResponse,
@@ -85,26 +123,13 @@ export default function Arquipelagos() {
           alert(error);
         });
     }
-    let newItems = orderItems(items);
-    setItems(newItems);
-    console.log("aqui", items);
-    setPages(undefined);
   }
 
-  const orderItems = (arr) => {
-    return arr.sort(function (a, b) {
-      if (parseInt(b.id) < parseInt(a.id)) {
-        return -1;
-      }
-      if (parseInt(b.id) > parseInt(a.id)) {
-        return 1;
-      }
-      return 0;
-    }); // decrescente
-  };
-
-  function handleClick() {
-    getItemLinks();
+  function before() {
+    dispatch({ type: "getItems", payload: state.page - 1 });
+  }
+  function next() {
+    dispatch({ type: "getItems", payload: state.page + 1 });
   }
 
   return (
@@ -115,7 +140,7 @@ export default function Arquipelagos() {
         rowHeight={200}
         gap={1}
       >
-        {items.map((item) =>
+        {listItems.map((item) =>
           item.id !== undefined ? (
             <ImageListItem key={item.id}>
               <img
@@ -137,26 +162,13 @@ export default function Arquipelagos() {
           )
         )}
       </ImageList>
-
-      {/*       {items
-        ? items.map((item) =>
-            item.id !== undefined ? (
-              <Grid item xs={12} key={item.id}>
-                <Typography variant="body1">ID: {item.id}</Typography>
-                <Typography variant="body1">Html: {item.linkhtml}</Typography>
-                <React.Fragment>
-                  <div dangerouslySetInnerHTML={{ __html: item.linkhtml }} />
-                  <div dangerouslySetInnerHTML={{ __html: item.rendered }} />
-                </React.Fragment>
-              </Grid>
-            ) : (
-              ""
-            )
-          )
-        : ""} */}
-
       <Grid item xs={12}>
-        <Button onClick={handleClick}>Página</Button>
+        <Button onClick={before} disabled={state.page < 2}>
+          <NavigateBefore />
+        </Button>
+        <Button onClick={next}>
+          <NavigateNext />
+        </Button>
       </Grid>
     </Grid>
   );
