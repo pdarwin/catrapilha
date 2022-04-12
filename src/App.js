@@ -37,7 +37,7 @@ function App() {
 
   function getData() {
     fetch(
-      "comapi/w/api.php?action=parse&page=User:DarwIn/Catrapilha.data&format=json&prop=wikitext",
+      "/comapi/w/api.php?action=parse&page=User:DarwIn/Catrapilha.data&format=json&prop=wikitext",
       {
         headers: {
           "Content-Type": "application/json",

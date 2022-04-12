@@ -45,11 +45,17 @@ function reducer(state, action) {
 }
 
 export default function Arquipelagos({ data, setData }) {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    if (data !== null) {
+      setPage(1);
+    }
+  }, []);
 
   useEffect(() => {
     if (data !== null) {
@@ -139,72 +145,87 @@ export default function Arquipelagos({ data, setData }) {
 
   return (
     <Grid container>
-      <ImageList
-        sx={{ width: 1000, height: 400 }}
-        cols={5}
-        rowHeight={200}
-        gap={1}
-      >
-        {state.listItems.length === state.items.length ? (
-          state.listItems.map((item) => (
-            <ImageListItem key={item.id}>
-              <img
-                src={item.image}
-                loading="lazy"
-                onClick={() => {
-                  navigate("/item/" + item.id);
-                }}
-                style={{ cursor: "pointer" }}
-              />
-              <ImageListItemBar
-                title={item.id}
-                position="below"
-                sx={{ color: indigo[100] }}
-              />
-            </ImageListItem>
-          ))
-        ) : (
-          <Box
-            sx={{ display: "flex", alignItems: "center" }}
-            style={{ float: "center" }}
-          >
-            <Box sx={{ width: 800, mr: 3 }}>
-              <LinearProgress
-                variant="determinate"
-                value={state.listItems.length * 10}
-              />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-              <Typography variant="body2" color="text.secondary">
-                Carregando {state.listItems.length + "de" + state.items.length}
-              </Typography>
-            </Box>
-          </Box>
-        )}
-      </ImageList>
-      <Grid item xs={12}>
-        <Grid container>
-          {page > 1 ? (
-            <Box>
-              <Tooltip title={page - 1}>
-                <Button onClick={before} disabled={false}>
-                  <NavigateBefore />
-                </Button>
-              </Tooltip>
-            </Box>
+      {data !== null ? (
+        <ImageList
+          sx={{ width: 1000, height: 400 }}
+          cols={5}
+          rowHeight={200}
+          gap={1}
+        >
+          {state.listItems.length === state.items.length ? (
+            state.listItems.map((item) => (
+              <ImageListItem key={item.id}>
+                <img
+                  src={item.image}
+                  loading="lazy"
+                  onClick={() => {
+                    navigate("/item/" + item.id);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+                <ImageListItemBar
+                  title={item.id}
+                  position="below"
+                  sx={{ color: indigo[100] }}
+                />
+              </ImageListItem>
+            ))
           ) : (
-            <Button onClick={before} disabled>
-              <NavigateBefore />
-            </Button>
+            <Box
+              sx={{ display: "flex", alignItems: "center" }}
+              style={{ float: "center" }}
+            >
+              <Box sx={{ width: 800, mr: 3 }}>
+                <LinearProgress
+                  variant="determinate"
+                  value={state.listItems.length * 10}
+                />
+              </Box>
+              <Box sx={{ minWidth: 35 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Carregando{" "}
+                  {state.listItems.length + "de" + state.items.length}
+                </Typography>
+              </Box>
+            </Box>
           )}
-          <Typography>{page}</Typography>
-          <Tooltip title={page + 1}>
-            <Button onClick={next}>
-              <NavigateNext />
-            </Button>
-          </Tooltip>
+        </ImageList>
+      ) : (
+        <Typography
+          variant="h5"
+          color="text.secondary"
+          style={{ float: "center" }}
+        >
+          Sem dados, carregue dados para iniciar.
+        </Typography>
+      )}
+      {data !== null ? (
+        <Grid item xs={12}>
+          <Grid container>
+            {page > 1 ? (
+              <Box>
+                <Tooltip title={page - 1}>
+                  <Button onClick={before} disabled={false}>
+                    <NavigateBefore />
+                  </Button>
+                </Tooltip>
+              </Box>
+            ) : (
+              <Button onClick={before} disabled>
+                <NavigateBefore />
+              </Button>
+            )}
+            <Typography>{page}</Typography>
+            <Tooltip title={page + 1}>
+              <Button onClick={next}>
+                <NavigateNext />
+              </Button>
+            </Tooltip>
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        ""
+      )}
     </Grid>
   );
 }

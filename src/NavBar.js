@@ -75,7 +75,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               onClick={() => {
-                alert(user);
+                getData();
               }}
               sx={{ my: 2, color: "white", display: "block" }}
               startIcon={<FileDownload />}

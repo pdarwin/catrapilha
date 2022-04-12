@@ -52,7 +52,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
 
   function getItem() {
     setRawItem(undefined);
-    fetch("arqapi/wp-json/wp/v2/imagem/" + params.id, {
+    fetch("/arqapi/wp-json/wp/v2/imagem/" + params.id, {
       headers: {
         "Content-type": "application/json",
         "User-Agent": configData["User-Agent"],
@@ -287,108 +287,115 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
 
   return (
     <Grid container>
-      <Grid item xs={2}>
-        <Button
-          variant="contained"
-          onClick={markN}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "left" }}
-          startIcon={<RemoveCircleOutline />}
-          color="error"
-        >
-          Não carregar
-        </Button>
-      </Grid>
-      <Grid item xs={8}>
-        <Button
-          variant="contained"
-          onClick={markY}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "left" }}
-          startIcon={<CheckCircleOutline />}
-          color="success"
-        >
-          Já no Commons
-        </Button>
-      </Grid>
-      <Grid>
-        <Button
-          variant="contained"
-          onClick={() => {
-            navigate(-1);
-          }}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "right" }}
-        >
-          Voltar
-        </Button>
-      </Grid>
-      <Grid item xs={12}>
-        {item.id !== undefined ? (
-          <Grid item xs={12} key={item.id}>
-            <Fragment>
-              <div dangerouslySetInnerHTML={{ __html: item.linkhtml }} />
-            </Fragment>
+      {item.linkhtml !== "" ? (
+        <Grid container>
+          <Grid item xs={2}>
+            <Button
+              variant="contained"
+              onClick={markN}
+              size="small"
+              sx={{ m: 1 }}
+              style={{ float: "left" }}
+              startIcon={<RemoveCircleOutline />}
+              color="error"
+            >
+              Não carregar
+            </Button>
           </Grid>
-        ) : (
-          ""
-        )}
-      </Grid>
-      <Grid item xs={6}>
-        <Typography variant="h6" style={{ float: "left" }}>
-          Nome: {filename}
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Typography variant="body1" style={{ float: "right" }}>
-          ID: {item.id}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <FormControl fullWidth>
-          <TextField
-            label="Alterar"
-            value={filename}
-            onChange={(e) => {
-              setFilename(e.target.value);
-            }}
-            style={{ backgroundColor: "white" }}
-            type="text"
-            required
-          />
-        </FormControl>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography component={"span"} variant="body1">
-          <pre>{info}</pre>
-        </Typography>
-      </Grid>
+          <Grid item xs={8}>
+            <Button
+              variant="contained"
+              onClick={markY}
+              size="small"
+              sx={{ m: 1 }}
+              style={{ float: "left" }}
+              startIcon={<CheckCircleOutline />}
+              color="success"
+            >
+              Já no Commons
+            </Button>
+          </Grid>
+          <Grid>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate(-1);
+              }}
+              size="small"
+              sx={{ m: 1 }}
+              style={{ float: "right" }}
+            >
+              Voltar
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            {item.id !== undefined ? (
+              <Grid item xs={12} key={item.id}>
+                <Fragment>
+                  <div dangerouslySetInnerHTML={{ __html: item.linkhtml }} />
+                </Fragment>
+              </Grid>
+            ) : (
+              ""
+            )}
+          </Grid>
 
-      <Grid item xs={2}>
-        <Button
-          variant="contained"
-          onClick={buildInfo}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "right" }}
-        >
-          Descrição
-        </Button>
-      </Grid>
-      <Grid item xs={3}>
-        <Button
-          variant="contained"
-          onClick={getTokenCSRF}
-          size="small"
-          sx={{ m: 1 }}
-          style={{ float: "right" }}
-        >
-          Carregar no Commons
-        </Button>
-      </Grid>
+          <Grid item xs={6}>
+            <Typography variant="h6" style={{ float: "left" }}>
+              Nome: {filename}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body1" style={{ float: "right" }}>
+              ID: {item.id}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="Alterar"
+              value={filename}
+              onChange={(e) => {
+                setFilename(e.target.value);
+              }}
+              style={{ backgroundColor: "white" }}
+              type="text"
+              required
+            />
+            <Grid item xs={12}>
+              <Typography component={"span"} variant="body1">
+                <pre>{info}</pre>
+              </Typography>
+            </Grid>
+            <Grid container>
+              <Grid item xs={2}>
+                <Button
+                  variant="contained"
+                  onClick={buildInfo}
+                  size="small"
+                  sx={{ m: 1 }}
+                  style={{ float: "right" }}
+                >
+                  Descrição
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  onClick={getTokenCSRF}
+                  size="small"
+                  sx={{ m: 1 }}
+                  style={{ float: "right" }}
+                >
+                  Carregar no Commons
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      ) : (
+        ""
+      )}
     </Grid>
   );
 }
