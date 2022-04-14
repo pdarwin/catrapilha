@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   CircularProgress,
   Grid,
@@ -8,22 +7,25 @@ import {
 } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import configData from "../Config.json";
+import configData from "../../Config.json";
 import { CheckCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
-import { actions } from "../ModalReducer";
-import { useCustomContext } from "../CustomContext";
+import { useModalContext } from "../../Reducers/ModalContext";
+import { actionsM } from "../../Reducers/ModalReducer";
+import { actionsD } from "../../Reducers/DataReducer";
+import { useDataContext } from "../../Reducers/DataContext";
 
-export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
+export default function ItemArq({ getTokenCSRF }) {
   const [rawItem, setRawItem] = useState();
   const [item, setItem] = useState([{}]);
   const [file, setFile] = useState();
   const [info, setInfo] = useState();
   const [filename, setFilename] = useState("");
   const [loading, setLoading] = useState(false);
-  const { modalState, modalDispatch } = useCustomContext();
+  const { modalState, modalDispatch } = useModalContext();
+  const { dataState, dataDispatch } = useDataContext();
 
   useEffect(() => {
-    if (data !== null) {
+    if (dataState.data !== null) {
       setLoading(true);
       getItem();
     }
@@ -36,15 +38,15 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
   }, [rawItem]);
 
   useEffect(() => {
-    if (tokenCSRF.token !== "") {
-      console.log(tokenCSRF.token);
+    if (dataState.tokenCSRF.token !== "") {
+      console.log(dataState.tokenCSRF.token);
       //getFile();
     }
-  }, [tokenCSRF]);
+  }, [dataState.tokenCSRF]);
 
   useEffect(() => {
     if (file !== undefined) {
-      console.log(tokenCSRF);
+      console.log(dataState.tokenCSRF);
       upload();
     }
   }, [file]);
@@ -65,7 +67,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: response.status + ": " + response.statusText + "(getItem)",
               level: "error",
@@ -89,7 +91,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: response.status + ": " + response.statusText + "(buildItem)",
               level: "error",
@@ -153,7 +155,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
     uploadParams.append("filename", filename);
     uploadParams.append("text", info);
     uploadParams.append("comment", "Uploaded with Catrapilha 1.0");
-    uploadParams.append("token", tokenCSRF);
+    uploadParams.append("token", dataState.tokenCSRF);
 
     fetch("/comapi/w/api.php?action=upload&format=json", {
       method: "POST",
@@ -167,7 +169,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: response.status + ": " + response.statusText + "(Upload)",
               level: "error",
@@ -181,7 +183,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         console.log(parsedResponse);
         if (parsedResponse.error) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
               level: "error",
@@ -190,7 +192,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         }
         if (parsedResponse.upload.result === "Warning") {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: "Imagem existente no Commons:",
               level: "warning",
@@ -204,7 +206,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         }
         if (parsedResponse.upload.result === "Success") {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: "Upload bem sucedido. Imagem disponível em ",
               level: "success",
@@ -266,7 +268,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
   }
 
   function remove(type) {
-    let tmp = data;
+    let tmp = dataState.data;
     if (
       tmp[0].Arquipelagos.filter((element) => element.id === item.id).length ===
       0
@@ -275,8 +277,10 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
         id: item.id,
         status: type,
       });
-
-      setData(tmp);
+      dataDispatch({
+        type: actionsD.updateData,
+        payload: tmp,
+      });
     }
   }
 
@@ -318,7 +322,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
               startIcon={<CheckCircleOutline />}
               color="success"
             >
-              Já no Commons
+              Já existe no Commons
             </Button>
           </Grid>
           <Grid>

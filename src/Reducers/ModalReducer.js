@@ -1,18 +1,18 @@
-export const initialState = {
+export const actionsM = {
+  fireModal: "fireModal",
+  closeModal: "closeModal",
+};
+
+export const initialStateM = {
   open: false,
   level: "error",
   msg: "",
   link: "",
 };
 
-export const actions = {
-  fireModal: "fireModal",
-  closeModal: "closeModal",
-};
-
 export const ModalReducer = (state, action) => {
   switch (action.type) {
-    case actions.fireModal:
+    case actionsM.fireModal:
       return {
         ...state,
         open: true,
@@ -20,13 +20,13 @@ export const ModalReducer = (state, action) => {
         msg: action.payload.msg,
         link: action.payload.link,
       };
-    case actions.closeModal:
+    case actionsM.closeModal:
       return {
         ...state,
         open: false,
-        level: initialState.level,
-        msg: initialState.msg,
-        link: initialState.link,
+        level: initialStateM.level,
+        msg: initialStateM.msg,
+        link: initialStateM.link,
       };
     default:
       throw new Error();

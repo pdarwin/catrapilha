@@ -13,7 +13,8 @@ import {
 import { indigo } from "@mui/material/colors";
 import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import configData from "../Config.json";
+import configData from "../../Config.json";
+import { useDataContext } from "../../Reducers/DataContext";
 
 const initialState = {
   items: [],
@@ -44,30 +45,30 @@ function reducer(state, action) {
   }
 }
 
-export default function Arquipelagos({ data, setData }) {
+export default function Arquipelagos() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [page, setPage] = useState(1);
+  const { dataState, dataDispatch } = useDataContext();
 
   const navigate = useNavigate();
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
-    console.log("aquI", data);
-    if (data !== null) {
+    console.log("aquI", dataState.data);
+    if (dataState.data !== null) {
       setPage(1);
     }
   }, []);
 
   useEffect(() => {
-    console.log("aquI2", data);
-    if (data !== null) {
-      console.log("aquI3", data);
+    console.log("aquI2", dataState.data);
+    if (dataState.data !== null) {
+      console.log("aquI3", dataState.data);
       setPage(1);
     }
-  }, [data]);
+  }, [dataState.data]);
 
   useEffect(() => {
-    if (data !== null) {
+    if (dataState.data !== null) {
       getItems(page);
     }
   }, [page]);
@@ -96,7 +97,9 @@ export default function Arquipelagos({ data, setData }) {
       .then((parsedResponse) => {
         const tmp = parsedResponse.filter(
           (item) =>
-            !data[0].Arquipelagos.some((element) => element.id === item.id)
+            !dataState.data[0].Arquipelagos.some(
+              (element) => element.id === item.id
+            )
         );
         console.log("antes do return", tmp.length);
         dispatch({ type: actions.updateItems, payload: tmp });
@@ -155,7 +158,7 @@ export default function Arquipelagos({ data, setData }) {
         transform: "translate(-50%, -50%)",
       }}
     >
-      {data !== null ? (
+      {dataState.data !== null ? (
         <ImageList
           sx={{ width: 1000, height: 400 }}
           cols={5}
@@ -209,7 +212,7 @@ export default function Arquipelagos({ data, setData }) {
       ) : (
         ""
       )}
-      {data !== null ? (
+      {dataState.data !== null ? (
         <Grid container>
           {page > 1 ? (
             <Box>

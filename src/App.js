@@ -1,39 +1,44 @@
-import Arquipelagos from "./Arquipelagos/Arquipelagos";
+import Arquipelagos from "./Components/Arquipelagos/Arquipelagos";
 import { useEffect, useReducer, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ItemArq from "./Arquipelagos/ItemArq";
-import MyModal from "./MyModal";
-import NavBar from "./NavBar";
+import ItemArq from "./Components/Arquipelagos/ItemArq";
+import MyModal from "./Components/MyModal";
+import NavBar from "./Components/NavBar";
 import configData from "./Config.json";
-import { actions, initialState, ModalReducer } from "./ModalReducer";
-import CustomContext from "./CustomContext";
+import { ModalReducer, initialStateM, actionsM } from "./Reducers/ModalReducer";
+import CustomContext from "./Reducers/ModalContext";
+import { actionsD, DataReducer, initialStateD } from "./Reducers/DataReducer";
+import DataContext from "./Reducers/DataContext";
+import ModalContext from "./Reducers/ModalContext";
 
 function App() {
-  const [data, setData] = useState(null);
-  const [tokenCSRF, setTokenCSRF] = useState({ token: "", action: "" });
+  const [modalState, modalDispatch] = useReducer(ModalReducer, initialStateM);
+  const [dataState, dataDispatch] = useReducer(DataReducer, initialStateD);
+
+  const providerStateModal = {
+    modalState,
+    modalDispatch,
+  };
+  const providerStateData = {
+    dataState,
+    dataDispatch,
+  };
 
   useEffect(() => {
     getData();
   }, []);
 
   useEffect(() => {
-    console.log("passou", tokenCSRF);
-    console.log(data);
-    if (tokenCSRF.action === "sendData") {
+    console.log("passou", dataState.tokenCSRF);
+    console.log(dataState.data);
+    if (dataState.tokenCSRF.action === "sendData") {
       sendData();
     }
-  }, [tokenCSRF]);
+  }, [dataState.tokenCSRF]);
 
   useEffect(() => {
-    console.log("Dados alterados", data);
-  }, [data]);
-
-  const [modalState, modalDispatch] = useReducer(ModalReducer, initialState);
-
-  const providerState = {
-    modalState,
-    modalDispatch,
-  };
+    console.log("Dados alterados", dataState.data);
+  }, [dataState.data]);
 
   function getData() {
     fetch(
@@ -49,7 +54,7 @@ function App() {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg:
                 response.status +
@@ -67,7 +72,11 @@ function App() {
         return response.json();
       })
       .then((parsedResponse) => {
-        setData(JSON.parse(parsedResponse.parse.wikitext["*"]));
+        console.log(parsedResponse);
+        dataDispatch({
+          type: actionsD.updateIData,
+          payload: JSON.parse(parsedResponse.parse.wikitext["*"]),
+        });
       })
       .catch((error) => {
         //não faz nada
@@ -75,13 +84,13 @@ function App() {
   }
 
   function sendData() {
-    console.log("send", encodeURIComponent(tokenCSRF.token));
+    console.log("send", encodeURIComponent(dataState.tokenCSRF.token));
 
     const uploadParams = new FormData();
     uploadParams.append("title", "User:DarwIn/Catrapilha.data");
-    uploadParams.append("text", JSON.stringify(data));
+    uploadParams.append("text", JSON.stringify(dataState.data));
     uploadParams.append("summary", "Updating data (Catrapilha 1.0)");
-    uploadParams.append("token", tokenCSRF.token);
+    uploadParams.append("token", dataState.tokenCSRF.token);
 
     fetch("/comapi/w/api.php?action=edit&format=json", {
       method: "POST",
@@ -95,7 +104,7 @@ function App() {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: response.status + ": " + response.statusText + "(sendData)",
               level: "error",
@@ -109,7 +118,7 @@ function App() {
         console.log(parsedResponse);
         if (parsedResponse.error) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
               level: "error",
@@ -118,7 +127,7 @@ function App() {
         }
         if (parsedResponse.edit.result === "Success") {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg: "Dados remotos atualizados com sucesso",
               level: "success",
@@ -144,7 +153,7 @@ function App() {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
-            type: actions.fireModal,
+            type: actionsM.fireModal,
             payload: {
               msg:
                 response.status + ": " + response.statusText + "(getTokenCSRF)",
@@ -157,9 +166,12 @@ function App() {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse);
-        setTokenCSRF({
-          token: parsedResponse.query.tokens.csrftoken,
-          action: action,
+        dataDispatch({
+          type: actionsD.updateToken,
+          payload: {
+            token: parsedResponse.query.tokens.csrftoken,
+            action: action,
+          },
         });
       })
       .catch((error) => {
@@ -169,30 +181,21 @@ function App() {
 
   return (
     <div className="App">
-      <CustomContext.Provider value={providerState}>
-        <MyModal />
-        <BrowserRouter>
-          <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
-          <Routes>
-            <Route
-              path="/"
-              element={<Arquipelagos data={data} setData={setData} />}
-            ></Route>
-            <Route
-              path="/item/:id"
-              element={
-                <ItemArq
-                  data={data}
-                  setData={setData}
-                  tokenCSRF={tokenCSRF}
-                  setTokenCSRF={setTokenCSRF}
-                  getTokenCSRF={getTokenCSRF}
-                />
-              }
-            ></Route>
-          </Routes>
-        </BrowserRouter>
-      </CustomContext.Provider>
+      <ModalContext.Provider value={providerStateModal}>
+        <DataContext.Provider value={providerStateData}>
+          <MyModal />
+          <BrowserRouter>
+            <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
+            <Routes>
+              <Route path="/" element={<Arquipelagos />}></Route>
+              <Route
+                path="/item/:id"
+                element={<ItemArq getTokenCSRF={getTokenCSRF} />}
+              ></Route>
+            </Routes>
+          </BrowserRouter>
+        </DataContext.Provider>
+      </ModalContext.Provider>
     </div>
   );
 }

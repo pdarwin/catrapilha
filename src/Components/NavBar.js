@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import configData from "./Config.json";
+import configData from "../Config.json";
+import { useDataContext } from "../Reducers/DataContext";
 
 export default function NavBar({ getData, getTokenCSRF }) {
+  const { dataState, dataDispatch } = useDataContext();
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -94,6 +96,18 @@ export default function NavBar({ getData, getTokenCSRF }) {
               Enviar dados
             </Button>
           </Box>
+          <Typography style={{ float: "left", color: "white" }} mx={2}>
+            {"Total: " +
+              (dataState.data !== null
+                ? dataState.data[0].Arquipelagos.length
+                : 0)}
+          </Typography>
+          <Typography style={{ float: "left", color: "white" }} mx={2}>
+            {"Novos: " +
+              (dataState.data !== null
+                ? dataState.data[0].Arquipelagos.length - dataState.initialCount
+                : 0)}
+          </Typography>
           <Typography style={{ float: "right", color: "white" }}>
             {user ? user : ""}
           </Typography>

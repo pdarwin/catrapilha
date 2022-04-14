@@ -1,16 +1,16 @@
 import { Alert, Link, Modal } from "@mui/material";
-import { useCustomContext } from "./CustomContext";
-import { actions } from "./ModalReducer";
+import { useModalContext } from "../Reducers/ModalContext";
+import { actionsM } from "../Reducers/ModalReducer";
 
 export default function MyModal() {
-  const { modalState, modalDispatch } = useCustomContext();
+  const { modalState, modalDispatch } = useModalContext();
 
   return (
     <Modal
       open={modalState.open}
       onClose={() =>
         modalDispatch({
-          type: actions.closeModal,
+          type: actionsM.closeModal,
         })
       }
       aria-labelledby="modal-modal-title"
