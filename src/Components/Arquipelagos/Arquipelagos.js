@@ -17,6 +17,7 @@ import configData from "../../Config.json";
 import { useDataContext } from "../../Reducers/DataContext";
 import { useModalContext } from "../../Reducers/ModalContext";
 import { actionsM } from "../../Reducers/ModalReducer";
+import { actionsD } from "../../Reducers/DataReducer";
 
 const initialState = {
   items: [],
@@ -59,16 +60,16 @@ export default function Arquipelagos() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("aquI", dataState.data);
+    console.log("aqui", dataState.data);
     if (dataState.data !== null) {
       setPage(1);
     }
   }, []);
 
   useEffect(() => {
-    console.log("aquI2", dataState.data);
+    console.log("aqui2", dataState.data);
     if (dataState.data !== null) {
-      console.log("aquI3", dataState.data);
+      console.log("aqui3", dataState.data);
       setPage(1);
     }
   }, [dataState.data]);
@@ -138,12 +139,16 @@ export default function Arquipelagos() {
           let tmp2 = state.tmpItems;
           tmp.map((element, i) => {
             if (i < n) {
-              console.log(i);
               tmp2.push(element);
             }
           });
-          console.log("antes do return", tmp2.length);
-          dispatch({ type: actions.updateItems, payload: tmp2 });
+          if (tmp2.length < 10) {
+            dispatch({ type: actions.addTmpItems, payload: tmp2 });
+            setPage(page + 1);
+          } else {
+            console.log("antes do return", tmp2.length);
+            dispatch({ type: actions.updateItems, payload: tmp2 });
+          }
         }
       })
       .catch((error) => {
@@ -197,7 +202,7 @@ export default function Arquipelagos() {
         transform: "translate(-50%, -50%)",
       }}
     >
-      {dataState.data !== null ? (
+      {dataState.data !== null && state.listItems.length > 0 ? (
         <ImageList
           sx={{ width: 1000, height: 600 }}
           cols={5}
@@ -210,7 +215,11 @@ export default function Arquipelagos() {
                 src={item.image}
                 loading="lazy"
                 onClick={() => {
-                  navigate("/item/" + item.id);
+                  dataDispatch({
+                    type: actionsD.setCurrentId,
+                    payload: item.id,
+                  });
+                  navigate("/item/");
                 }}
                 style={{ cursor: "pointer" }}
               />

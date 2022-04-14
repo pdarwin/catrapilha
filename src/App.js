@@ -134,6 +134,7 @@ function App() {
               link: "https://commons.wikimedia.org/wiki/User:DarwIn/Catrapilha.data",
             },
           });
+          dataState.initialCounter = 0;
         }
       })
       .catch((error) => {
@@ -189,7 +190,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Arquipelagos />}></Route>
               <Route
-                path="/item/:id"
+                path="/item"
                 element={<ItemArq getTokenCSRF={getTokenCSRF} />}
               ></Route>
             </Routes>

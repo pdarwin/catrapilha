@@ -2,6 +2,9 @@ export const actionsD = {
   updateIData: "updateInitialData",
   updateData: "updateData",
   updateToken: "updateToken",
+  setCurrentId: "setCurrentId",
+  moveForward: "moveForward",
+  moveBack: "moveBack",
 };
 
 export const initialStateD = {
@@ -9,6 +12,8 @@ export const initialStateD = {
   initialCount: 0,
   rev: 0,
   tokenCSRF: { token: "", action: "" },
+  currentId: 0,
+  forward: false,
 };
 
 export const DataReducer = (state, action) => {
@@ -28,6 +33,23 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         tokenCSRF: action.payload,
+      };
+    case actionsD.setCurrentId:
+      return {
+        ...state,
+        currentId: action.payload,
+      };
+    case actionsD.moveForward:
+      return {
+        ...state,
+        currentId: state.currentId - 1,
+        forward: true,
+      };
+    case actionsD.moveBack:
+      return {
+        ...state,
+        currentId: state.currentId + 1,
+        forward: false,
       };
     default:
       throw new Error();
