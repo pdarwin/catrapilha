@@ -1,6 +1,7 @@
 import {
+  Box,
   Button,
-  FormControl,
+  CircularProgress,
   Grid,
   TextField,
   Typography,
@@ -18,10 +19,12 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
   const [file, setFile] = useState();
   const [info, setInfo] = useState();
   const [filename, setFilename] = useState("");
+  const [loading, setLoading] = useState(false);
   const { modalState, modalDispatch } = useCustomContext();
 
   useEffect(() => {
     if (data !== null) {
+      setLoading(true);
       getItem();
     }
   }, []);
@@ -116,6 +119,7 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
             .exec(parsedResponse)[3]
             .replace(".jpg", " - Image " + rawItem.id + ".jpg")
         );
+        setLoading(false);
       })
       .catch((error) => {
         alert(error);
@@ -261,21 +265,19 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
     );
   }
 
-  function markN() {
-    console.log("aqui", data[0].Arquipelagos);
-    setData((data) => [
-      ...data[0].Arquipelagos,
-      [
-        {
-          id: item.id,
-          status: "N",
-        },
-      ],
-    ]);
-  }
-  console.log(data);
-  function markY() {
-    console.log(data);
+  function remove(type) {
+    let tmp = data;
+    if (
+      tmp[0].Arquipelagos.filter((element) => element.id === item.id).length ===
+      0
+    ) {
+      tmp[0].Arquipelagos.push({
+        id: item.id,
+        status: type,
+      });
+
+      setData(tmp);
+    }
   }
 
   /*   function recurs(n) {
@@ -287,12 +289,14 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
 
   return (
     <Grid container>
-      {item.linkhtml !== "" ? (
+      {item.linkhtml !== "" && loading === false ? (
         <Grid container>
           <Grid item xs={2}>
             <Button
               variant="contained"
-              onClick={markN}
+              onClick={() => {
+                remove("N");
+              }}
               size="small"
               sx={{ m: 1 }}
               style={{ float: "left" }}
@@ -305,7 +309,9 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
           <Grid item xs={8}>
             <Button
               variant="contained"
-              onClick={markY}
+              onClick={() => {
+                remove("Y");
+              }}
               size="small"
               sx={{ m: 1 }}
               style={{ float: "left" }}
@@ -395,7 +401,23 @@ export default function ItemArq({ data, setData, tokenCSRF, getTokenCSRF }) {
           </Grid>
         </Grid>
       ) : (
-        ""
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <CircularProgress
+            style={{ float: "center" }}
+            size={200}
+            thickness={15}
+          />
+          <Typography variant="body2" color="text.secondary">
+            Loading...
+          </Typography>
+        </div>
       )}
     </Grid>
   );

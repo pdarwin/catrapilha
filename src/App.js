@@ -80,7 +80,7 @@ function App() {
     const uploadParams = new FormData();
     uploadParams.append("title", "User:DarwIn/Catrapilha.data");
     uploadParams.append("text", JSON.stringify(data));
-    uploadParams.append("summary", "Edited with Catrapilha 1.0");
+    uploadParams.append("summary", "Updating data (Catrapilha 1.0)");
     uploadParams.append("token", tokenCSRF.token);
 
     fetch("/comapi/w/api.php?action=edit&format=json", {
@@ -113,6 +113,16 @@ function App() {
             payload: {
               msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
               level: "error",
+            },
+          });
+        }
+        if (parsedResponse.edit.result === "Success") {
+          modalDispatch({
+            type: actions.fireModal,
+            payload: {
+              msg: "Dados remotos atualizados com sucesso",
+              level: "success",
+              link: "https://commons.wikimedia.org/wiki/User:DarwIn/Catrapilha.data",
             },
           });
         }

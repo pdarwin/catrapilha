@@ -52,13 +52,16 @@ export default function Arquipelagos({ data, setData }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    console.log("aquI", data);
     if (data !== null) {
       setPage(1);
     }
   }, []);
 
   useEffect(() => {
+    console.log("aquI2", data);
     if (data !== null) {
+      console.log("aquI3", data);
       setPage(1);
     }
   }, [data]);
@@ -144,51 +147,38 @@ export default function Arquipelagos({ data, setData }) {
   }
 
   return (
-    <Grid container>
+    <div
+      style={{
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
+    >
       {data !== null ? (
         <ImageList
-          sx={{ width: 1000, height: 400, mx: 3 }}
+          sx={{ width: 1000, height: 400 }}
           cols={5}
           rowHeight={200}
-          gap={1}
+          gap={5}
         >
-          {state.listItems.length === state.items.length ? (
-            state.listItems.map((item) => (
-              <ImageListItem key={item.id}>
-                <img
-                  src={item.image}
-                  loading="lazy"
-                  onClick={() => {
-                    navigate("/item/" + item.id);
-                  }}
-                  style={{ cursor: "pointer" }}
-                />
-                <ImageListItemBar
-                  title={item.id}
-                  position="below"
-                  sx={{ color: indigo[100] }}
-                />
-              </ImageListItem>
-            ))
-          ) : (
-            <Box
-              sx={{ display: "flex", alignItems: "center" }}
-              style={{ float: "center" }}
-            >
-              <Box sx={{ width: 800, mr: 3 }}>
-                <LinearProgress
-                  variant="determinate"
-                  value={state.listItems.length * 10}
-                />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" color="text.secondary">
-                  Carregando{" "}
-                  {state.listItems.length + "de" + state.items.length}
-                </Typography>
-              </Box>
-            </Box>
-          )}
+          {state.listItems.map((item) => (
+            <ImageListItem key={item.id}>
+              <img
+                src={item.image}
+                loading="lazy"
+                onClick={() => {
+                  navigate("/item/" + item.id);
+                }}
+                style={{ cursor: "pointer" }}
+              />
+              <ImageListItemBar
+                title={item.id}
+                position="below"
+                sx={{ color: indigo[100] }}
+              />
+            </ImageListItem>
+          ))}
         </ImageList>
       ) : (
         <Typography
@@ -199,33 +189,51 @@ export default function Arquipelagos({ data, setData }) {
           Sem dados, carregue dados para iniciar.
         </Typography>
       )}
+      {state.listItems.length !== state.items.length ? (
+        <Box
+          sx={{ display: "flex", alignItems: "center" }}
+          style={{ float: "center" }}
+        >
+          <Box sx={{ width: 800, mr: 3 }}>
+            <LinearProgress
+              variant="determinate"
+              value={state.listItems.length * 10}
+            />
+          </Box>
+          <Box sx={{ minWidth: 35 }}>
+            <Typography variant="body2" color="text.secondary">
+              Carregando {state.listItems.length + "de" + state.items.length}
+            </Typography>
+          </Box>
+        </Box>
+      ) : (
+        ""
+      )}
       {data !== null ? (
-        <Grid item xs={12}>
-          <Grid container>
-            {page > 1 ? (
-              <Box>
-                <Tooltip title={page - 1}>
-                  <Button onClick={before} disabled={false}>
-                    <NavigateBefore />
-                  </Button>
-                </Tooltip>
-              </Box>
-            ) : (
-              <Button onClick={before} disabled>
-                <NavigateBefore />
-              </Button>
-            )}
-            <Typography>{page}</Typography>
-            <Tooltip title={page + 1}>
-              <Button onClick={next}>
-                <NavigateNext />
-              </Button>
-            </Tooltip>
-          </Grid>
+        <Grid container>
+          {page > 1 ? (
+            <Box>
+              <Tooltip title={page - 1}>
+                <Button onClick={before} disabled={false}>
+                  <NavigateBefore />
+                </Button>
+              </Tooltip>
+            </Box>
+          ) : (
+            <Button onClick={before} disabled>
+              <NavigateBefore />
+            </Button>
+          )}
+          <Typography>{page}</Typography>
+          <Tooltip title={page + 1}>
+            <Button onClick={next}>
+              <NavigateNext />
+            </Button>
+          </Tooltip>
         </Grid>
       ) : (
         ""
       )}
-    </Grid>
+    </div>
   );
 }
