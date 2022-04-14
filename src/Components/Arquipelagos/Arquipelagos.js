@@ -1,4 +1,4 @@
-import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { FirstPage, NavigateBefore, NavigateNext } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -15,6 +15,8 @@ import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import configData from "../../Config.json";
 import { useDataContext } from "../../Reducers/DataContext";
+import { useModalContext } from "../../Reducers/ModalContext";
+import { actionsM } from "../../Reducers/ModalReducer";
 
 const initialState = {
   items: [],
@@ -24,6 +26,7 @@ const initialState = {
 };
 
 const actions = {
+  addTmpItems: "addTmpItems",
   updateItems: "updateItems",
   addListItem: "addListItem",
 };
@@ -31,7 +34,9 @@ const actions = {
 function reducer(state, action) {
   switch (action.type) {
     case actions.updateItems:
-      return { ...state, items: action.payload, listItems: [] };
+      return { ...state, items: action.payload, listItems: [], tmpItems: [] };
+    case actions.addTmpItems:
+      return { ...state, tmpItems: action.payload, items: [] };
     case actions.addListItem:
       return {
         ...state,
@@ -49,6 +54,7 @@ export default function Arquipelagos() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [page, setPage] = useState(1);
   const { dataState, dataDispatch } = useDataContext();
+  const { modalState, modalDispatch } = useModalContext();
 
   const navigate = useNavigate();
 
@@ -69,6 +75,7 @@ export default function Arquipelagos() {
 
   useEffect(() => {
     if (dataState.data !== null) {
+      console.log("useeffect página: " + page);
       getItems(page);
     }
   }, [page]);
@@ -80,6 +87,7 @@ export default function Arquipelagos() {
   }, [state.items]);
 
   function getItems(page) {
+    console.log("puxando items da página" + page);
     fetch("arqapi/wp-json/wp/v2/imagem?page=" + page, {
       headers: {
         "Content-type": "application/json",
@@ -101,8 +109,42 @@ export default function Arquipelagos() {
               (element) => element.id === item.id
             )
         );
-        console.log("antes do return", tmp.length);
-        dispatch({ type: actions.updateItems, payload: tmp });
+
+        if (state.tmpItems.length === 0) {
+          if (tmp.length === 10) {
+            dispatch({ type: actions.updateItems, payload: tmp });
+          } else if (tmp.length < 10) {
+            dispatch({ type: actions.addTmpItems, payload: tmp });
+            setPage(page + 1);
+          } else {
+            modalDispatch({
+              type: actionsM.fireModal,
+              payload: {
+                msg:
+                  "Algo estranho aconteceu. Tamanho da fila de items:" +
+                  tmp.length,
+                level: "error",
+              },
+            });
+          }
+        } else {
+          console.log(
+            "entrou com tmpitems: " +
+              state.tmpItems.length +
+              " e novos items: " +
+              tmp.length
+          );
+          const n = 10 - state.tmpItems.length;
+          let tmp2 = state.tmpItems;
+          tmp.map((element, i) => {
+            if (i < n) {
+              console.log(i);
+              tmp2.push(element);
+            }
+          });
+          console.log("antes do return", tmp2.length);
+          dispatch({ type: actions.updateItems, payload: tmp2 });
+        }
       })
       .catch((error) => {
         alert(error);
@@ -142,11 +184,8 @@ export default function Arquipelagos() {
     }
   }
 
-  function before() {
-    setPage(page - 1);
-  }
-  function next() {
-    setPage(page + 1);
+  function goToPage(page) {
+    setPage(page);
   }
 
   return (
@@ -160,7 +199,7 @@ export default function Arquipelagos() {
     >
       {dataState.data !== null ? (
         <ImageList
-          sx={{ width: 1000, height: 400 }}
+          sx={{ width: 1000, height: 600 }}
           cols={5}
           rowHeight={200}
           gap={5}
@@ -214,22 +253,43 @@ export default function Arquipelagos() {
       )}
       {dataState.data !== null ? (
         <Grid container>
+          <Tooltip title="Página inicial">
+            <Button
+              onClick={() => {
+                goToPage(1);
+              }}
+              style={{ float: "left" }}
+            >
+              <FirstPage />
+            </Button>
+          </Tooltip>
           {page > 1 ? (
             <Box>
               <Tooltip title={page - 1}>
-                <Button onClick={before} disabled={false}>
+                <Button
+                  onClick={() => {
+                    goToPage(page - 1);
+                  }}
+                  disabled={false}
+                  style={{ float: "left" }}
+                >
                   <NavigateBefore />
                 </Button>
               </Tooltip>
             </Box>
           ) : (
-            <Button onClick={before} disabled>
+            <Button disabled style={{ float: "left" }}>
               <NavigateBefore />
             </Button>
           )}
-          <Typography>{page}</Typography>
+          <Typography style={{ float: "left" }}>{page}</Typography>
           <Tooltip title={page + 1}>
-            <Button onClick={next}>
+            <Button
+              onClick={() => {
+                goToPage(page + 1);
+              }}
+              style={{ float: "left" }}
+            >
               <NavigateNext />
             </Button>
           </Tooltip>

@@ -45,6 +45,16 @@ export default function ItemArq({ getTokenCSRF }) {
   }, [dataState.tokenCSRF]);
 
   useEffect(() => {
+    if (
+      dataState.data[0].Arquipelagos.length - dataState.initialCounter ===
+      50
+    ) {
+      console.log("Autosave");
+      //getFile();
+    }
+  }, [dataState.data]);
+
+  useEffect(() => {
     if (file !== undefined) {
       console.log(dataState.tokenCSRF);
       upload();
