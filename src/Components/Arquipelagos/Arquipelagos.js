@@ -111,7 +111,7 @@ export default function Arquipelagos() {
             )
         );
 
-        if (state.tmpItems.length === 0) {
+        if (state.tmpItems.length < 1) {
           if (tmp.length === 10) {
             dispatch({ type: actions.updateItems, payload: tmp });
           } else if (tmp.length < 10) {

@@ -1,7 +1,6 @@
 import {
   Button,
   CircularProgress,
-  FormControl,
   Grid,
   MenuItem,
   Select,
@@ -24,11 +23,15 @@ import { useDataContext } from "../../Reducers/DataContext";
 
 export default function ItemArq({ getTokenCSRF }) {
   const [rawItem, setRawItem] = useState(null);
-  const [item, setItem] = useState([{}]);
-  const [file, setFile] = useState();
-  const [info, setInfo] = useState();
+  const [item, setItem] = useState(null);
+  const [file, setFile] = useState(null);
+  const [info, setInfo] = useState(null);
   const [filename, setFilename] = useState("");
   const [license, setLicense] = useState("old");
+  const [fotografo, setFotografo] = useState(false);
+  const [autor, setAutor] = useState("");
+  const [date, setDate] = useState("");
+  const [dataPeca, setDataPeca] = useState(true);
   const [loading, setLoading] = useState(false);
   const [ignorewarnings, setIgnoreWarnings] = useState(false);
   const { modalState, modalDispatch } = useModalContext();
@@ -42,6 +45,15 @@ export default function ItemArq({ getTokenCSRF }) {
 
   useEffect(() => {
     if (dataState.currentId !== 0) {
+      setFile(null);
+      setFilename("");
+      setFotografo(false);
+      setAutor("");
+      setDate("");
+      setDataPeca(true);
+      setInfo(null);
+      setItem(null);
+      setRawItem(null);
       //console.log("alterou currentId", dataState.currentId);
       if (
         dataState.data[0].Arquipelagos.filter(
@@ -49,7 +61,7 @@ export default function ItemArq({ getTokenCSRF }) {
         ).length === 0
       ) {
         setLoading(true);
-        getItem();
+        wait(1000, getItem);
       } else {
         dataDispatch({
           type: dataState.forward ? actionsD.moveForward : actionsD.moveBack,
@@ -62,14 +74,14 @@ export default function ItemArq({ getTokenCSRF }) {
 
   useEffect(() => {
     console.log("rawItem fora", rawItem);
-    if (rawItem !== null) {
+    if (rawItem) {
       console.log("rawItem dentro", rawItem);
       buildItem();
     }
   }, [rawItem]);
 
   useEffect(() => {
-    if (item.image !== undefined && dataState.tokenCSRF.token !== "") {
+    if (item && item.image !== undefined && dataState.tokenCSRF.token !== "") {
       console.log("item", item);
       console.log(dataState.tokenCSRF.token);
       getFile();
@@ -87,17 +99,29 @@ export default function ItemArq({ getTokenCSRF }) {
   }, [dataState.data]);
 
   useEffect(() => {
-    if (file !== undefined) {
+    if (file) {
       console.log(dataState.tokenCSRF);
       upload();
     }
   }, [file]);
 
   useEffect(() => {
-    if (rawItem) {
+    if (item) {
       buildInfo();
     }
   }, [license]);
+
+  useEffect(() => {
+    if (item) {
+      buildInfo();
+    }
+  }, [fotografo]);
+
+  useEffect(() => {
+    if (item) {
+      buildInfo();
+    }
+  }, [dataPeca]);
 
   function getItem() {
     console.log("get item", dataState.currentId);
@@ -116,14 +140,11 @@ export default function ItemArq({ getTokenCSRF }) {
       .then((parsedResponse) => {
         if (parsedResponse.data) {
           if (parsedResponse.data.status === 404) {
-            wait(
-              10000,
-              dataDispatch({
-                type: dataState.forward
-                  ? actionsD.moveForward
-                  : actionsD.moveBack,
-              })
-            );
+            dataDispatch({
+              type: dataState.forward
+                ? actionsD.moveForward
+                : actionsD.moveBack,
+            });
           } else if (parsedResponse.data.status === 401) {
             modalDispatch({
               type: actionsM.fireModal,
@@ -264,6 +285,7 @@ export default function ItemArq({ getTokenCSRF }) {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse);
+        dataState.tokenCSRF.token = "";
         if (parsedResponse.error) {
           modalDispatch({
             type: actionsM.fireModal,
@@ -274,7 +296,6 @@ export default function ItemArq({ getTokenCSRF }) {
           });
         }
         if (parsedResponse.upload.result === "Warning") {
-          let msg;
           if (parsedResponse.upload.warnings.exists) {
             modalDispatch({
               type: actionsM.fireModal,
@@ -330,15 +351,8 @@ export default function ItemArq({ getTokenCSRF }) {
   }
 
   function buildInfo() {
-    console.log(item.content);
     let desc = item.content;
     desc = desc
-      .split("<br>")
-      .join("\n")
-      .split("<br />")
-      .join("\n")
-      .replace(/<p>/gi, "")
-      .replace(/<\/p>/gi, "")
       .replace(/<b>/gi, "'''")
       .replace(/<\/b>/gi, "'''")
       .replace(/<em>/gi, "''")
@@ -348,21 +362,30 @@ export default function ItemArq({ getTokenCSRF }) {
       .replace(/&#8217;/gi, "’")
       .replace(/<strong>/gi, "'''")
       .replace(/<\/strong>/gi, "'''")
-      .replace(/\n'''/gi, "'''\n");
+      .replace(/<br \/>\n'''/gi, "'''<br />\n");
 
     const testDate = new RegExp(
-      '.*Data da Peça.*text-left" >(.*?)(</div>)',
+      ".*Data " +
+        (dataPeca ? "da Peça" : "de Publicação") +
+        '.*?text-left"\\s?>(.*?)(</div>)',
       "s"
     );
-
-    let date = testDate.exec(item.linkhtml)[1];
-    if (date.includes("-00-00")) {
-      date = date.replace("-00-00", "");
-      date = date.replace(date, "{{circa|" + date + "}}");
+    let dateTmp = testDate.exec(item.linkhtml)[1];
+    if (dateTmp.includes("-00-00")) {
+      dateTmp = dateTmp.replace("-00-00", "").replace(" 00:00:00", "");
+      dateTmp = dateTmp.replace(dateTmp, "{{circa|" + dateTmp + "}}");
     }
+    setDate(dateTmp);
 
-    const testAutor = new RegExp('.*Autor:.*?text-left">(.*?)(</div>)', "s");
-    let autor = testAutor.exec(item.linkhtml)[1];
+    const testAutor = new RegExp(
+      ".*Autor" +
+        (fotografo ? " da Imagem" : "") +
+        ':.*?text-left">(.*?)(</div>)',
+      "s"
+    );
+    setAutor(
+      testAutor.exec(item.linkhtml)[1] ? testAutor.exec(item.linkhtml)[1] : ""
+    );
 
     setInfo(
       "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
@@ -401,9 +424,9 @@ export default function ItemArq({ getTokenCSRF }) {
     }
   }
 
-  function wait(milliseconds, foo, arg) {
+  function wait(milliseconds, foo) {
     setTimeout(function () {
-      foo(arg); // will be executed after the specified time
+      foo(); // will be executed after the specified time
     }, milliseconds);
   }
 
@@ -416,7 +439,7 @@ export default function ItemArq({ getTokenCSRF }) {
 
   return (
     <Grid container>
-      {item.linkhtml !== "" && loading === false ? (
+      {item && loading === false ? (
         <Grid container>
           <Grid item xs={2}>
             <Button
@@ -551,12 +574,38 @@ export default function ItemArq({ getTokenCSRF }) {
                 required
                 sx={{ mx: 2 }}
               />
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setFotografo(!fotografo);
+                }}
+                size="small"
+                sx={{ m: 1 }}
+                style={{ float: "right" }}
+              >
+                Autor vs. Fotógrafo
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setDataPeca(!dataPeca);
+                }}
+                size="small"
+                sx={{ m: 1 }}
+                style={{ float: "right" }}
+              >
+                Data Peça vs. Publicação
+              </Button>
             </Grid>
             <Grid container>
               <Grid item xs={2}>
                 <Button
                   variant="contained"
-                  onClick={buildInfo}
+                  onClick={() => {
+                    if (item) {
+                      buildInfo();
+                    }
+                  }}
                   size="small"
                   sx={{ m: 1 }}
                   style={{ float: "right" }}

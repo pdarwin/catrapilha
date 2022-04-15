@@ -13,7 +13,7 @@ export const initialStateD = {
   rev: 0,
   tokenCSRF: { token: "", action: "" },
   currentId: 0,
-  forward: false,
+  forward: true,
 };
 
 export const DataReducer = (state, action) => {

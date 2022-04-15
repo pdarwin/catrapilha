@@ -97,6 +97,9 @@ export default function NavBar({ getData, getTokenCSRF }) {
             </Button>
           </Box>
           <Typography style={{ float: "left", color: "white" }} mx={2}>
+            {"Item: " + dataState.currentId}
+          </Typography>
+          <Typography style={{ float: "left", color: "white" }} mx={2}>
             {"Total: " +
               (dataState.data !== null
                 ? dataState.data[0].Arquipelagos.length
