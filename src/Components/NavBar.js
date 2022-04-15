@@ -116,19 +116,26 @@ export default function NavBar({ getData, getTokenCSRF }) {
               </Button>
             </Box>
             <Typography style={{ float: "left", color: "white" }} mx={2}>
-              {"Item: " + dataState.currentId}
+              {dataState.currentId === 0 ? "" : "Item: " + dataState.currentId}
             </Typography>
             <Typography style={{ float: "left", color: "white" }} mx={2}>
-              {"Total: " +
+              {"Processados: " +
                 (dataState.data !== null
                   ? dataState.data[0].Arquipelagos.length
-                  : 0)}
-            </Typography>
-            <Typography style={{ float: "left", color: "white" }} mx={2}>
-              {"Novos: " +
+                  : 0) +
+                " (" +
                 (dataState.data !== null
                   ? dataState.data[0].Arquipelagos.length -
                     dataState.initialCount
+                  : 0) +
+                " novos)"}
+            </Typography>
+            <Typography style={{ float: "left", color: "white" }} mx={2}>
+              {"Carregados: " +
+                (dataState.data !== null
+                  ? dataState.data[0].Arquipelagos.filter(
+                      (element) => element.status === "Y"
+                    ).length
                   : 0)}
             </Typography>
             <Typography style={{ float: "right", color: "white" }}>
