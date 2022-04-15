@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { useNavigate } from "react-router-dom";
 import configData from "../Config.json";
 import { useDataContext } from "../Reducers/DataContext";
@@ -18,11 +19,23 @@ export default function NavBar({ getData, getTokenCSRF }) {
   const { dataState, dataDispatch } = useDataContext();
   const [user, setUser] = useState();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    //console.log("data antes do getuser", dataState.data);
     getUser();
   }, []);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    //console.log("data navbar", dataState.data);
+    if (
+      dataState.data !== null &&
+      dataState.data[0].Arquipelagos.length - dataState.initialCounter === 50
+    ) {
+      console.log("Autosave");
+      //getFile();
+    }
+  }, [dataState.data]);
 
   function getUser() {
     fetch("/comapi/w/api.php?action=query&meta=userinfo&format=json", {
@@ -50,72 +63,80 @@ export default function NavBar({ getData, getTokenCSRF }) {
   }
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            <IconButton
-              onClick={() => {
-                navigate("/");
-              }}
-              sx={{ p: 0 }}
-              style={{ color: "white" }}
+    <ErrorBoundary
+      onError={(error, errorInfo) => {
+        console.log("erro", error);
+        console.log("erro", errorInfo);
+      }}
+    >
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              <Avatar
-                alt="Catrapilha"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Bulldozer-svgrepo-com-white.svg/240px-Bulldozer-svgrepo-com-white.svg.png"
-                sx={{ p: 1 }}
-              />
-              Catrapilha 1.0
-            </IconButton>
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={() => {
-                getData();
-              }}
-              sx={{ my: 2, color: "white", display: "block" }}
-              startIcon={<FileDownload />}
-              size="small"
-            >
-              Puxar dados
-            </Button>
-            <Button
-              onClick={() => {
-                getTokenCSRF("sendData");
-              }}
-              sx={{ my: 2, color: "white", display: "block" }}
-              startIcon={<UploadFile />}
-              size="small"
-            >
-              Enviar dados
-            </Button>
-          </Box>
-          <Typography style={{ float: "left", color: "white" }} mx={2}>
-            {"Item: " + dataState.currentId}
-          </Typography>
-          <Typography style={{ float: "left", color: "white" }} mx={2}>
-            {"Total: " +
-              (dataState.data !== null
-                ? dataState.data[0].Arquipelagos.length
-                : 0)}
-          </Typography>
-          <Typography style={{ float: "left", color: "white" }} mx={2}>
-            {"Novos: " +
-              (dataState.data !== null
-                ? dataState.data[0].Arquipelagos.length - dataState.initialCount
-                : 0)}
-          </Typography>
-          <Typography style={{ float: "right", color: "white" }}>
-            {user ? user : ""}
-          </Typography>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              <IconButton
+                onClick={() => {
+                  navigate("/");
+                }}
+                sx={{ p: 0 }}
+                style={{ color: "white" }}
+              >
+                <Avatar
+                  alt="Catrapilha"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Bulldozer-svgrepo-com-white.svg/240px-Bulldozer-svgrepo-com-white.svg.png"
+                  sx={{ p: 1 }}
+                />
+                Catrapilha 1.0
+              </IconButton>
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                onClick={() => {
+                  getData();
+                }}
+                sx={{ my: 2, color: "white", display: "block" }}
+                startIcon={<FileDownload />}
+                size="small"
+              >
+                Puxar dados
+              </Button>
+              <Button
+                onClick={() => {
+                  getTokenCSRF("sendData");
+                }}
+                sx={{ my: 2, color: "white", display: "block" }}
+                startIcon={<UploadFile />}
+                size="small"
+              >
+                Enviar dados
+              </Button>
+            </Box>
+            <Typography style={{ float: "left", color: "white" }} mx={2}>
+              {"Item: " + dataState.currentId}
+            </Typography>
+            <Typography style={{ float: "left", color: "white" }} mx={2}>
+              {"Total: " +
+                (dataState.data !== null
+                  ? dataState.data[0].Arquipelagos.length
+                  : 0)}
+            </Typography>
+            <Typography style={{ float: "left", color: "white" }} mx={2}>
+              {"Novos: " +
+                (dataState.data !== null
+                  ? dataState.data[0].Arquipelagos.length -
+                    dataState.initialCount
+                  : 0)}
+            </Typography>
+            <Typography style={{ float: "right", color: "white" }}>
+              {user ? user : ""}
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </ErrorBoundary>
   );
 }

@@ -1,14 +1,6 @@
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import configData from "../../Config.json";
 import {
   ArrowBackIos,
@@ -20,40 +12,25 @@ import { useModalContext } from "../../Reducers/ModalContext";
 import { actionsM } from "../../Reducers/ModalReducer";
 import { actionsD } from "../../Reducers/DataReducer";
 import { useDataContext } from "../../Reducers/DataContext";
+import UploadForm from "../UploadForm";
+import ItemArqForm from "./ItemArqForm";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function ItemArq({ getTokenCSRF }) {
-  const [rawItem, setRawItem] = useState(null);
-  const [item, setItem] = useState(null);
-  const [file, setFile] = useState(null);
-  const [info, setInfo] = useState(null);
-  const [filename, setFilename] = useState("");
-  const [license, setLicense] = useState("old");
-  const [fotografo, setFotografo] = useState(false);
-  const [autor, setAutor] = useState("");
-  const [date, setDate] = useState("");
-  const [dataPeca, setDataPeca] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [ignorewarnings, setIgnoreWarnings] = useState(false);
   const { modalState, modalDispatch } = useModalContext();
   const { dataState, dataDispatch } = useDataContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    //console.log("início", dataState.currentId);
+    //console.log("data inicio item arq", dataState.data);
+    //console.log("início");
   }, []);
 
   useEffect(() => {
+    //console.log("data antes do getitem", dataState.data);
     if (dataState.currentId !== 0) {
-      setFile(null);
-      setFilename("");
-      setFotografo(false);
-      setAutor("");
-      setDate("");
-      setDataPeca(true);
-      setInfo(null);
-      setItem(null);
-      setRawItem(null);
       //console.log("alterou currentId", dataState.currentId);
       if (
         dataState.data[0].Arquipelagos.filter(
@@ -61,6 +38,9 @@ export default function ItemArq({ getTokenCSRF }) {
         ).length === 0
       ) {
         setLoading(true);
+
+        //Temporizador para não fazer DOS ao site (retorna 401)
+        //console.log("data antes de ir buscar o getitem", dataState.data);
         wait(1000, getItem);
       } else {
         dataDispatch({
@@ -71,57 +51,6 @@ export default function ItemArq({ getTokenCSRF }) {
       navigate("/");
     }
   }, [dataState.currentId]);
-
-  useEffect(() => {
-    console.log("rawItem fora", rawItem);
-    if (rawItem) {
-      console.log("rawItem dentro", rawItem);
-      buildItem();
-    }
-  }, [rawItem]);
-
-  useEffect(() => {
-    if (item && item.image !== undefined && dataState.tokenCSRF.token !== "") {
-      console.log("item", item);
-      console.log(dataState.tokenCSRF.token);
-      getFile();
-    }
-  }, [dataState.tokenCSRF]);
-
-  useEffect(() => {
-    if (
-      dataState.data !== null &&
-      dataState.data[0].Arquipelagos.length - dataState.initialCounter === 50
-    ) {
-      console.log("Autosave");
-      //getFile();
-    }
-  }, [dataState.data]);
-
-  useEffect(() => {
-    if (file) {
-      console.log(dataState.tokenCSRF);
-      upload();
-    }
-  }, [file]);
-
-  useEffect(() => {
-    if (item) {
-      buildInfo();
-    }
-  }, [license]);
-
-  useEffect(() => {
-    if (item) {
-      buildInfo();
-    }
-  }, [fotografo]);
-
-  useEffect(() => {
-    if (item) {
-      buildInfo();
-    }
-  }, [dataPeca]);
 
   function getItem() {
     console.log("get item", dataState.currentId);
@@ -171,7 +100,7 @@ export default function ItemArq({ getTokenCSRF }) {
             });
           }
         } else {
-          setRawItem(parsedResponse);
+          buildItem(parsedResponse);
         }
       })
       .catch((error) => {
@@ -179,7 +108,8 @@ export default function ItemArq({ getTokenCSRF }) {
       });
   }
 
-  function buildItem() {
+  function buildItem(rawItem) {
+    console.log("data início builditem", dataState.data);
     console.log("entrou no buildItem", rawItem);
     fetch(rawItem.link.replace("https://www.arquipelagos.pt", "/arqapi"))
       .then((response) => {
@@ -198,26 +128,34 @@ export default function ItemArq({ getTokenCSRF }) {
         return response.text();
       })
       .then((parsedResponse) => {
-        //console.log("builditem", parsedResponse);
-        const testImg = new RegExp(
-          '(.*)(<img src="(.*?)" class="card-img mb-2")'
-        );
-        const testFilename = new RegExp('(.*)(/(.*?)" class="card-img mb-2")');
+        try {
+          const testImg = new RegExp(
+            '(.*)(<img src="(.*?)" class="card-img mb-2")'
+          );
+          const testFilename = new RegExp(
+            '(.*)(/(.*?)" class="card-img mb-2")'
+          );
 
-        setItem({
-          id: rawItem.id,
-          link: rawItem.link,
-          linkhtml: parsedResponse,
-          image: testImg.exec(parsedResponse)[3],
-          filename: testFilename.exec(parsedResponse)[3],
-          content: rawItem.content.rendered,
-          title: rawItem.title.rendered,
-        });
-        setFilename(
-          testFilename
-            .exec(parsedResponse)[3]
-            .replace(".jpg", " - Image " + rawItem.id + ".jpg")
-        );
+          dataDispatch({
+            type: actionsD.updateItem,
+            payload: {
+              id: rawItem.id,
+              title: rawItem.title.rendered,
+              filename: testFilename
+                .exec(parsedResponse)[3]
+                .replace(".jpg", " - Image " + rawItem.id + ".jpg"),
+              link: rawItem.link,
+              linkhtml: parsedResponse,
+              imagelink: testImg.exec(parsedResponse)[3],
+              content: rawItem.content.rendered,
+              description: rawItem.content.rendered,
+            },
+          });
+          console.log("Completou buildItem");
+          //console.log("data fim do BuildItem", dataState.data);
+        } catch (error) {
+          alert(error);
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -225,193 +163,14 @@ export default function ItemArq({ getTokenCSRF }) {
       });
   }
 
-  function getFile() {
-    console.log("getFile", item);
-    console.log(item.image);
-    fetch(item.image.replace("https://www.arquipelagos.pt", "/arqapi"), {})
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
-        }
-        //console.log(response);
-        return response.blob();
-      })
-      .then((parsedResponse) => {
-        //console.log(parsedResponse);
-        setFile(parsedResponse);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
-  function upload() {
-    console.log("Upload: ", dataState.tokenCSRF.token);
-    const uploadParams = new FormData();
-    uploadParams.append("file", file, {
-      knownLength: file.size,
-    });
-    uploadParams.append("filename", filename);
-    uploadParams.append("text", info);
-    if (ignorewarnings) {
-      uploadParams.append("ignorewarnings", true);
-      setIgnoreWarnings(false);
-    }
-    uploadParams.append("comment", "Uploaded with Catrapilha 1.0");
-    uploadParams.append("token", dataState.tokenCSRF.token);
-
-    fetch("/comapi/w/api.php?action=upload&format=json", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + configData["Access token"],
-        "User-Agent": configData["User-Agent"],
-      },
-      body: uploadParams,
-    })
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: response.status + ": " + response.statusText + "(Upload)",
-              level: "error",
-            },
-          });
-        }
-        console.log(response);
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse);
-        dataState.tokenCSRF.token = "";
-        if (parsedResponse.error) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
-              level: "error",
-            },
-          });
-        }
-        if (parsedResponse.upload.result === "Warning") {
-          if (parsedResponse.upload.warnings.exists) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Imagem já existente no Commons:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  parsedResponse.upload.warnings.exists,
-              },
-            });
-          } else if (parsedResponse.upload.warnings.duplicate) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Imagem duplicada no Commons:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  parsedResponse.upload.warnings.duplicate,
-              },
-            });
-          } else if (parsedResponse.upload.warnings["was-deleted"]) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Imagem apagada no Commons:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  parsedResponse.upload.warnings["was-deleted"],
-              },
-            });
-          }
-        }
-        if (parsedResponse.upload.result === "Success") {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: "Upload bem sucedido. Imagem disponível em ",
-              level: "success",
-              link:
-                "https://commons.wikimedia.org/wiki/File:" +
-                parsedResponse.upload.filename,
-            },
-          });
-          remove("Y");
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
-  function buildInfo() {
-    let desc = item.content;
-    desc = desc
-      .replace(/<b>/gi, "'''")
-      .replace(/<\/b>/gi, "'''")
-      .replace(/<em>/gi, "''")
-      .replace(/<\/em>/gi, "''")
-      .replace(/&#8220;/gi, "“")
-      .replace(/&#8221;/gi, "”")
-      .replace(/&#8217;/gi, "’")
-      .replace(/<strong>/gi, "'''")
-      .replace(/<\/strong>/gi, "'''")
-      .replace(/<br \/>\n'''/gi, "'''<br />\n");
-
-    const testDate = new RegExp(
-      ".*Data " +
-        (dataPeca ? "da Peça" : "de Publicação") +
-        '.*?text-left"\\s?>(.*?)(</div>)',
-      "s"
-    );
-    let dateTmp = testDate.exec(item.linkhtml)[1];
-    if (dateTmp.includes("-00-00")) {
-      dateTmp = dateTmp.replace("-00-00", "").replace(" 00:00:00", "");
-      dateTmp = dateTmp.replace(dateTmp, "{{circa|" + dateTmp + "}}");
-    }
-    setDate(dateTmp);
-
-    const testAutor = new RegExp(
-      ".*Autor" +
-        (fotografo ? " da Imagem" : "") +
-        ':.*?text-left">(.*?)(</div>)',
-      "s"
-    );
-    setAutor(
-      testAutor.exec(item.linkhtml)[1] ? testAutor.exec(item.linkhtml)[1] : ""
-    );
-
-    setInfo(
-      "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
-        desc +
-        "}}\n|date=" +
-        date +
-        "\n|source={{SourceArquipelagos|" +
-        item.link +
-        "}}\n|author=" +
-        autor +
-        "\n|permission=\n|other versions=\n}}\n\n" +
-        "=={{int:license-header}}==\n{{Arquipelagos license|" +
-        license +
-        "}}" +
-        "\n\n[[Category:Uploaded with Catrapilha]]"
-    );
-  }
-
   function remove(type) {
     let tmp = dataState.data;
     if (
-      tmp[0].Arquipelagos.filter((element) => element.id === item.id).length ===
-      0
+      tmp[0].Arquipelagos.filter((element) => element.id === dataState.item.id)
+        .length === 0
     ) {
       tmp[0].Arquipelagos.push({
-        id: item.id,
+        id: dataState.item.id,
         status: type,
       });
       dataDispatch({
@@ -438,228 +197,128 @@ export default function ItemArq({ getTokenCSRF }) {
   } */
 
   return (
-    <Grid container>
-      {item && loading === false ? (
-        <Grid container>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                remove("N");
-              }}
-              size="small"
-              sx={{ m: 1 }}
-              style={{ float: "left" }}
-              startIcon={<RemoveCircleOutline />}
-              color="error"
-            >
-              Não carregar
-            </Button>
-          </Grid>
-          <Grid item xs={3}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                remove("Y");
-              }}
-              size="small"
-              sx={{ m: 1 }}
-              style={{ float: "left" }}
-              startIcon={<CheckCircleOutline />}
-              color="success"
-            >
-              Já existe no Commons
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                dataDispatch({
-                  type: actionsD.moveBack,
-                });
-              }}
-              size="small"
-              sx={{ m: 1 }}
-              style={{ float: "left" }}
-              startIcon={<ArrowBackIos />}
-            >
-              Anterior
-            </Button>{" "}
-          </Grid>
-          <Grid item xs={4}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                dataDispatch({
-                  type: actionsD.moveForward,
-                });
-              }}
-              size="small"
-              sx={{ m: 1 }}
-              style={{ float: "left" }}
-              startIcon={<ArrowForwardIos />}
-            >
-              Próxima
-            </Button>
-          </Grid>
-          <Grid>
-            <Button
-              variant="contained"
-              onClick={() => {
-                navigate(-1);
-              }}
-              size="small"
-              sx={{ m: 1 }}
-              style={{ float: "right" }}
-            >
-              Voltar
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            {item.id !== undefined ? (
-              <Grid item xs={12} key={item.id}>
-                <Fragment>
-                  <div dangerouslySetInnerHTML={{ __html: item.linkhtml }} />
-                </Fragment>
-              </Grid>
-            ) : (
-              ""
-            )}
-          </Grid>
-
-          <Grid item xs={6}>
-            <Typography variant="h6" style={{ float: "left" }}>
-              Nome: {filename}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1" style={{ float: "right" }}>
-              ID: {item.id}
-            </Typography>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Grid item xs={12}>
-              <Typography component={"span"} variant="body1">
-                <pre>{info}</pre>
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Select
-                value={license}
-                label="Licença"
-                onChange={(event) => {
-                  setLicense(event.target.value);
-                }}
-                style={{ height: 30 }}
-              >
-                <MenuItem value="old">PD-old-100-expired</MenuItem>
-                <MenuItem value="URAA">URAA</MenuItem>
-                <MenuItem value="">CC-BY-SA 4.0</MenuItem>
-                <MenuItem value="textlogo">Textlogo</MenuItem>
-              </Select>
-              <TextField
-                label="Alterar"
-                value={filename}
-                onChange={(e) => {
-                  setFilename(e.target.value);
-                }}
-                style={{
-                  backgroundColor: "white",
-                  height: 50,
-                  width: 500,
-                }}
-                type="text"
-                required
-                sx={{ mx: 2 }}
-              />
+    <ErrorBoundary
+      onError={(error, errorInfo) => {
+        console.log("erro", error);
+        console.log("erro", errorInfo);
+      }}
+    >
+      <Grid container>
+        {dataState.item.id !== 0 && loading === false ? (
+          <Grid container>
+            <Grid item xs={2}>
               <Button
                 variant="contained"
                 onClick={() => {
-                  setFotografo(!fotografo);
+                  remove("N");
+                }}
+                size="small"
+                sx={{ m: 1 }}
+                style={{ float: "left" }}
+                startIcon={<RemoveCircleOutline />}
+                color="error"
+              >
+                Não carregar
+              </Button>
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  remove("Y");
+                }}
+                size="small"
+                sx={{ m: 1 }}
+                style={{ float: "left" }}
+                startIcon={<CheckCircleOutline />}
+                color="success"
+              >
+                Já existe no Commons
+              </Button>
+            </Grid>
+            <Grid item xs={2}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  dataDispatch({
+                    type: actionsD.moveBack,
+                  });
+                }}
+                size="small"
+                sx={{ m: 1 }}
+                style={{ float: "left" }}
+                startIcon={<ArrowBackIos />}
+              >
+                Anterior
+              </Button>{" "}
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  dataDispatch({
+                    type: actionsD.moveForward,
+                  });
+                }}
+                size="small"
+                sx={{ m: 1 }}
+                style={{ float: "left" }}
+                startIcon={<ArrowForwardIos />}
+              >
+                Próxima
+              </Button>
+            </Grid>
+            <Grid>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  navigate(-1);
                 }}
                 size="small"
                 sx={{ m: 1 }}
                 style={{ float: "right" }}
               >
-                Autor vs. Fotógrafo
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setDataPeca(!dataPeca);
-                }}
-                size="small"
-                sx={{ m: 1 }}
-                style={{ float: "right" }}
-              >
-                Data Peça vs. Publicação
+                Voltar
               </Button>
             </Grid>
-            <Grid container>
-              <Grid item xs={2}>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    if (item) {
-                      buildInfo();
-                    }
-                  }}
-                  size="small"
-                  sx={{ m: 1 }}
-                  style={{ float: "right" }}
-                >
-                  Descrição
-                </Button>
-              </Grid>
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  onClick={getTokenCSRF}
-                  size="small"
-                  sx={{ m: 1 }}
-                  style={{ float: "right" }}
-                >
-                  Carregar no Commons
-                </Button>
-              </Grid>
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    setIgnoreWarnings(true);
-                    getTokenCSRF();
-                  }}
-                  size="small"
-                  sx={{ m: 1 }}
-                  style={{ float: "right" }}
-                >
-                  Ignorar avisos
-                </Button>
-              </Grid>
+            <Grid item xs={12}>
+              {dataState.item.id !== 0 ? (
+                <Grid item xs={12} key={dataState.item.id}>
+                  <Fragment>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: dataState.item.linkhtml,
+                      }}
+                    />
+                  </Fragment>
+                </Grid>
+              ) : (
+                ""
+              )}
             </Grid>
+            <ItemArqForm />
+            <UploadForm getTokenCSRF={getTokenCSRF} remove={remove} />
           </Grid>
-        </Grid>
-      ) : (
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <CircularProgress
-            style={{ float: "center" }}
-            size={200}
-            thickness={15}
-          />
-          <Typography variant="body2" color="text.secondary">
-            Loading...
-          </Typography>
-        </div>
-      )}
-    </Grid>
+        ) : (
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <CircularProgress
+              style={{ float: "center" }}
+              size={200}
+              thickness={15}
+            />
+            <Typography variant="body2" color="text.secondary">
+              Loading...
+            </Typography>
+          </div>
+        )}
+      </Grid>
+    </ErrorBoundary>
   );
 }

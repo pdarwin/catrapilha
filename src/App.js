@@ -6,7 +6,6 @@ import MyModal from "./Components/MyModal";
 import NavBar from "./Components/NavBar";
 import configData from "./Config.json";
 import { ModalReducer, initialStateM, actionsM } from "./Reducers/ModalReducer";
-import CustomContext from "./Reducers/ModalContext";
 import { actionsD, DataReducer, initialStateD } from "./Reducers/DataReducer";
 import DataContext from "./Reducers/DataContext";
 import ModalContext from "./Reducers/ModalContext";
@@ -134,7 +133,7 @@ function App() {
               link: "https://commons.wikimedia.org/wiki/User:DarwIn/Catrapilha.data",
             },
           });
-          dataState.initialCounter = 0;
+          getData();
         }
       })
       .catch((error) => {

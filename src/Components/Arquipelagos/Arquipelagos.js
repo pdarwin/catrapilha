@@ -70,7 +70,7 @@ export default function Arquipelagos() {
     console.log("aqui2", dataState.data);
     if (dataState.data !== null) {
       console.log("aqui3", dataState.data);
-      setPage(1);
+      setPage(page);
     }
   }, [dataState.data]);
 
