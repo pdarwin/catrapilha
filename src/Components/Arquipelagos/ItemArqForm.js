@@ -35,7 +35,10 @@ export default function ItemArqForm() {
         .replace(/<i>(.*?)<\/i>/gi, "''$1''")
         .replace(/&#8220;(.*?)&#8221;/gi, "“$1”")
         .replace(/&#8217;/gi, "’")
-        .replace(/<span .*>(.*?)<\/span>/gi, "");
+        .replace(/&#8211;/gi, "–")
+        .replace(/<span .*>(.*?)<\/span>/gi, "")
+        .replace(/<span .*>/gi, "")
+        .replace(/<\/span>/gi, "");
     } catch (error) {
       alert(error);
     }
@@ -53,10 +56,23 @@ export default function ItemArqForm() {
     }
     item.date = dateTmp;
 
-    const testAutor = new RegExp(
-      ".*Autor" + (false ? " da Imagem" : "") + ':.*?text-left">(.*?)(</div>)',
+    let testAutor = new RegExp(
+      '.*Autor da Imagem:.*?text-left">(.*?)(</div>)',
       "s"
     );
+    if (
+      testAutor.exec(dataState.item.linkhtml)[1] === "José Lemos Silva" ||
+      testAutor.exec(dataState.item.linkhtml)[1] === "Rui Carita"
+    ) {
+      item.license = "";
+    } else {
+      testAutor = new RegExp(
+        ".*Autor" +
+          (false ? " da Imagem" : "") +
+          ':.*?text-left">(.*?)(</div>)',
+        "s"
+      );
+    }
     item.author = testAutor.exec(dataState.item.linkhtml)[1];
 
     console.log("antes do Infopanel", dataState.item);
@@ -129,6 +145,7 @@ export default function ItemArqForm() {
             style={{ height: 30 }}
           >
             <MenuItem value="old">PD-old-100-expired</MenuItem>
+            <MenuItem value="Art">Art</MenuItem>
             <MenuItem value="URAA">URAA</MenuItem>
             <MenuItem value="">CC-BY-SA 4.0</MenuItem>
             <MenuItem value="textlogo">Textlogo</MenuItem>
