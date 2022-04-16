@@ -51,6 +51,7 @@ export const DataReducer = (state, action) => {
         tokenCSRF: action.payload,
       };
     case actionsD.setCurrentId:
+      console.log("setId", initialStateD.item);
       return {
         ...state,
         currentId: action.payload,
@@ -63,7 +64,7 @@ export const DataReducer = (state, action) => {
         item: action.payload,
       };
     case actionsD.moveForward:
-      console.log();
+      console.log("MF", initialStateD.item);
       return {
         ...state,
         currentId: state.currentId - 1,

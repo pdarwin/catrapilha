@@ -27,20 +27,15 @@ export default function ItemArqForm() {
 
     try {
       item.description = item.description
-        .replace(/<b>/gi, "'''")
-        .replace(/<\/b>/gi, "'''")
-        .replace(/<em>/gi, "''")
-        .replace(/<\/em>/gi, "''")
-        .replace(/<i>/gi, "''")
-        .replace(/<\/i>/gi, "''")
-        .replace(/&#8220;/gi, "“")
-        .replace(/&#8221;/gi, "”")
+        .replace(/<br \/>\n<\/strong>/gi, "</strong><br />\n")
+        .replace(/<b>(.*?)<\/b>/gi, "'''$1'''")
+        .replace(/<strong>(.*?)<\/strong>/gi, "'''$1'''")
+        .replace(/<a class="normalBlackFont1".*>(.*)<\/a>/gi, "$1")
+        .replace(/<em>(.*?)<\/em>/gi, "''$1''")
+        .replace(/<i>(.*?)<\/i>/gi, "''$1''")
+        .replace(/&#8220;(.*?)&#8221;/gi, "“$1”")
         .replace(/&#8217;/gi, "’")
-        .replace(/<strong>/gi, "'''")
-        .replace(/<\/strong>/gi, "'''")
-        .replace(/<span .*>/gi, "")
-        .replace(/<\/span>/gi, "")
-        .replace(/<br \/>\n'''/gi, "'''<br />\n");
+        .replace(/<span .*>(.*?)<\/span>/gi, "");
     } catch (error) {
       alert(error);
     }

@@ -25,6 +25,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
 
   useEffect(() => {
     if (dataState.item.file) {
+      console.log("ficheiro carregado localmente", dataState.item.file);
       console.log("ficheiro carregado localmente", dataState.tokenCSRF);
       upload();
     }
