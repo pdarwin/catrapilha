@@ -164,6 +164,7 @@ export default function ItemArqForm() {
               }}
               fullWidth
               variant="filled"
+              InputProps={{ style: { fontSize: 15 } }}
             />
           </Grid>
         </Grid>
