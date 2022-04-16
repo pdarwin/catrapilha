@@ -26,7 +26,7 @@ export const initialStateD = {
     description: "",
     author: "",
     date: "",
-    license: "",
+    license: "old",
     infoPanel: "",
     file: null,
   },

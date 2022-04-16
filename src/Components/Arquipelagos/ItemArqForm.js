@@ -1,12 +1,4 @@
-import {
-  Button,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDataContext } from "../../Reducers/DataContext";
 import { ErrorBoundary } from "react-error-boundary";
@@ -22,9 +14,16 @@ export default function ItemArqForm() {
     }
   }, [dataState.item]);
 
+  useEffect(() => {
+    if (dataState.item.id !== undefined && dataState.item.id !== 0) {
+      console.log("data entrando no form item", dataState.item.id);
+      buildInfo();
+    }
+  }, [dataState.item.license]);
+
   function buildInfo() {
     console.log("buildInfo1", dataState.item);
-    let item = dataState.item;
+    const item = dataState.item;
 
     try {
       item.description = item.description
@@ -32,11 +31,15 @@ export default function ItemArqForm() {
         .replace(/<\/b>/gi, "'''")
         .replace(/<em>/gi, "''")
         .replace(/<\/em>/gi, "''")
+        .replace(/<i>/gi, "''")
+        .replace(/<\/i>/gi, "''")
         .replace(/&#8220;/gi, "“")
         .replace(/&#8221;/gi, "”")
         .replace(/&#8217;/gi, "’")
         .replace(/<strong>/gi, "'''")
         .replace(/<\/strong>/gi, "'''")
+        .replace(/<span .*>/gi, "")
+        .replace(/<\/span>/gi, "")
         .replace(/<br \/>\n'''/gi, "'''<br />\n");
     } catch (error) {
       alert(error);
@@ -61,6 +64,7 @@ export default function ItemArqForm() {
     );
     item.author = testAutor.exec(dataState.item.linkhtml)[1];
 
+    console.log("antes do Infopanel", dataState.item);
     item.infoPanel =
       "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
       item.description +
@@ -115,10 +119,17 @@ export default function ItemArqForm() {
         </Grid>
         <Grid item xs={4}>
           <Select
-            value={"old"}
+            defaultValue="old"
+            value={dataState.item.license}
             label="Licença"
-            onChange={(event) => {
-              dataState.item.license = event.target.value;
+            onChange={(e) => {
+              let item = dataState.item;
+              item.license = e.target.value;
+              console.log("alterou licença", item);
+              dataDispatch({
+                type: actionsD.updateItem,
+                payload: item,
+              });
             }}
             style={{ height: 30 }}
           >

@@ -132,20 +132,20 @@ export default function ItemArq({ getTokenCSRF }) {
             '(.*)(/(.*?)" class="card-img mb-2")'
           );
 
+          const item = dataState.item;
+          item.id = rawItem.id;
+          item.title = rawItem.title.rendered;
+          item.filename = testFilename
+            .exec(parsedResponse)[3]
+            .replace(".jpg", " - Image " + rawItem.id + ".jpg");
+          item.link = rawItem.link;
+          item.linkhtml = parsedResponse;
+          item.imagelink = testImg.exec(parsedResponse)[3];
+          item.content = rawItem.content.rendered;
+          item.description = rawItem.content.rendered;
           dataDispatch({
             type: actionsD.updateItem,
-            payload: {
-              id: rawItem.id,
-              title: rawItem.title.rendered,
-              filename: testFilename
-                .exec(parsedResponse)[3]
-                .replace(".jpg", " - Image " + rawItem.id + ".jpg"),
-              link: rawItem.link,
-              linkhtml: parsedResponse,
-              imagelink: testImg.exec(parsedResponse)[3],
-              content: rawItem.content.rendered,
-              description: rawItem.content.rendered,
-            },
+            payload: item,
           });
           console.log("Completou buildItem");
           //console.log("data fim do BuildItem", dataState.data);
@@ -277,6 +277,11 @@ export default function ItemArq({ getTokenCSRF }) {
               >
                 Voltar
               </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" style={{ float: "left" }}>
+                Nome: {dataState.item.filename}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               {dataState.item.id !== 0 ? (
