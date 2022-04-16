@@ -4,6 +4,7 @@ import { useDataContext } from "../Reducers/DataContext";
 import { useModalContext } from "../Reducers/ModalContext";
 import { actionsM } from "../Reducers/ModalReducer";
 import configData from "../Config.json";
+import { actionsD } from "../Reducers/DataReducer";
 
 export default function UploadForm({ getTokenCSRF, remove }) {
   const { modalState, modalDispatch } = useModalContext();
@@ -13,14 +14,14 @@ export default function UploadForm({ getTokenCSRF, remove }) {
   useEffect(() => {
     if (
       dataState.item.id !== 0 &&
-      dataState.tokenCSRF.action !== "" &&
+      dataState.tokenCSRF.token !== "" &&
       dataState.tokenCSRF.action === "upload"
     ) {
       console.log("uploading item", dataState.item);
       console.log(dataState.tokenCSRF.token);
       getFile();
     }
-  }, [dataState.tokenCSRF]);
+  }, [dataState.tokenCSRF.token]);
 
   useEffect(() => {
     if (dataState.item.file) {
@@ -49,7 +50,12 @@ export default function UploadForm({ getTokenCSRF, remove }) {
       })
       .then((parsedResponse) => {
         //console.log(parsedResponse);
-        dataState.item.file = parsedResponse;
+        const item = dataState.item;
+        item.file = parsedResponse;
+        dataDispatch({
+          type: actionsD.updateItem,
+          payload: item,
+        });
       })
       .catch((error) => {
         alert(error);
@@ -165,7 +171,9 @@ export default function UploadForm({ getTokenCSRF, remove }) {
       <Grid item xs={10}>
         <Button
           variant="contained"
-          onClick={getTokenCSRF}
+          onClick={() => {
+            getTokenCSRF("upload");
+          }}
           size="small"
           sx={{ m: 1 }}
           style={{ float: "right" }}
