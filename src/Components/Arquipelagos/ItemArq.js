@@ -25,7 +25,7 @@ export default function ItemArq({ getTokenCSRF }) {
 
   useEffect(() => {
     //console.log("data inicio item arq", dataState.data);
-    //console.log("início");
+    console.log("início", dataState.tokenCSRF);
   }, []);
 
   useEffect(() => {

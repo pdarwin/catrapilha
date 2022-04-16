@@ -54,8 +54,8 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         currentId: action.payload,
-        item: initialStateD,
-        tokenCSRF: initialStateD,
+        item: initialStateD.item,
+        tokenCSRF: initialStateD.tokenCSRF,
       };
     case actionsD.updateItem:
       return {
@@ -63,15 +63,20 @@ export const DataReducer = (state, action) => {
         item: action.payload,
       };
     case actionsD.moveForward:
+      console.log();
       return {
         ...state,
         currentId: state.currentId - 1,
+        item: initialStateD.item,
+        tokenCSRF: initialStateD.tokenCSRF,
         forward: true,
       };
     case actionsD.moveBack:
       return {
         ...state,
         currentId: state.currentId + 1,
+        item: initialStateD.item,
+        tokenCSRF: initialStateD.tokenCSRF,
         forward: false,
       };
     default:
