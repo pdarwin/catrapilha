@@ -69,11 +69,7 @@ export default function ItemArq({ getTokenCSRF }) {
       .then((parsedResponse) => {
         if (parsedResponse.data) {
           if (parsedResponse.data.status === 404) {
-            dataDispatch({
-              type: dataState.forward
-                ? actionsD.moveForward
-                : actionsD.moveBack,
-            });
+            remove("X");
           } else if (parsedResponse.data.status === 401) {
             modalDispatch({
               type: actionsM.fireModal,
@@ -166,11 +162,12 @@ export default function ItemArq({ getTokenCSRF }) {
   function remove(type) {
     let tmp = dataState.data;
     if (
-      tmp[0].Arquipelagos.filter((element) => element.id === dataState.item.id)
-        .length === 0
+      tmp[0].Arquipelagos.filter(
+        (element) => element.id === dataState.currentId
+      ).length === 0
     ) {
       tmp[0].Arquipelagos.push({
-        id: dataState.item.id,
+        id: dataState.currentId,
         status: type,
       });
       dataDispatch({
