@@ -60,28 +60,30 @@ export default function Arquipelagos() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("aqui", dataState.data);
+    //console.log("aqui", dataState.data);
     if (dataState.data !== null) {
       setPage(1);
     }
   }, []);
 
   useEffect(() => {
-    console.log("aqui2", dataState.data);
+    //console.log("aqui2", dataState.data);
     if (dataState.data !== null) {
-      console.log("aqui3", dataState.data);
-      setPage(page);
+      //console.log("aqui3", dataState.data);
+      getItems(page);
     }
   }, [dataState.data]);
 
   useEffect(() => {
+    //console.log("useeffect página: ", page);
     if (dataState.data !== null) {
-      console.log("useeffect página: " + page);
+      //console.log("useeffect página2: ", page);
       getItems(page);
     }
   }, [page]);
 
   useEffect(() => {
+    //console.log("useeffect stateitems ", state.items.length);
     if (state.items.length > 0) {
       getListItems();
     }
