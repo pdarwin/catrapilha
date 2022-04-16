@@ -16,10 +16,9 @@ Personalized image uploader built in React. Works with Wikimedia Commons.
 - List of added / removed files from the main list (json format, stored in User:DarwIn/Catrapilha.data)
 
 ## Screenshots
-![image](https://user-images.githubusercontent.com/46503478/163067394-e4eda108-7820-4932-87a5-22e79ad2ce33.png)
-![image](https://user-images.githubusercontent.com/46503478/163067412-a7e01523-f238-4140-b6b6-38630ca88018.png)
-![image](https://user-images.githubusercontent.com/46503478/163067470-a9200ef4-2788-49c3-b2ec-9a0aaee501c0.png)
-![image](https://user-images.githubusercontent.com/46503478/163067481-77ad4819-cf5e-4549-b6c3-52fd935cea53.png)
+![image](https://user-images.githubusercontent.com/46503478/163685670-88e30e67-0811-48f0-b745-4f347abaa15f.png)
+![image](https://user-images.githubusercontent.com/46503478/163685683-4f767d48-651d-4b7f-937a-bccebfe959fe.png)
+![image](https://user-images.githubusercontent.com/46503478/163685689-b6e561c6-5e85-4f6b-8e37-d83eea6f7f31.png)
 
 ## Licensing
 
