@@ -29,7 +29,7 @@ export default function ItemArq({ getTokenCSRF }) {
   }, []);
 
   useEffect(() => {
-    //console.log("data antes do getitem", dataState.data);
+    console.log("current ID", dataState.item);
     if (dataState.currentId !== 0) {
       //console.log("alterou currentId", dataState.currentId);
       if (
@@ -71,6 +71,10 @@ export default function ItemArq({ getTokenCSRF }) {
           if (parsedResponse.data.status === 404) {
             remove("X");
           } else if (parsedResponse.data.status === 401) {
+            dataDispatch({
+              type: actionsD.setCurrentId,
+              payload: 0,
+            });
             modalDispatch({
               type: actionsM.fireModal,
               payload: {
@@ -269,6 +273,10 @@ export default function ItemArq({ getTokenCSRF }) {
               <Button
                 variant="contained"
                 onClick={() => {
+                  dataDispatch({
+                    type: actionsD.setCurrentId,
+                    payload: 0,
+                  });
                   navigate(-1);
                 }}
                 size="small"

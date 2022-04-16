@@ -51,12 +51,25 @@ export const DataReducer = (state, action) => {
         tokenCSRF: action.payload,
       };
     case actionsD.setCurrentId:
-      console.log("setId", initialStateD.item);
       return {
         ...state,
         currentId: action.payload,
-        item: initialStateD.item,
-        tokenCSRF: initialStateD.tokenCSRF,
+        item: {
+          id: 0,
+          title: "",
+          filename: "",
+          link: "",
+          linkhtml: "",
+          imagelink: "",
+          content: "",
+          description: "",
+          author: "",
+          date: "",
+          license: "old",
+          infoPanel: "",
+          file: null,
+        },
+        tokenCSRF: { token: "", action: "" },
       };
     case actionsD.updateItem:
       return {
@@ -64,20 +77,47 @@ export const DataReducer = (state, action) => {
         item: action.payload,
       };
     case actionsD.moveForward:
-      console.log("MF", initialStateD.item);
       return {
         ...state,
         currentId: state.currentId - 1,
-        item: initialStateD.item,
-        tokenCSRF: initialStateD.tokenCSRF,
+        item: {
+          id: 0,
+          title: "",
+          filename: "",
+          link: "",
+          linkhtml: "",
+          imagelink: "",
+          content: "",
+          description: "",
+          author: "",
+          date: "",
+          license: "old",
+          infoPanel: "",
+          file: null,
+        },
+        tokenCSRF: { token: "", action: "" },
         forward: true,
       };
     case actionsD.moveBack:
       return {
         ...state,
         currentId: state.currentId + 1,
-        item: initialStateD.item,
-        tokenCSRF: initialStateD.tokenCSRF,
+        item: {
+          id: 0,
+          title: "",
+          filename: "",
+          link: "",
+          linkhtml: "",
+          imagelink: "",
+          content: "",
+          description: "",
+          author: "",
+          date: "",
+          license: "old",
+          infoPanel: "",
+          file: null,
+        },
+        tokenCSRF: { token: "", action: "" },
         forward: false,
       };
     default:
