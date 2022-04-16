@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDataContext } from "../Reducers/DataContext";
 import { useModalContext } from "../Reducers/ModalContext";
@@ -8,7 +8,7 @@ import configData from "../Config.json";
 export default function UploadForm({ getTokenCSRF, remove }) {
   const { modalState, modalDispatch } = useModalContext();
   const { dataState, dataDispatch } = useDataContext();
-  const { ignoreWarnings, setIgnoreWarnings } = useState(false);
+  const [ignoreWarnings, setIgnoreWarnings] = useState(false);
 
   useEffect(() => {
     if (
@@ -162,8 +162,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
 
   return (
     <Grid container>
-      <Grid item xs={2}></Grid>
-      <Grid item xs={3}>
+      <Grid item xs={10}>
         <Button
           variant="contained"
           onClick={getTokenCSRF}
@@ -174,19 +173,15 @@ export default function UploadForm({ getTokenCSRF, remove }) {
           Carregar no Commons
         </Button>
       </Grid>
-      <Grid item xs={3}>
-        <Button
-          variant="contained"
-          onClick={() => {
+      <Grid item xs={2}>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Ignorar avisos"
+          onChange={() => {
             setIgnoreWarnings(true);
-            getTokenCSRF();
           }}
-          size="small"
-          sx={{ m: 1 }}
           style={{ float: "right" }}
-        >
-          Ignorar avisos
-        </Button>
+        />
       </Grid>
     </Grid>
   );
