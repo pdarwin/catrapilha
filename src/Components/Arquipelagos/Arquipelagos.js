@@ -90,13 +90,18 @@ export default function Arquipelagos() {
   }, [state.items]);
 
   function getItems(page) {
-    console.log("puxando items da página" + page);
-    fetch("arqapi/wp-json/wp/v2/imagem?page=" + page, {
-      headers: {
-        "Content-type": "application/json",
-        "User-Agent": configData["User-Agent"],
-      },
-    })
+    console.log("puxando items da página " + page);
+    fetch(
+      "arqapi/wp-json/wp/v2/imagem?page=" +
+        page +
+        (state.tmpItems.length > 0 ? "&per_page=50" : ""),
+      {
+        headers: {
+          "Content-type": "application/json",
+          "User-Agent": configData["User-Agent"],
+        },
+      }
+    )
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
