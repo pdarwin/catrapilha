@@ -94,7 +94,7 @@ export default function Arquipelagos() {
     fetch(
       "arqapi/wp-json/wp/v2/imagem?page=" +
         page +
-        (state.tmpItems.length > 0 ? "&per_page=50" : ""),
+        (state.tmpItems.length > 0 ? "&per_page=10" : ""),
       {
         headers: {
           "Content-type": "application/json",

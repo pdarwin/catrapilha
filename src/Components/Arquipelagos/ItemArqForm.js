@@ -27,6 +27,7 @@ export default function ItemArqForm() {
 
     try {
       item.description = item.description
+        .replace(/<p (.*?)>/gi, "<p>")
         .replace(/<br \/>\n<\/strong>/gi, "</strong><br />\n")
         .replace(/<b>(.*?)<\/b>/gi, "'''$1'''")
         .replace(/<strong>(.*?)<\/strong>/gi, "'''$1'''")
@@ -39,8 +40,9 @@ export default function ItemArqForm() {
         .replace(/&#8217;/gi, "’")
         .replace(/&#8220;/gi, "“")
         .replace(/&#8221;/gi, "”")
-        .replace(/<span .*>(.*?)<\/span>/gi, "")
-        .replace(/<span .*>/gi, "")
+        .replace(/&#8230;/gi, "…")
+        .replace(/<span .*?>(.*?)<\/span>/gi, "$1")
+        .replace(/<span .*?>/gi, "")
         .replace(/<\/span>/gi, "");
     } catch (error) {
       alert(error);
@@ -65,7 +67,8 @@ export default function ItemArqForm() {
     );
     if (
       testAutor.exec(dataState.item.linkhtml)[1] === "José Lemos Silva" ||
-      testAutor.exec(dataState.item.linkhtml)[1] === "Rui Carita"
+      testAutor.exec(dataState.item.linkhtml)[1] === "Rui Carita" ||
+      testAutor.exec(dataState.item.linkhtml)[1] === "Virgílio Gomes"
     ) {
       item.license = "";
     } else {
