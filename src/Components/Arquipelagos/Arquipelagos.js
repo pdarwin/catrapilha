@@ -94,7 +94,7 @@ export default function Arquipelagos() {
     fetch(
       "arqapi/wp-json/wp/v2/imagem?page=" +
         page +
-        (state.tmpItems.length > 0 ? "&per_page=10" : ""),
+        (state.tmpItems.length > 0 ? "&per_page=20" : ""),
       {
         headers: {
           "Content-type": "application/json",
@@ -119,9 +119,9 @@ export default function Arquipelagos() {
         );
 
         if (state.tmpItems.length < 1) {
-          if (tmp.length === 10) {
+          if (tmp.length === 20) {
             dispatch({ type: actions.updateItems, payload: tmp });
-          } else if (tmp.length < 10) {
+          } else if (tmp.length < 20) {
             dispatch({ type: actions.addTmpItems, payload: tmp });
             setPage(page + 1);
           } else {
@@ -142,14 +142,14 @@ export default function Arquipelagos() {
               " e novos items: " +
               tmp.length
           );
-          const n = 10 - state.tmpItems.length;
+          const n = 20 - state.tmpItems.length;
           let tmp2 = state.tmpItems;
           tmp.map((element, i) => {
             if (i < n) {
               tmp2.push(element);
             }
           });
-          if (tmp2.length < 10) {
+          if (tmp2.length < 20) {
             dispatch({ type: actions.addTmpItems, payload: tmp2 });
             setPage(page + 1);
           } else {
@@ -255,7 +255,7 @@ export default function Arquipelagos() {
           <Box sx={{ width: 800, mr: 3 }}>
             <LinearProgress
               variant="determinate"
-              value={state.listItems.length * 10}
+              value={state.listItems.length * 5}
             />
           </Box>
           <Box sx={{ minWidth: 35 }}>
