@@ -20,10 +20,11 @@ import { actionsM } from "../../Reducers/ModalReducer";
 import { actionsD } from "../../Reducers/DataReducer";
 
 const initialState = {
-  items: [],
-  listItems: [],
-  tmpItems: [],
+  items: null,
+  listItems: null,
+  tmpItems: null,
   loading: false,
+  nListItems: 0,
 };
 
 const actions = {
@@ -35,13 +36,23 @@ const actions = {
 function reducer(state, action) {
   switch (action.type) {
     case actions.updateItems:
-      return { ...state, items: action.payload, listItems: [], tmpItems: [] };
-    case actions.addTmpItems:
-      return { ...state, tmpItems: action.payload, items: [] };
-    case actions.addListItem:
+      console.log("updateitems", action.payload);
       return {
         ...state,
-        listItems: [...state.listItems, action.payload],
+        items: action.payload,
+        listItems: null,
+        nListItems: 0,
+        tmpItems: null,
+      };
+    case actions.addTmpItems:
+      console.log("addTmpItems", action.payload);
+      return { ...state, tmpItems: action.payload, items: null };
+    case actions.addListItem:
+      //console.log("addlistitem", state.listItems, action.payload);
+      return {
+        ...state,
+        listItems: action.payload,
+        nListItems: action.payload.length,
         loading: true,
       };
     case actions.loaded:
@@ -61,22 +72,23 @@ export default function Arquipelagos() {
 
   useEffect(() => {
     //console.log("aqui", dataState.data);
-    if (dataState.data !== null) {
+    if (dataState.data) {
       setPage(1);
     }
   }, []);
 
   useEffect(() => {
     //console.log("aqui2", dataState.data);
-    if (dataState.data !== null) {
+    if (dataState.data) {
       //console.log("aqui3", dataState.data);
+
       getItems(page);
     }
   }, [dataState.data]);
 
   useEffect(() => {
-    //console.log("useeffect página: ", page);
-    if (dataState.data !== null) {
+    console.log("useeffect página: ", page);
+    if (dataState.data) {
       //console.log("useeffect página2: ", page);
       getItems(page);
     }
@@ -84,17 +96,28 @@ export default function Arquipelagos() {
 
   useEffect(() => {
     //console.log("useeffect stateitems ", state.items.length);
-    if (state.items.length > 0) {
-      getListItems();
+    if (state.items) {
+      getListItem(state.items[0]);
     }
   }, [state.items]);
+
+  useEffect(() => {
+    console.log("useeffect listitems ", state.listItems);
+    if (
+      state.nListItems > 0 &&
+      state.items &&
+      state.nListItems < state.items.length
+    ) {
+      getListItem(state.items[state.listItems.length]);
+    }
+  }, [state.nListItems]);
 
   function getItems(page) {
     console.log("puxando items da página " + page);
     fetch(
       "arqapi/wp-json/wp/v2/imagem?page=" +
         page +
-        (state.tmpItems.length > 0 ? "&per_page=20" : ""),
+        (state.tmpItems ? "&per_page=50" : ""),
       {
         headers: {
           "Content-type": "application/json",
@@ -111,19 +134,25 @@ export default function Arquipelagos() {
         return response.json();
       })
       .then((parsedResponse) => {
+        console.log("parsed", parsedResponse);
         const tmp = parsedResponse.filter(
           (item) =>
             !dataState.data[0].Arquipelagos.some(
               (element) => element.id === item.id
             )
         );
-
-        if (state.tmpItems.length < 1) {
-          if (tmp.length === 20) {
+        console.log("tmp", tmp);
+        // Sem tmp
+        if (!state.tmpItems) {
+          // Fez os 10
+          if (tmp.length === 10) {
+            console.log("Fez os 10");
             dispatch({ type: actions.updateItems, payload: tmp });
-          } else if (tmp.length < 20) {
+          } else if (tmp.length < 10) {
+            // Não fez os 10
+            console.log("Não fez os 10");
             dispatch({ type: actions.addTmpItems, payload: tmp });
-            setPage(page + 1);
+            setPage(page === 1 ? 1 : page + 1);
           } else {
             modalDispatch({
               type: actionsM.fireModal,
@@ -136,20 +165,22 @@ export default function Arquipelagos() {
             });
           }
         } else {
+          //console.log("entrou em recuperação", tmp, state.tmpItems);
           console.log(
             "entrou com tmpitems: " +
               state.tmpItems.length +
               " e novos items: " +
               tmp.length
           );
-          const n = 20 - state.tmpItems.length;
-          let tmp2 = state.tmpItems;
+          const n = 10 - state.tmpItems.length;
+          const tmp2 = state.tmpItems;
           tmp.map((element, i) => {
             if (i < n) {
               tmp2.push(element);
             }
           });
-          if (tmp2.length < 20) {
+          if (tmp2.length < 10) {
+            console.log("Não fez os 10 - 2");
             dispatch({ type: actions.addTmpItems, payload: tmp2 });
             setPage(page + 1);
           } else {
@@ -163,37 +194,45 @@ export default function Arquipelagos() {
       });
   }
 
-  function getListItems() {
-    for (let item of state.items) {
-      fetch(item.link.replace("https://www.arquipelagos.pt", "arqapi"))
-        .then((response) => {
-          // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-          if (response.status !== 200) {
-            throw new Error("Erro:" + response.status);
-          }
-          //console.log(response);
-          return response.text();
-        })
-        .then((parsedResponse) => {
-          const testImg = new RegExp(
-            '(.*)(<img src="(.*?)" class="card-img mb-2")'
-          );
+  function getListItem(item) {
+    fetch(item.link.replace("https://www.arquipelagos.pt", "arqapi"))
+      .then((response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          throw new Error("Erro:" + response.status);
+        }
+        //console.log(response);
+        return response.text();
+      })
+      .then((parsedResponse) => {
+        const testImg = new RegExp(
+          '(.*)(<img src="(.*?)" class="card-img mb-2")'
+        );
 
-          dispatch({
-            type: actions.addListItem,
-            payload: {
-              id: item.id,
-              linkhtml: parsedResponse,
-              image: testImg.exec(parsedResponse)[3],
-              content: item.content.rendered,
-              title: item.title.rendered,
-            },
-          });
-        })
-        .catch((error) => {
-          alert(error);
+        //console.log("antes de tudo", state.listItems);
+
+        const tmp = state.listItems ? state.listItems : [];
+
+        //console.log("antes do push", item.id, tmp);
+
+        tmp.push({
+          id: item.id,
+          linkhtml: parsedResponse,
+          image: testImg.exec(parsedResponse)[3],
+          content: item.content.rendered,
+          title: item.title.rendered,
         });
-    }
+
+        //console.log("depois do push", tmp);
+
+        dispatch({
+          type: actions.addListItem,
+          payload: tmp,
+        });
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   function goToPage(page) {
@@ -209,7 +248,7 @@ export default function Arquipelagos() {
         transform: "translate(-50%, -50%)",
       }}
     >
-      {dataState.data !== null && state.listItems.length > 0 ? (
+      {dataState.data && state.listItems ? (
         <ImageList
           sx={{ width: 1000, height: 600 }}
           cols={5}
@@ -247,7 +286,10 @@ export default function Arquipelagos() {
           Sem dados, carregue dados para iniciar.
         </Typography>
       )}
-      {state.listItems.length !== state.items.length ? (
+      {dataState.data &&
+      state.listItems &&
+      state.items &&
+      state.listItems.length !== state.items.length ? (
         <Box
           sx={{ display: "flex", alignItems: "center" }}
           style={{ float: "center" }}
@@ -267,7 +309,7 @@ export default function Arquipelagos() {
       ) : (
         ""
       )}
-      {dataState.data !== null ? (
+      {dataState.data ? (
         <Grid container>
           <Tooltip title="Página inicial">
             <Button
