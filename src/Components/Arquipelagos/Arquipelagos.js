@@ -235,10 +235,6 @@ export default function Arquipelagos() {
       });
   }
 
-  function goToPage(page) {
-    setPage(page);
-  }
-
   return (
     <div
       style={{
@@ -314,7 +310,7 @@ export default function Arquipelagos() {
           <Tooltip title="Página inicial">
             <Button
               onClick={() => {
-                goToPage(1);
+                setPage(1);
               }}
               style={{ float: "left" }}
             >
@@ -326,7 +322,7 @@ export default function Arquipelagos() {
               <Tooltip title={page - 1}>
                 <Button
                   onClick={() => {
-                    goToPage(page - 1);
+                    setPage(page - 1);
                   }}
                   disabled={false}
                   style={{ float: "left" }}
@@ -344,7 +340,7 @@ export default function Arquipelagos() {
           <Tooltip title={page + 1}>
             <Button
               onClick={() => {
-                goToPage(page + 1);
+                setPage(page + 1);
               }}
               style={{ float: "left" }}
             >
