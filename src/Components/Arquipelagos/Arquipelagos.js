@@ -73,7 +73,7 @@ export default function Arquipelagos() {
   useEffect(() => {
     //console.log("aqui", dataState.data);
     if (dataState.data) {
-      setPage(1);
+      getItems(1);
     }
   }, []);
 
@@ -82,7 +82,7 @@ export default function Arquipelagos() {
     if (dataState.data) {
       //console.log("aqui3", dataState.data);
 
-      getItems(page);
+      getItems(1);
     }
   }, [dataState.data]);
 
@@ -93,6 +93,13 @@ export default function Arquipelagos() {
       getItems(page);
     }
   }, [page]);
+
+  useEffect(() => {
+    if (state.tmpItems && state.tmpItems.length < 10) {
+      console.log("pretty", state.tmpItems.length);
+      getItems(1);
+    }
+  }, [state.tmpItems]);
 
   useEffect(() => {
     //console.log("useeffect stateitems ", state.items.length);
@@ -136,12 +143,13 @@ export default function Arquipelagos() {
       const data = await res.json();
 
       console.log("parsed", data);
-      const tmp = data.filter(
+      let tmp = data.filter(
         item =>
           !dataState.data[0].Arquipelagos.some(
             element => element.id === item.id
           )
       );
+
       console.log("tmp", tmp);
       // Sem tmp
       if (!state.tmpItems) {
@@ -153,7 +161,6 @@ export default function Arquipelagos() {
           // Não fez os 10
           console.log("Não fez os 10");
           dispatch({ type: actions.addTmpItems, payload: tmp });
-          setPage(page === 1 ? 1 : page + 1);
         } else {
           modalDispatch({
             type: actionsM.fireModal,
@@ -166,6 +173,9 @@ export default function Arquipelagos() {
           });
         }
       } else {
+        tmp = tmp.filter(
+          item => !state.tmpItems.some(element => element.id === item.id)
+        );
         //console.log("entrou em recuperação", tmp, state.tmpItems);
         console.log(
           "entrou com tmpitems: " +
@@ -173,6 +183,7 @@ export default function Arquipelagos() {
             " e novos items: " +
             tmp.length
         );
+        console.log("avalon", tmp);
         const n = 10 - state.tmpItems.length;
         const tmp2 = state.tmpItems;
         tmp.map((element, i) => {
@@ -180,12 +191,13 @@ export default function Arquipelagos() {
             tmp2.push(element);
           }
         });
+        console.log("brest", tmp2);
         if (tmp2.length < 10) {
           console.log("Não fez os 10 - 2");
           dispatch({ type: actions.addTmpItems, payload: tmp2 });
           setPage(page + 1);
         } else {
-          console.log("antes do return", tmp2.length);
+          console.log("antes do return", tmp2.length, tmp2);
           dispatch({ type: actions.updateItems, payload: tmp2 });
         }
       }
