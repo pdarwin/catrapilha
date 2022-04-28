@@ -95,7 +95,7 @@ export default function Arquipelagos() {
   }, [page]);
 
   useEffect(() => {
-    if (state.tmpItems && state.tmpItems.length < 10) {
+    if (state.tmpItems && state.tmpItems.length < 10 && page === 1) {
       console.log("pretty", state.tmpItems.length);
       getItems(1);
     }
