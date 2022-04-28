@@ -112,91 +112,91 @@ export default function Arquipelagos() {
     }
   }, [state.nListItems]);
 
-  function getItems(page) {
-    console.log("puxando items da página " + page);
-    fetch(
-      "arqapi/wp-json/wp/v2/imagem?page=" +
-        page +
-        (state.tmpItems ? "&per_page=50" : ""),
-      {
-        headers: {
-          "Content-type": "application/json",
-          "User-Agent": configData["User-Agent"],
-        },
+  async function getItems(page) {
+    console.log("puxando items da página ", page);
+    try {
+      const res = await fetch(
+        "arqapi/wp-json/wp/v2/imagem?page=" +
+          page +
+          (state.tmpItems ? "&per_page=50" : ""),
+        {
+          headers: {
+            "Content-type": "application/json",
+            "User-Agent": configData["User-Agent"],
+          },
+        }
+      );
+
+      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        throw new Error("Erro:" + res.status);
       }
-    )
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
-        }
-        //console.log(response);
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log("parsed", parsedResponse);
-        const tmp = parsedResponse.filter(
-          (item) =>
-            !dataState.data[0].Arquipelagos.some(
-              (element) => element.id === item.id
-            )
-        );
-        console.log("tmp", tmp);
-        // Sem tmp
-        if (!state.tmpItems) {
-          // Fez os 10
-          if (tmp.length === 10) {
-            console.log("Fez os 10");
-            dispatch({ type: actions.updateItems, payload: tmp });
-          } else if (tmp.length < 10) {
-            // Não fez os 10
-            console.log("Não fez os 10");
-            dispatch({ type: actions.addTmpItems, payload: tmp });
-            setPage(page === 1 ? 1 : page + 1);
-          } else {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg:
-                  "Algo estranho aconteceu. Tamanho da fila de items:" +
-                  tmp.length,
-                level: "error",
-              },
-            });
-          }
+
+      //console.log(response);
+      const data = await res.json();
+
+      console.log("parsed", data);
+      const tmp = data.filter(
+        item =>
+          !dataState.data[0].Arquipelagos.some(
+            element => element.id === item.id
+          )
+      );
+      console.log("tmp", tmp);
+      // Sem tmp
+      if (!state.tmpItems) {
+        // Fez os 10
+        if (tmp.length === 10) {
+          console.log("Fez os 10");
+          dispatch({ type: actions.updateItems, payload: tmp });
+        } else if (tmp.length < 10) {
+          // Não fez os 10
+          console.log("Não fez os 10");
+          dispatch({ type: actions.addTmpItems, payload: tmp });
+          setPage(page === 1 ? 1 : page + 1);
         } else {
-          //console.log("entrou em recuperação", tmp, state.tmpItems);
-          console.log(
-            "entrou com tmpitems: " +
-              state.tmpItems.length +
-              " e novos items: " +
-              tmp.length
-          );
-          const n = 10 - state.tmpItems.length;
-          const tmp2 = state.tmpItems;
-          tmp.map((element, i) => {
-            if (i < n) {
-              tmp2.push(element);
-            }
+          modalDispatch({
+            type: actionsM.fireModal,
+            payload: {
+              msg:
+                "Algo estranho aconteceu. Tamanho da fila de items:" +
+                tmp.length,
+              level: "error",
+            },
           });
-          if (tmp2.length < 10) {
-            console.log("Não fez os 10 - 2");
-            dispatch({ type: actions.addTmpItems, payload: tmp2 });
-            setPage(page + 1);
-          } else {
-            console.log("antes do return", tmp2.length);
-            dispatch({ type: actions.updateItems, payload: tmp2 });
-          }
         }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+      } else {
+        //console.log("entrou em recuperação", tmp, state.tmpItems);
+        console.log(
+          "entrou com tmpitems: " +
+            state.tmpItems.length +
+            " e novos items: " +
+            tmp.length
+        );
+        const n = 10 - state.tmpItems.length;
+        const tmp2 = state.tmpItems;
+        tmp.map((element, i) => {
+          if (i < n) {
+            tmp2.push(element);
+          }
+        });
+        if (tmp2.length < 10) {
+          console.log("Não fez os 10 - 2");
+          dispatch({ type: actions.addTmpItems, payload: tmp2 });
+          setPage(page + 1);
+        } else {
+          console.log("antes do return", tmp2.length);
+          dispatch({ type: actions.updateItems, payload: tmp2 });
+        }
+      }
+    } catch (error) {
+      alert(error);
+    }
   }
 
   function getListItem(item) {
     fetch(item.link.replace("https://www.arquipelagos.pt", "arqapi"))
-      .then((response) => {
+      .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           throw new Error("Erro:" + response.status);
@@ -204,7 +204,7 @@ export default function Arquipelagos() {
         //console.log(response);
         return response.text();
       })
-      .then((parsedResponse) => {
+      .then(parsedResponse => {
         const testImg = new RegExp(
           '(.*)(<img src="(.*?)" class="card-img mb-2")'
         );
@@ -230,7 +230,7 @@ export default function Arquipelagos() {
           payload: tmp,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         alert(error);
       });
   }
@@ -251,7 +251,7 @@ export default function Arquipelagos() {
           rowHeight={200}
           gap={5}
         >
-          {state.listItems.map((item) => (
+          {state.listItems.map(item => (
             <ImageListItem key={item.id}>
               <img
                 src={item.image}

@@ -49,7 +49,7 @@ function App() {
         },
       }
     )
-      .then((response) => {
+      .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
@@ -70,14 +70,14 @@ function App() {
         console.log(response);
         return response.json();
       })
-      .then((parsedResponse) => {
+      .then(parsedResponse => {
         console.log(parsedResponse);
         dataDispatch({
           type: actionsD.updateIData,
           payload: JSON.parse(parsedResponse.parse.wikitext["*"]),
         });
       })
-      .catch((error) => {
+      .catch(error => {
         //não faz nada
       });
   }
@@ -99,7 +99,7 @@ function App() {
       },
       body: uploadParams,
     })
-      .then((response) => {
+      .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
@@ -113,7 +113,7 @@ function App() {
         //console.log(response);
         return response.json();
       })
-      .then((parsedResponse) => {
+      .then(parsedResponse => {
         console.log(parsedResponse);
         if (parsedResponse.error) {
           modalDispatch({
@@ -136,47 +136,49 @@ function App() {
           getData();
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert(error);
       });
   }
 
-  function getTokenCSRF(action) {
-    fetch("/comapi/w/api.php?action=query&format=json&meta=tokens", {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + configData["Access token"],
-        "User-Agent": configData["User-Agent"],
-      },
-    })
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg:
-                response.status + ": " + response.statusText + "(getTokenCSRF)",
-              level: "error",
-            },
-          });
+  async function getTokenCSRF(action) {
+    try {
+      const res = await fetch(
+        "/comapi/w/api.php?action=query&format=json&meta=tokens",
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + configData["Access token"],
+            "User-Agent": configData["User-Agent"],
+          },
         }
+      );
+
+      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg: res.status + ": " + res.statusText + "(getTokenCSRF)",
+            level: "error",
+          },
+        });
+      } else {
         //console.log(response);
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse);
+        const data = await res.json();
+
+        console.log(data);
         dataDispatch({
           type: actionsD.updateToken,
           payload: {
-            token: parsedResponse.query.tokens.csrftoken,
+            token: data.query.tokens.csrftoken,
             action: action,
           },
         });
-      })
-      .catch((error) => {
-        alert(error);
-      });
+      }
+    } catch (error) {
+      alert(error);
+    }
   }
 
   return (
