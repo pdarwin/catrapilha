@@ -95,51 +95,36 @@ export default function UploadForm({ getTokenCSRF, remove }) {
           });
         }
         if (data.upload.result === "Warning") {
-          if (data.upload.warnings.exists) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Imagem já existente no Commons:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  data.upload.warnings.exists,
-              },
-            });
-          } else if (data.upload.warnings.duplicate) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Imagem duplicada no Commons:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  data.upload.warnings.duplicate,
-              },
-            });
-          } else if (data.upload.warnings["was-deleted"]) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Imagem apagada no Commons:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  data.upload.warnings["was-deleted"],
-              },
-            });
-          } else if (data.upload.warnings.badfilename) {
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Nome de ficheiro inválido:",
-                level: "warning",
-                link:
-                  "https://commons.wikimedia.org/wiki/File:" +
-                  data.upload.warnings.badfilename,
-              },
-            });
+          //Desestruturação do array
+          const [[type, file]] = Object.entries(data.upload.warnings);
+
+          let msg;
+          switch (type) {
+            case "exists":
+              msg = "Imagem já existente no Commons";
+              break;
+            case "duplicate":
+              msg = "Imagem duplicada no Commons";
+              break;
+            case "was-deleted":
+              msg = "Imagem apagada no Commons";
+              break;
+            case "badfilename":
+              msg = "Nome de ficheiro inválido";
+              break;
+            default:
+              msg = `Aviso não tratado (${type}`;
+              break;
           }
+
+          modalDispatch({
+            type: actionsM.fireModal,
+            payload: {
+              msg: msg + ":",
+              level: "warning",
+              link: "https://commons.wikimedia.org/wiki/File:" + file,
+            },
+          });
         }
         if (data.upload.result === "Success") {
           modalDispatch({
