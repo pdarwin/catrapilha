@@ -88,7 +88,7 @@ function App() {
     const uploadParams = new FormData();
     uploadParams.append("title", "User:DarwIn/Catrapilha.data");
     uploadParams.append("text", JSON.stringify(dataState.data));
-    uploadParams.append("summary", "Updating data (Catrapilha 1.0)");
+    uploadParams.append("summary", "Data updated (Catrapilha 1.0)");
     uploadParams.append("token", dataState.tokenCSRF.token);
 
     fetch("/comapi/w/api.php?action=edit&format=json", {
