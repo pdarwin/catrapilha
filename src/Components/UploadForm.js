@@ -11,109 +11,91 @@ export default function UploadForm({ getTokenCSRF, remove }) {
   const { dataState, dataDispatch } = useDataContext();
   const [ignoreWarnings, setIgnoreWarnings] = useState(false);
 
-  useEffect(() => {
-    if (
-      dataState.item.id !== 0 &&
-      dataState.tokenCSRF.token !== "" &&
-      dataState.tokenCSRF.action === "upload"
-    ) {
-      console.log("uploading item", dataState.item);
-      console.log(dataState.tokenCSRF.token);
-      getFile();
-    }
-  }, [dataState.tokenCSRF.token]);
+  async function getFile() {
+    try {
+      console.log("getFile", dataState.item);
+      console.log(dataState.item.imagelink);
+      const res = await fetch(
+        dataState.item.imagelink.replace(
+          "https://www.arquipelagos.pt",
+          "/arqapi"
+        ),
+        {}
+      );
 
-  useEffect(() => {
-    if (dataState.item.file) {
-      console.log("ficheiro carregado localmente", dataState.item.file);
-      console.log("ficheiro carregado localmente", dataState.tokenCSRF);
-      upload();
-    }
-  }, [dataState.item.file]);
+      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        throw new Error("Erro:" + res.status);
+      } else {
+        const data = await res.blob();
 
-  function getFile() {
-    console.log("getFile", dataState.item);
-    console.log(dataState.item.imagelink);
-    fetch(
-      dataState.item.imagelink.replace(
-        "https://www.arquipelagos.pt",
-        "/arqapi"
-      ),
-      {}
-    )
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          throw new Error("Erro:" + response.status);
-        }
-        //console.log(response);
-        return response.blob();
-      })
-      .then((parsedResponse) => {
-        //console.log(parsedResponse);
         const item = dataState.item;
-        item.file = parsedResponse;
+        item.file = data;
         dataDispatch({
           type: actionsD.updateItem,
           payload: item,
         });
-      })
-      .catch((error) => {
-        alert(error);
-      });
+      }
+    } catch (error) {
+      alert(error);
+    }
   }
 
-  function upload() {
-    console.log("Upload: ", dataState.tokenCSRF.token);
-    const uploadParams = new FormData();
-    uploadParams.append("file", dataState.item.file, {
-      knownLength: dataState.item.file.size,
-    });
-    uploadParams.append("filename", dataState.item.filename);
-    uploadParams.append("text", dataState.item.infoPanel);
-    if (ignoreWarnings) {
-      uploadParams.append("ignorewarnings", true);
-      setIgnoreWarnings(false);
-    }
-    uploadParams.append("comment", "Uploaded with Catrapilha 1.0");
-    uploadParams.append("token", dataState.tokenCSRF.token);
+  async function upload() {
+    await getTokenCSRF("upload");
+    console.log(dataState.tokenCSRF.token);
+    await getFile();
+    console.log(dataState.item.file);
+    try {
+      console.log("Upload: ", dataState.tokenCSRF.token);
+      const uploadParams = new FormData();
+      uploadParams.append("file", dataState.item.file, {
+        knownLength: dataState.item.file.size,
+      });
+      uploadParams.append("filename", dataState.item.filename);
+      uploadParams.append("text", dataState.item.infoPanel);
+      if (ignoreWarnings) {
+        uploadParams.append("ignorewarnings", true);
+        setIgnoreWarnings(false);
+      }
+      uploadParams.append("comment", "Uploaded with Catrapilha 1.0");
+      uploadParams.append("token", dataState.tokenCSRF.token);
 
-    fetch("/comapi/w/api.php?action=upload&format=json", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + configData["Access token"],
-        "User-Agent": configData["User-Agent"],
-      },
-      body: uploadParams,
-    })
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: response.status + ": " + response.statusText + "(Upload)",
-              level: "error",
-            },
-          });
-        }
-        console.log(response);
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse);
+      const res = await fetch("/comapi/w/api.php?action=upload&format=json", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + configData["Access token"],
+          "User-Agent": configData["User-Agent"],
+        },
+        body: uploadParams,
+      });
+
+      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg: res.status + ": " + res.statusText + "(Upload)",
+            level: "error",
+          },
+        });
+      } else {
+        console.log(res);
+        const data = await res.json();
+
+        console.log(data);
         dataState.tokenCSRF.token = "";
-        if (parsedResponse.error) {
+        if (data.error) {
           modalDispatch({
             type: actionsM.fireModal,
             payload: {
-              msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
+              msg: data.error.code + ": " + data.error.info,
               level: "error",
             },
           });
         }
-        if (parsedResponse.upload.result === "Warning") {
-          if (parsedResponse.upload.warnings.exists) {
+        if (data.upload.result === "Warning") {
+          if (data.upload.warnings.exists) {
             modalDispatch({
               type: actionsM.fireModal,
               payload: {
@@ -121,10 +103,10 @@ export default function UploadForm({ getTokenCSRF, remove }) {
                 level: "warning",
                 link:
                   "https://commons.wikimedia.org/wiki/File:" +
-                  parsedResponse.upload.warnings.exists,
+                  data.upload.warnings.exists,
               },
             });
-          } else if (parsedResponse.upload.warnings.duplicate) {
+          } else if (data.upload.warnings.duplicate) {
             modalDispatch({
               type: actionsM.fireModal,
               payload: {
@@ -132,10 +114,10 @@ export default function UploadForm({ getTokenCSRF, remove }) {
                 level: "warning",
                 link:
                   "https://commons.wikimedia.org/wiki/File:" +
-                  parsedResponse.upload.warnings.duplicate,
+                  data.upload.warnings.duplicate,
               },
             });
-          } else if (parsedResponse.upload.warnings["was-deleted"]) {
+          } else if (data.upload.warnings["was-deleted"]) {
             modalDispatch({
               type: actionsM.fireModal,
               payload: {
@@ -143,12 +125,23 @@ export default function UploadForm({ getTokenCSRF, remove }) {
                 level: "warning",
                 link:
                   "https://commons.wikimedia.org/wiki/File:" +
-                  parsedResponse.upload.warnings["was-deleted"],
+                  data.upload.warnings["was-deleted"],
+              },
+            });
+          } else if (data.upload.warnings.badfilename) {
+            modalDispatch({
+              type: actionsM.fireModal,
+              payload: {
+                msg: "Nome de ficheiro inválido:",
+                level: "warning",
+                link:
+                  "https://commons.wikimedia.org/wiki/File:" +
+                  data.upload.warnings.badfilename,
               },
             });
           }
         }
-        if (parsedResponse.upload.result === "Success") {
+        if (data.upload.result === "Success") {
           modalDispatch({
             type: actionsM.fireModal,
             payload: {
@@ -156,15 +149,15 @@ export default function UploadForm({ getTokenCSRF, remove }) {
               level: "success",
               link:
                 "https://commons.wikimedia.org/wiki/File:" +
-                parsedResponse.upload.filename,
+                data.upload.filename,
             },
           });
           remove("Y");
         }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+      }
+    } catch (error) {
+      alert(error);
+    }
   }
 
   return (
@@ -172,9 +165,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
       <Grid item xs={10}>
         <Button
           variant="contained"
-          onClick={() => {
-            getTokenCSRF("upload");
-          }}
+          onClick={upload}
           size="small"
           sx={{ m: 1 }}
           style={{ float: "right" }}
