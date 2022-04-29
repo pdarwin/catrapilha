@@ -41,13 +41,15 @@ export default function UploadForm({ getTokenCSRF, remove }) {
     }
   }
 
-  async function upload() {
-    await getTokenCSRF("upload");
-    console.log(dataState.tokenCSRF.token);
-    await getFile();
-    console.log(dataState.item.file);
+  const upload = async () => {
     try {
-      console.log("Upload: ", dataState.tokenCSRF.token);
+      console.log("upload");
+      const token = await getTokenCSRF();
+      console.log("token: ", token);
+
+      await getFile();
+      console.log(dataState.item.file);
+
       const uploadParams = new FormData();
       uploadParams.append("file", dataState.item.file, {
         knownLength: dataState.item.file.size,
@@ -59,7 +61,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
         setIgnoreWarnings(false);
       }
       uploadParams.append("comment", "Uploaded with Catrapilha 1.0");
-      uploadParams.append("token", dataState.tokenCSRF.token);
+      uploadParams.append("token", token);
 
       const res = await fetch("/comapi/w/api.php?action=upload&format=json", {
         method: "POST",
@@ -83,8 +85,6 @@ export default function UploadForm({ getTokenCSRF, remove }) {
         console.log(res);
         const data = await res.json();
 
-        console.log(data);
-        dataState.tokenCSRF.token = "";
         if (data.error) {
           modalDispatch({
             type: actionsM.fireModal,
@@ -143,7 +143,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
     } catch (error) {
       alert(error);
     }
-  }
+  };
 
   return (
     <Grid container>

@@ -14,9 +14,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useNavigate } from "react-router-dom";
 import configData from "../Config.json";
 import { useDataContext } from "../Reducers/DataContext";
+import { actionsD } from "../Reducers/DataReducer";
+import { useModalContext } from "../Reducers/ModalContext";
+import { actionsM } from "../Reducers/ModalReducer";
 
 export default function NavBar({ getData, getTokenCSRF }) {
   const { dataState, dataDispatch } = useDataContext();
+  const { modalState, modalDispatch } = useModalContext();
   const [user, setUser] = useState();
 
   const navigate = useNavigate();
@@ -45,7 +49,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
         "User-Agent": configData["User-Agent"],
       },
     })
-      .then((response) => {
+      .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           throw new Error("Erro:" + response.status);
@@ -53,14 +57,72 @@ export default function NavBar({ getData, getTokenCSRF }) {
         //console.log(response);
         return response.json();
       })
-      .then((parsedResponse) => {
+      .then(parsedResponse => {
         //console.log(parsedResponse);
         setUser(parsedResponse.query.userinfo.name);
       })
-      .catch((error) => {
+      .catch(error => {
         alert(error);
       });
   }
+
+  const sendData = async () => {
+    try {
+      const token = await getTokenCSRF();
+      console.log("token: ", token);
+
+      const uploadParams = new FormData();
+      uploadParams.append("title", "User:DarwIn/Catrapilha.data");
+      uploadParams.append("text", JSON.stringify(dataState.data));
+      uploadParams.append("summary", "Data updated (Catrapilha 1.0)");
+      uploadParams.append("token", token);
+
+      const res = await fetch("/comapi/w/api.php?action=edit&format=json", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + configData["Access token"],
+          "User-Agent": configData["User-Agent"],
+        },
+        body: uploadParams,
+      });
+
+      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg: res.status + ": " + res.statusText + "(sendData)",
+            level: "error",
+          },
+        });
+      } else {
+        const data = res.json();
+
+        if (data.error) {
+          modalDispatch({
+            type: actionsM.fireModal,
+            payload: {
+              msg: data.error.code + ": " + data.error.info,
+              level: "error",
+            },
+          });
+        }
+        if (data.edit.result === "Success") {
+          modalDispatch({
+            type: actionsM.fireModal,
+            payload: {
+              msg: "Dados remotos atualizados com sucesso",
+              level: "success",
+              link: "https://commons.wikimedia.org/wiki/User:DarwIn/Catrapilha.data",
+            },
+          });
+          getData();
+        }
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <ErrorBoundary
@@ -95,9 +157,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
-                onClick={() => {
-                  getData();
-                }}
+                onClick={getData}
                 sx={{ my: 2, color: "white", display: "block" }}
                 startIcon={<FileDownload />}
                 size="small"
@@ -105,9 +165,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
                 Puxar dados
               </Button>
               <Button
-                onClick={() => {
-                  getTokenCSRF("sendData");
-                }}
+                onClick={sendData}
                 sx={{ my: 2, color: "white", display: "block" }}
                 startIcon={<UploadFile />}
                 size="small"
@@ -134,7 +192,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
               {"Carregados: " +
                 (dataState.data !== null
                   ? dataState.data[0].Arquipelagos.filter(
-                      (element) => element.status === "Y"
+                      element => element.status === "Y"
                     ).length
                   : 0)}
             </Typography>

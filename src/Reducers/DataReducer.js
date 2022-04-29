@@ -1,7 +1,6 @@
 export const actionsD = {
   updateIData: "updateInitialData",
   updateData: "updateData",
-  updateToken: "updateToken",
   setCurrentId: "setCurrentId",
   updateItem: "updateItem",
   moveForward: "moveForward",
@@ -12,7 +11,6 @@ export const initialStateD = {
   data: null,
   initialCount: 0,
   rev: 0,
-  tokenCSRF: { token: "", action: "" },
   currentId: 0,
   forward: true,
   item: {
@@ -45,11 +43,6 @@ export const DataReducer = (state, action) => {
         ...state,
         data: action.payload,
       };
-    case actionsD.updateToken:
-      return {
-        ...state,
-        tokenCSRF: action.payload,
-      };
     case actionsD.setCurrentId:
       return {
         ...state,
@@ -69,7 +62,6 @@ export const DataReducer = (state, action) => {
           infoPanel: "",
           file: null,
         },
-        tokenCSRF: { token: "", action: "" },
       };
     case actionsD.updateItem:
       return {
@@ -95,7 +87,6 @@ export const DataReducer = (state, action) => {
           infoPanel: "",
           file: null,
         },
-        tokenCSRF: { token: "", action: "" },
         forward: true,
       };
     case actionsD.moveBack:
@@ -117,7 +108,6 @@ export const DataReducer = (state, action) => {
           infoPanel: "",
           file: null,
         },
-        tokenCSRF: { token: "", action: "" },
         forward: false,
       };
     default:

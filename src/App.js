@@ -28,120 +28,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("passou", dataState.tokenCSRF);
-    console.log(dataState.data);
-    if (dataState.tokenCSRF.action === "sendData") {
-      sendData();
-    }
-  }, [dataState.tokenCSRF]);
-
-  useEffect(() => {
     console.log("Dados alterados", dataState.data);
   }, [dataState.data]);
 
-  function getData() {
-    fetch(
-      "/comapi/w/api.php?action=parse&page=User:DarwIn/Catrapilha.data&format=json&prop=wikitext",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    )
-      .then(response => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg:
-                response.status +
-                ": " +
-                response.statusText +
-                " " +
-                response.url +
-                " (getData)",
-              level: "error",
-            },
-          });
-          return Promise.reject(response);
-        }
-        console.log(response);
-        return response.json();
-      })
-      .then(parsedResponse => {
-        console.log(parsedResponse);
-        dataDispatch({
-          type: actionsD.updateIData,
-          payload: JSON.parse(parsedResponse.parse.wikitext["*"]),
-        });
-      })
-      .catch(error => {
-        //não faz nada
-      });
-  }
-
-  function sendData() {
-    console.log("send", encodeURIComponent(dataState.tokenCSRF.token));
-
-    const uploadParams = new FormData();
-    uploadParams.append("title", "User:DarwIn/Catrapilha.data");
-    uploadParams.append("text", JSON.stringify(dataState.data));
-    uploadParams.append("summary", "Data updated (Catrapilha 1.0)");
-    uploadParams.append("token", dataState.tokenCSRF.token);
-
-    fetch("/comapi/w/api.php?action=edit&format=json", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + configData["Access token"],
-        "User-Agent": configData["User-Agent"],
-      },
-      body: uploadParams,
-    })
-      .then(response => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: response.status + ": " + response.statusText + "(sendData)",
-              level: "error",
-            },
-          });
-        }
-        //console.log(response);
-        return response.json();
-      })
-      .then(parsedResponse => {
-        console.log(parsedResponse);
-        if (parsedResponse.error) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: parsedResponse.error.code + ": " + parsedResponse.error.info,
-              level: "error",
-            },
-          });
-        }
-        if (parsedResponse.edit.result === "Success") {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: "Dados remotos atualizados com sucesso",
-              level: "success",
-              link: "https://commons.wikimedia.org/wiki/User:DarwIn/Catrapilha.data",
-            },
-          });
-          getData();
-        }
-      })
-      .catch(error => {
-        alert(error);
-      });
-  }
-
-  async function getTokenCSRF(action) {
+  async function getTokenCSRF() {
     try {
       const res = await fetch(
         "/comapi/w/api.php?action=query&format=json&meta=tokens",
@@ -164,22 +54,54 @@ function App() {
           },
         });
       } else {
-        //console.log(response);
         const data = await res.json();
 
-        console.log(data);
-        dataDispatch({
-          type: actionsD.updateToken,
-          payload: {
-            token: data.query.tokens.csrftoken,
-            action: action,
-          },
-        });
+        return data.query.tokens.csrftoken;
       }
     } catch (error) {
       alert(error);
     }
   }
+
+  const getData = async () => {
+    try {
+      const token = await getTokenCSRF();
+      console.log("token: ", token);
+
+      const res = await fetch(
+        "/comapi/w/api.php?action=parse&page=User:DarwIn/Catrapilha.data&format=json&prop=wikitext",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg:
+              res.status + ": " + res.statusText + " " + res.url + " (getData)",
+            level: "error",
+          },
+        });
+        return Promise.reject(res);
+      }
+
+      const data = await res.json();
+
+      dataDispatch({
+        type: actionsD.updateIData,
+        payload: JSON.parse(data.parse.wikitext["*"]),
+      });
+      return JSON.parse(data.parse.wikitext["*"]);
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <div className="App">
