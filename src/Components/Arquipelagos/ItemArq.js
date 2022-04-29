@@ -34,14 +34,14 @@ export default function ItemArq({ getTokenCSRF }) {
       //console.log("alterou currentId", dataState.currentId);
       if (
         dataState.data[0].Arquipelagos.filter(
-          (element) => element.id === dataState.currentId
+          element => element.id === dataState.currentId
         ).length === 0
       ) {
         setLoading(true);
 
         //Temporizador para não fazer DOS ao site (retorna 401)
         //console.log("data antes de ir buscar o getitem", dataState.data);
-        wait(1000, getItem);
+        wait(300, getItem);
       } else {
         dataDispatch({
           type: dataState.forward ? actionsD.moveForward : actionsD.moveBack,
@@ -60,13 +60,13 @@ export default function ItemArq({ getTokenCSRF }) {
         "User-Agent": configData["User-Agent"],
       },
     })
-      .then((response) => {
+      .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
         }
         return response.json();
       })
-      .then((parsedResponse) => {
+      .then(parsedResponse => {
         if (parsedResponse.data) {
           if (parsedResponse.data.status === 404) {
             remove("X");
@@ -103,7 +103,7 @@ export default function ItemArq({ getTokenCSRF }) {
           buildItem(parsedResponse);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert(error);
       });
   }
@@ -112,7 +112,7 @@ export default function ItemArq({ getTokenCSRF }) {
     console.log("data início builditem", dataState.data);
     console.log("entrou no buildItem", rawItem);
     fetch(rawItem.link.replace("https://www.arquipelagos.pt", "/arqapi"))
-      .then((response) => {
+      .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           modalDispatch({
@@ -127,7 +127,7 @@ export default function ItemArq({ getTokenCSRF }) {
         console.log("builditem responde", response);
         return response.text();
       })
-      .then((parsedResponse) => {
+      .then(parsedResponse => {
         try {
           const testImg = new RegExp(
             '(.*)(<img src="(.*?)" class="card-img mb-2")'
@@ -158,7 +158,7 @@ export default function ItemArq({ getTokenCSRF }) {
         }
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         //alert(error);
       });
   }
@@ -166,9 +166,8 @@ export default function ItemArq({ getTokenCSRF }) {
   function remove(type) {
     let tmp = dataState.data;
     if (
-      tmp[0].Arquipelagos.filter(
-        (element) => element.id === dataState.currentId
-      ).length === 0
+      tmp[0].Arquipelagos.filter(element => element.id === dataState.currentId)
+        .length === 0
     ) {
       tmp[0].Arquipelagos.push({
         id: dataState.currentId,
