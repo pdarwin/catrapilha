@@ -115,7 +115,7 @@ export default function ItemArqForm() {
           <TextField
             label=""
             value={dataState.item.filename}
-            onChange={(e) => {
+            onChange={e => {
               let item = dataState.item;
               item.filename = e.target.value;
               dataDispatch({
@@ -136,10 +136,10 @@ export default function ItemArqForm() {
         </Grid>
         <Grid item xs={4}>
           <Select
-            defaultValue="old"
+            defaultValue="PD-old-100-expired"
             value={dataState.item.license}
             label="Licença"
-            onChange={(e) => {
+            onChange={e => {
               let item = dataState.item;
               item.license = e.target.value;
               console.log("alterou licença", item);
@@ -150,9 +150,9 @@ export default function ItemArqForm() {
             }}
             style={{ height: 30 }}
           >
-            <MenuItem value="old">PD-old-100-expired</MenuItem>
+            <MenuItem value="PD-old-100-expired">PD-old-100-expired</MenuItem>
             <MenuItem value="Art">Art</MenuItem>
-            <MenuItem value="URAA">URAA</MenuItem>
+            <MenuItem value="PD-Portugal-URAA">URAA</MenuItem>
             <MenuItem value="">CC-BY-SA 4.0</MenuItem>
             <MenuItem value="textlogo">Textlogo</MenuItem>
           </Select>
@@ -169,7 +169,7 @@ export default function ItemArqForm() {
               multiline
               defaultValue=""
               value={dataState.item.infoPanel}
-              onChange={(e) => {
+              onChange={e => {
                 let item = dataState.item;
                 item.infoPanel = e.target.value;
                 dataDispatch({

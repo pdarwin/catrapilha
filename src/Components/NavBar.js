@@ -96,7 +96,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
           },
         });
       } else {
-        const data = res.json();
+        const data = await res.json();
 
         if (data.error) {
           modalDispatch({

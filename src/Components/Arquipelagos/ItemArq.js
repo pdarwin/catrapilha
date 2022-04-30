@@ -41,7 +41,7 @@ export default function ItemArq({ getTokenCSRF }) {
 
         //Temporizador para não fazer DOS ao site (retorna 401)
         //console.log("data antes de ir buscar o getitem", dataState.data);
-        wait(300, getItem);
+        wait(100, getItem);
       } else {
         dataDispatch({
           type: dataState.forward ? actionsD.moveForward : actionsD.moveBack,
