@@ -178,7 +178,10 @@ export default function ItemArq({ getTokenCSRF }) {
         payload: tmp,
       });
       dataDispatch({
-        type: dataState.forward ? actionsD.moveForward : actionsD.moveBack,
+        type:
+          !dataState.forward && dataState.currentId != dataState.firstId
+            ? actionsD.moveBack
+            : actionsD.moveForward,
       });
     }
   }
@@ -248,6 +251,7 @@ export default function ItemArq({ getTokenCSRF }) {
                 sx={{ m: 1 }}
                 style={{ float: "left" }}
                 startIcon={<ArrowBackIos />}
+                disabled={dataState.currentId == dataState.firstId}
               >
                 Anterior
               </Button>{" "}

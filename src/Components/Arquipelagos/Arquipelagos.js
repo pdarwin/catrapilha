@@ -273,6 +273,10 @@ export default function Arquipelagos() {
                     type: actionsD.setCurrentId,
                     payload: item.id,
                   });
+                  dataDispatch({
+                    type: actionsD.setFirstId,
+                    payload: item.id,
+                  });
                   navigate("/item/");
                 }}
                 style={{ cursor: "pointer" }}

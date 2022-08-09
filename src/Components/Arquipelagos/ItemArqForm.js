@@ -109,7 +109,7 @@ export default function ItemArqForm() {
     });
   }
 
-  function buildFilename() {
+  function buildFilename2() {
     let item = dataState.item;
     item.filename =
       item.description
@@ -120,10 +120,27 @@ export default function ItemArqForm() {
         .replace(".", "")
         .trim() +
       " - " +
-      dataState.date +
+      (dataState.date ? dataState.date : item.date) +
       " - Image " +
       item.id +
       ".jpg";
+    dataDispatch({
+      type: actionsD.updateItem,
+      payload: item,
+    });
+  }
+
+  function buildFilename1() {
+    let item = dataState.item;
+    let testFilename = new RegExp('<h5 class="card-title">(.*?)</h5>');
+
+    let filename = testFilename
+      .exec(dataState.item.linkhtml)[1]
+      .replace(", ilha da Madeira", "")
+      .replace(".", "")
+      .trim();
+
+    item.filename = filename + " - Image " + item.id + ".jpg";
     dataDispatch({
       type: actionsD.updateItem,
       payload: item,
@@ -166,12 +183,24 @@ export default function ItemArqForm() {
               <Button
                 variant="contained"
                 onClick={() => {
-                  buildFilename();
+                  buildFilename1();
                 }}
                 size="small"
                 style={{ float: "right" }}
               >
-                Gerar
+                Gerar 1
+              </Button>
+            </Grid>
+            <Grid item xs={2}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  buildFilename2();
+                }}
+                size="small"
+                style={{ float: "right" }}
+              >
+                Gerar 2
               </Button>
             </Grid>
           </Grid>
@@ -246,12 +275,12 @@ export default function ItemArqForm() {
             }}
             style={{
               backgroundColor: "white",
-              height: 150,
               width: 400,
             }}
             type="text"
             sx={{ mx: 2 }}
             variant="filled"
+            maxRows={4}
           />
         </Grid>
         <Grid item xs={12}>
