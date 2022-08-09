@@ -1,4 +1,11 @@
-import { Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect } from "react";
 import { useDataContext } from "../../Reducers/DataContext";
 import { ErrorBoundary } from "react-error-boundary";
@@ -9,14 +16,12 @@ export default function ItemArqForm() {
 
   useEffect(() => {
     if (dataState.item.id !== undefined && dataState.item.id !== 0) {
-      console.log("data entrando no form item", dataState.item.id);
       buildInfo();
     }
   }, [dataState.item]);
 
   useEffect(() => {
     if (dataState.item.id !== undefined && dataState.item.id !== 0) {
-      console.log("data entrando no form item", dataState.item.id);
       buildInfo();
     }
   }, [dataState.item.license]);
@@ -86,17 +91,39 @@ export default function ItemArqForm() {
       "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
       item.description +
       "}}\n|date=" +
-      item.date +
+      (dataState.date == "" ? item.date : dataState.date) +
       "\n|source={{SourceArquipelagos|" +
       item.link +
       "}}\n|author=" +
       item.author +
       "\n|permission=\n|other versions=\n}}\n\n" +
       "=={{int:license-header}}==\n{{Arquipelagos license|" +
-      item.license +
-      "}}" +
-      "\n\n[[Category:Uploaded with Catrapilha]]";
+      (dataState.license == "CC-BY-SA 4.0" ? "" : dataState.license) +
+      "}}\n\n" +
+      "[[Category:Uploaded with Catrapilha]]\n" +
+      dataState.categories;
 
+    dataDispatch({
+      type: actionsD.updateItem,
+      payload: item,
+    });
+  }
+
+  function buildFilename() {
+    let item = dataState.item;
+    item.filename =
+      item.description
+        .substring(
+          item.description.indexOf("'''") + 3,
+          item.description.indexOf("'''", item.description.indexOf("'''") + 3)
+        )
+        .replace(".", "")
+        .trim() +
+      " - " +
+      dataState.date +
+      " - Image " +
+      item.id +
+      ".jpg";
     dataDispatch({
       type: actionsD.updateItem,
       payload: item,
@@ -111,56 +138,121 @@ export default function ItemArqForm() {
       }}
     >
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
+          <Grid container>
+            <Grid item xs={6}>
+              <TextField
+                value={dataState.item.filename}
+                onChange={e => {
+                  let item = dataState.item;
+                  item.filename = e.target.value;
+                  dataDispatch({
+                    type: actionsD.updateItem,
+                    payload: item,
+                  });
+                }}
+                style={{
+                  backgroundColor: "white",
+                  height: 40,
+                  width: 600,
+                }}
+                type="text"
+                required
+                sx={{ mx: 2 }}
+                variant="filled"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  buildFilename();
+                }}
+                size="small"
+                style={{ float: "right" }}
+              >
+                Gerar
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={2}>
+              <Select
+                value={dataState.license}
+                label="Licença"
+                onChange={e => {
+                  dataState.license = e.target.value;
+                  dataDispatch({
+                    type: actionsD.updateLicense,
+                    payload: dataState.license,
+                  });
+                  buildInfo();
+                }}
+                style={{ height: 30 }}
+                sx={{ mx: 2 }}
+              >
+                <MenuItem value="PD-old-100-expired">
+                  PD-old-100-expired
+                </MenuItem>
+                <MenuItem value="Art">Art</MenuItem>
+                <MenuItem value="PD-Portugal-URAA">URAA</MenuItem>
+                <MenuItem value="CC-BY-SA 4.0">CC-BY-SA 4.0</MenuItem>
+                <MenuItem value="textlogo">Textlogo</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={1}>
+              <Typography variant="body2" style={{ float: "right" }}>
+                Data:
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                value={dataState.date}
+                onChange={e => {
+                  dataState.date = e.target.value;
+                  dataDispatch({
+                    type: actionsD.updateDate,
+                    payload: dataState.date,
+                  });
+                  buildInfo();
+                }}
+                style={{
+                  backgroundColor: "white",
+                }}
+                type="text"
+                sx={{ mx: 2 }}
+                variant="filled"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant="body1" style={{ float: "right" }}>
+                ID: {dataState.item.id}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={4}>
           <TextField
-            label=""
-            value={dataState.item.filename}
+            label="Categorias"
+            multiline
+            value={dataState.categories}
             onChange={e => {
-              let item = dataState.item;
-              item.filename = e.target.value;
+              dataState.categories = e.target.value;
               dataDispatch({
-                type: actionsD.updateItem,
-                payload: item,
+                type: actionsD.updateCategories,
+                payload: dataState.categories,
               });
+              buildInfo();
             }}
             style={{
               backgroundColor: "white",
-              height: 40,
-              width: 600,
+              height: 150,
+              width: 400,
             }}
             type="text"
-            required
             sx={{ mx: 2 }}
             variant="filled"
           />
-        </Grid>
-        <Grid item xs={4}>
-          <Select
-            defaultValue="PD-old-100-expired"
-            value={dataState.item.license}
-            label="Licença"
-            onChange={e => {
-              let item = dataState.item;
-              item.license = e.target.value;
-              console.log("alterou licença", item);
-              dataDispatch({
-                type: actionsD.updateItem,
-                payload: item,
-              });
-            }}
-            style={{ height: 30 }}
-          >
-            <MenuItem value="PD-old-100-expired">PD-old-100-expired</MenuItem>
-            <MenuItem value="Art">Art</MenuItem>
-            <MenuItem value="PD-Portugal-URAA">URAA</MenuItem>
-            <MenuItem value="">CC-BY-SA 4.0</MenuItem>
-            <MenuItem value="textlogo">Textlogo</MenuItem>
-          </Select>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="body1" style={{ float: "right" }}>
-            ID: {dataState.item.id}
-          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Grid item xs={12}>

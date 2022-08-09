@@ -5,6 +5,9 @@ export const actionsD = {
   updateItem: "updateItem",
   moveForward: "moveForward",
   moveBack: "moveBack",
+  updateCategories: "updateCategories",
+  updateDate: "updateDate",
+  updateLicense: "updateLicense",
 };
 
 export const initialStateD = {
@@ -13,6 +16,9 @@ export const initialStateD = {
   rev: 0,
   currentId: 0,
   forward: true,
+  categories: "",
+  license: "PD-old-100-expired",
+  date: "",
   item: {
     id: 0,
     title: "",
@@ -24,7 +30,6 @@ export const initialStateD = {
     description: "",
     author: "",
     date: "",
-    license: "PD-old-100-expired",
     infoPanel: "",
     file: null,
   },
@@ -58,7 +63,6 @@ export const DataReducer = (state, action) => {
           description: "",
           author: "",
           date: "",
-          license: "PD-old-100-expired",
           infoPanel: "",
           file: null,
         },
@@ -67,6 +71,21 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         item: action.payload,
+      };
+    case actionsD.updateLicense:
+      return {
+        ...state,
+        license: action.payload,
+      };
+    case actionsD.updateCategories:
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case actionsD.updateDate:
+      return {
+        ...state,
+        date: action.payload,
       };
     case actionsD.moveForward:
       return {
@@ -83,7 +102,6 @@ export const DataReducer = (state, action) => {
           description: "",
           author: "",
           date: "",
-          license: "PD-old-100-expired",
           infoPanel: "",
           file: null,
         },
@@ -104,7 +122,6 @@ export const DataReducer = (state, action) => {
           description: "",
           author: "",
           date: "",
-          license: "PD-old-100-expired",
           infoPanel: "",
           file: null,
         },
