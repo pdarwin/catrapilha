@@ -25,4 +25,16 @@ module.exports = function (app) {
       },
     })
   );
+  app.use(
+    createProxyMiddleware("/flickrapi", {
+      target: "https://www.flickr.com/",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/flickrapi": "",
+      },
+      onProxyReq: function (request) {
+        request.setHeader("origin", "https://www.flickr.com/");
+      },
+    })
+  );
 };

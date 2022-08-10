@@ -9,6 +9,7 @@ import { ModalReducer, initialStateM, actionsM } from "./Reducers/ModalReducer";
 import { actionsD, DataReducer, initialStateD } from "./Reducers/DataReducer";
 import DataContext from "./Reducers/DataContext";
 import ModalContext from "./Reducers/ModalContext";
+import Flickr from "./Components/Flickr/Flickr";
 
 function App() {
   const [modalState, modalDispatch] = useReducer(ModalReducer, initialStateM);
@@ -111,11 +112,12 @@ function App() {
           <BrowserRouter>
             <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
             <Routes>
-              <Route path="/" element={<Arquipelagos />}></Route>
+              <Route path="/Arq" element={<Arquipelagos />}></Route>
               <Route
                 path="/item"
                 element={<ItemArq getTokenCSRF={getTokenCSRF} />}
               ></Route>
+              <Route path="/Flickr" element={<Flickr />}></Route>
             </Routes>
           </BrowserRouter>
         </DataContext.Provider>

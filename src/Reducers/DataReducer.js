@@ -1,4 +1,5 @@
 export const actionsD = {
+  changeProject: "changeProject",
   moveBack: "moveBack",
   moveForward: "moveForward",
   updateIData: "updateInitialData",
@@ -12,6 +13,7 @@ export const actionsD = {
 };
 
 export const initialStateD = {
+  project: "Arq",
   data: null,
   initialCount: 0,
   rev: 0,
@@ -39,25 +41,10 @@ export const initialStateD = {
 
 export const DataReducer = (state, action) => {
   switch (action.type) {
-    case actionsD.moveForward:
+    case actionsD.changeProject:
       return {
         ...state,
-        currentId: state.currentId - 1,
-        item: {
-          id: 0,
-          title: "",
-          filename: "",
-          link: "",
-          linkhtml: "",
-          imagelink: "",
-          content: "",
-          description: "",
-          author: "",
-          date: "",
-          infoPanel: "",
-          file: null,
-        },
-        forward: true,
+        project: action.payload,
       };
     case actionsD.moveBack:
       return {
@@ -78,6 +65,26 @@ export const DataReducer = (state, action) => {
           file: null,
         },
         forward: false,
+      };
+    case actionsD.moveForward:
+      return {
+        ...state,
+        currentId: state.currentId - 1,
+        item: {
+          id: 0,
+          title: "",
+          filename: "",
+          link: "",
+          linkhtml: "",
+          imagelink: "",
+          content: "",
+          description: "",
+          author: "",
+          date: "",
+          infoPanel: "",
+          file: null,
+        },
+        forward: true,
       };
     case actionsD.updateIData:
       return {

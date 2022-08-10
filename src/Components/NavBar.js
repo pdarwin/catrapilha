@@ -142,7 +142,8 @@ export default function NavBar({ getData, getTokenCSRF }) {
             >
               <IconButton
                 onClick={() => {
-                  navigate("/");
+                  let project = dataState.project == "Arq" ? "/Arq" : "/Flickr";
+                  navigate(project);
                 }}
                 sx={{ p: 0 }}
                 style={{ color: "white" }}
@@ -173,6 +174,21 @@ export default function NavBar({ getData, getTokenCSRF }) {
                 Enviar dados
               </Button>
             </Box>
+            <Button
+              // Mudar de projecto
+              onClick={() => {
+                dataDispatch({
+                  type: actionsD.changeProject,
+                  payload: dataState.project == "Arq" ? "Flickr" : "Arq",
+                });
+                let project = dataState.project == "Arq" ? "/Arq" : "/Flickr";
+                navigate(project);
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+              size="small"
+            >
+              {dataState.project == "Arq" ? "Arquipélagos" : "Flickr"}
+            </Button>
             <Typography style={{ float: "left", color: "white" }} mx={2}>
               {dataState.currentId === 0 ? "" : "Item: " + dataState.currentId}
             </Typography>
