@@ -115,22 +115,21 @@ export default function Arquipelagos() {
   }, [state.items]);
 
   useEffect(() => {
-    console.log("useeffect listitems ", state.listItems);
+    //console.log("useeffect listitems ", state.listItems);
     // if (
     //   state.nListItems > 0 &&
     //   state.items &&
     //   state.nListItems < state.items.length
     // ) {
-
     // }
-    console.log("x", state.listItems);
+    //console.log("x", state.listItems);
   }, [state.nListItems]);
 
   async function getItems(page) {
     console.log("puxando items da página ", page);
     try {
       const res = await fetch(
-        "flickrapi/services/rest/?method=flickr.people.getPhotos&api_key=9e7c1582f5fcd7d4875c33e10e53cfb7&user_id=liferfe&format=json&nojsoncallback=1",
+        "flickrapi/services/rest/?method=flickr.people.getPhotos&api_key=9e7c1582f5fcd7d4875c33e10e53cfb7&user_id=liferfe&per_page=20&format=json&nojsoncallback=1",
         {
           headers: {
             "Content-type": "application/json",

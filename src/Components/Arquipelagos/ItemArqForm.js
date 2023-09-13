@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Grid,
@@ -27,78 +28,28 @@ export default function ItemArqForm() {
   }, [dataState.item.license]);
 
   function buildInfo() {
-    console.log("buildInfo1", dataState.item);
     const item = dataState.item;
 
-    try {
-      item.description = item.description
-        .replace(/<p (.*?)>/gi, "<p>")
-        .replace(/<br \/>\n<\/strong>/gi, "</strong><br />\n")
-        .replace(/<b>(.*?)<\/b>/gi, "'''$1'''")
-        .replace(/<strong>(.*?)<\/strong>/gi, "'''$1'''")
-        .replace(/<a class="normalBlackFont1".*>(.*?)<\/a>/gi, "$1")
-        .replace(/<a name.*?>(.*?)<\/a>/gi, "$1")
-        .replace(/<em>(.*?)<\/em>/gi, "''$1''")
-        .replace(/<i>(.*?)<\/i>/gi, "''$1''")
-        .replace(/&#8211;/gi, "–")
-        .replace(/&#8216;/gi, "‘")
-        .replace(/&#8217;/gi, "’")
-        .replace(/&#8220;/gi, "“")
-        .replace(/&#8221;/gi, "”")
-        .replace(/&#8230;/gi, "…")
-        .replace(/<span .*?>(.*?)<\/span>/gi, "$1")
-        .replace(/<span .*?>/gi, "")
-        .replace(/<\/span>/gi, "");
-    } catch (error) {
-      alert(error);
-    }
-    const testDate = new RegExp(
-      ".*Data " +
-        (true ? "da Peça" : "de Publicação") +
-        '.*?text-left"\\s?>(.*?)(</div>)',
-      "s"
-    );
+    item.description = buildDescription(item.description);
 
-    let dateTmp = testDate.exec(dataState.item.linkhtml)[1];
-    if (dateTmp.includes("-00-00")) {
-      dateTmp = dateTmp.replace("-00-00", "").replace(" 00:00:00", "");
-      dateTmp = dateTmp.replace(dateTmp, "{{circa|" + dateTmp + "}}");
-    }
-    item.date = dateTmp;
+    item.date = buildDate(dataState.item.linkhtml);
 
-    let testAutor = new RegExp(
-      '.*Autor da Imagem:.*?text-left">(.*?)(</div>)',
-      "s"
-    );
-    if (
-      testAutor.exec(dataState.item.linkhtml)[1] === "José Lemos Silva" ||
-      testAutor.exec(dataState.item.linkhtml)[1] === "Rui Carita" ||
-      testAutor.exec(dataState.item.linkhtml)[1] === "Virgílio Gomes"
-    ) {
-      item.license = "";
-    } else {
-      testAutor = new RegExp(
-        ".*Autor" +
-          (false ? " da Imagem" : "") +
-          ':.*?text-left">(.*?)(</div>)',
-        "s"
-      );
-    }
-    item.author = testAutor.exec(dataState.item.linkhtml)[1];
+    item.author = buildAuthor(dataState.item.linkhtml);
 
-    console.log("antes do Infopanel", dataState.item);
+    item.license = getLicense(item.author, item.date);
+
     item.infoPanel =
       "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
       item.description +
       "}}\n|date=" +
-      (dataState.date == "" ? item.date : dataState.date) +
+      (dataState.date === "" ? item.date : dataState.date) +
       "\n|source={{SourceArquipelagos|" +
       item.link +
       "}}\n|author=" +
       item.author +
       "\n|permission=\n|other versions=\n}}\n\n" +
       "=={{int:license-header}}==\n{{Arquipelagos license|" +
-      (dataState.license == "CC-BY-SA 4.0" ? "" : dataState.license) +
+      (item.license === "CC-BY-SA 4.0" ? "" : dataState.license) +
       "}}\n\n" +
       "[[Category:Uploaded with Catrapilha]]\n" +
       dataState.categories;
@@ -108,6 +59,99 @@ export default function ItemArqForm() {
       payload: item,
     });
   }
+
+  const buildDescription = description => {
+    return description
+      .replace(/<p (.*?)>/gi, "<p>")
+      .replace(/<br \/>\n<\/strong>/gi, "</strong><br />\n")
+      .replace(/<b>(.*?)<\/b>/gi, "'''$1'''")
+      .replace(/<strong>(.*?)<\/strong>/gi, "'''$1'''")
+      .replace(/<a class="normalBlackFont1".*>(.*?)<\/a>/gi, "$1")
+      .replace(/<a name.*?>(.*?)<\/a>/gi, "$1")
+      .replace(/<em>(.*?)<\/em>/gi, "''$1''")
+      .replace(/<i>(.*?)<\/i>/gi, "''$1''")
+      .replace(/&#8211;/gi, "–")
+      .replace(/&#8216;/gi, "‘")
+      .replace(/&#8217;/gi, "’")
+      .replace(/&#8220;/gi, "“")
+      .replace(/&#8221;/gi, "”")
+      .replace(/&#8230;/gi, "…")
+      .replace(/<span .*?>(.*?)<\/span>/gi, "$1")
+      .replace(/<span .*?>/gi, "")
+      .replace(/<\/span>/gi, "")
+      .replace("''' '''", " ");
+  };
+
+  const buildAuthor = linkhtml => {
+    // Define a regular expression pattern to extract the author
+    const authorPattern = /.*Autor da Imagem:.*?text-left">(.*?)(<\/div>)/s;
+
+    // Try to extract the author using the pattern
+    const authorMatch = authorPattern.exec(linkhtml);
+
+    if (authorMatch && authorMatch.length >= 2) {
+      let author = authorMatch[1];
+
+      if (
+        author === "José Lemos Silva" ||
+        author === "Rui Carita" ||
+        author === "Virgílio Gomes" ||
+        author === "Perestrellos Photographos"
+      ) {
+        return "{{creator:" + author + "}}";
+      } else {
+        return author;
+      }
+    } else {
+      // Return a default value or handle the case where the author is not found
+      return "Unknown Author";
+    }
+  };
+
+  const buildDate = linkhtml => {
+    // Define a regular expression pattern to extract the date
+    const datePattern = new RegExp(
+      ".*Data " +
+        (true ? "da Peça" : "de Publicação") +
+        '.*?text-left"\\s?>(.*?)(</div>)',
+      "s"
+    );
+
+    // Try to extract the date using the pattern
+    const dateMatch = datePattern.exec(linkhtml);
+
+    if (dateMatch && dateMatch.length >= 2) {
+      let date = dateMatch[1];
+
+      if (date.includes("-00-00")) {
+        date = date.replace("-00-00", "").replace(" 00:00:00", "");
+        // date = date.replace(date, "{{circa|" + date + "}}");
+      }
+
+      return date;
+    } else {
+      // Return a default value or handle the case where the date is not found
+      return "Unknown Date";
+    }
+  };
+
+  const getLicense = (author, date) => {
+    const currentYear = new Date().getFullYear();
+    const authorIsKnown =
+      author === "{{creator:José Lemos Silva}}" ||
+      author === "{{creator:Rui Carita}}" ||
+      author === "{{creator:Virgílio Gomes}}";
+
+    const dateYear = parseInt(date.substring(0, 4), 10);
+
+    if (authorIsKnown) {
+      return "CC-BY-SA 4.0";
+    } else if (currentYear - dateYear < 100) {
+      return "URAA";
+    } else {
+      return "PD-old-100-expired";
+    }
+  };
 
   function buildFilename2() {
     let item = dataState.item;
@@ -288,7 +332,6 @@ export default function ItemArqForm() {
             <TextField
               label="Painel informativo"
               multiline
-              defaultValue=""
               value={dataState.item.infoPanel}
               onChange={e => {
                 let item = dataState.item;

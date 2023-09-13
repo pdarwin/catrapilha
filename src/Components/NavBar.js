@@ -1,3 +1,4 @@
+import React from "react";
 import { FileDownload, UploadFile } from "@mui/icons-material";
 import {
   AppBar,
@@ -14,9 +15,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useNavigate } from "react-router-dom";
 import configData from "../Config.json";
 import { useDataContext } from "../Reducers/DataContext";
-import { actionsD } from "../Reducers/DataReducer";
 import { useModalContext } from "../Reducers/ModalContext";
 import { actionsM } from "../Reducers/ModalReducer";
+import catrapilha from "../Resources/catrapilha.png";
 
 export default function NavBar({ getData, getTokenCSRF }) {
   const { dataState, dataDispatch } = useDataContext();
@@ -26,15 +27,13 @@ export default function NavBar({ getData, getTokenCSRF }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    //console.log("data antes do getuser", dataState.data);
     getUser();
   }, []);
 
   useEffect(() => {
-    //console.log("data navbar", dataState.data);
     if (
       dataState.data !== null &&
-      dataState.data[0].Arquipelagos.length - dataState.initialCounter === 50
+      dataState.data.Arquipelagos.length - dataState.initialCounter === 50
     ) {
       console.log("Autosave");
       //getFile();
@@ -54,11 +53,9 @@ export default function NavBar({ getData, getTokenCSRF }) {
         if (response.status !== 200) {
           throw new Error("Erro:" + response.status);
         }
-        //console.log(response);
         return response.json();
       })
       .then(parsedResponse => {
-        //console.log(parsedResponse);
         setUser(parsedResponse.query.userinfo.name);
       })
       .catch(error => {
@@ -69,8 +66,6 @@ export default function NavBar({ getData, getTokenCSRF }) {
   const sendData = async () => {
     try {
       const token = await getTokenCSRF();
-      console.log("token: ", token);
-
       const uploadParams = new FormData();
       uploadParams.append("title", "User:DarwIn/Catrapilha.data");
       uploadParams.append("text", JSON.stringify(dataState.data));
@@ -142,18 +137,15 @@ export default function NavBar({ getData, getTokenCSRF }) {
             >
               <IconButton
                 onClick={() => {
-                  let project = dataState.project == "Arq" ? "/Arq" : "/Flickr";
+                  let project =
+                    dataState.project == "Arq" ? "/Arquipelagos" : "/Flickr";
                   navigate(project);
                 }}
                 sx={{ p: 0 }}
                 style={{ color: "white" }}
               >
-                <Avatar
-                  alt="Catrapilha"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Bulldozer-svgrepo-com-white.svg/240px-Bulldozer-svgrepo-com-white.svg.png"
-                  sx={{ p: 1 }}
-                />
-                Catrapilha 1.0
+                <Avatar alt="Catrapilha" src={catrapilha} sx={{ p: 1 }} />
+                Catrapilha 1.1
               </IconButton>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -176,18 +168,19 @@ export default function NavBar({ getData, getTokenCSRF }) {
             </Box>
             <Button
               // Mudar de projecto
-              onClick={() => {
-                dataDispatch({
-                  type: actionsD.changeProject,
-                  payload: dataState.project == "Arq" ? "Flickr" : "Arq",
-                });
-                let project = dataState.project == "Arq" ? "/Arq" : "/Flickr";
-                navigate(project);
-              }}
+              // onClick={() => {
+              //   dataDispatch({
+              //     type: actionsD.changeProject,
+              //     payload: dataState.project == "Arq" ? "Flickr" : "Arq"
+              //   });
+              //   let project =
+              //     dataState.project == "Arq" ? "/Arquipelagos" : "/Flickr";
+              //   navigate(project);
+              // }}
               sx={{ my: 2, color: "white", display: "block" }}
               size="small"
             >
-              {dataState.project == "Arq" ? "Arquipélagos" : "Flickr"}
+              {dataState.project === "Arq" ? "Arquipélagos" : "Flickr"}
             </Button>
             <Typography style={{ float: "left", color: "white" }} mx={2}>
               {dataState.currentId === 0 ? "" : "Item: " + dataState.currentId}
@@ -195,19 +188,18 @@ export default function NavBar({ getData, getTokenCSRF }) {
             <Typography style={{ float: "left", color: "white" }} mx={2}>
               {"Processados: " +
                 (dataState.data !== null
-                  ? dataState.data[0].Arquipelagos.length
+                  ? dataState.data.Arquipelagos.length
                   : 0) +
                 " (" +
                 (dataState.data !== null
-                  ? dataState.data[0].Arquipelagos.length -
-                    dataState.initialCount
+                  ? dataState.data.Arquipelagos.length - dataState.initialCount
                   : 0) +
                 " novos)"}
             </Typography>
             <Typography style={{ float: "left", color: "white" }} mx={2}>
               {"Carregados: " +
                 (dataState.data !== null
-                  ? dataState.data[0].Arquipelagos.filter(
+                  ? dataState.data.Arquipelagos.filter(
                       element => element.status === "Y"
                     ).length
                   : 0)}

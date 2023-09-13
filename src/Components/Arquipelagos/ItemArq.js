@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,30 +19,22 @@ import { ErrorBoundary } from "react-error-boundary";
 
 export default function ItemArq({ getTokenCSRF }) {
   const [loading, setLoading] = useState(false);
-  const { modalState, modalDispatch } = useModalContext();
+  const { modalDispatch } = useModalContext();
   const { dataState, dataDispatch } = useDataContext();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    //console.log("data inicio item arq", dataState.data);
-    console.log("início", dataState.tokenCSRF);
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log("current ID", dataState.item);
     if (dataState.currentId !== 0) {
-      //console.log("alterou currentId", dataState.currentId);
       if (
-        dataState.data[0].Arquipelagos.filter(
+        dataState.data.Arquipelagos.filter(
           element => element.id === dataState.currentId
         ).length === 0
       ) {
         setLoading(true);
-
-        //Temporizador para não fazer DOS ao site (retorna 401)
-        //console.log("data antes de ir buscar o getitem", dataState.data);
-        wait(100, getItem);
+        getItem();
       } else {
         dataDispatch({
           type: dataState.forward ? actionsD.moveForward : actionsD.moveBack,
@@ -63,6 +56,13 @@ export default function ItemArq({ getTokenCSRF }) {
       .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
+          console.log(response);
+        }
+        if (
+          !response.ok ||
+          !response.headers.get("Content-Type").startsWith("application/json")
+        ) {
+          throw new Error("The response is not JSON");
         }
         return response.json();
       })
@@ -109,8 +109,6 @@ export default function ItemArq({ getTokenCSRF }) {
   }
 
   function buildItem(rawItem) {
-    console.log("data início builditem", dataState.data);
-    console.log("entrou no buildItem", rawItem);
     fetch(rawItem.link.replace("https://www.arquipelagos.pt", "/arqapi"))
       .then(response => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -124,7 +122,6 @@ export default function ItemArq({ getTokenCSRF }) {
           });
           return Promise.reject(response);
         }
-        console.log("builditem responde", response);
         return response.text();
       })
       .then(parsedResponse => {
@@ -151,35 +148,41 @@ export default function ItemArq({ getTokenCSRF }) {
             type: actionsD.updateItem,
             payload: item,
           });
-          console.log("Completou buildItem");
-          //console.log("data fim do BuildItem", dataState.data);
         } catch (error) {
           alert(error);
         }
         setLoading(false);
-      })
-      .catch(error => {
-        //alert(error);
       });
   }
 
   function remove(type) {
     let tmp = dataState.data;
     if (
-      tmp[0].Arquipelagos.filter(element => element.id === dataState.currentId)
+      tmp.Arquipelagos.filter(element => element.id === dataState.currentId)
         .length === 0
     ) {
-      tmp[0].Arquipelagos.push({
+      tmp.Arquipelagos.push({
         id: dataState.currentId,
         status: type,
       });
+      const filteredItems = dataState.items.filter(
+        item => item.id !== dataState.currentId
+      );
       dataDispatch({
         type: actionsD.updateData,
         payload: tmp,
       });
       dataDispatch({
+        type: actionsD.updateItems,
+        payload: filteredItems,
+      });
+      dataDispatch({
+        type: actionsD.setFirstId,
+        payload: filteredItems[0].id,
+      });
+      dataDispatch({
         type:
-          !dataState.forward && dataState.currentId != dataState.firstId
+          !dataState.forward && dataState.currentId !== dataState.firstId
             ? actionsD.moveBack
             : actionsD.moveForward,
       });
@@ -251,7 +254,7 @@ export default function ItemArq({ getTokenCSRF }) {
                 sx={{ m: 1 }}
                 style={{ float: "left" }}
                 startIcon={<ArrowBackIos />}
-                disabled={dataState.currentId == dataState.firstId}
+                disabled={dataState.currentId === dataState.firstId}
               >
                 Anterior
               </Button>{" "}

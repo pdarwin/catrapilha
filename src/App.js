@@ -1,5 +1,6 @@
+import React from "react";
 import Arquipelagos from "./Components/Arquipelagos/Arquipelagos";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ItemArq from "./Components/Arquipelagos/ItemArq";
 import MyModal from "./Components/MyModal";
@@ -9,7 +10,7 @@ import { ModalReducer, initialStateM, actionsM } from "./Reducers/ModalReducer";
 import { actionsD, DataReducer, initialStateD } from "./Reducers/DataReducer";
 import DataContext from "./Reducers/DataContext";
 import ModalContext from "./Reducers/ModalContext";
-import Flickr from "./Components/Flickr/Flickr";
+//import Flickr from "./Components/Flickr/Flickr";
 
 function App() {
   const [modalState, modalDispatch] = useReducer(ModalReducer, initialStateM);
@@ -27,10 +28,6 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
-
-  useEffect(() => {
-    console.log("Dados alterados", dataState.data);
-  }, [dataState.data]);
 
   async function getTokenCSRF() {
     try {
@@ -66,8 +63,7 @@ function App() {
 
   const getData = async () => {
     try {
-      const token = await getTokenCSRF();
-      console.log("token: ", token);
+      await getTokenCSRF();
 
       const res = await fetch(
         "/comapi/w/api.php?action=parse&page=User:DarwIn/Catrapilha.data&format=json&prop=wikitext",
@@ -112,12 +108,19 @@ function App() {
           <BrowserRouter>
             <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
             <Routes>
-              <Route path="/Arq" element={<Arquipelagos />}></Route>
+              <Route
+                path="/"
+                element={<Arquipelagos getData={getData} />}
+              ></Route>
+              <Route
+                path="/Arquipelagos"
+                element={<Arquipelagos getData={getData} />}
+              ></Route>
               <Route
                 path="/item"
                 element={<ItemArq getTokenCSRF={getTokenCSRF} />}
               ></Route>
-              <Route path="/Flickr" element={<Flickr />}></Route>
+              {/* <Route path="/Flickr" element={<Flickr />}></Route> */}
             </Routes>
           </BrowserRouter>
         </DataContext.Provider>

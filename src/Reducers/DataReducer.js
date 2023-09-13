@@ -4,6 +4,7 @@ export const actionsD = {
   moveForward: "moveForward",
   updateIData: "updateInitialData",
   updateData: "updateData",
+  updateItems: "updateItems",
   setCurrentId: "setCurrentId",
   setFirstId: "setFirstId",
   updateItem: "updateItem",
@@ -49,7 +50,10 @@ export const DataReducer = (state, action) => {
     case actionsD.moveBack:
       return {
         ...state,
-        currentId: state.currentId + 1,
+        currentId:
+          state.items[
+            state.items.findIndex(elem => elem.id === state.currentId) - 1
+          ].id,
         item: {
           id: 0,
           title: "",
@@ -69,7 +73,10 @@ export const DataReducer = (state, action) => {
     case actionsD.moveForward:
       return {
         ...state,
-        currentId: state.currentId - 1,
+        currentId:
+          state.items[
+            state.items.findIndex(elem => elem.id === state.currentId) + 1
+          ].id,
         item: {
           id: 0,
           title: "",
@@ -90,12 +97,17 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         data: action.payload,
-        initialCount: action.payload[0].Arquipelagos.length,
+        initialCount: action.payload.Arquipelagos.length,
       };
     case actionsD.updateData:
       return {
         ...state,
         data: action.payload,
+      };
+    case actionsD.updateItems:
+      return {
+        ...state,
+        items: action.payload,
       };
     case actionsD.setCurrentId:
       return {

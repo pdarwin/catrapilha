@@ -1,59 +1,35 @@
-import { FirstPage, NavigateBefore, NavigateNext } from "@mui/icons-material";
+import React from "react";
 import {
   Box,
-  Button,
-  Grid,
   ImageList,
   ImageListItem,
   ImageListItemBar,
   LinearProgress,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { indigo } from "@mui/material/colors";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import configData from "../../Config.json";
 import { useDataContext } from "../../Reducers/DataContext";
-import { useModalContext } from "../../Reducers/ModalContext";
-import { actionsM } from "../../Reducers/ModalReducer";
 import { actionsD } from "../../Reducers/DataReducer";
 
 const initialState = {
-  items: null,
   listItems: null,
-  tmpItems: null,
   loading: false,
   nListItems: 0,
 };
 
 const actions = {
-  addTmpItems: "addTmpItems",
-  updateItems: "updateItems",
-  addListItem: "addListItem",
+  updateNListItems: "updateNListItems",
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case actions.updateItems:
-      console.log("updateitems", action.payload);
+    case actions.updateNListItems:
       return {
         ...state,
-        items: action.payload,
-        listItems: null,
-        nListItems: 0,
-        tmpItems: null,
-      };
-    case actions.addTmpItems:
-      console.log("addTmpItems", action.payload);
-      return { ...state, tmpItems: action.payload, items: null };
-    case actions.addListItem:
-      //console.log("addlistitem", state.listItems, action.payload);
-      return {
-        ...state,
-        listItems: action.payload,
-        nListItems: action.payload.length,
-        loading: true,
+        nListItems: ++state.nListItems,
       };
     case actions.loaded:
       return { ...state, loading: false };
@@ -62,70 +38,54 @@ function reducer(state, action) {
   }
 }
 
-export default function Arquipelagos() {
+export default function Arquipelagos(getData) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [page, setPage] = useState(1);
+  const [nItems] = useState(100);
   const { dataState, dataDispatch } = useDataContext();
-  const { modalState, modalDispatch } = useModalContext();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    //console.log("aqui", dataState.data);
+  const init = useCallback(() => {
     if (dataState.data) {
-      getItems(1);
-    }
-  }, []);
-
-  useEffect(() => {
-    //console.log("aqui2", dataState.data);
-    if (dataState.data) {
-      //console.log("aqui3", dataState.data);
-
-      getItems(1);
+      state.listItems = [];
+      state.nListItems = 0;
+      getItems();
     }
   }, [dataState.data]);
 
   useEffect(() => {
-    console.log("useeffect página: ", page);
-    if (dataState.data) {
-      //console.log("useeffect página2: ", page);
-      getItems(page);
-    }
-  }, [page]);
+    init();
+  }, [init]);
+
+  const getNextItem = useCallback(
+    index => {
+      state.loading = true;
+      dataState.currentId = dataState.items[index].id;
+      getItem(dataState.currentId);
+    },
+    [dataState, state, getItem]
+  );
 
   useEffect(() => {
-    if (state.tmpItems && state.tmpItems.length < 10 && page === 1) {
-      console.log("pretty", state.tmpItems.length);
-      getItems(1);
+    if (state.nListItems) {
+      getNextItem(state.nListItems);
     }
-  }, [state.tmpItems]);
+  }, [state.nListItems, getNextItem]);
 
   useEffect(() => {
-    //console.log("useeffect stateitems ", state.items.length);
-    if (state.items) {
-      getListItem(state.items[0]);
+    if (dataState.items && dataState.firstId === 0) {
+      dataDispatch({
+        type: actionsD.setFirstId,
+        payload: dataState.items[0].id,
+      });
+      getNextItem(0);
     }
-  }, [state.items]);
+  }, [dataState.items, getNextItem, dataDispatch, dataState.firstId]);
 
-  useEffect(() => {
-    console.log("useeffect listitems ", state.listItems);
-    if (
-      state.nListItems > 0 &&
-      state.items &&
-      state.nListItems < state.items.length
-    ) {
-      getListItem(state.items[state.listItems.length]);
-    }
-  }, [state.nListItems]);
-
-  async function getItems(page) {
-    console.log("puxando items da página ", page);
+  async function getItems() {
     try {
       const res = await fetch(
-        "arqapi/wp-json/wp/v2/imagem?page=" +
-          page +
-          (state.tmpItems ? "&per_page=50" : ""),
+        "arqapi/wp-json/wp/v2/imagem?page=1&per_page=100",
         {
           headers: {
             "Content-type": "application/json",
@@ -134,112 +94,70 @@ export default function Arquipelagos() {
         }
       );
 
-      // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+      if (res.status !== 200) {
+        throw new Error("Erro:" + res.status);
+      }
+      const items = await res.json();
+
+      const filteredItems = items.filter(
+        item => !dataState.data.Arquipelagos.includes(item.id)
+      );
+      dataDispatch({
+        type: actionsD.updateItems,
+        payload: items,
+      });
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  async function getItem(item) {
+    try {
+      const res = await fetch("/arqapi/wp-json/wp/v2/imagem/" + item, {
+        headers: {
+          "Content-type": "application/json",
+          "User-Agent": configData["User-Agent"],
+        },
+      });
+
       if (res.status !== 200) {
         throw new Error("Erro:" + res.status);
       }
 
-      //console.log(response);
-      const data = await res.json();
+      const parsed = await res.json();
 
-      console.log("parsed", data);
-      let tmp = data.filter(
-        item =>
-          !dataState.data[0].Arquipelagos.some(
-            element => element.id === item.id
-          )
-      );
-
-      console.log("tmp", tmp);
-      // Sem tmp
-      if (!state.tmpItems) {
-        // Fez os 10
-        if (tmp.length === 10) {
-          console.log("Fez os 10");
-          dispatch({ type: actions.updateItems, payload: tmp });
-        } else if (tmp.length < 10) {
-          // Não fez os 10
-          console.log("Não fez os 10");
-          dispatch({ type: actions.addTmpItems, payload: tmp });
-        } else {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg:
-                "Algo estranho aconteceu. Tamanho da fila de items:" +
-                tmp.length,
-              level: "error",
-            },
-          });
-        }
-      } else {
-        tmp = tmp.filter(
-          item => !state.tmpItems.some(element => element.id === item.id)
-        );
-        //console.log("entrou em recuperação", tmp, state.tmpItems);
-        console.log(
-          "entrou com tmpitems: " +
-            state.tmpItems.length +
-            " e novos items: " +
-            tmp.length
-        );
-        console.log("avalon", tmp);
-        const n = 10 - state.tmpItems.length;
-        const tmp2 = state.tmpItems;
-        tmp.map((element, i) => {
-          if (i < n) {
-            tmp2.push(element);
-          }
-        });
-        console.log("brest", tmp2);
-        if (tmp2.length < 10) {
-          console.log("Não fez os 10 - 2");
-          dispatch({ type: actions.addTmpItems, payload: tmp2 });
-          setPage(page + 1);
-        } else {
-          console.log("antes do return", tmp2.length, tmp2);
-          dispatch({ type: actions.updateItems, payload: tmp2 });
-        }
-      }
+      getListItem(parsed);
     } catch (error) {
       alert(error);
     }
   }
 
   function getListItem(item) {
-    fetch(item.link.replace("https://www.arquipelagos.pt", "arqapi"))
+    fetch(
+      item._links["wp:featuredmedia"][0].href.replace(
+        "https://www.arquipelagos.pt",
+        "arqapi"
+      )
+    )
       .then(response => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
           throw new Error("Erro:" + response.status);
         }
-        //console.log(response);
-        return response.text();
+        return response.json();
       })
-      .then(parsedResponse => {
-        const testImg = new RegExp(
-          '(.*)(<img src="(.*?)" class="card-img mb-2")'
-        );
-
-        //console.log("antes de tudo", state.listItems);
-
-        const tmp = state.listItems ? state.listItems : [];
-
-        //console.log("antes do push", item.id, tmp);
+      .then(parsed => {
+        const tmp = state.listItems;
 
         tmp.push({
           id: item.id,
-          linkhtml: parsedResponse,
-          image: testImg.exec(parsedResponse)[3],
-          content: item.content.rendered,
-          title: item.title.rendered,
+          image: parsed.media_details.sizes.medium
+            ? parsed.media_details.sizes.medium.source_url
+            : parsed.media_details.sizes.full.source_url,
         });
 
-        //console.log("depois do push", tmp);
-
+        state.listItems = tmp;
         dispatch({
-          type: actions.addListItem,
-          payload: tmp,
+          type: actions.updateNListItems,
         });
       })
       .catch(error => {
@@ -257,29 +175,24 @@ export default function Arquipelagos() {
       }}
     >
       {dataState.data && state.listItems ? (
-        <ImageList
-          sx={{ width: 1000, height: 600 }}
-          cols={5}
-          rowHeight={200}
-          gap={5}
-        >
+        <ImageList sx={{ width: 1000, height: 550 }} cols={5} gap={5}>
           {state.listItems.map(item => (
             <ImageListItem key={item.id}>
               <img
                 src={item.image}
+                alt=""
                 loading="lazy"
                 onClick={() => {
                   dataDispatch({
                     type: actionsD.setCurrentId,
                     payload: item.id,
                   });
-                  dataDispatch({
-                    type: actionsD.setFirstId,
-                    payload: item.id,
-                  });
                   navigate("/item/");
                 }}
-                style={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer",
+                  height: "100px",
+                }}
               />
               <ImageListItemBar
                 title={item.id}
@@ -300,8 +213,7 @@ export default function Arquipelagos() {
       )}
       {dataState.data &&
       state.listItems &&
-      state.items &&
-      state.listItems.length !== state.items.length ? (
+      state.listItems.length !== nItems ? (
         <Box
           sx={{ display: "flex", alignItems: "center" }}
           style={{ float: "center" }}
@@ -314,56 +226,10 @@ export default function Arquipelagos() {
           </Box>
           <Box sx={{ minWidth: 35 }}>
             <Typography variant="body2" color="text.secondary">
-              Carregando {state.listItems.length + "de" + state.items.length}
+              Carregando {state.listItems.length + "de" + nItems}
             </Typography>
           </Box>
         </Box>
-      ) : (
-        ""
-      )}
-      {dataState.data ? (
-        <Grid container>
-          <Tooltip title="Página inicial">
-            <Button
-              onClick={() => {
-                setPage(1);
-              }}
-              style={{ float: "left" }}
-            >
-              <FirstPage />
-            </Button>
-          </Tooltip>
-          {page > 1 ? (
-            <Box>
-              <Tooltip title={page - 1}>
-                <Button
-                  onClick={() => {
-                    setPage(page - 1);
-                  }}
-                  disabled={false}
-                  style={{ float: "left" }}
-                >
-                  <NavigateBefore />
-                </Button>
-              </Tooltip>
-            </Box>
-          ) : (
-            <Button disabled style={{ float: "left" }}>
-              <NavigateBefore />
-            </Button>
-          )}
-          <Typography style={{ float: "left" }}>{page}</Typography>
-          <Tooltip title={page + 1}>
-            <Button
-              onClick={() => {
-                setPage(page + 1);
-              }}
-              style={{ float: "left" }}
-            >
-              <NavigateNext />
-            </Button>
-          </Tooltip>
-        </Grid>
       ) : (
         ""
       )}
