@@ -15,28 +15,23 @@ import { actionsD } from "../../Reducers/DataReducer";
 export default function ItemArqForm() {
   const { dataState, dataDispatch } = useDataContext();
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (dataState.item.id !== undefined && dataState.item.id !== 0) {
-      buildInfo();
-    }
-  }, [dataState.item]);
-
-  useEffect(() => {
-    if (dataState.item.id !== undefined && dataState.item.id !== 0) {
-      buildInfo();
-    }
-  }, [dataState.item.license]);
+    buildInfo();
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   function buildInfo() {
     const item = dataState.item;
 
     item.description = buildDescription(item.description);
 
-    item.date = buildDate(dataState.item.linkhtml);
+    item.date =
+      item.date === "" ? buildDate(dataState.item.linkhtml) : item.date;
 
     item.author = buildAuthor(dataState.item.linkhtml);
 
-    item.license = getLicense(item.author, item.date);
+    item.license = item.license ?? getLicense(item.author, item.date);
 
     item.infoPanel =
       "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
@@ -49,7 +44,7 @@ export default function ItemArqForm() {
       item.author +
       "\n|permission=\n|other versions=\n}}\n\n" +
       "=={{int:license-header}}==\n{{Arquipelagos license|" +
-      (item.license === "CC-BY-SA 4.0" ? "" : dataState.license) +
+      (item.license === "CC-BY-SA 4.0" ? "" : dataState.item.license) +
       "}}\n\n" +
       "[[Category:Uploaded with Catrapilha]]\n" +
       dataState.categories;
@@ -153,7 +148,7 @@ export default function ItemArqForm() {
     }
   };
 
-  function buildFilename2() {
+  const buildFilename2 = () => {
     let item = dataState.item;
     item.filename =
       item.description
@@ -172,9 +167,9 @@ export default function ItemArqForm() {
       type: actionsD.updateItem,
       payload: item,
     });
-  }
+  };
 
-  function buildFilename1() {
+  const buildFilename1 = () => {
     let item = dataState.item;
     let testFilename = new RegExp('<h5 class="card-title">(.*?)</h5>');
 
@@ -189,7 +184,13 @@ export default function ItemArqForm() {
       type: actionsD.updateItem,
       payload: item,
     });
-  }
+  };
+
+  const insertCirca = () => {
+    let item = dataState.item;
+    item.date = "{{circa|" + item.date + "}}";
+    buildInfo();
+  };
 
   return (
     <ErrorBoundary
@@ -235,7 +236,7 @@ export default function ItemArqForm() {
                 Gerar 1
               </Button>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
               <Button
                 variant="contained"
                 onClick={() => {
@@ -247,17 +248,29 @@ export default function ItemArqForm() {
                 Gerar 2
               </Button>
             </Grid>
+            <Grid item xs={1}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  insertCirca();
+                }}
+                size="small"
+                style={{ float: "right" }}
+              >
+                Circa
+              </Button>
+            </Grid>
           </Grid>
           <Grid container>
             <Grid item xs={2}>
               <Select
-                value={dataState.license}
+                value={dataState.item.license}
                 label="Licença"
                 onChange={e => {
-                  dataState.license = e.target.value;
+                  dataState.item.license = e.target.value;
                   dataDispatch({
                     type: actionsD.updateLicense,
-                    payload: dataState.license,
+                    payload: dataState.item.license,
                   });
                   buildInfo();
                 }}

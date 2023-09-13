@@ -46,7 +46,6 @@ export default function ItemArq({ getTokenCSRF }) {
   }, [dataState.currentId]);
 
   function getItem() {
-    console.log("get item", dataState.currentId);
     fetch("/arqapi/wp-json/wp/v2/imagem/" + dataState.currentId, {
       headers: {
         "Content-type": "application/json",
