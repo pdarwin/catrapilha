@@ -9,7 +9,7 @@ Personalized image uploader built in React. Works with Wikimedia Commons.
 
 ## Sites
 
-- Working with the Arquipelagos mediateca, mainatined by Prof. Rui Carita https://www.arquipelagos.pt/ (GLAM partnership with Wikimedia)
+- Working with the Arquipelagos mediateca, maintained by Prof. Rui Carita https://www.arquipelagos.pt/ (GLAM partnership with Wikimedia)
 - Uses [REST APIs from Wordpress](https://developer.wordpress.org/rest-api/reference/posts/)
 
 ## Features
