@@ -142,7 +142,7 @@ export default function ItemArqForm() {
     if (authorIsKnown) {
       return "CC-BY-SA 4.0";
     } else if (currentYear - dateYear < 100) {
-      return "URAA";
+      return "PD-Portugal-URAA";
     } else {
       return "PD-old-100-expired";
     }
@@ -264,7 +264,7 @@ export default function ItemArqForm() {
           <Grid container>
             <Grid item xs={2}>
               <Select
-                value={dataState.item.license}
+                value={dataState.item.license || ""}
                 label="Licença"
                 onChange={e => {
                   dataState.item.license = e.target.value;

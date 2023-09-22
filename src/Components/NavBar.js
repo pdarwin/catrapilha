@@ -20,8 +20,8 @@ import { actionsM } from "../Reducers/ModalReducer";
 import catrapilha from "../Resources/catrapilha.png";
 
 export default function NavBar({ getData, getTokenCSRF }) {
-  const { dataState, dataDispatch } = useDataContext();
-  const { modalState, modalDispatch } = useModalContext();
+  const { dataState } = useDataContext();
+  const { modalDispatch } = useModalContext();
   const [user, setUser] = useState();
 
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
       console.log("Autosave");
       //getFile();
     }
-  }, [dataState.data]);
+  }, [dataState.data, dataState.initialCounter]);
 
   function getUser() {
     fetch("/comapi/w/api.php?action=query&meta=userinfo&format=json", {
@@ -69,7 +69,7 @@ export default function NavBar({ getData, getTokenCSRF }) {
       const uploadParams = new FormData();
       uploadParams.append("title", "User:DarwIn/Catrapilha.data");
       uploadParams.append("text", JSON.stringify(dataState.data));
-      uploadParams.append("summary", "Data updated (Catrapilha 1.0)");
+      uploadParams.append("summary", "Data updated (Catrapilha 1.1)");
       uploadParams.append("token", token);
 
       const res = await fetch("/comapi/w/api.php?action=edit&format=json", {
@@ -137,8 +137,8 @@ export default function NavBar({ getData, getTokenCSRF }) {
             >
               <IconButton
                 onClick={() => {
-                  let project =
-                    dataState.project == "Arq" ? "/Arquipelagos" : "/Flickr";
+                  const project =
+                    dataState.project === "Arq" ? "/Arquipelagos" : "/Flickr";
                   navigate(project);
                 }}
                 sx={{ p: 0 }}

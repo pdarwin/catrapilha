@@ -172,6 +172,12 @@ export default function ItemArq({ getTokenCSRF }) {
         payload: tmp,
       });
       dataDispatch({
+        type:
+          !dataState.forward && dataState.currentId !== dataState.firstId
+            ? actionsD.moveBack
+            : actionsD.moveForward,
+      });
+      dataDispatch({
         type: actionsD.updateItems,
         payload: filteredItems,
       });
@@ -179,27 +185,8 @@ export default function ItemArq({ getTokenCSRF }) {
         type: actionsD.setFirstId,
         payload: filteredItems[0].id,
       });
-      dataDispatch({
-        type:
-          !dataState.forward && dataState.currentId !== dataState.firstId
-            ? actionsD.moveBack
-            : actionsD.moveForward,
-      });
     }
   }
-
-  function wait(milliseconds, foo) {
-    setTimeout(function () {
-      foo(); // will be executed after the specified time
-    }, milliseconds);
-  }
-
-  /*   function recurs(n) {
-    if (n > 0) {
-      let x = n + recurs(n - 1);
-      return x;
-    } else return n;
-  } */
 
   return (
     <ErrorBoundary

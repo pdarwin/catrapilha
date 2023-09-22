@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDataContext } from "../Reducers/DataContext";
 import { useModalContext } from "../Reducers/ModalContext";
 import { actionsM } from "../Reducers/ModalReducer";
@@ -8,7 +8,7 @@ import configData from "../Config.json";
 import { actionsD } from "../Reducers/DataReducer";
 
 export default function UploadForm({ getTokenCSRF, remove }) {
-  const { modalState, modalDispatch } = useModalContext();
+  const { modalDispatch } = useModalContext();
   const { dataState, dataDispatch } = useDataContext();
   const [ignoreWarnings, setIgnoreWarnings] = useState(false);
 
@@ -34,7 +34,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
         item.file = data;
         dataDispatch({
           type: actionsD.updateItem,
-          payload: item
+          payload: item,
         });
       }
     } catch (error) {
@@ -53,7 +53,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
 
       const uploadParams = new FormData();
       uploadParams.append("file", dataState.item.file, {
-        knownLength: dataState.item.file.size
+        knownLength: dataState.item.file.size,
       });
       uploadParams.append("filename", dataState.item.filename);
       uploadParams.append("text", dataState.item.infoPanel);
@@ -61,16 +61,19 @@ export default function UploadForm({ getTokenCSRF, remove }) {
         uploadParams.append("ignorewarnings", true);
         setIgnoreWarnings(false);
       }
-      uploadParams.append("comment", "Uploaded with Catrapilha 1.0");
+      uploadParams.append(
+        "comment",
+        "Uploaded with [[Category:Uploaded with Catrapilha|Catrapilha 1.1]]"
+      );
       uploadParams.append("token", token);
 
       const res = await fetch("/comapi/w/api.php?action=upload&format=json", {
         method: "POST",
         headers: {
           Authorization: "Bearer " + configData["Access token"],
-          "User-Agent": configData["User-Agent"]
+          "User-Agent": configData["User-Agent"],
         },
-        body: uploadParams
+        body: uploadParams,
       });
 
       // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -79,8 +82,8 @@ export default function UploadForm({ getTokenCSRF, remove }) {
           type: actionsM.fireModal,
           payload: {
             msg: res.status + ": " + res.statusText + "(Upload)",
-            level: "error"
-          }
+            level: "error",
+          },
         });
       } else {
         console.log(res);
@@ -91,8 +94,8 @@ export default function UploadForm({ getTokenCSRF, remove }) {
             type: actionsM.fireModal,
             payload: {
               msg: data.error.code + ": " + data.error.info,
-              level: "error"
-            }
+              level: "error",
+            },
           });
         }
         if (data.upload.result === "Warning") {
@@ -123,8 +126,8 @@ export default function UploadForm({ getTokenCSRF, remove }) {
             payload: {
               msg: msg + ":",
               level: "warning",
-              link: "https://commons.wikimedia.org/wiki/File:" + file
-            }
+              link: "https://commons.wikimedia.org/wiki/File:" + file,
+            },
           });
         }
         if (data.upload.result === "Success") {
@@ -135,8 +138,8 @@ export default function UploadForm({ getTokenCSRF, remove }) {
               level: "success",
               link:
                 "https://commons.wikimedia.org/wiki/File:" +
-                data.upload.filename
-            }
+                data.upload.filename,
+            },
           });
           remove("Y");
         }
