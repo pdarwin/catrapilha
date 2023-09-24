@@ -23,6 +23,9 @@ Personalized image uploader built in React. Works with Wikimedia Commons.
 ![image](https://user-images.githubusercontent.com/46503478/163685683-4f767d48-651d-4b7f-937a-bccebfe959fe.png)
 ![image](https://user-images.githubusercontent.com/46503478/163685689-b6e561c6-5e85-4f6b-8e37-d83eea6f7f31.png)
 
+Filtering by expression (v1.1)
+![image](https://github.com/pdarwin/catrapilha/assets/46503478/b9c35ca4-6787-4161-bb76-60f572dd7ac5)
+
 ## Licensing
 
 Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
