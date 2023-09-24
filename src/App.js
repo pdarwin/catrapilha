@@ -1,15 +1,14 @@
-import React from "react";
-import Arquipelagos from "./Components/Arquipelagos/Arquipelagos";
-import { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Arquipelagos from "./Components/Arquipelagos/Arquipelagos";
 import ItemArq from "./Components/Arquipelagos/ItemArq";
 import MyModal from "./Components/MyModal";
 import NavBar from "./Components/NavBar";
 import configData from "./Config.json";
-import { ModalReducer, initialStateM, actionsM } from "./Reducers/ModalReducer";
-import { actionsD, DataReducer, initialStateD } from "./Reducers/DataReducer";
 import DataContext from "./Reducers/DataContext";
+import { DataReducer, actionsD, initialStateD } from "./Reducers/DataReducer";
 import ModalContext from "./Reducers/ModalContext";
+import { ModalReducer, actionsM, initialStateM } from "./Reducers/ModalReducer";
 //import Flickr from "./Components/Flickr/Flickr";
 
 function App() {
