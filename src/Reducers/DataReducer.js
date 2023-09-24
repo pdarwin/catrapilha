@@ -11,6 +11,7 @@ export const actionsD = {
   updateCategories: "updateCategories",
   updateDate: "updateDate",
   updateLicense: "updateLicense",
+  setFilter: "setFilter",
 };
 
 export const initialStateD = {
@@ -38,6 +39,7 @@ export const initialStateD = {
     infoPanel: "",
     file: null,
   },
+  filter: "",
 };
 
 export const DataReducer = (state, action) => {
@@ -152,6 +154,11 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         date: action.payload,
+      };
+    case actionsD.setFilter:
+      return {
+        ...state,
+        filter: action.payload,
       };
     default:
       throw new Error();

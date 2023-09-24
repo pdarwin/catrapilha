@@ -15,8 +15,8 @@ import { actionsD } from "../../Reducers/DataReducer";
 import Filters from "../Filters";
 
 const initialState = {
-  listItems: null,
-  nListItems: 0,
+  listItems: [],
+  items: [],
 };
 
 const actions = {
@@ -30,8 +30,6 @@ function reducer(state, action) {
         ...state,
         nListItems: ++state.nListItems,
       };
-    case actions.loaded:
-      return { ...state, loading: false };
     default:
       throw new Error();
   }
@@ -40,8 +38,6 @@ function reducer(state, action) {
 export default function Arquipelagos(getData) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [maxItems] = useState(100);
-  const [arqItems, setArqItems] = useState([]);
-  const [filter, setFilter] = useState();
   const { dataState, dataDispatch } = useDataContext();
   const location = useLocation();
 
@@ -49,52 +45,60 @@ export default function Arquipelagos(getData) {
 
   useEffect(() => {
     if (dataState.data) {
-      state.cancelToken = new AbortController();
-      async function getMoreItems() {
-        let items = [];
-        let i = 1;
-        while (items.length < maxItems) {
-          console.log("Total items at " + i + " iteration:", items.length);
-          const n = maxItems - items.length;
-          console.log("Getting more items:", n);
+      // Actualiza a lista de items filtrando os items processados e carregando novos
 
-          try {
-            const newItems = await getItems(i);
-            items = [...items, ...newItems.slice(0, n)];
-          } catch (error) {
-            console.log("Error:", error);
-          }
-
-          console.log("Total items now:", items.length);
-
-          if (items.length === maxItems) {
-            setArqItems(items);
-            dataDispatch({
-              type: actionsD.setFirstId,
-              payload: items[0].id,
-            });
-            dataDispatch({
-              type: actionsD.updateItems,
-              payload: items,
-            });
-            state.listItems = [];
-            state.nListItems = 0;
-            state.page = 1;
-            processArqItems(items)
-              .then(() => {
-                console.log("All items processed successfully");
-              })
-              .catch(error => {
-                console.error("Error processing items:", error);
-              });
-          }
-
-          i++;
-        }
+      if (dataState.items) {
+        state.items = !dataState.previousFilter ? dataState.items : [];
       }
-      getMoreItems();
+      state.listItems = [];
+      getMoreItems()
+        .then(() => {
+          state.page = 1;
+          processArqItems(state.items)
+            .then(() => {
+              console.log("All items processed successfully");
+            })
+            .catch(error => {
+              console.error("Error processing items:", error);
+            });
+        })
+        .catch(error => {
+          console.error("Error getting more items:", error);
+        });
+      dataState.previousFilter = "";
     }
-  }, [dataState.data, location, filter]);
+  }, [dataState.data, location, dataState.filter]);
+
+  async function getMoreItems() {
+    state.cancelToken = new AbortController();
+    let i = 1;
+    while (state.items.length < maxItems) {
+      console.log("Total items at " + i + " iterations:", state.items.length);
+      const n = maxItems - state.items.length;
+      console.log("Getting more items:", n);
+
+      try {
+        const newItems = await getItems(i);
+        state.items = [...state.items, ...newItems.slice(0, n)];
+      } catch (error) {
+        console.log("Error:", error);
+      }
+
+      console.log("Total items now:", state.items.length);
+
+      if (state.items.length === maxItems) {
+        dataDispatch({
+          type: actionsD.setFirstId,
+          payload: state.items[0].id,
+        });
+        dataDispatch({
+          type: actionsD.updateItems,
+          payload: state.items,
+        });
+      }
+      i++;
+    }
+  }
 
   async function getItems(page) {
     try {
@@ -115,11 +119,11 @@ export default function Arquipelagos(getData) {
             !dataState.data.Arquipelagos.some(arqItem => arqItem.id === item.id)
         )
         .sort((a, b) => b.id - a.id); // Sort by id in descending order;
-      if (filter) {
+      if (dataState.filter) {
         filteredItems = filteredItems.filter(item => {
           return (
-            item.title.rendered.includes(filter) ||
-            item.content.rendered.includes(filter)
+            item.title.rendered.includes(dataState.filter) ||
+            item.content.rendered.includes(dataState.filter)
           );
         });
       }
@@ -132,7 +136,6 @@ export default function Arquipelagos(getData) {
   async function processArqItems(items) {
     for (const item of items) {
       if (state.cancelToken.signal.aborted) break;
-      dataState.currentId = item.id;
       // Get the item.
       await getItem(item.id);
     }
@@ -213,30 +216,40 @@ export default function Arquipelagos(getData) {
           transform: "translate(-50%, -50%)",
         }}
       >
-        {dataState.data && state.listItems ? (
-          <ImageList sx={{ width: 1000, height: 550 }} cols={5} gap={5}>
-            {state.listItems.map(item => (
-              <ImageListItem key={item.id}>
-                <img
-                  src={item.image}
-                  alt=""
-                  loading="lazy"
-                  onClick={() => {
-                    clickItem(item);
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    height: "100px",
-                  }}
-                />
-                <ImageListItemBar
-                  title={item.id}
-                  position="below"
-                  sx={{ color: indigo[100] }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
+        {dataState.data ? (
+          state.listItems.length > 0 ? (
+            <ImageList sx={{ width: 1000, height: 550 }} cols={5} gap={5}>
+              {state.listItems.map(item => (
+                <ImageListItem key={item.id}>
+                  <img
+                    src={item.image}
+                    alt=""
+                    loading="lazy"
+                    onClick={() => {
+                      clickItem(item);
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      height: "100px",
+                    }}
+                  />
+                  <ImageListItemBar
+                    title={item.id}
+                    position="below"
+                    sx={{ color: indigo[100] }}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          ) : (
+            <Typography
+              variant="h5"
+              color="text.secondary"
+              style={{ float: "center" }}
+            >
+              Preparando lista de imagens, aguarde por favor.
+            </Typography>
+          )
         ) : (
           <Typography
             variant="h5"
@@ -247,7 +260,7 @@ export default function Arquipelagos(getData) {
           </Typography>
         )}
         {dataState.data &&
-        state.listItems &&
+        state.listItems.length > 0 &&
         state.listItems.length !== maxItems ? (
           <Box
             sx={{ display: "flex", alignItems: "center" }}
@@ -261,7 +274,8 @@ export default function Arquipelagos(getData) {
             </Box>
             <Box sx={{ minWidth: 35 }}>
               <Typography variant="body2" color="text.secondary">
-                Carregando {state.listItems.length + " de " + arqItems.length}
+                Carregando{" "}
+                {state.listItems.length + " de " + dataState.items.length}
               </Typography>
             </Box>
           </Box>
@@ -269,7 +283,7 @@ export default function Arquipelagos(getData) {
           ""
         )}
       </div>
-      <Filters setFilter={setFilter} />
+      <Filters />
     </div>
   );
 }
