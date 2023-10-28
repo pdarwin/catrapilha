@@ -105,7 +105,7 @@ export default function Arquipelagos(getData) {
       const res = await axios.get(`arqapi/wp-json/wp/v2/imagem`, {
         params: {
           page: page,
-          per_page: maxItems,
+          per_page: 100,
         },
       });
       if (res.status !== 200) {
@@ -127,7 +127,7 @@ export default function Arquipelagos(getData) {
           );
         });
       }
-      return filteredItems;
+      return filteredItems.slice(0, maxItems);
     } catch (error) {
       console.log(error);
     }
