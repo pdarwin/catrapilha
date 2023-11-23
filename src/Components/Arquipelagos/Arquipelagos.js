@@ -158,6 +158,9 @@ export default function Arquipelagos(getData) {
       getListItem(parsed);
     } catch (error) {
       console.log("GetItem:", error);
+      if (error.response.status === 400) {
+        state.cancelToken.abort();
+      }
     }
   }
 
@@ -275,7 +278,7 @@ export default function Arquipelagos(getData) {
             <Box sx={{ minWidth: 35 }}>
               <Typography variant="body2" color="text.secondary">
                 Carregando{" "}
-                {state.listItems.length + " de " + dataState.items.length}
+                {state.listItems?.length + " de " + dataState.items?.length}
               </Typography>
             </Box>
           </Box>
