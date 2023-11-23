@@ -1,21 +1,20 @@
-import React from "react";
-import { Button, CircularProgress, Grid, Typography } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import configData from "../../Config.json";
 import {
   ArrowBackIos,
   ArrowForwardIos,
   CheckCircleOutline,
   RemoveCircleOutline,
 } from "@mui/icons-material";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
+import React, { Fragment, useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { useNavigate } from "react-router-dom";
+import configData from "../../Config.json";
+import { useDataContext } from "../../Reducers/DataContext";
+import { actionsD } from "../../Reducers/DataReducer";
 import { useModalContext } from "../../Reducers/ModalContext";
 import { actionsM } from "../../Reducers/ModalReducer";
-import { actionsD } from "../../Reducers/DataReducer";
-import { useDataContext } from "../../Reducers/DataContext";
 import UploadForm from "../UploadForm";
 import ItemArqForm from "./ItemArqForm";
-import { ErrorBoundary } from "react-error-boundary";
 
 export default function ItemArq({ getTokenCSRF }) {
   const [loading, setLoading] = useState(false);
@@ -269,7 +268,9 @@ export default function ItemArq({ getTokenCSRF }) {
                     type: actionsD.setCurrentId,
                     payload: 0,
                   });
-                  navigate(-1);
+                  const project =
+                    dataState.project === "Arq" ? "/Arquipelagos" : "/Flickr";
+                  navigate(project);
                 }}
                 size="small"
                 sx={{ m: 1 }}
