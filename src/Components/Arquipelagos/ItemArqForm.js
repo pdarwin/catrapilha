@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   Grid,
@@ -7,9 +6,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect } from "react";
-import { useDataContext } from "../../Reducers/DataContext";
+import React, { useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useDataContext } from "../../Reducers/DataContext";
 import { actionsD } from "../../Reducers/DataReducer";
 
 export default function ItemArqForm() {
@@ -47,6 +46,11 @@ export default function ItemArqForm() {
       (item.license === "CC-BY-SA 4.0" ? "" : dataState.item.license) +
       "}}\n\n" +
       "[[Category:Uploaded with Catrapilha]]\n" +
+      (item.author === "{{creator:Rui Carita}}"
+        ? "[[Category:Photographs by Rui Carita]]\n"
+        : item.author === "José Lemos Silva"
+        ? "[[Category:Photographs by José Lemos Silva]]\n"
+        : "") +
       dataState.categories;
 
     dataDispatch({
@@ -74,7 +78,8 @@ export default function ItemArqForm() {
       .replace(/<span .*?>(.*?)<\/span>/gi, "$1")
       .replace(/<span .*?>/gi, "")
       .replace(/<\/span>/gi, "")
-      .replace("''' '''", " ");
+      .replace(/'''\s'''/gi, " ")
+      .replace(/''''''/gi, '"');
   };
 
   const buildAuthor = linkhtml => {
@@ -87,13 +92,23 @@ export default function ItemArqForm() {
     if (authorMatch && authorMatch.length >= 2) {
       let author = authorMatch[1];
 
-      if (
-        author === "José Lemos Silva" ||
-        author === "Rui Carita" ||
-        author === "Virgílio Gomes" ||
-        author === "Perestrellos Photographos"
-      ) {
+      if (author === "Rui Carita" || author === "Perestrellos Photographos") {
         return "{{creator:" + author + "}}";
+      } else if (author === "Fotografia Vicentes") {
+        return "{{creator:Photographia Vicente}}";
+      } else if (
+        author === "Perestellos Fotógrafos" ||
+        author === "ABM/ARM/Perestrellos"
+      ) {
+        return "{{creator:Perestrellos Photographos}}";
+      } else if (author === "Foto Figueiras") {
+        return "{{creator:Foto Figueiras}}";
+      } else if (author === "José Lemos Silva" || author === "Virgílio Gomes") {
+        return author;
+      } else if (
+        dataState.categories === "[[Category:Diário de Notícias (Madeira)]]"
+      ) {
+        return "Diário de Notícias (Madeira)";
       } else {
         return author;
       }
@@ -116,10 +131,10 @@ export default function ItemArqForm() {
     const dateMatch = datePattern.exec(linkhtml);
 
     if (dateMatch && dateMatch.length >= 2) {
-      let date = dateMatch[1];
+      let date = dateMatch[1].replace(" 00:00:00", "");
 
       if (date.includes("-00-00")) {
-        date = date.replace("-00-00", "").replace(" 00:00:00", "");
+        date = date.replace("-00-00", "");
         // date = date.replace(date, "{{circa|" + date + "}}");
       }
 
@@ -133,9 +148,9 @@ export default function ItemArqForm() {
   const getLicense = (author, date) => {
     const currentYear = new Date().getFullYear();
     const authorIsKnown =
-      author === "{{creator:José Lemos Silva}}" ||
+      author === "José Lemos Silva" ||
       author === "{{creator:Rui Carita}}" ||
-      author === "{{creator:Virgílio Gomes}}";
+      author === "Virgílio Gomes";
 
     const dateYear = parseInt(date.substring(0, 4), 10);
 
@@ -176,7 +191,8 @@ export default function ItemArqForm() {
     let filename = testFilename
       .exec(dataState.item.linkhtml)[1]
       .replace(", ilha da Madeira", "")
-      .replace(".", "")
+      .replace(/\.\s/gi, "")
+      .replace(/:/gi, " -")
       .trim();
 
     item.filename = filename + " - Image " + item.id + ".jpg";

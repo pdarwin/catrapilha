@@ -51,10 +51,20 @@ export default function Arquipelagos(getData) {
         state.items = !dataState.previousFilter ? dataState.items : [];
       }
       state.listItems = [];
-      getMoreItems()
+      state.page = 1;
+      getAllItems().catch(error => {
+        console.error("Error getting more items:", error);
+      });
+      dataState.previousFilter = "";
+    }
+  }, [dataState.data, location, dataState.filter]);
+
+  async function getAllItems() {
+    let i = 1;
+    while (state.items.length < maxItems) {
+      await getMoreItems(i)
         .then(() => {
-          state.page = 1;
-          processArqItems(state.items)
+          processArqItems(state.tmpItems)
             .then(() => {
               console.log("All items processed successfully");
             })
@@ -65,38 +75,35 @@ export default function Arquipelagos(getData) {
         .catch(error => {
           console.error("Error getting more items:", error);
         });
-      dataState.previousFilter = "";
-    }
-  }, [dataState.data, location, dataState.filter]);
-
-  async function getMoreItems() {
-    state.cancelToken = new AbortController();
-    let i = 1;
-    while (state.items.length < maxItems) {
-      console.log("Total items at " + i + " iterations:", state.items.length);
-      const n = maxItems - state.items.length;
-      console.log("Getting more items:", n);
-
-      try {
-        const newItems = await getItems(i);
-        state.items = [...state.items, ...newItems.slice(0, n)];
-      } catch (error) {
-        console.log("Error:", error);
-      }
-
-      console.log("Total items now:", state.items.length);
-
-      if (state.items.length === maxItems) {
-        dataDispatch({
-          type: actionsD.setFirstId,
-          payload: state.items[0].id,
-        });
-        dataDispatch({
-          type: actionsD.updateItems,
-          payload: state.items,
-        });
-      }
       i++;
+    }
+  }
+
+  async function getMoreItems(i) {
+    state.cancelToken = new AbortController();
+    console.log("Total items at " + i + " iterations:", state.items.length);
+    const n = maxItems - state.items.length;
+    console.log("Getting more items:", n);
+
+    try {
+      const newItems = await getItems(i);
+      state.items = [...state.items, ...newItems.slice(0, n)];
+      state.tmpItems = newItems.slice(0, n);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
+    console.log("Total items now:", state.items.length);
+
+    if (state.items.length === maxItems) {
+      dataDispatch({
+        type: actionsD.setFirstId,
+        payload: state.items[0].id,
+      });
+      dataDispatch({
+        type: actionsD.updateItems,
+        payload: state.items,
+      });
     }
   }
 

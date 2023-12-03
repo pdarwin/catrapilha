@@ -1,11 +1,10 @@
-import React from "react";
 import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+import configData from "../Config.json";
 import { useDataContext } from "../Reducers/DataContext";
+import { actionsD } from "../Reducers/DataReducer";
 import { useModalContext } from "../Reducers/ModalContext";
 import { actionsM } from "../Reducers/ModalReducer";
-import configData from "../Config.json";
-import { actionsD } from "../Reducers/DataReducer";
 
 export default function UploadForm({ getTokenCSRF, remove }) {
   const { modalDispatch } = useModalContext();
@@ -63,7 +62,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
       }
       uploadParams.append(
         "comment",
-        "Uploaded with [[Category:Uploaded with Catrapilha|Catrapilha 1.1]]"
+        "Uploaded with experimental media library-assisted upload tool [[Category:Uploaded with Catrapilha|Catrapilha 1.1]] (contact [[User talk:DarwIn|DarwIn]] for any issues)"
       );
       uploadParams.append("token", token);
 
