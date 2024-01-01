@@ -35,7 +35,7 @@ function reducer(state, action) {
   }
 }
 
-export default function Arquipelagos(getData) {
+export default function Arquipelagos() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [maxItems] = useState(100);
   const { dataState, dataDispatch } = useDataContext();
@@ -60,7 +60,7 @@ export default function Arquipelagos(getData) {
   }, [dataState.data, location, dataState.filter]);
 
   async function getAllItems() {
-    let i = 1;
+    let i = dataState.root;
     while (state.items.length < maxItems) {
       await getMoreItems(i)
         .then(() => {
@@ -82,6 +82,10 @@ export default function Arquipelagos(getData) {
   async function getMoreItems(i) {
     state.cancelToken = new AbortController();
     console.log("Total items at " + i + " iterations:", state.items.length);
+    dataDispatch({
+      type: actionsD.updateIterations,
+      payload: i,
+    });
     const n = maxItems - state.items.length;
     console.log("Getting more items:", n);
 
@@ -123,7 +127,12 @@ export default function Arquipelagos(getData) {
       let filteredItems = items
         .filter(
           item =>
-            !dataState.data.Arquipelagos.some(arqItem => arqItem.id === item.id)
+            !dataState.data.Arquipelagos.some(
+              arqItem => arqItem.id === item.id
+            ) ||
+            item.content.rendered.indexOf("Garrido") !== -1 ||
+            item.excerpt.rendered.indexOf("Garrido") !== -1 ||
+            item.title.rendered.indexOf("Garrido") !== -1
         )
         .sort((a, b) => b.id - a.id); // Sort by id in descending order;
       if (dataState.filter) {
@@ -188,12 +197,12 @@ export default function Arquipelagos(getData) {
       })
       .then(parsed => {
         const tmp = state.listItems;
-
         tmp.push({
           id: item.id,
           image: parsed.media_details.sizes.medium
             ? parsed.media_details.sizes.medium.source_url
             : parsed.media_details.sizes.full.source_url,
+          title: item.title.rendered,
         });
 
         state.listItems = tmp;
@@ -217,15 +226,8 @@ export default function Arquipelagos(getData) {
   }
 
   return (
-    <div>
-      <div
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
+    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div style={{ width: "60%", paddingLeft: 20 }}>
         {dataState.data ? (
           state.listItems.length > 0 ? (
             <ImageList sx={{ width: 1000, height: 550 }} cols={5} gap={5}>
@@ -293,7 +295,10 @@ export default function Arquipelagos(getData) {
           ""
         )}
       </div>
-      <Filters />
+
+      <div style={{ borderWidth: 1, borderColor: "black" }}>
+        <Filters />
+      </div>
     </div>
   );
 }

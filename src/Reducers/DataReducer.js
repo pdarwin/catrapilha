@@ -9,9 +9,11 @@ export const actionsD = {
   setFirstId: "setFirstId",
   updateItem: "updateItem",
   updateCategories: "updateCategories",
+  updateIterations: "updateIterations",
   updateDate: "updateDate",
   updateLicense: "updateLicense",
   setFilter: "setFilter",
+  setRoot: "setRoot",
 };
 
 export const initialStateD = {
@@ -40,6 +42,7 @@ export const initialStateD = {
     file: null,
   },
   filter: "",
+  root: 1,
 };
 
 export const DataReducer = (state, action) => {
@@ -159,6 +162,16 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         filter: action.payload,
+      };
+    case actionsD.setRoot:
+      return {
+        ...state,
+        root: action.payload,
+      };
+    case actionsD.updateIterations:
+      return {
+        ...state,
+        iterations: action.payload,
       };
     default:
       throw new Error();

@@ -50,8 +50,18 @@ export default function ItemArqForm() {
         ? "[[Category:Photographs by Rui Carita]]\n"
         : item.author === "José Lemos Silva"
         ? "[[Category:Photographs by José Lemos Silva]]\n"
+        : item.author === "{{creator:Perestrellos Photographos}}"
+        ? "[[Category:Photographs by Perestrellos Photographos in ABM]]\n"
         : "") +
-      dataState.categories;
+      dataState.categories.replace(
+        "[[Category:Diário de Notícias (Madeira)]]",
+        "[[Category:Diário de Notícias (Madeira)|" + item.date + "]]"
+      ) +
+      (dataState.categories.indexOf(
+        "[[Category:Diário de Notícias (Madeira)]]"
+      ) !== -1
+        ? "\n[[Category:" + item.date + "]]"
+        : "");
 
     dataDispatch({
       type: actionsD.updateItem,
@@ -98,17 +108,33 @@ export default function ItemArqForm() {
         return "{{creator:Photographia Vicente}}";
       } else if (
         author === "Perestellos Fotógrafos" ||
-        author === "ABM/ARM/Perestrellos"
+        author === "ABM/ARM/Perestrellos" ||
+        dataState.item.description.indexOf("Fotografia ''Perestrellos''") !== -1
       ) {
         return "{{creator:Perestrellos Photographos}}";
       } else if (author === "Foto Figueiras") {
         return "{{creator:Foto Figueiras}}";
-      } else if (author === "José Lemos Silva" || author === "Virgílio Gomes") {
+      } else if (author === "ABM/ARM") {
+        return dataState.item.description;
+      } else if (
+        author === "José Lemos Silva" ||
+        author === "Virgílio Gomes" ||
+        author === "Gilberto Garrido"
+      ) {
         return author;
       } else if (
-        dataState.categories === "[[Category:Diário de Notícias (Madeira)]]"
+        dataState.categories.indexOf(
+          "[[Category:Diário de Notícias (Madeira)]]"
+        ) !== -1
       ) {
         return "Diário de Notícias (Madeira)";
+      } else if (author === "Privado") {
+        // Define a regular expression pattern to extract the author
+        const authorPattern2 = /.*Autor:.*?text-left">(.*?)(<\/div>)/s;
+
+        // Try to extract the author using the pattern
+        const authorMatch2 = authorPattern2.exec(linkhtml);
+        return authorMatch2[1];
       } else {
         return author;
       }
@@ -150,13 +176,14 @@ export default function ItemArqForm() {
     const authorIsKnown =
       author === "José Lemos Silva" ||
       author === "{{creator:Rui Carita}}" ||
-      author === "Virgílio Gomes";
+      author === "Virgílio Gomes" ||
+      author === "Gilberto Garrido";
 
     const dateYear = parseInt(date.substring(0, 4), 10);
 
     if (authorIsKnown) {
       return "CC-BY-SA 4.0";
-    } else if (currentYear - dateYear < 100) {
+    } else if (currentYear - dateYear < 95) {
       return "PD-Portugal-URAA";
     } else {
       return "PD-old-100-expired";
@@ -191,11 +218,13 @@ export default function ItemArqForm() {
     let filename = testFilename
       .exec(dataState.item.linkhtml)[1]
       .replace(", ilha da Madeira", "")
-      .replace(/\.\s/gi, "")
       .replace(/:/gi, " -")
       .trim();
 
-    item.filename = filename + " - Image " + item.id + ".jpg";
+    item.filename = (filename + " - Image " + item.id + ".jpg").replace(
+      /\.\s-/gi,
+      " -"
+    );
     dataDispatch({
       type: actionsD.updateItem,
       payload: item,
