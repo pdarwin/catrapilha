@@ -129,10 +129,10 @@ export default function Arquipelagos() {
           item =>
             !dataState.data.Arquipelagos.some(
               arqItem => arqItem.id === item.id
-            ) ||
+            ) /* Código para excepções: ||
             item.content.rendered.indexOf("Garrido") !== -1 ||
             item.excerpt.rendered.indexOf("Garrido") !== -1 ||
-            item.title.rendered.indexOf("Garrido") !== -1
+            item.title.rendered.indexOf("Garrido") !== -1 */
         )
         .sort((a, b) => b.id - a.id); // Sort by id in descending order;
       if (dataState.filter) {
@@ -227,10 +227,17 @@ export default function Arquipelagos() {
 
   return (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      <div style={{ width: "60%", paddingLeft: 20 }}>
+      <div
+        style={{
+          width: "60%",
+          paddingLeft: 20,
+          paddingTop: 25,
+          textAlign: "center",
+        }}
+      >
         {dataState.data ? (
           state.listItems.length > 0 ? (
-            <ImageList sx={{ width: 1000, height: 550 }} cols={5} gap={5}>
+            <ImageList sx={{ width: 1000, height: 720 }} cols={5} gap={5}>
               {state.listItems.map(item => (
                 <ImageListItem key={item.id}>
                   <img
@@ -257,7 +264,7 @@ export default function Arquipelagos() {
             <Typography
               variant="h5"
               color="text.secondary"
-              style={{ float: "center" }}
+              sx={{ float: "center" }}
             >
               Preparando lista de imagens, aguarde por favor.
             </Typography>
@@ -266,7 +273,7 @@ export default function Arquipelagos() {
           <Typography
             variant="h5"
             color="text.secondary"
-            style={{ float: "center" }}
+            sx={{ float: "center" }}
           >
             Sem dados, carregue dados para iniciar.
           </Typography>
@@ -276,7 +283,7 @@ export default function Arquipelagos() {
         state.listItems.length !== maxItems ? (
           <Box
             sx={{ display: "flex", alignItems: "center" }}
-            style={{ float: "center" }}
+            style={{ textAlign: "center" }}
           >
             <Box sx={{ width: 800, mr: 3 }}>
               <LinearProgress
@@ -296,7 +303,7 @@ export default function Arquipelagos() {
         )}
       </div>
 
-      <div style={{ borderWidth: 1, borderColor: "black" }}>
+      <div>
         <Filters />
       </div>
     </div>

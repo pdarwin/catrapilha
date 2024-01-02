@@ -50,6 +50,8 @@ export default function ItemArqForm() {
         ? "[[Category:Photographs by Rui Carita]]\n"
         : item.author === "José Lemos Silva"
         ? "[[Category:Photographs by José Lemos Silva]]\n"
+        : item.author === "Virgílio Gomes"
+        ? "[[Category:Photographs by Virgílio Gomes]]\n"
         : item.author === "{{creator:Perestrellos Photographos}}"
         ? "[[Category:Photographs by Perestrellos Photographos in ABM]]\n"
         : "") +
@@ -94,53 +96,51 @@ export default function ItemArqForm() {
 
   const buildAuthor = linkhtml => {
     // Define a regular expression pattern to extract the author
-    const authorPattern = /.*Autor da Imagem:.*?text-left">(.*?)(<\/div>)/s;
-
+    let authorPattern = /.*Autor da Imagem:.*?text-left">(.*?)(<\/div>)/s;
     // Try to extract the author using the pattern
-    const authorMatch = authorPattern.exec(linkhtml);
+    let authorMatch = authorPattern.exec(linkhtml);
+    let author = authorMatch[1].trim();
 
-    if (authorMatch && authorMatch.length >= 2) {
-      let author = authorMatch[1];
+    authorPattern = /.*Autor:.*?text-left">(.*?)(<\/div>)/s;
+    authorMatch = authorPattern.exec(linkhtml);
+    let author2 = authorMatch[1].replace(/<\/?i>/gi, "").trim();
 
-      if (author === "Rui Carita" || author === "Perestrellos Photographos") {
-        return "{{creator:" + author + "}}";
-      } else if (author === "Fotografia Vicentes") {
-        return "{{creator:Photographia Vicente}}";
-      } else if (
-        author === "Perestellos Fotógrafos" ||
-        author === "ABM/ARM/Perestrellos" ||
-        dataState.item.description.indexOf("Fotografia ''Perestrellos''") !== -1
-      ) {
-        return "{{creator:Perestrellos Photographos}}";
-      } else if (author === "Foto Figueiras") {
-        return "{{creator:Foto Figueiras}}";
-      } else if (author === "ABM/ARM") {
-        return dataState.item.description;
-      } else if (
-        author === "José Lemos Silva" ||
-        author === "Virgílio Gomes" ||
-        author === "Gilberto Garrido"
-      ) {
-        return author;
-      } else if (
-        dataState.categories.indexOf(
-          "[[Category:Diário de Notícias (Madeira)]]"
-        ) !== -1
-      ) {
-        return "Diário de Notícias (Madeira)";
-      } else if (author === "Privado") {
-        // Define a regular expression pattern to extract the author
-        const authorPattern2 = /.*Autor:.*?text-left">(.*?)(<\/div>)/s;
-
-        // Try to extract the author using the pattern
-        const authorMatch2 = authorPattern2.exec(linkhtml);
-        return authorMatch2[1];
-      } else {
-        return author;
-      }
+    if (author === "Rui Carita" || author === "Perestrellos Photographos") {
+      return "{{creator:" + author + "}}";
+    } else if (
+      author === "Fotografia Vicentes" ||
+      author2 === "Vicentes Photographos"
+    ) {
+      return "{{creator:Photographia Vicente}}";
+    } else if (
+      author === "Perestellos Fotógrafos" ||
+      author === "ABM/ARM/Perestrellos" ||
+      dataState.item.description.indexOf("Fotografia ''Perestrellos''") !== -1
+    ) {
+      return "{{creator:Perestrellos Photographos}}";
+    } else if (author === "Foto Figueiras") {
+      return "{{creator:Foto Figueiras}}";
+    } else if (author === "ABM/ARM") {
+      return dataState.item.description;
+    } else if (
+      author === "Arquivo Regional da Madeira" ||
+      author === "Privado"
+    ) {
+      return author2;
+    } else if (
+      author === "José Lemos Silva" ||
+      author === "Virgílio Gomes" ||
+      author === "Gilberto Garrido"
+    ) {
+      return author;
+    } else if (
+      dataState.categories.indexOf(
+        "[[Category:Diário de Notícias (Madeira)]]"
+      ) !== -1
+    ) {
+      return "Diário de Notícias (Madeira)";
     } else {
-      // Return a default value or handle the case where the author is not found
-      return "Unknown Author";
+      return author;
     }
   };
 
@@ -161,7 +161,10 @@ export default function ItemArqForm() {
 
       if (date.includes("-00-00")) {
         date = date.replace("-00-00", "");
-        // date = date.replace(date, "{{circa|" + date + "}}");
+      }
+
+      if (dataState.item.title.includes("(c.)")) {
+        date = date.replace(date, "{{circa|" + date + "}}");
       }
 
       return date;
