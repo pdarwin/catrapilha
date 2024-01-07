@@ -115,7 +115,7 @@ export default function Filters() {
       </Grid>
 
       {/* Third row with text and text input wrapped in a single Grid item */}
-      <Grid item xs={12} spacing={1}>
+      <Grid item xs={12}>
         <Grid container>
           <Grid item xs={6}>
             {/* TextField with 70% width */}

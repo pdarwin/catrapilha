@@ -5,10 +5,10 @@ import {
   RemoveCircleOutline,
 } from "@mui/icons-material";
 import { Button, CircularProgress, Grid, Typography } from "@mui/material";
+import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useNavigate } from "react-router-dom";
-import configData from "../../Config.json";
 import { useDataContext } from "../../Reducers/DataContext";
 import { actionsD } from "../../Reducers/DataReducer";
 import { useModalContext } from "../../Reducers/ModalContext";
@@ -23,7 +23,34 @@ export default function ItemArq({ getTokenCSRF }) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    init();
+  }, [dataState.items]);
+
+  const init = () => {
+    if (dataState.data) {
+      const filteredItems = dataState.items.filter(
+        item =>
+          !dataState.data.Arquipelagos.some(itemArq => itemArq.id === item.id)
+      );
+      if (filteredItems.length > 0) {
+        dataDispatch({
+          type: actionsD.setFirstId,
+          payload: filteredItems[0].id,
+        });
+        dataDispatch({
+          type: actionsD.setLastId,
+          payload: filteredItems[filteredItems.length - 1].id,
+        });
+      }
+    } else {
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     if (dataState.currentId !== 0) {
@@ -44,116 +71,95 @@ export default function ItemArq({ getTokenCSRF }) {
     }
   }, [dataState.currentId]);
 
-  function getItem() {
-    fetch("/arqapi/wp-json/wp/v2/imagem/" + dataState.currentId, {
-      headers: {
-        "Content-type": "application/json",
-        "User-Agent": configData["User-Agent"],
-      },
-    })
-      .then(response => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          console.log(response);
-        }
-        if (
-          !response.ok ||
-          !response.headers.get("Content-Type").startsWith("application/json")
-        ) {
-          throw new Error("The response is not JSON");
-        }
-        return response.json();
-      })
-      .then(parsedResponse => {
-        if (parsedResponse.data) {
-          if (parsedResponse.data.status === 404) {
-            remove("X");
-          } else if (parsedResponse.data.status === 401) {
-            dataDispatch({
-              type: actionsD.setCurrentId,
-              payload: 0,
-            });
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg: "Não existem imagens nas imediações, voltando à lista principal.",
-                level: "info",
-              },
-            });
-            navigate("/");
-          } else {
-            console.log("getitem", parsedResponse);
-            modalDispatch({
-              type: actionsM.fireModal,
-              payload: {
-                msg:
-                  "Erro " +
-                  parsedResponse.data.status +
-                  ": Code: " +
-                  parsedResponse.code +
-                  ", Message: " +
-                  parsedResponse.message,
-                level: "error",
-              },
-            });
-          }
-        } else {
-          buildItem(parsedResponse);
-        }
-      })
-      .catch(error => {
-        alert(error);
-      });
+  async function getItem() {
+    const res = await axios.get(
+      "https://www.arquipelagos.pt/wp-json/wp/v2/imagem/" + dataState.currentId,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.status !== 200) {
+      throw new Error("Erro:" + res.status);
+    }
+    const parsed = await res.data;
+
+    if (parsed.data) {
+      if (parsed.data.status === 404) {
+        remove("X");
+      } else if (parsed.data.status === 401) {
+        dataDispatch({
+          type: actionsD.setCurrentId,
+          payload: 0,
+        });
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg: "Não existem imagens nas imediações, voltando à lista principal.",
+            level: "info",
+          },
+        });
+        navigate("/");
+      } else {
+        console.log("getitem", parsed);
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg:
+              "Erro " +
+              parsed.data.status +
+              ": Code: " +
+              parsed.code +
+              ", Message: " +
+              parsed.message,
+            level: "error",
+          },
+        });
+      }
+    } else {
+      buildItem(parsed);
+    }
   }
 
-  function buildItem(rawItem) {
-    fetch(rawItem.link.replace("https://www.arquipelagos.pt", "/arqapi"))
-      .then(response => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          modalDispatch({
-            type: actionsM.fireModal,
-            payload: {
-              msg: response.status + ": " + response.statusText + "(buildItem)",
-              level: "error",
-            },
-          });
-          return Promise.reject(response);
-        }
-        return response.text();
-      })
-      .then(parsedResponse => {
-        try {
-          const testImg = new RegExp(
-            '(.*)(<img src="(.*?)" class="card-img mb-2")'
-          );
-          const testFilename = new RegExp(
-            '(.*)(/(.*?)" class="card-img mb-2")'
-          );
+  async function buildItem(rawItem) {
+    const res = await axios.get(
+      rawItem.link.replace("https://www.arquipelagos.pt", "/arqapi")
+    );
+    if (res.status !== 200) {
+      throw new Error("Erro:" + res.status);
+    }
+    const parsed = await res.data;
 
-          const item = dataState.item;
-          item.id = rawItem.id;
-          item.title = rawItem.title.rendered;
-          item.filename = testFilename
-            .exec(parsedResponse)[3]
-            .replace(".jpg", " - Image " + rawItem.id + ".jpg");
-          item.link = rawItem.link;
-          item.linkhtml = parsedResponse;
-          item.imagelink = testImg.exec(parsedResponse)[3];
-          item.content = rawItem.content.rendered;
-          item.description = rawItem.content.rendered;
-          dataDispatch({
-            type: actionsD.updateItem,
-            payload: item,
-          });
-        } catch (error) {
-          alert(error);
-        }
-        setLoading(false);
+    try {
+      const testImg = new RegExp(
+        '(.*)(<img src="(.*?)" class="card-img mb-2")'
+      );
+      const testFilename = new RegExp('(.*)(/(.*?)" class="card-img mb-2")');
+
+      const item = dataState.item;
+      item.id = rawItem.id;
+      item.title = rawItem.title.rendered;
+      item.filename = testFilename
+        .exec(parsed)[3]
+        .replace(".jpg", " - Image " + rawItem.id + ".jpg");
+      item.link = rawItem.link;
+      item.linkhtml = parsed;
+      item.imagelink = testImg.exec(parsed)[3];
+      item.content = rawItem.content.rendered;
+      item.description = rawItem.content.rendered;
+      dataDispatch({
+        type: actionsD.updateItem,
+        payload: item,
       });
+    } catch (error) {
+      alert(error);
+    }
+    setLoading(false);
   }
 
-  function remove(type) {
+  const remove = type => {
     let tmp = dataState.data;
     if (
       tmp.Arquipelagos.filter(element => element.id === dataState.currentId)
@@ -163,29 +169,37 @@ export default function ItemArq({ getTokenCSRF }) {
         id: dataState.currentId,
         status: type,
       });
-      const filteredItems = dataState.items.filter(
-        item => item.id !== dataState.currentId
-      );
       dataDispatch({
         type: actionsD.updateData,
         payload: tmp,
       });
-      dataDispatch({
-        type:
-          !dataState.forward && dataState.currentId !== dataState.firstId
-            ? actionsD.moveBack
-            : actionsD.moveForward,
-      });
-      dataDispatch({
-        type: actionsD.updateItems,
-        payload: filteredItems,
-      });
-      dataDispatch({
-        type: actionsD.setFirstId,
-        payload: filteredItems[0].id,
-      });
+
+      const isForward = dataState.forward;
+      const isAtFirstId = dataState.currentId === dataState.firstId;
+      const isAtLastId = dataState.currentId === dataState.lastId;
+
+      if (
+        (isForward && !isAtLastId) ||
+        (!isForward && isAtFirstId && !isAtLastId)
+      ) {
+        dataDispatch({ type: actionsD.moveForward });
+      } else if (
+        (isForward && isAtLastId & !isAtFirstId) ||
+        (!isForward && !isAtFirstId)
+      ) {
+        dataDispatch({ type: actionsD.moveBack });
+      } else {
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg: "Chegou ao fim da lista de imagens.",
+            level: "info",
+          },
+        });
+      }
+      init();
     }
-  }
+  };
 
   return (
     <ErrorBoundary
@@ -239,7 +253,7 @@ export default function ItemArq({ getTokenCSRF }) {
                 sx={{ m: 1 }}
                 style={{ float: "left" }}
                 startIcon={<ArrowBackIos />}
-                disabled={dataState.currentId === dataState.firstId}
+                disabled={dataState.currentId >= dataState.firstId}
               >
                 Anterior
               </Button>{" "}
@@ -256,6 +270,7 @@ export default function ItemArq({ getTokenCSRF }) {
                 sx={{ m: 1 }}
                 style={{ float: "left" }}
                 startIcon={<ArrowForwardIos />}
+                disabled={dataState.currentId === dataState.lastId}
               >
                 Próxima
               </Button>

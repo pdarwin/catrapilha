@@ -7,6 +7,7 @@ export const actionsD = {
   updateItems: "updateItems",
   setCurrentId: "setCurrentId",
   setFirstId: "setFirstId",
+  setLastId: "setLastId",
   updateItem: "updateItem",
   updateCategories: "updateCategories",
   updateIterations: "updateIterations",
@@ -137,6 +138,11 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         firstId: action.payload,
+      };
+    case actionsD.setLastId:
+      return {
+        ...state,
+        lastId: action.payload,
       };
     case actionsD.updateItem:
       return {

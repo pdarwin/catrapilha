@@ -38,10 +38,11 @@ function reducer(state, action) {
 export default function Arquipelagos() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [maxItems] = useState(100);
+  const [loading, setLoading] = useState(false);
   const { dataState, dataDispatch } = useDataContext();
   const location = useLocation();
-
   const navigate = useNavigate();
+  let totalPages;
 
   useEffect(() => {
     if (dataState.data) {
@@ -61,7 +62,8 @@ export default function Arquipelagos() {
 
   async function getAllItems() {
     let i = dataState.root;
-    while (state.items.length < maxItems) {
+    setLoading(true);
+    while (state.items.length < maxItems && (!totalPages || i <= totalPages)) {
       await getMoreItems(i)
         .then(() => {
           processArqItems(state.tmpItems)
@@ -77,6 +79,7 @@ export default function Arquipelagos() {
         });
       i++;
     }
+    setLoading(false);
   }
 
   async function getMoreItems(i) {
@@ -99,11 +102,7 @@ export default function Arquipelagos() {
 
     console.log("Total items now:", state.items.length);
 
-    if (state.items.length === maxItems) {
-      dataDispatch({
-        type: actionsD.setFirstId,
-        payload: state.items[0].id,
-      });
+    if (state.items.length > 1) {
       dataDispatch({
         type: actionsD.updateItems,
         payload: state.items,
@@ -113,17 +112,20 @@ export default function Arquipelagos() {
 
   async function getItems(page) {
     try {
-      const res = await axios.get(`arqapi/wp-json/wp/v2/imagem`, {
-        params: {
-          page: page,
-          per_page: 100,
-        },
-      });
+      const res = await axios.get(
+        `https://www.arquipelagos.pt/wp-json/wp/v2/imagem`,
+        {
+          params: {
+            page: page,
+            per_page: 100,
+          },
+        }
+      );
       if (res.status !== 200) {
         throw new Error("Erro:" + res.status);
       }
-
       const items = res.data;
+      totalPages = res.headers.get("x-wp-totalpages");
       let filteredItems = items
         .filter(
           item =>
@@ -159,16 +161,18 @@ export default function Arquipelagos() {
 
   async function getItem(item) {
     try {
-      const res = await axios.get(`/arqapi/wp-json/wp/v2/imagem/${item}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.get(
+        `https://www.arquipelagos.pt/wp-json/wp/v2/imagem/${item}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (res.status !== 200) {
         throw new Error("Erro:" + res.status);
       }
-
       const parsed = await res.data;
 
       getListItem(parsed);
@@ -266,7 +270,9 @@ export default function Arquipelagos() {
               color="text.secondary"
               sx={{ float: "center" }}
             >
-              Preparando lista de imagens, aguarde por favor.
+              {loading
+                ? "Preparando lista de imagens, aguarde por favor."
+                : "Sem imagens disponíveis."}
             </Typography>
           )
         ) : (
