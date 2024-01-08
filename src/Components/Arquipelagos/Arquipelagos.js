@@ -39,6 +39,8 @@ export default function Arquipelagos() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [maxItems] = useState(100);
   const [loading, setLoading] = useState(false);
+  const [cancelToken, setCancelToken] = useState(new AbortController());
+  const [cancelLoadItem, setCancelLoadItem] = useState(new AbortController());
   const { dataState, dataDispatch } = useDataContext();
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,6 +58,9 @@ export default function Arquipelagos() {
       getAllItems().catch(error => {
         console.error("Error getting more items:", error);
       });
+      if (dataState.filter === "/CLEAR/") {
+        dataState.filter = "";
+      }
       dataState.previousFilter = "";
     }
   }, [dataState.data, location, dataState.filter]);
@@ -63,7 +68,11 @@ export default function Arquipelagos() {
   async function getAllItems() {
     let i = dataState.root;
     setLoading(true);
-    while (state.items.length < maxItems && (!totalPages || i <= totalPages)) {
+    while (
+      state.items.length < maxItems &&
+      (!totalPages || i <= totalPages) &&
+      !cancelToken.signal.aborted
+    ) {
       await getMoreItems(i)
         .then(() => {
           processArqItems(state.tmpItems)
@@ -79,11 +88,11 @@ export default function Arquipelagos() {
         });
       i++;
     }
+    setCancelToken(new AbortController());
     setLoading(false);
   }
 
   async function getMoreItems(i) {
-    state.cancelToken = new AbortController();
     console.log("Total items at " + i + " iterations:", state.items.length);
     dataDispatch({
       type: actionsD.updateIterations,
@@ -153,7 +162,7 @@ export default function Arquipelagos() {
 
   async function processArqItems(items) {
     for (const item of items) {
-      if (state.cancelToken.signal.aborted) break;
+      if (cancelLoadItem.signal.aborted) break;
       // Get the item.
       await getItem(item.id);
     }
@@ -179,13 +188,13 @@ export default function Arquipelagos() {
     } catch (error) {
       console.log("GetItem:", error);
       if (error.response.status === 400) {
-        state.cancelToken.abort();
+        cancelLoadItem.abort();
       }
     }
   }
 
   function getListItem(item) {
-    if (state.cancelToken.signal.aborted) return;
+    if (cancelLoadItem.signal.aborted) return;
     axios
       .get(
         item._links["wp:featuredmedia"][0].href.replace(
@@ -224,7 +233,7 @@ export default function Arquipelagos() {
       type: actionsD.setCurrentId,
       payload: item.id,
     });
-    state.cancelToken.abort();
+    cancelLoadItem.abort();
     state.listItems = [];
     navigate("/item/");
   }
@@ -310,7 +319,7 @@ export default function Arquipelagos() {
       </div>
 
       <div>
-        <Filters />
+        <Filters cancelToken={cancelToken} />
       </div>
     </div>
   );

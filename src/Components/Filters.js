@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDataContext } from "../Reducers/DataContext";
 import { actionsD } from "../Reducers/DataReducer";
 
-export default function Filters() {
+export default function Filters({ cancelToken }) {
   const { dataState, dataDispatch } = useDataContext();
   const [query, setQuery] = useState("");
   const [root, setRoot] = useState(1);
@@ -36,13 +36,14 @@ export default function Filters() {
 
   const handleClear = event => {
     event.preventDefault();
+    cancelToken.abort();
     dataDispatch({
       type: actionsD.updateItems,
       payload: [],
     });
     dataDispatch({
       type: actionsD.setFilter,
-      payload: "",
+      payload: "/CLEAR/",
     });
     dataDispatch({
       type: actionsD.setRoot,
@@ -96,7 +97,7 @@ export default function Filters() {
             margin: "auto", // Center the button horizontally
           }}
         >
-          Filtrar
+          Pesquisar
         </Button>
         <Button
           variant="outlined"
