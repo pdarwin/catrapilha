@@ -13,6 +13,7 @@ export const actionsD = {
   updateIterations: "updateIterations",
   updateDate: "updateDate",
   updateLicense: "updateLicense",
+  updateAuthor: "updateAuthor",
   setFilter: "setFilter",
   setRoot: "setRoot",
 };
@@ -163,6 +164,11 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         date: action.payload,
+      };
+    case actionsD.updateAuthor:
+      return {
+        ...state,
+        author: action.payload,
       };
     case actionsD.setFilter:
       return {

@@ -14,11 +14,9 @@ import { actionsD } from "../../Reducers/DataReducer";
 export default function ItemArqForm() {
   const { dataState, dataDispatch } = useDataContext();
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     buildInfo();
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   function buildInfo() {
     const item = dataState.item;
@@ -28,7 +26,11 @@ export default function ItemArqForm() {
     item.date =
       item.date === "" ? buildDate(dataState.item.linkhtml) : item.date;
 
-    item.author = buildAuthor(dataState.item.linkhtml);
+    item.author = !dataState.author
+      ? item.author === ""
+        ? buildAuthor(dataState.item.linkhtml)
+        : item.author
+      : dataState.author;
 
     item.license = item.license ?? getLicense(item.author, item.date);
 
@@ -40,7 +42,7 @@ export default function ItemArqForm() {
       "\n|source={{SourceArquipelagos|" +
       item.link +
       "}}\n|author=" +
-      item.author +
+      (dataState.author === "" ? item.author : dataState.author) +
       "\n|permission=\n|other versions=\n}}\n\n" +
       "=={{int:license-header}}==\n{{Arquipelagos license|" +
       (item.license === "CC-BY-SA 4.0" ? "" : dataState.item.license) +
@@ -48,7 +50,7 @@ export default function ItemArqForm() {
       "[[Category:Uploaded with Catrapilha]]\n" +
       (item.author === "{{creator:Rui Carita}}"
         ? "[[Category:Photographs by Rui Carita]]\n"
-        : item.author === "José Lemos Silva"
+        : item.author === "José Lemos Silva" || item.author === "Lemos Silva"
         ? "[[Category:Photographs by José Lemos Silva]]\n"
         : item.author === "Virgílio Gomes"
         ? "[[Category:Photographs by Virgílio Gomes]]\n"
@@ -124,11 +126,14 @@ export default function ItemArqForm() {
       return dataState.item.description;
     } else if (
       author === "Arquivo Regional da Madeira" ||
-      author === "Privado"
+      author === "Privado" ||
+      author === "Museu Militar da Madeira" ||
+      author === "Museu da Quinta das Cruzes"
     ) {
       return author2;
     } else if (
       author === "José Lemos Silva" ||
+      author === "Lemos Silva" ||
       author === "Virgílio Gomes" ||
       author === "Gilberto Garrido"
     ) {
@@ -178,6 +183,7 @@ export default function ItemArqForm() {
     const currentYear = new Date().getFullYear();
     const authorIsKnown =
       author === "José Lemos Silva" ||
+      author === "Lemos Silva" ||
       author === "{{creator:Rui Carita}}" ||
       author === "Virgílio Gomes" ||
       author === "Gilberto Garrido";
@@ -191,27 +197,6 @@ export default function ItemArqForm() {
     } else {
       return "PD-old-100-expired";
     }
-  };
-
-  const buildFilename2 = () => {
-    let item = dataState.item;
-    item.filename =
-      item.description
-        .substring(
-          item.description.indexOf("'''") + 3,
-          item.description.indexOf("'''", item.description.indexOf("'''") + 3)
-        )
-        .replace(".", "")
-        .trim() +
-      " - " +
-      (dataState.date ? dataState.date : item.date) +
-      " - Image " +
-      item.id +
-      ".jpg";
-    dataDispatch({
-      type: actionsD.updateItem,
-      payload: item,
-    });
   };
 
   const buildFilename1 = () => {
@@ -228,6 +213,29 @@ export default function ItemArqForm() {
       /\.\s-/gi,
       " -"
     );
+    dataDispatch({
+      type: actionsD.updateItem,
+      payload: item,
+    });
+  };
+
+  const buildFilename2 = () => {
+    let item = dataState.item;
+    item.filename =
+      item.description
+        .substring(
+          item.description.indexOf("'''") + 3,
+          item.description.indexOf("'''", item.description.indexOf("'''") + 3)
+        )
+        .replace(".", "")
+        .replace(/^''/gm, "")
+        .replace(/\<\/i\>/gm, "")
+        .trim() +
+      " - " +
+      (dataState.date ? dataState.date : item.date) +
+      " - Image " +
+      item.id +
+      ".jpg";
     dataDispatch({
       type: actionsD.updateItem,
       payload: item,
@@ -332,6 +340,7 @@ export default function ItemArqForm() {
                 <MenuItem value="PD-Portugal-URAA">URAA</MenuItem>
                 <MenuItem value="CC-BY-SA 4.0">CC-BY-SA 4.0</MenuItem>
                 <MenuItem value="textlogo">Textlogo</MenuItem>
+                <MenuItem value="exempt">Exempt</MenuItem>
               </Select>
             </Grid>
             <Grid item xs={1}>
@@ -347,6 +356,30 @@ export default function ItemArqForm() {
                   dataDispatch({
                     type: actionsD.updateDate,
                     payload: dataState.date,
+                  });
+                  buildInfo();
+                }}
+                style={{
+                  backgroundColor: "white",
+                }}
+                type="text"
+                sx={{ mx: 2 }}
+                variant="filled"
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <Typography variant="body2" style={{ float: "right" }}>
+                Autor:
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                value={dataState.author}
+                onChange={e => {
+                  dataState.author = e.target.value;
+                  dataDispatch({
+                    type: actionsD.updateAuthor,
+                    payload: dataState.author,
                   });
                   buildInfo();
                 }}
