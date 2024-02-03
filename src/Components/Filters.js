@@ -4,19 +4,20 @@ import React, { useEffect, useState } from "react";
 import { useDataContext } from "../Reducers/DataContext";
 import { actionsD } from "../Reducers/DataReducer";
 
-export default function Filters({ cancelToken }) {
+export default function Filters({ stopRef }) {
   const { dataState, dataDispatch } = useDataContext();
   const [query, setQuery] = useState("");
   const [root, setRoot] = useState(1);
 
   useEffect(() => {
-    dataState.previousFilter = dataState.filter ? dataState.filter : "none";
-    console.log("Previous filter set to:", dataState.previousFilter);
     setQuery(dataState.filter);
   }, [dataState.filter]);
 
   const handleSubmit = event => {
     event.preventDefault();
+    if (dataState.listLoading) {
+      stopRef.current = true;
+    }
     dataDispatch({
       type: actionsD.updateItems,
       payload: [],
@@ -36,7 +37,9 @@ export default function Filters({ cancelToken }) {
 
   const handleClear = event => {
     event.preventDefault();
-    cancelToken.abort();
+    if (dataState.listLoading) {
+      stopRef.current = true;
+    }
     dataDispatch({
       type: actionsD.updateItems,
       payload: [],

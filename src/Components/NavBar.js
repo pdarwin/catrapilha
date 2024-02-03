@@ -6,6 +6,8 @@ import {
   Button,
   Container,
   IconButton,
+  MenuItem,
+  Select,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -14,12 +16,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useNavigate } from "react-router-dom";
 import configData from "../Config.json";
 import { useDataContext } from "../Reducers/DataContext";
+import { actionsD } from "../Reducers/DataReducer";
 import { useModalContext } from "../Reducers/ModalContext";
 import { actionsM } from "../Reducers/ModalReducer";
 import catrapilha from "../Resources/catrapilha.png";
 
-export default function NavBar({ getData, getTokenCSRF }) {
-  const { dataState } = useDataContext();
+export default function NavBar({ getData, getTokenCSRF, stopRef }) {
+  const { dataState, dataDispatch } = useDataContext();
   const { modalDispatch } = useModalContext();
   const [user, setUser] = useState();
 
@@ -136,15 +139,16 @@ export default function NavBar({ getData, getTokenCSRF }) {
             >
               <IconButton
                 onClick={() => {
-                  const project =
-                    dataState.project === "Arq" ? "/Arquipelagos" : "/Flickr";
-                  navigate(project);
+                  if (dataState.listLoading) {
+                    stopRef.current = true;
+                  }
+                  navigate("/List");
                 }}
                 sx={{ p: 0 }}
                 style={{ color: "white" }}
               >
                 <Avatar alt="Catrapilha" src={catrapilha} sx={{ p: 1 }} />
-                Catrapilha 1.1
+                Catrapilha 1.2
               </IconButton>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -165,22 +169,28 @@ export default function NavBar({ getData, getTokenCSRF }) {
                 Enviar dados
               </Button>
             </Box>
-            <Button
-              // Mudar de projecto
-              // onClick={() => {
-              //   dataDispatch({
-              //     type: actionsD.changeProject,
-              //     payload: dataState.project == "Arq" ? "Flickr" : "Arq"
-              //   });
-              //   let project =
-              //     dataState.project == "Arq" ? "/Arquipelagos" : "/Flickr";
-              //   navigate(project);
-              // }}
-              sx={{ my: 2, color: "white", display: "block" }}
-              size="small"
+            <Select
+              value={dataState.project}
+              label="Projeto"
+              onChange={e => {
+                e.preventDefault();
+                if (dataState.listLoading) {
+                  stopRef.current = true;
+                }
+                dataState.project = e.target.value;
+                dataDispatch({
+                  type: actionsD.changeProject,
+                  payload: dataState.project,
+                });
+              }}
+              style={{ height: 30, width: 250 }}
+              sx={{ mx: 2, color: "white" }}
             >
-              {dataState.project === "Arq" ? "Arquipélagos" : "Flickr"}
-            </Button>
+              <MenuItem value="Arq">Arquipelagos</MenuItem>
+              <MenuItem value="Project1">
+                {configData["Project1-name"]}
+              </MenuItem>
+            </Select>
             <Typography style={{ float: "left", color: "white" }} mx={2}>
               {dataState.currentId === 0 ? "" : "Item: " + dataState.currentId}
             </Typography>
@@ -201,7 +211,14 @@ export default function NavBar({ getData, getTokenCSRF }) {
                   ? dataState.data.Arquipelagos.filter(
                       element => element.status === "Y"
                     ).length
-                  : 0)}
+                  : 0) +
+                " (" +
+                (dataState.data !== null
+                  ? dataState.data.Arquipelagos.filter(
+                      element => element.status === "Y"
+                    ).length - dataState.initialCountC
+                  : 0) +
+                " novos)"}
             </Typography>
             <Typography style={{ float: "right", color: "white" }}>
               {user ? user : ""}

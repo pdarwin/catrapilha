@@ -62,7 +62,7 @@ export default function UploadForm({ getTokenCSRF, remove }) {
       }
       uploadParams.append(
         "comment",
-        "Uploaded with experimental media library-assisted upload tool [[Category:Uploaded with Catrapilha|Catrapilha 1.1]] (contact [[User talk:DarwIn|DarwIn]] for any issues)"
+        "Uploaded with experimental media library-assisted upload tool [[Category:Uploaded with Catrapilha|Catrapilha 1.2]] (contact [[User talk:DarwIn|DarwIn]] for any issues)"
       );
       uploadParams.append("token", token);
 

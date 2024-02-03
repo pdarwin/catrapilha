@@ -16,12 +16,15 @@ export const actionsD = {
   updateAuthor: "updateAuthor",
   setFilter: "setFilter",
   setRoot: "setRoot",
+  setTotalPages: "setTotalPages",
+  setListLoading: "setListLoading",
 };
 
 export const initialStateD = {
   project: "Arq",
   data: null,
   initialCount: 0,
+  initialCountC: 0,
   rev: 0,
   firstId: 0,
   currentId: 0,
@@ -45,6 +48,10 @@ export const initialStateD = {
   },
   filter: "",
   root: 1,
+  author: "",
+  totalPages: 0,
+  maxItems: 100,
+  listLoading: false,
 };
 
 export const DataReducer = (state, action) => {
@@ -53,6 +60,7 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         project: action.payload,
+        items: [],
       };
     case actionsD.moveBack:
       return {
@@ -105,6 +113,9 @@ export const DataReducer = (state, action) => {
         ...state,
         data: action.payload,
         initialCount: action.payload.Arquipelagos.length,
+        initialCountC: action.payload.Arquipelagos.filter(
+          element => element.status === "Y"
+        ).length,
       };
     case actionsD.updateData:
       return {
@@ -180,10 +191,20 @@ export const DataReducer = (state, action) => {
         ...state,
         root: action.payload,
       };
+    case actionsD.setTotalPages:
+      return {
+        ...state,
+        totalPages: action.payload,
+      };
     case actionsD.updateIterations:
       return {
         ...state,
         iterations: action.payload,
+      };
+    case actionsD.setListLoading:
+      return {
+        ...state,
+        listLoading: action.payload,
       };
     default:
       throw new Error();

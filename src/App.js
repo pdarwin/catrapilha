@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Arquipelagos from "./Components/Arquipelagos/Arquipelagos";
-import ItemArq from "./Components/Arquipelagos/ItemArq";
+import CatraItem from "./Components/CatraList/CatraItem";
+import CatraList from "./Components/CatraList/CatraList";
 import MyModal from "./Components/MyModal";
 import NavBar from "./Components/NavBar";
 import configData from "./Config.json";
@@ -9,11 +9,11 @@ import DataContext from "./Reducers/DataContext";
 import { DataReducer, actionsD, initialStateD } from "./Reducers/DataReducer";
 import ModalContext from "./Reducers/ModalContext";
 import { ModalReducer, actionsM, initialStateM } from "./Reducers/ModalReducer";
-//import Flickr from "./Components/Flickr/Flickr";
 
 function App() {
   const [modalState, modalDispatch] = useReducer(ModalReducer, initialStateM);
   const [dataState, dataDispatch] = useReducer(DataReducer, initialStateD);
+  let stopRef = useRef(false);
 
   const providerStateModal = {
     modalState,
@@ -105,21 +105,24 @@ function App() {
         <DataContext.Provider value={providerStateData}>
           <MyModal />
           <BrowserRouter>
-            <NavBar getData={getData} getTokenCSRF={getTokenCSRF} />
+            <NavBar
+              getData={getData}
+              getTokenCSRF={getTokenCSRF}
+              stopRef={stopRef}
+            />
             <Routes>
               <Route
                 path="/"
-                element={<Arquipelagos getData={getData} />}
+                element={<CatraList getData={getData} stopRef={stopRef} />}
               ></Route>
               <Route
-                path="/Arquipelagos"
-                element={<Arquipelagos getData={getData} />}
+                path="/List"
+                element={<CatraList stopRef={stopRef} />}
               ></Route>
               <Route
                 path="/item"
-                element={<ItemArq getTokenCSRF={getTokenCSRF} />}
+                element={<CatraItem getTokenCSRF={getTokenCSRF} />}
               ></Route>
-              {/* <Route path="/Flickr" element={<Flickr />}></Route> */}
             </Routes>
           </BrowserRouter>
         </DataContext.Provider>

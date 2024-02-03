@@ -11,26 +11,36 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useDataContext } from "../../Reducers/DataContext";
 import { actionsD } from "../../Reducers/DataReducer";
 
-export default function ItemArqForm() {
+export default function CatraItemForm() {
   const { dataState, dataDispatch } = useDataContext();
 
   useEffect(() => {
     buildInfo();
   }, []);
 
-  function buildInfo() {
+  const authorIsKnown = author => {
+    return (
+      author === "José Lemos Silva" ||
+      author === "Lemos Silva" ||
+      author === "{{creator:Rui Carita}}" ||
+      author === "Virgílio Gomes" ||
+      author === "Gilberto Garrido" ||
+      author === "João Carita"
+    );
+  };
+
+  const buildInfo = () => {
     const item = dataState.item;
 
     item.description = buildDescription(item.description);
 
-    item.date =
-      item.date === "" ? buildDate(dataState.item.linkhtml) : item.date;
+    item.author =
+      item.author === "" ? buildAuthor(dataState.item.linkhtml) : item.author;
 
-    item.author = !dataState.author
-      ? item.author === ""
-        ? buildAuthor(dataState.item.linkhtml)
-        : item.author
-      : dataState.author;
+    item.date =
+      item.date === ""
+        ? buildDate(dataState.item.linkhtml, item.author)
+        : item.date;
 
     item.license = item.license ?? getLicense(item.author, item.date);
 
@@ -71,7 +81,7 @@ export default function ItemArqForm() {
       type: actionsD.updateItem,
       payload: item,
     });
-  }
+  };
 
   const buildDescription = description => {
     return description
@@ -117,6 +127,7 @@ export default function ItemArqForm() {
     } else if (
       author === "Perestellos Fotógrafos" ||
       author === "ABM/ARM/Perestrellos" ||
+      author === "Foto Perestrellos" ||
       dataState.item.description.indexOf("Fotografia ''Perestrellos''") !== -1
     ) {
       return "{{creator:Perestrellos Photographos}}";
@@ -128,15 +139,11 @@ export default function ItemArqForm() {
       author === "Arquivo Regional da Madeira" ||
       author === "Privado" ||
       author === "Museu Militar da Madeira" ||
-      author === "Museu da Quinta das Cruzes"
+      author === "Museu da Quinta das Cruzes" ||
+      author === "MASF"
     ) {
       return author2;
-    } else if (
-      author === "José Lemos Silva" ||
-      author === "Lemos Silva" ||
-      author === "Virgílio Gomes" ||
-      author === "Gilberto Garrido"
-    ) {
+    } else if (authorIsKnown(author)) {
       return author;
     } else if (
       dataState.categories.indexOf(
@@ -149,7 +156,7 @@ export default function ItemArqForm() {
     }
   };
 
-  const buildDate = linkhtml => {
+  const buildDate = (linkhtml, author) => {
     // Define a regular expression pattern to extract the date
     const datePattern = new RegExp(
       ".*Data " +
@@ -168,7 +175,7 @@ export default function ItemArqForm() {
         date = date.replace("-00-00", "");
       }
 
-      if (dataState.item.title.includes("(c.)")) {
+      if (dataState.item.title.includes("(c.)") && !authorIsKnown(author)) {
         date = date.replace(date, "{{circa|" + date + "}}");
       }
 
@@ -181,16 +188,13 @@ export default function ItemArqForm() {
 
   const getLicense = (author, date) => {
     const currentYear = new Date().getFullYear();
-    const authorIsKnown =
-      author === "José Lemos Silva" ||
-      author === "Lemos Silva" ||
-      author === "{{creator:Rui Carita}}" ||
-      author === "Virgílio Gomes" ||
-      author === "Gilberto Garrido";
 
-    const dateYear = parseInt(date.substring(0, 4), 10);
+    const dateYear = parseInt(
+      date.replace("{{circa|", "").replace("}}", "").substring(0, 4),
+      10
+    );
 
-    if (authorIsKnown) {
+    if (authorIsKnown(author)) {
       return "CC-BY-SA 4.0";
     } else if (currentYear - dateYear < 95) {
       return "PD-Portugal-URAA";
@@ -207,6 +211,7 @@ export default function ItemArqForm() {
       .exec(dataState.item.linkhtml)[1]
       .replace(", ilha da Madeira", "")
       .replace(/:/gi, " -")
+      .replace("  ", " ")
       .trim();
 
     item.filename = (filename + " - Image " + item.id + ".jpg").replace(
@@ -222,14 +227,16 @@ export default function ItemArqForm() {
   const buildFilename2 = () => {
     let item = dataState.item;
     item.filename =
-      item.description
-        .substring(
-          item.description.indexOf("'''") + 3,
-          item.description.indexOf("'''", item.description.indexOf("'''") + 3)
-        )
+      (item.description.includes("<p><b>")
+        ? item.description.substring(6, item.description.indexOf("<br"))
+        : item.description.substring(
+            item.description.indexOf("'''") + 3,
+            item.description.indexOf("'''", item.description.indexOf("'''") + 3)
+          )
+      )
         .replace(".", "")
         .replace(/^''/gm, "")
-        .replace(/\<\/i\>/gm, "")
+        .replace(/<\/i>/gm, "")
         .trim() +
       " - " +
       (dataState.date ? dataState.date : item.date) +

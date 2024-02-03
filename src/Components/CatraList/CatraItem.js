@@ -14,9 +14,9 @@ import { actionsD } from "../../Reducers/DataReducer";
 import { useModalContext } from "../../Reducers/ModalContext";
 import { actionsM } from "../../Reducers/ModalReducer";
 import UploadForm from "../UploadForm";
-import ItemArqForm from "./ItemArqForm";
+import CatraItemForm from "./CatraItemForm";
 
-export default function ItemArq({ getTokenCSRF }) {
+export default function CatraItem({ getTokenCSRF }) {
   const [loading, setLoading] = useState(false);
   const { modalDispatch } = useModalContext();
   const { dataState, dataDispatch } = useDataContext();
@@ -262,6 +262,9 @@ export default function ItemArq({ getTokenCSRF }) {
               <Button
                 variant="contained"
                 onClick={() => {
+                  console.log("Current: ", dataState.currentId);
+                  console.log("Last: ", dataState.lastId);
+                  console.log(dataState);
                   dataDispatch({
                     type: actionsD.moveForward,
                   });
@@ -314,7 +317,7 @@ export default function ItemArq({ getTokenCSRF }) {
                 ""
               )}
             </Grid>
-            <ItemArqForm />
+            <CatraItemForm />
             <UploadForm getTokenCSRF={getTokenCSRF} remove={remove} />
           </Grid>
         ) : (
