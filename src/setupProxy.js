@@ -6,10 +6,7 @@ module.exports = function (app) {
       target: "https://commons.wikimedia.org",
       changeOrigin: true,
       pathRewrite: {
-        "^/comapi": "",
-      },
-      onProxyReq: function (request) {
-        request.setHeader("origin", "https://commons.wikimedia.org");
+        "^/comapi/": "",
       },
     })
   );
@@ -20,9 +17,6 @@ module.exports = function (app) {
       pathRewrite: {
         "^/arqapi": "",
       },
-      onProxyReq: function (request) {
-        request.setHeader("origin", "https://www.arquipelagos.pt");
-      },
     })
   );
   app.use(
@@ -32,8 +26,14 @@ module.exports = function (app) {
       pathRewrite: {
         "^/flickrapi": "",
       },
-      onProxyReq: function (request) {
-        request.setHeader("origin", "https://www.flickr.com/");
+    })
+  );
+  app.use(
+    createProxyMiddleware("/pmpa1api", {
+      target: "https://bancodeimagens.portoalegre.rs.gov.br",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/pmpa1api": "",
       },
     })
   );

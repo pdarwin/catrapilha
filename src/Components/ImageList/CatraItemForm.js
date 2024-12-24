@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useDataContext } from "../../Reducers/DataContext";
 import { actionsD } from "../../Reducers/DataReducer";
@@ -16,6 +16,7 @@ export default function CatraItemForm() {
 
   useEffect(() => {
     buildInfo();
+    // eslint-disable-next-line
   }, []);
 
   const authorIsKnown = author => {

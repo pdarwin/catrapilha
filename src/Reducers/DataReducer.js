@@ -18,11 +18,13 @@ export const actionsD = {
   setRoot: "setRoot",
   setTotalPages: "setTotalPages",
   setListLoading: "setListLoading",
+  resetState: "resetState",
+  finishProjectReset: "finishProjectReset",
 };
 
 export const initialStateD = {
-  project: "Arq",
-  data: null,
+  projectId: "",
+  data: [],
   initialCount: 0,
   initialCountC: 0,
   rev: 0,
@@ -50,17 +52,48 @@ export const initialStateD = {
   root: 1,
   author: "",
   totalPages: 0,
-  maxItems: 100,
+  maxItems: 10,
   listLoading: false,
+  items: [], // Initialize items as an empty array
+  projectReseted: true,
 };
 
 export const DataReducer = (state, action) => {
   switch (action.type) {
+    //Project
     case actionsD.changeProject:
       return {
         ...state,
-        project: action.payload,
+        projectId: action.payload,
+        data: [],
         items: [],
+        projectReseted: true,
+      };
+    case actionsD.finishProjectReset:
+      return {
+        ...state,
+        projectReseted: false,
+      };
+
+    // Data
+    case actionsD.updateIData:
+      return {
+        ...state,
+        data: action.payload,
+        initialCount: action.payload.length,
+        initialCountC: action.payload.filter(element => element.status === "Y")
+          .length,
+        items: [], // Reset items to ensure fresh processing
+      };
+    case actionsD.updateData:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case actionsD.updateItems:
+      return {
+        ...state,
+        items: Array.isArray(action.payload) ? action.payload : [],
       };
     case actionsD.moveBack:
       return {
@@ -107,25 +140,6 @@ export const DataReducer = (state, action) => {
           file: null,
         },
         forward: true,
-      };
-    case actionsD.updateIData:
-      return {
-        ...state,
-        data: action.payload,
-        initialCount: action.payload.Arquipelagos.length,
-        initialCountC: action.payload.Arquipelagos.filter(
-          element => element.status === "Y"
-        ).length,
-      };
-    case actionsD.updateData:
-      return {
-        ...state,
-        data: action.payload,
-      };
-    case actionsD.updateItems:
-      return {
-        ...state,
-        items: action.payload,
       };
     case actionsD.setCurrentId:
       return {

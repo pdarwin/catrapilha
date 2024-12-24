@@ -19,6 +19,7 @@ export const ModalReducer = (state, action) => {
         level: action.payload.level,
         msg: action.payload.msg,
         link: action.payload.link,
+        onClose: action.payload.onClose || null, // Store onClose callback if provided
       };
     case actionsM.closeModal:
       return {
@@ -27,6 +28,7 @@ export const ModalReducer = (state, action) => {
         level: initialStateM.level,
         msg: initialStateM.msg,
         link: initialStateM.link,
+        onClose: null, // Reset onClose callback when modal is closed
       };
     default:
       throw new Error();
