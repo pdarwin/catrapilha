@@ -71,16 +71,15 @@ export default function ItemDetail() {
   const previousItem = sortedItems[currentIndex - 1];
   const nextItem = sortedItems[currentIndex + 1];
 
-  // Reusable function to update dataState and navigate
-  const updateDataAndNavigate = async (itemId, nextItem) => {
-    // Add new object to dataState.data
+  const updateItemStatusAndNavigate = async (itemId, nextItem, status) => {
+    // Add new object to dataState.data with the given status
     const localDataset = [...dataState.data];
-    localDataset.push({ id: itemId, status: "Y" }); // Mark the page as successful
+    localDataset.push({ id: itemId, status }); // Use the provided status
 
     // Dispatch updated dataset
     dataDispatch({ type: actionsD.updateData, payload: localDataset });
 
-    // Remove the uploaded item from dataState.items
+    // Remove the item with the given ID from dataState.items
     const updatedItems = dataState.items.filter(
       currentItem => currentItem.id !== itemId
     );
@@ -142,7 +141,7 @@ export default function ItemDetail() {
             msg: msg + ":",
             level: "warning",
             link: "https://commons.wikimedia.org/wiki/File:" + file,
-            onClose: () => updateDataAndNavigate(item.id, nextItem),
+            onClose: () => updateItemStatusAndNavigate(item.id, nextItem, "Y"),
           },
         });
       }
@@ -155,7 +154,7 @@ export default function ItemDetail() {
             level: "success",
             link:
               "https://commons.wikimedia.org/wiki/File:" + data.upload.filename,
-            onClose: () => updateDataAndNavigate(item.id, nextItem),
+            onClose: () => updateItemStatusAndNavigate(item.id, nextItem, "Y"),
           },
         });
       }
@@ -239,7 +238,12 @@ export default function ItemDetail() {
                 alignItems: "center",
               }}
             >
-              <Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <Button
                   variant="contained"
                   onClick={handleUpload}
@@ -247,6 +251,17 @@ export default function ItemDetail() {
                   sx={{ marginRight: 2 }}
                 >
                   Carregar no Commons
+                </Button>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={() =>
+                    updateItemStatusAndNavigate(item.id, nextItem, "N")
+                  }
+                  size="large"
+                  sx={{ marginRight: 2 }}
+                >
+                  Não carregar
                 </Button>
                 <FormControlLabel
                   control={
@@ -256,16 +271,17 @@ export default function ItemDetail() {
                     />
                   }
                   label="Ignorar avisos"
+                  sx={{ marginRight: 2 }}
                 />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => navigate("/")}
+                  size="large"
+                >
+                  Voltar
+                </Button>
               </Box>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => navigate("/")}
-                size="large"
-              >
-                Voltar para a lista
-              </Button>
             </Box>
           </Grid>
 
