@@ -43,7 +43,7 @@ export const getData = async (projectId, dataDispatch, modalDispatch) => {
   }
 };
 
-export const sendData = async (dataState, modalDispatch) => {
+export const sendData = async (dataState, modalDispatch, dataDispatch) => {
   try {
     const res = await sendDataAPI(dataState);
     const data = res.data;
@@ -60,6 +60,10 @@ export const sendData = async (dataState, modalDispatch) => {
     }
 
     if (data.edit.result === "Success") {
+      dataDispatch({
+        type: actionsD.updateIData,
+        payload: dataState.data || [],
+      });
       modalDispatch({
         type: actionsM.fireModal,
         payload: {

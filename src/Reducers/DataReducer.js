@@ -83,7 +83,6 @@ export const DataReducer = (state, action) => {
         initialCount: action.payload.length,
         initialCountC: action.payload.filter(element => element.status === "Y")
           .length,
-        items: [], // Reset items to ensure fresh processing
       };
     case actionsD.updateData:
       return {

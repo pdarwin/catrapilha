@@ -63,7 +63,7 @@ export default function NavBar({ stopRef }) {
   // Handle sending data
   const handleSendData = async () => {
     try {
-      const success = await sendData(dataState, modalDispatch);
+      const success = await sendData(dataState, modalDispatch, dataDispatch);
 
       if (success) {
         // Optionally navigate or perform other actions upon success

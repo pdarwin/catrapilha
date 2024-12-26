@@ -120,6 +120,16 @@ export default function ItemDetail() {
         switch (type) {
           case "exists":
             msg = "Imagem já existente no Commons";
+            modalDispatch({
+              type: actionsM.fireModal,
+              payload: {
+                msg: msg + ":",
+                level: "warning",
+                link: "https://commons.wikimedia.org/wiki/File:" + file,
+                onClose: () =>
+                  updateItemStatusAndNavigate(item.id, nextItem, "Y"),
+              },
+            });
             break;
           case "duplicate":
             msg = "Imagem duplicada no Commons";
@@ -135,15 +145,17 @@ export default function ItemDetail() {
             break;
         }
 
-        modalDispatch({
-          type: actionsM.fireModal,
-          payload: {
-            msg: msg + ":",
-            level: "warning",
-            link: "https://commons.wikimedia.org/wiki/File:" + file,
-            onClose: () => updateItemStatusAndNavigate(item.id, nextItem, "Y"),
-          },
-        });
+        // Dispatch the modal for non-"exists" cases
+        if (type !== "exists") {
+          modalDispatch({
+            type: actionsM.fireModal,
+            payload: {
+              msg: msg + ":",
+              level: "warning",
+              link: "https://commons.wikimedia.org/wiki/File:" + file,
+            },
+          });
+        }
       }
 
       if (data.upload.result === "Success") {
@@ -246,22 +258,12 @@ export default function ItemDetail() {
               >
                 <Button
                   variant="contained"
-                  onClick={handleUpload}
+                  color="primary"
+                  onClick={() => navigate("/")}
                   size="large"
                   sx={{ marginRight: 2 }}
                 >
-                  Carregar no Commons
-                </Button>
-                <Button
-                  variant="contained"
-                  color="warning"
-                  onClick={() =>
-                    updateItemStatusAndNavigate(item.id, nextItem, "N")
-                  }
-                  size="large"
-                  sx={{ marginRight: 2 }}
-                >
-                  Não carregar
+                  Voltar
                 </Button>
                 <FormControlLabel
                   control={
@@ -275,11 +277,22 @@ export default function ItemDetail() {
                 />
                 <Button
                   variant="contained"
-                  color="primary"
-                  onClick={() => navigate("/")}
+                  color="warning"
+                  onClick={() =>
+                    updateItemStatusAndNavigate(item.id, nextItem, "N")
+                  }
                   size="large"
+                  sx={{ marginRight: 2 }}
                 >
-                  Voltar
+                  Não carregar
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleUpload}
+                  size="large"
+                  sx={{ marginRight: 2 }}
+                >
+                  Carregar no Commons
                 </Button>
               </Box>
             </Box>

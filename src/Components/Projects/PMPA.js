@@ -227,8 +227,15 @@ const processDescription = description => {
     description = description.split("Foto:")[0].trim();
   }
 
+  // Remove anything after "Foto:" and trim the string
+  if (description.includes("Local:")) {
+    description = description.split("Local:")[0].trim();
+  }
+
   // Split at the first comma or period
-  description = description.split(/[,.]/)[0].trim();
+  description = description.split(/[,.:]/)[0].trim();
+
+  description = description.replace(/\//g, "-");
 
   // Truncate at the end of the 5th word with more than 3 characters
   const words = description.split(" ");
@@ -250,11 +257,74 @@ const getCategoriesFromTags = metadata => {
   const categories = [];
   const tags = metadata.tags;
 
+  if (tags.includes("Executivo")) {
+    categories.push("Politics of Porto Alegre");
+  }
+
+  if (
+    tags.includes("Executivo") ||
+    tags.includes("Secretariado") ||
+    tags.includes("Planejamento e Gestão") ||
+    tags.includes("Prédios e Edificações") ||
+    tags.includes("Infraestrutura e Mobilidade") ||
+    tags.includes("Conselhos Municipais") ||
+    tags.includes("Grupos de Trabalho") ||
+    tags.includes("Relações Institucionais")
+  ) {
+    categories.push("Prefeitura Municipal de Porto Alegre");
+  }
+
+  if (
+    tags.includes("Serviços Urbanos") ||
+    tags.includes("Procuradoria") ||
+    tags.includes("Atendimento") ||
+    tags.includes("Fazenda") ||
+    tags.includes("Arrecadação Fiscal") ||
+    tags.includes("Finanças Públicas") ||
+    tags.includes("Limpeza Urbana") ||
+    tags.includes("Água") ||
+    tags.includes("Água e Esgotos") ||
+    tags.includes("Esgoto") ||
+    tags.includes("Agentes de Trânsito")
+  ) {
+    categories.push("Municipal services in Porto Alegre");
+  }
+
+  if (tags.includes("Paço dos Açorianos")) {
+    categories.push("Paço Municipal de Porto Alegre");
+  }
+
+  if (tags.includes("Gabinete")) {
+    if (tags.includes("Prefeito")) {
+      categories.push("Mayor's office at Paço Municipal de Porto Alegre");
+    } else {
+      categories.push("Interior of Paço Municipal de Porto Alegre");
+    }
+  }
+
+  categories.push(...getPplCategories(metadata));
+
+  if (tags.includes("Prédio público")) {
+    categories.push("Municipal buildings in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Projeto de Lei") ||
+    tags.includes("Lei") ||
+    tags.includes("Alvará")
+  ) {
+    categories.push("Law of Porto Alegre");
+  }
+
   if (
     tags.includes("Transporte") ||
     tags.includes("Transporte e Circulação") ||
     tags.includes("Circulação") ||
-    tags.includes("Agentes de Trânsito")
+    tags.includes("Agentes de Trânsito") ||
+    tags.includes("Educação no Trânsito") ||
+    tags.includes("Linha Turismo") ||
+    tags.includes("Mobilidade") ||
+    tags.includes("Mobilidade Urbana")
   ) {
     categories.push("Transport in Porto Alegre");
   }
@@ -264,50 +334,12 @@ const getCategoriesFromTags = metadata => {
     categories.push("Police of Porto Alegre");
   }
 
-  if (tags.includes("Executivo")) {
-    categories.push("Politics of Porto Alegre");
-  }
-
-  if (
-    tags.includes("Executivo") ||
-    tags.includes("Serviços Urbanos") ||
-    tags.includes("Limpeza Urbana") ||
-    tags.includes("Procuradoria") ||
-    tags.includes("Arrecadação Fiscal") ||
-    tags.includes("Atendimento") ||
-    tags.includes("Secretariado") ||
-    (metadata.description && metadata.description.includes("SMS"))
-  ) {
-    categories.push("Prefeitura Municipal de Porto Alegre");
-  }
-
-  // Check if metadata includes the word "Marchezan"
-  if (
-    tags.includes("Prefeito") ||
-    (metadata.description && metadata.description.includes("Marchezan"))
-  ) {
-    categories.push("Nelson Marchezan Júnior");
-  }
-
-  if (tags.includes("Câmara Municipal de Porto Alegre (CMPA)")) {
-    categories.push("Câmara Municipal de Porto Alegre");
-  }
-
-  if (tags.includes("Prédio público")) {
-    categories.push("Municipal buildings in Porto Alegre");
-  }
-
-  if (tags.includes("Projeto de Lei")) {
-    categories.push("Law of Porto Alegre");
-  }
-
-  if (tags.includes("Diversidade sexual")) {
-    categories.push("Society of Porto Alegre");
-    categories.push("LGBT in Brazil");
-  }
-
-  if (tags.includes("Turismo")) {
+  if (tags.includes("Turismo") || tags.includes("Linha Turismo")) {
     categories.push("Tourism in Porto Alegre");
+  }
+
+  if (tags.includes("Esporte")) {
+    categories.push("Sports in Porto Alegre");
   }
 
   if (
@@ -318,11 +350,18 @@ const getCategoriesFromTags = metadata => {
     categories.push("Culture of Porto Alegre");
   }
 
-  if (tags.includes("Dança") || tags.includes("Companhia Jovem de Dança")) {
+  if (
+    tags.includes("Dança") ||
+    tags.includes("Companhia Jovem de Dança") ||
+    tags.includes("Companhia Municipal de Dança")
+  ) {
     categories.push("Dance of Rio Grande do Sul");
   }
 
-  if (tags.includes("Companhia Jovem de Dança")) {
+  if (
+    tags.includes("Companhia Jovem de Dança") ||
+    tags.includes("Companhia Municipal de Dança")
+  ) {
     categories.push("Dance companies from Brazil");
   }
 
@@ -333,112 +372,128 @@ const getCategoriesFromTags = metadata => {
     categories.push("Nature of Porto Alegre");
   }
 
-  if (tags.includes("Meio Ambiente e Sustentabilidade")) {
+  if (
+    tags.includes("Sustentabilidade") ||
+    tags.includes("Meio Ambiente e Sustentabilidade")
+  ) {
     categories.push("Conservation in Brazil");
+    categories.push("Sustainable development");
+    categories.push("Environmental protection");
   }
 
   if (tags.includes("Arrecadação Fiscal")) {
-    categories.push("Economy of Porto Alegre");
     categories.push("Tax offices");
     categories.push("Municipal buildings in Porto Alegre");
   }
 
-  if (tags.includes("Obras") || tags.includes("Pintura")) {
-    categories.push("Construction in Porto Alegre");
-    categories.push(`${getYear(metadata.humanReadableDate)} in construction`);
+  if (
+    tags.includes("Desenvolvimento Econômico") ||
+    tags.includes("Fazenda") ||
+    tags.includes("Arrecadação Fiscal") ||
+    tags.includes("Finanças Públicas") ||
+    tags.includes("Tarifa") ||
+    tags.includes("Meio Ambiente e Sustentabilidade") ||
+    tags.includes("Sustentabilidade") ||
+    tags.includes("Tributação")
+  ) {
+    categories.push("Economy of Porto Alegre");
+  }
+
+  if (
+    tags.includes("Arrecadação Fiscal") ||
+    tags.includes("Tarifa") ||
+    tags.includes("Tributação")
+  ) {
+    categories.push("Taxation in Brazil");
   }
 
   if (tags.includes("Praças e Parques")) {
     categories.push("Parks in Porto Alegre");
   }
 
-  if (tags.includes("Previsão do Tempo")) {
-    categories.push("Weather and climate of Porto Alegre");
-  }
-
-  if (tags.includes("Carnaval")) {
-    categories.push("Carnival of Porto Alegre");
-  }
-
   if (
-    tags.includes("Saúde") ||
-    tags.includes("Primeira Infância Melhor (PIM)") ||
+    (!(
+      tags.includes("CGVS") ||
+      tags.includes("Unidade de Saúde Alto Embratel") ||
+      tags.includes("Unidade de Saúde Osmar Freitas")
+    ) &&
+      tags.includes("Saúde")) ||
     tags.includes("Alimentação") ||
     tags.includes("Vigilância de Alimentos") ||
-    tags.includes("CGVS") ||
-    (metadata.description && metadata.description.includes("SMS"))
+    tags.includes("Vigilância em Saúde")
   ) {
     categories.push("Health in Porto Alegre");
   }
 
-  if (tags.includes("Farmácia")) {
-    categories.push("Pharmacies in Porto Alegre");
+  if (tags.includes("Fiscalização")) {
+    categories.push("Inspections");
   }
 
-  if (tags.includes("Vigilância de Alimentos")) {
-    categories.push("Food security in Brazil");
+  if (
+    tags.includes("Fiscalização") ||
+    tags.includes("Segurança Pública") ||
+    tags.includes("Segurança")
+  ) {
+    categories.push("Law enforcement in Porto Alegre");
   }
 
-  if (tags.includes("Ambulância")) {
-    categories.push(" Ambulances in Porto Alegre");
+  if (
+    !tags.includes("CGVS") &&
+    metadata.description &&
+    metadata.description.includes("SMS")
+  ) {
+    categories.push("SMS (Porto Alegre)");
   }
 
-  if (tags.includes("Consumidor")) {
-    categories.push("Consumer protection in Porto Alegre");
+  if (tags.includes("Leishmaniose")) {
+    categories.push("Leishmaniasis");
+    categories.push("Diseases and disorders in Brazil");
   }
 
-  if (tags.includes("Esgoto Pluvial")) {
+  if (tags.includes("Esgoto Pluvial") || tags.includes("Esgotos Pluviais")) {
     categories.push("Storm drains in Brazil");
     categories.push("Street furniture in Porto Alegre");
     categories.push("Storms in Rio Grande do Sul");
   }
 
-  if (tags.includes("DMAP")) {
-    categories.push("DMAP (Porto Alegre)");
-  }
-
-  if (tags.includes("DMLU")) {
-    categories.push("DMLU (Porto Alegre)");
-  }
-
   if (tags.includes("Limpeza Urbana")) {
     categories.push("Municipal cleaning services");
-  }
-
-  if (
-    tags.includes("Serviços Urbanos") ||
-    tags.includes("Limpeza Urbana") ||
-    tags.includes("Atendimento")
-  ) {
-    categories.push("Public services of Porto Alegre");
-  }
-
-  if (tags.includes("Campeonato")) {
-    categories.push("Events in Porto Alegre");
+    categories.push("Street cleaning in Brazil");
   }
 
   if (
     tags.includes("Educação") ||
     tags.includes("Curso") ||
     tags.includes("Capacitação") ||
-    tags.includes("Oficina")
+    tags.includes("Oficina") ||
+    tags.includes("Material Escolar") ||
+    tags.includes("Rede Municipal de Ensino") ||
+    tags.includes("Educação no Trânsito")
   ) {
     categories.push("Education in Porto Alegre");
   }
 
-  if (tags.includes("Oficina")) {
-    categories.push("Workshops (meetings)");
+  if (
+    tags.includes("Diversidade sexual") ||
+    tags.includes("Idosos") ||
+    tags.includes("Criança") ||
+    tags.includes("Acolhimento") ||
+    tags.includes("Servidor") ||
+    tags.includes("Comissão da Pessoa com Deficiência")
+  ) {
+    categories.push("Society of Porto Alegre");
   }
 
-  if (tags.includes("Água")) {
-    categories.push("Water in Porto Alegre");
+  if (
+    tags.includes("Abastecimento") ||
+    tags.includes("Água") ||
+    tags.includes("Água e Esgotos")
+  ) {
+    categories.push("Water supply in Porto Alegre");
   }
 
-  if (tags.includes("Esgoto")) {
+  if (tags.includes("Esgoto") || tags.includes("Água e Esgotos")) {
     categories.push("Sewage treatment in Brazil");
-    if (!categories.includes("Porto Alegre")) {
-      categories.push("Porto Alegre");
-    }
   }
 
   if (tags.includes("Drenagem")) {
@@ -448,32 +503,85 @@ const getCategoriesFromTags = metadata => {
     }
   }
 
-  if (tags.includes("Consumidor")) {
-    categories.push("Consumer protection in Porto Alegre");
+  if (tags.includes("Piscinas Públicas")) {
+    categories.push("Public swimming pools");
+    categories.push("Swimming pools in Brazil");
+    categories.push("Sports venues in Porto Alegre");
   }
 
-  if (tags.includes("Brechocão")) {
-    categories.push("Brechocão");
+  if (tags.includes("Ciclovia")) {
+    categories.push("Cycle lanes in Brazil");
+    categories.push("Cycling infrastructure in Porto Alegre");
   }
 
-  if (tags.includes("Parque Farroupilha (Redenção)")) {
-    categories.push("Parque da Redenção");
+  if (tags.includes("Cachorro")) {
+    categories.push("Dogs of Rio Grande do Sul");
+    categories.push("Animals of Porto Alegre");
   }
 
-  if (tags.includes("Colégio Militar de Porto Alegre")) {
-    categories.push("Colégio Militar de Porto Alegre");
+  if (tags.includes("Teledermatologia")) {
+    categories.push("Telemedicine");
+    categories.push("Dermatology");
   }
 
-  if (tags.includes("Viaduto Otávio Rocha")) {
-    categories.push("Viaduto Otávio Rocha");
+  if (tags.includes("Encerramento")) {
+    categories.push("Closing ceremonies");
+    categories.push("Ceremonies in Brazil");
   }
 
-  if (tags.includes("Direitos dos Animais")) {
-    categories.push("Animal rights in Brazil");
+  if (tags.includes("Informatização")) {
+    categories.push("Information technology in Brazil");
+    categories.push("Digital transformation");
+    categories.push("Computing in Brazil");
+    categories.push("E-Government in Brazil");
+    categories.push("Science in Porto Alegre");
   }
 
-  if (tags.includes("Reserva Biológica do Lami José Lutzenberger")) {
-    categories.push("Reserva Biológica do Lami José Lutzenberger");
+  if (
+    tags.includes("Relações Institucionais") ||
+    tags.includes("Planejamento e Gestão") ||
+    tags.includes("Consulta Pública") ||
+    tags.includes("Administração")
+  ) {
+    categories.push("Public administration in Brazil");
+  }
+
+  categories.push(...getMappedCategories(metadata));
+
+  if (tags.includes("Previsão do Tempo") || tags.includes("Tempo")) {
+    categories.push("Weather and climate of Porto Alegre");
+    if (categories.length === 1) {
+      categories.push("Porto Alegre");
+    }
+  }
+
+  if (tags.includes("Asfalto")) {
+    categories.push("Asphalters");
+    categories.push("Roadworks in Rio Grande do Sul");
+  }
+
+  if (
+    tags.includes("Obras") ||
+    tags.includes("Pintura") ||
+    tags.includes("Asfalto")
+  ) {
+    categories.push("Construction in Porto Alegre");
+    categories.push(`${getYear(metadata.humanReadableDate)} in construction`);
+  }
+
+  if (
+    tags.includes("Campeonato") ||
+    tags.includes("Festejos") ||
+    tags.includes("Palestra") ||
+    tags.includes("Visita") ||
+    tags.includes("Apresentação") ||
+    tags.includes("Abertura") ||
+    tags.includes("Fórum") ||
+    tags.includes("Coletiva de Imprensa") ||
+    tags.includes("Encerramento")
+  ) {
+    categories.push("Events in Porto Alegre");
+    categories.push(`${getYear(metadata.humanReadableDate)} events in Brazil`);
   }
 
   if (categories.length === 0) {
@@ -482,6 +590,225 @@ const getCategoriesFromTags = metadata => {
 
   // Always include the year-based category
   categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
+
+  return categories;
+};
+
+const keywordToCategoryMap = {
+  Prefeito: "Nelson Marchezan Júnior",
+  Marchezan: "Nelson Marchezan Júnior",
+  "Vice-Prefeito": "Gustavo Paim",
+  "Vice-prefeito": "Gustavo Paim",
+};
+
+const sameNameKeywords = [
+  "Gustavo Paim",
+  "Osmar Terra",
+  "Ronaldo Nogueira",
+  "Eduardo Leite",
+  "Cezar Schirmer",
+  "Adão Cândido",
+];
+
+const getPplCategories = metadata => {
+  const tags = metadata.tags;
+  const categories = [];
+  // Use a Set to prevent duplicate categories
+  const uniqueCategories = new Set();
+
+  // Add categories from the map
+  Object.entries(keywordToCategoryMap).forEach(([keyword, category]) => {
+    if (
+      tags.includes(keyword) ||
+      (metadata.description && metadata.description.includes(keyword))
+    ) {
+      uniqueCategories.add(category);
+    }
+  });
+
+  // Add categories where the name is the same
+  sameNameKeywords.forEach(keyword => {
+    if (
+      tags.includes(keyword) ||
+      (metadata.description && metadata.description.includes(keyword))
+    ) {
+      uniqueCategories.add(keyword);
+    }
+  });
+
+  // Convert Set to an array and merge with existing categories
+  categories.push(...Array.from(uniqueCategories));
+
+  return categories;
+};
+
+const getMappedCategories = metadata => {
+  const tags = metadata.tags;
+  const categories = [];
+
+  // List of tags for which the category is the same
+  const sameNameTags = [
+    "Aedes aegypti",
+    "Colégio Militar de Porto Alegre",
+    "Reserva Biológica do Lami José Lutzenberger",
+    "Brechocão",
+    "Bairro Lami",
+    "Parque Marinha do Brasil",
+    "Casa Lar do Idoso",
+    "Teatro Renascença",
+    "Cecoflor",
+    "Viaduto Otávio Rocha",
+    "Vila Minuano",
+    "Edifício Intendente José Montaury",
+    "Largo Glênio Peres",
+    "Pinacoteca Ruben Berta",
+    "Sala Álvaro Moreyra",
+    "Unidade de Saúde Alto Embratel",
+    "Unidade de Saúde Orfanotrófio",
+    "Unidade de Saúde Osmar Freitas",
+    "Procempa",
+    "Todos Somos Porto Alegre",
+    "Banco de Talentos",
+    "TelessaúdeRS",
+    "Unipoa",
+    "Grêmio Foot-Ball Porto Alegrense",
+    "Casa de Cultura Mario Quintana",
+    "Palácio Piratini",
+    "Túnel da Conceição",
+  ];
+
+  // Check each tag and add it as a category if not already included
+  sameNameTags.forEach(tag => {
+    if (tags.includes(tag) && !categories.includes(tag)) {
+      categories.push(tag);
+    }
+  });
+
+  // Define a mapping of tags to categories
+  const tagToCategoryMap = {
+    DMAP: "DMAP (Porto Alegre)",
+    DMLU: "DMLU (Porto Alegre)",
+    CGVS: "CGVS (Porto Alegre)",
+    DMAE: "DMAE (Porto Alegre)",
+    EPTC: "EPTC (Porto Alegre)",
+    Fasc: "FASC (Porto Alegre)",
+    HMIPV: "Hospital Materno-Infantil Presidente Vargas",
+    Guaíba: "Rio Guaíba in Porto Alegre",
+    Senac: "Serviço Nacional de Aprendizagem Comercial",
+    Aéreas: "Elevada da Conceição",
+    "Parque Farroupilha (Redenção)": "Parque da Redenção",
+    "Câmara Municipal de Porto Alegre (CMPA)":
+      "Câmara Municipal de Porto Alegre",
+    "Primeira Infância Melhor (PIM)": "Primeira Infância Melhor",
+    "Praça da Alfândega": "Praça da Alfândega (Porto Alegre)",
+    "Praça Marechal Deodoro (Matriz)": "Praça da Matriz (Porto Alegre)",
+    "Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA)":
+      "Universidade Federal de Ciências da Saúde de Porto Alegre",
+    "Moab Caldas": "Avenida Moab Caldas",
+    "Sindicato dos Municipários de Porto Alegre (Simpa)":
+      "Sindicato dos Municipários de Porto Alegre",
+    "Igreja Nossa Senhora das Dores":
+      "Igreja Nossa Senhora das Dores (Porto Alegre)",
+    "Assembléia Legislativa": "Legislative Assembly of Rio Grande do Sul",
+    "Praça Revolução Farroupilha (Trensurb)": "Praça Revolução Farroupilha",
+    "Mercado Público Central": "Mercado Público de Porto Alegre",
+    "Hospital de Pronto Socorro (HPS)":
+      "Hospital de Pronto Socorro (Porto Alegre)",
+    "Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS)":
+      "Tribunal de Contas do Estado do Rio Grande do Sul",
+    "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
+    "Catedral Metropolitana de Porto Alegre (Matriz)":
+      "Catedral Metropolitana de Porto Alegre",
+    "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
+    "Salão Nobre": "Salão Nobre (Paço Municipal de Porto Alegre)",
+    "Restaurante Popular": "Restaurantes Populares",
+    "Orla Moacyr Scliar": "Parque Moacyr Scliar",
+    "Bairro Ipanema": "Ipanema (Porto Alegre)",
+    "Procon Municipal": "Procon Porto Alegre",
+    "Hospital Materno-Infantil Presidente Vargas (HMIPV)":
+      "Hospital Materno-Infantil Presidente Vargas",
+    "4º Distrito": "4º Distrito (Porto Alegre)",
+    "Unidade de Saúde Orfanotrófrio": "Unidade de Saúde Orfanotrófio",
+    "Desenvolvimento Social":
+      "Secretaria do Desenvolvimento Social (Porto Alegre)",
+    Carnaval: "Carnival of Porto Alegre",
+    Consumidor: "Consumer protection in Porto Alegre",
+    Lazer: "Recreation in Porto Alegre",
+    Teatro: "Theatre of Porto Alegre",
+    Farmácia: "Pharmacies in Porto Alegre",
+    Árvore: "Trees in Porto Alegre",
+    Música: "Music of Porto Alegre",
+    Futebol: "Association football in Porto Alegre",
+    roubo: "Crime in Porto Alegre",
+    veículo: "Automobiles in Porto Alegre",
+    Habitação: "Housing in Porto Alegre",
+    Ambulância: "Ambulances in Porto Alegre",
+    Procissão: "Processions in Porto Alegre",
+    "Artes Cênicas": "Performing arts in Porto Alegre",
+    "Infraestrutura e Mobilidade": "Transport infrastructure in Porto Alegre",
+    "Transporte Público": "Public transport in Porto Alegre",
+    "Assistência Social": "Social services in Porto Alegre",
+    "População de Rua": "Homelessness in Porto Alegre",
+    "Ruas e avenidas": "Streets in Porto Alegre",
+    Festejos: "Festivals in Rio Grande do Sul",
+    Infográfico: "Information graphics of Brazil",
+    Dengue: "Dengue in Brazil",
+    Vôlei: "Volleyball in Brazil",
+    Handebol: "Handball in Brazil",
+    Idosos: "Geriatrics in Brazil",
+    Campeonato: "Competitions in Brazil",
+    Posse: "Oaths of office in Brazil",
+    Servidor: "Civil servants of Brazil",
+    Espetáculo: "Performances in Brazil",
+    Aluno: "Students in Brazil",
+    Abertura: "Opening ceremonies in Brazil",
+    Licitações: "Auctions in Brazil",
+    Abrigos: "Shelters in Brazil",
+    Capacitação: "Training in Brazil",
+    Transparência: "Open government in Brazil",
+    Acessibilidade: "Accessibility in Brazil",
+    Empreendedorismo: "Entrepreneurship in Brazil",
+    Adolescente: "Teenagers of Brazil",
+    Vacinação: "Vaccinations in Brazil",
+    "Direitos dos Animais": "Animal rights in Brazil",
+    "febre amarela": "Yellow fever in Brazil",
+    "Casa de Bombas": "Pumping stations in Brazil",
+    "Comissão da Pessoa com Deficiência": "Disability in Brazil",
+    "Coletiva de Imprensa": "Press conferences in Brazil",
+    "Diversidade sexual": "LGBT in Brazil",
+    "Planejamento e Gestão": "Management in Brazil",
+    "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
+    "Vigilância de Alimentos": "Food security in Brazil",
+    "Direitos Humanos": "Human rights in Brazil",
+    Criança: `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
+    Palestra: "Presentations",
+    Acolhimento: "Child welfare",
+    Visita: "Official visits",
+    Curso: "Courses (education)",
+    Oficina: "Workshops (meetings)",
+    "síndrome de down": "Down syndrome",
+    Investigação: "Inquiry",
+    Microcefalia: "Microcephaly",
+    Consultório: "Medical offices",
+    "Educação Infantil": "Educating children",
+    Consulado: "Consulates general of Germany",
+    "Doenças da Pele": "Dermatitis",
+    "Educação no Trânsito": "Road safety education",
+    Parcerias: "Partnerships",
+    "Relações Institucionais": "Subnational relations",
+    "Educação Fundamental": "Primary education",
+    "Educação Básica": "Primary education",
+    "Alteração de vias": "Road traffic management",
+    "Consulta Pública": "Public consultation",
+    "Vigilância em Saúde": "Disease prevention",
+  };
+
+  // Loop through the tags and add the corresponding category if it exists
+  tags.forEach(tag => {
+    if (tagToCategoryMap[tag] && !categories.includes(tagToCategoryMap[tag])) {
+      categories.push(tagToCategoryMap[tag]);
+    }
+  });
 
   return categories;
 };
