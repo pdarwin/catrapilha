@@ -85,6 +85,7 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
             file: null, // File placeholder
             license: "{{Agência Porto Alegre}}",
             source: `[https://bancodeimagens.portoalegre.rs.gov.br/imagem/${page} Banco de Imagens da Prefeitura de Porto Alegre]`,
+            readyToUpload: setReadyToUploadFlag(metadata),
           };
 
           localItems.push(item); // Add item to the localItems array
@@ -232,8 +233,13 @@ const processDescription = description => {
     description = description.split("Local:")[0].trim();
   }
 
-  description = description.replace(/[/:]/g, "-").replace(/[#]/g, "");
-
+  description = description
+    .replace(
+      /Porto Alegre, RS(, Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\s-?\s?/,
+      ""
+    )
+    .replace(/[/:]/g, "-")
+    .replace(/[#?]/g, "");
   // Truncate at the end of the 5th word with more than 3 characters
   const words = description.split(" ");
   let count = 0;
@@ -327,6 +333,14 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    tags.includes("Secretário Municipal da Fazenda (SMF)") ||
+    tags.includes("Secretário Municipal da Saúde (SMS)")
+  ) {
+    categories.push("Municipality secretaries of Porto Alegre");
+  }
+
+  if (
+    tags.includes("Economia") ||
     tags.includes("Arrecadação Fiscal") ||
     tags.includes("Tarifa") ||
     tags.includes("Sustentabilidade") ||
@@ -359,17 +373,18 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Unidade de Saúde Santo Alfredo") ||
       tags.includes("Farmácia")
     ) &&
-    tags.includes("Saúde")
+    (tags.includes("Saúde") || tags.includes("Sms"))
   ) {
     categories.push("Secretaria Municipal de Saúde (Porto Alegre)");
   }
 
   if (
-    !(
+    (!(
       tags.includes("Capacitação") ||
       tags.includes("Primeira Infância Melhor (PIM)")
     ) &&
-    tags.includes("Educação")
+      tags.includes("Educação")) ||
+    tags.includes("Secretaria Municipal de Educação (SMED)")
   ) {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
   }
@@ -392,7 +407,11 @@ const getCategoriesFromTags = metadata => {
     categories.push("Secretaria Municipal da Cultura (Porto Alegre)");
   }
 
-  if (tags.includes("Fazenda") || tags.includes("Finanças Públicas")) {
+  if (
+    tags.includes("Fazenda") ||
+    tags.includes("Finanças Públicas") ||
+    tags.includes("Secretário Municipal da Fazenda (SMF)")
+  ) {
     categories.push("Secretaria Municipal da Fazenda (Porto Alegre)");
   }
 
@@ -443,7 +462,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Educação Fundamental") ||
     tags.includes("Educação Infantil") ||
     tags.includes("Educação Ambiental") ||
-    tags.includes("Educação Educação Técnica")
+    tags.includes("Educação Educação Técnica") ||
+    tags.includes("Ensino")
   ) {
     categories.push("Education in Porto Alegre");
   }
@@ -459,9 +479,10 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Social") ||
     tags.includes("Diversidade sexual") ||
+    tags.includes("LGBT") ||
+    tags.includes("Transexualidade") ||
     tags.includes("Idosos") ||
     tags.includes("Criança") ||
-    tags.includes("Acolhimento") ||
     tags.includes("Servidor") ||
     tags.includes("Cidadania") ||
     tags.includes("Inclusão Social") ||
@@ -471,6 +492,14 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Trabalho e Emprego")
   ) {
     categories.push("Society of Porto Alegre");
+  }
+
+  if (
+    tags.includes("Diversidade sexual") ||
+    tags.includes("LGBT") ||
+    tags.includes("Transexualidade")
+  ) {
+    categories.push("LGBT in Brazil");
   }
 
   if (tags.includes("Drenagem")) {
@@ -524,7 +553,11 @@ const getCategoriesFromTags = metadata => {
     categories.push("E-Government in Brazil");
   }
 
-  if (tags.includes("Informatização") || tags.includes("Tecnologia")) {
+  if (
+    tags.includes("Informatização") ||
+    tags.includes("Tecnologia") ||
+    tags.includes("Cidades Inteligentes")
+  ) {
     categories.push("Science in Porto Alegre");
   }
 
@@ -545,7 +578,8 @@ const getCategoriesFromTags = metadata => {
       categories.includes("DMAE (Porto Alegre)") ||
       categories.includes("DMLU (Porto Alegre)")
     ) &&
-    tags.includes("Serviços Urbanos")
+    (tags.includes("Serviços Urbanos") ||
+      tags.includes("Secretaria Municipal de Serviços Urbanos (SMSURB)"))
   ) {
     categories.push("Secretaria Municipal de Serviços Urbanos (Porto Alegre)");
   }
@@ -664,7 +698,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Trabalho") ||
       tags.includes("Festejos")
     ) &&
-    tags.includes("Festejos")
+    (tags.includes("Festejos") || tags.includes("Festival"))
   ) {
     categories.push("Festivals in Porto Alegre");
   }
@@ -673,7 +707,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Festival de Inverno") ||
     tags.includes("Semana de Porto Alegre") ||
     tags.includes("Trabalho") ||
-    tags.includes("Festejos")
+    tags.includes("Festejos") ||
+    tags.includes("Festival")
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} festivals in Brazil`
@@ -706,6 +741,12 @@ const keywordToCategoryMap = {
   Hamm: "Afonso Hamm",
   "Jorge Benjor": "Jorge Ben Jor",
   "Roberto Freire": "Roberto Freire (politician)",
+  "Prefeito de Porto Alegre, Sebastião Melo": "Sebastião Melo",
+  "Ricardo Gomes": "Ricardo Gomes (politician)",
+  "vice-prefeito Ricardo Gomes": "Ricardo Gomes (politician)",
+  "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
+    "Adão de Castro Júnior",
+  "Secretário Municipal da Saúde (SMS), Fernando Ritter": "Fernando Ritter",
 };
 
 const sameNameKeywords = [
@@ -772,23 +813,28 @@ const getMappedCategories = metadata => {
     "Colégio Militar de Porto Alegre",
     "Reserva Biológica do Lami José Lutzenberger",
     "Brechocão",
-    "Parque Marinha do Brasil",
     "Casa Lar do Idoso",
     "Teatro Renascença",
     "Sala Álvaro Moreyra",
-    "Cecoflor",
-    "Viaduto Otávio Rocha",
     "Vila Jardim",
     "Vila Minuano",
-    "Edifício Intendente José Montaury",
+    "Lomba do Pinheiro",
+    "Ilha da Pintada",
+    "Viaduto Otávio Rocha",
+    "Avenida Sertório",
     "Largo Glênio Peres",
+    "Parque Marinha do Brasil",
+    "Parque Marechal Mascarenhas de Moraes",
+    "Cais Mauá",
+    "Edifício Intendente José Montaury",
     "Pinacoteca Ruben Berta",
+    "Cecoflor",
     "Unidade de Saúde Alto Embratel",
     "Unidade de Saúde Orfanotrófio",
     "Unidade de Saúde Osmar Freitas",
     "Unidade de Saúde Santo Alfredo",
     "Centro de Saúde IAPI",
-    "Procempa",
+    "Centro de Saúde Modelo",
     "Unipoa",
     "Grêmio Foot-Ball Porto Alegrense",
     "Sport Club Internacional",
@@ -805,7 +851,7 @@ const getMappedCategories = metadata => {
     "Trensurb",
     "Companhia Municipal de Dança",
     "Companhia Jovem de Dança",
-    "Parque Marechal Mascarenhas de Moraes",
+    "Polícia Rodoviária Federal",
     "Semana de Porto Alegre",
     "Linha Turismo",
     "Anfiteatro Pôr do Sol",
@@ -821,6 +867,9 @@ const getMappedCategories = metadata => {
     "Parque Natural Municipal Morro do Osso",
     "Fundação Iberê Camargo",
     "Bikepoa",
+    "Capester",
+    "Rede Calabria",
+    "Operação Inverno",
   ];
 
   // Check each tag and add it as a category if not already included
@@ -833,7 +882,13 @@ const getMappedCategories = metadata => {
   // Define a mapping of tags to categories
   const tagToCategoryMap = {
     Segurança: "Secretaria Municipal de Segurança (Porto Alegre)",
+    Smseg: "Secretaria Municipal de Segurança (Porto Alegre)",
+    "Secretaria Municipal de Segurança (SMSEG)":
+      "Secretaria Municipal de Segurança (Porto Alegre)",
     "Desenvolvimento Social":
+      "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
+    Smdse: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
+    "Secretaria Municipal de Desenvolvimento Social (SMDS)":
       "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
     "Desenvolvimento Econômico":
       "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
@@ -851,20 +906,49 @@ const getMappedCategories = metadata => {
       "Secretaria Municipal de Infraestrutura e Mobilidade (Porto Alegre)",
     "Relações Institucionais":
       "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
+    "Esportes, Recreação e Lazer":
+      "Secretaria Municipal de Esportes, Recreação e Lazer",
+    Seda: "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
+    "Direitos dos Animais":
+      "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
+    "Direitos Animais":
+      "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
+    Procempa:
+      "Companhia de Processamento de Dados do Município de Porto Alegre",
+    "Companhia de Processamento de Dados do Município (Procempa)":
+      "Companhia de Processamento de Dados do Município de Porto Alegre",
+    DMLU: "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
+    Dmlu: "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
+    "Limpeza Urbana": "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
+    "Departamento Municipal de Limpeza Urbana (DMLU)":
+      "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
+    "Centro Integrado de Comando":
+      "Centro Integrado de Comando da Cidade de Porto Alegre",
+    "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)":
+      "Centro Integrado de Comando da Cidade de Porto Alegre",
+    "Comissão Permanente de Atuação em Emergências (Copae)":
+      "Comissão Permanente de Atuação em Emergências",
+    "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
+    "Defesa Cívil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
     Legislativo: "Câmara Municipal de Porto Alegre",
     "Câmara Municipal de Porto Alegre (CMPA)":
       "Câmara Municipal de Porto Alegre",
     DMAP: "DMAP (Porto Alegre)",
-    DMLU: "DMLU (Porto Alegre)",
-    Dmlu: "DMLU (Porto Alegre)",
-    "Limpeza Urbana": "DMLU (Porto Alegre)",
     CGVS: "CGVS (Porto Alegre)",
-    DMAE: "DMAE (Porto Alegre)",
-    Água: "DMAE (Porto Alegre)",
-    "Água e Esgotos": "DMAE (Porto Alegre)",
+    DMAE: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+    Dmae: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+    Água: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+    "Água e Esgotos": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+    "Departamento Municipal de Água e Esgotos (DMAE)":
+      "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+    "Sine Municipal": "Sine Municipal (Porto Alegre)",
     Abastecimento: "DMAE (Porto Alegre)",
-    EPTC: "EPTC (Porto Alegre)",
-    Fasc: "FASC (Porto Alegre)",
+    EPTC: "Empresa Pública de Transporte e Circulação de Porto Alegre",
+    "Empresa Pública de Transporte e Circulação (EPTC)":
+      "Empresa Pública de Transporte e Circulação de Porto Alegre",
+    Fasc: "Fundação de Assistência Social e Cidadania",
+    "Fundação de Assistência Social e Cidadania – Fasc":
+      "Fundação de Assistência Social e Cidadania",
     Pisa: "Programa Integrado Socioambiental",
     Procuradoria: "Procuradoria-Geral do Município de Porto Alegre",
     Secretariado: "Municipal secretariats of Porto Alegre",
@@ -877,7 +961,18 @@ const getMappedCategories = metadata => {
     Parcerias: "Secretaria Municipal de Parcerias Estratégicas (Porto Alegre)",
     Visita: "Official visits involving the Municipality of Porto Alegre",
     Convênio: "Partnerships involving the Municipality of Porto Alegre",
+    "Guarda Municipal": "Guarda Municipal (Porto Alegre)",
     "Rede Municipal de Ensino": "Rede Municipal de Ensino (Porto Alegre)",
+    "Núcleo de Imunizações DVS (NI)":
+      "Núcleo de Imunizações DVS (Porto Alegre)",
+    "Diretoria de Vigilância em Saúde (DVS)":
+      "Diretoria de Vigilância em Saúde de Porto Alegre",
+    "Vigilância em Saúde": "Diretoria de Vigilância em Saúde de Porto Alegre",
+    "Vigilância Sanitária": "Diretoria de Vigilância em Saúde de Porto Alegre",
+    "Sistema Único de Saúde (SUS)": "Sistema Único de Saúde",
+    "Serviço de Atendimento Móvel de Urgência (SAMU)":
+      "Serviço de Atendimento Móvel de Urgência",
+
     Guaíba: "Rio Guaíba in Porto Alegre",
     Senac: "Serviço Nacional de Aprendizagem Comercial",
     Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
@@ -937,6 +1032,7 @@ const getMappedCategories = metadata => {
     "Bairro Petrópolis": "Petrópolis (Porto Alegre)",
     "Bairro Humaitá": "Humaitá (Porto Alegre)",
     "Bairro Navegantes": "Navegantes (Porto Alegre)",
+    "Bairro Sarandi": "Sarandi (Porto Alegre)",
     Petrópolis: "Petrópolis (Porto Alegre)",
     Partenon: "Partenon (Porto Alegre)",
     Navegantes: "Navegantes (Porto Alegre)",
@@ -966,12 +1062,19 @@ const getMappedCategories = metadata => {
     "Caminhos Rurais": "Caminhos Rurais de Porto Alegre",
     "Unidade de Pronto Atendimento (UPA)": "Unidade de Pronto Atendimento",
     "Parque Moinhos de Vento (Parcão)": "Parque Moinhos de Vento",
+    "Cais do Porto": "Cais Mauá",
     Unesco: "UNESCO",
     "Fórum da Liberdade": "30º Fórum da Liberdade (2017)",
     Fiergs: "Federação das Indústrias do Estado do Rio Grande do Sul",
     "Palácio do Comércio": "Palácio do Comércio (Porto Alegre)",
-    "Centro Integrado de Comando":
-      "Centro Integrado de Comando da Cidade de Porto Alegre",
+    "Região Metropolitana": "Região Metropolitana de Porto Alegre",
+    "Jogos Abertos": "Jogos Abertos de Porto Alegre",
+    "Jockey Club": "Jockey Club do Rio Grande do Sul",
+    "Nivel do Guaíba": "Water level recorders",
+    "Paróquia de São Jorge": "Procissão de São Jorge (Porto Alegre)",
+    "Programa Nacional de Apoio à Gestão Administrativa e Fiscal dos Municípios Brasileiros (PNAFM).":
+      "Programa Nacional de Apoio à Gestão Administrativa e Fiscal dos Municípios Brasileiros",
+
     Lazer: "Recreation in Porto Alegre",
     Teatro: "Theatre of Porto Alegre",
     Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -980,6 +1083,7 @@ const getMappedCategories = metadata => {
     Futebol: "Association football in Porto Alegre",
     roubo: "Crime in Porto Alegre",
     veículo: "Automobiles in Porto Alegre",
+    Viaturas: "Automobiles in Porto Alegre",
     Habitação: "Housing in Porto Alegre",
     Ambulância: "Ambulances in Porto Alegre",
     Procissão: "Processions in Porto Alegre",
@@ -996,16 +1100,23 @@ const getMappedCategories = metadata => {
     Alimentação: "Food of Porto Alegre",
     Motocicleta: "Motorcycles in Porto Alegre",
     Bombeiros: "Firefighters of Porto Alegre",
+    Cinema: "Cinema of Porto Alegre",
+    Enchente: "Floods in Porto Alegre",
+    Alagamento: "Floods in Porto Alegre",
+    Vandalismo: "Vandalism in Porto Alegre",
+    Chuva: "Rain in Porto Alegre",
     "Artes Cênicas": "Performing arts in Porto Alegre",
     "Transporte Público": "Public transport in Porto Alegre",
     "Assistência Social": "Social services in Porto Alegre",
     "População de Rua": "Homelessness in Porto Alegre",
+    "Situação de rua": "Homelessness in Porto Alegre",
     "Ruas e avenidas": "Streets in Porto Alegre",
     "Livro e Literatura": "Literature of Porto Alegre",
     "Artes Visuais": "Art of Porto Alegre",
     "Indústria e Comércio": "Industry in Porto Alegre",
-    Vandalismo: "Vandalism in Porto Alegre",
+
     Cachorro: "Dogs of Rio Grande do Sul",
+
     Infográfico: "Information graphics of Brazil",
     Dengue: "Dengue in Brazil",
     Vôlei: "Volleyball in Brazil",
@@ -1021,11 +1132,14 @@ const getMappedCategories = metadata => {
     Inauguração: "Inaugurations in Brazil",
     Licitações: "Auctions in Brazil",
     Abrigos: "Shelters in Brazil",
+    Albergues: "Shelters in Brazil",
+    Acolhimento: "Shelters in Brazil",
     Transparência: "Open government in Brazil",
     Acessibilidade: "Accessibility in Brazil",
     Empreendedorismo: "Entrepreneurship in Brazil",
     Adolescente: "Teenagers of Brazil",
     Vacinação: "Vaccinations in Brazil",
+    Vacina: "Vaccinations in Brazil",
     Poda: "Pruning in Brazil",
     Embaixada: "Embassies in Brazil",
     Consulado: "Diplomatic missions to Brazil",
@@ -1037,12 +1151,10 @@ const getMappedCategories = metadata => {
     Ginástica: "Gymnastics in Brazil",
     Tecnologia: "Technology in Brazil",
     Páscoa: "Easter in Brazil",
-    "Direitos dos Animais": "Animal rights in Brazil",
-    "Direitos Animais": "Animal rights in Brazil",
+    Pedestre: "Pedestrians in Brazil",
     "febre amarela": "Yellow fever in Brazil",
     "Comissão da Pessoa com Deficiência": "Disability in Brazil",
     "Coletiva de Imprensa": "Press conferences in Brazil",
-    "Diversidade sexual": "LGBT in Brazil",
     "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
     "Vigilância de Alimentos": "Food security in Brazil",
     "Direitos Humanos": "Human rights in Brazil",
@@ -1052,12 +1164,15 @@ const getMappedCategories = metadata => {
     "Plano Diretor": "Urban planning in Brazil",
     "Medicina Veterinária": "Veterinary medicine in Brazil",
     "Iluminação Pública": "Street lights in Brazil",
+    "vacina contra a Dengue": "Dengue vaccine in Brazil",
     "Dia da Mulher": `International Women's Day in ${getYear(
       metadata.humanReadableDate
     )} in Brazil`,
     Criança: `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
+
+    Transexualidade: "Transgender in South America",
+
     Palestra: "Presentations",
-    Acolhimento: "Child welfare",
     Oficina: "Workshops (meetings)",
     "síndrome de down": "Down syndrome",
     Investigação: "Inquiry",
@@ -1069,14 +1184,14 @@ const getMappedCategories = metadata => {
     "Educação Fundamental": "Primary education",
     "Educação Básica": "Primary education",
     "Alteração de vias": "Road traffic management",
+    "Transtornos no trânsito": "Road traffic management",
     "Consulta Pública": "Public consultation",
-    "Vigilância em Saúde": "Disease prevention",
-    "Vigilância Sanitária": "Disease prevention",
     "Aplicativo (app)": "Mobile apps",
     Seminário: "Seminars",
     Capina: "Weed control",
     Mutirão: "Campaigns",
     Campanha: "Campaigns",
+    "Força-Tarefa": "Task forces",
     "Adoção de animais": "Animal adoption",
     "Educação Especial": "Special education",
     "Carnaval de Rua": "Street carnival",
@@ -1108,6 +1223,9 @@ const getMappedCategories = metadata => {
     CMDUA: "Urban development",
     "Trabalho e Emprego": "Employment",
     "Centro de triagem": "Screening centers",
+    Monitoramento: "Monitoring",
+    Premiação: "Prizes",
+    "Cidades Inteligentes": "Smart cities",
   };
 
   // Loop through the tags and add the corresponding category if it exists
@@ -1122,4 +1240,25 @@ const getMappedCategories = metadata => {
 
 const getYear = date => {
   return new Date(formatDateToISO(date, true)).getFullYear();
+};
+
+const setReadyToUploadFlag = metadata => {
+  const validTags = [
+    "Enchente",
+    "Polícia Rodoviária Federal",
+    "Serviço de Atendimento Móvel de Urgência (SAMU)",
+    "Sms",
+  ];
+
+  if (!Array.isArray(metadata?.tags) || !Array.isArray(validTags)) {
+    throw new Error(
+      "Invalid input: metadata.tags and validTags must be arrays."
+    );
+  }
+
+  // Check if all tags in metadata.tags are valid
+  const allTagsValid = metadata.tags.every(tag => validTags.includes(tag));
+
+  // Set the readyToUpload flag based on the validity check
+  return false; //allTagsValid;
 };

@@ -71,28 +71,6 @@ export default function ItemDetail() {
   const previousItem = sortedItems[currentIndex - 1];
   const nextItem = sortedItems[currentIndex + 1];
 
-  const updateItemStatusAndNavigate = async (itemId, nextItem, status) => {
-    // Add new object to dataState.data with the given status
-    const localDataset = [...dataState.data];
-    localDataset.push({ id: itemId, status }); // Use the provided status
-
-    // Dispatch updated dataset
-    dataDispatch({ type: actionsD.updateData, payload: localDataset });
-
-    // Remove the item with the given ID from dataState.items
-    const updatedItems = dataState.items.filter(
-      currentItem => currentItem.id !== itemId
-    );
-    dataDispatch({ type: actionsD.updateItems, payload: updatedItems });
-
-    // Navigate to the next item or back to the list
-    if (nextItem) {
-      navigate(`/item/${nextItem.id}`);
-    } else {
-      navigate("/"); // Return to the list if no next item exists
-    }
-  };
-
   const handleUpload = async () => {
     try {
       // Prepare and update the item before uploading
@@ -126,8 +104,7 @@ export default function ItemDetail() {
                 msg: msg + ":",
                 level: "warning",
                 link: "https://commons.wikimedia.org/wiki/File:" + file,
-                onClose: () =>
-                  updateItemStatusAndNavigate(item.id, nextItem, "Y"),
+                onClose: () => handleAutomaticProcess(item.id, nextItem, "Y"),
               },
             });
             break;
@@ -166,7 +143,7 @@ export default function ItemDetail() {
             level: "success",
             link:
               "https://commons.wikimedia.org/wiki/File:" + data.upload.filename,
-            onClose: () => updateItemStatusAndNavigate(item.id, nextItem, "Y"),
+            onClose: () => handleAutomaticProcess(item.id, nextItem, "Y"),
           },
         });
       }
@@ -178,6 +155,42 @@ export default function ItemDetail() {
           level: "error",
         },
       });
+    }
+  };
+
+  const updateItemStatusAndNavigate = async (itemId, nextItem, status) => {
+    // Add new object to dataState.data with the given status
+    const localDataset = [...dataState.data];
+    localDataset.push({ id: itemId, status }); // Use the provided status
+
+    // Dispatch updated dataset
+    dataDispatch({ type: actionsD.updateData, payload: localDataset });
+
+    // Remove the item with the given ID from dataState.items
+    const updatedItems = dataState.items.filter(
+      currentItem => currentItem.id !== itemId
+    );
+    dataDispatch({ type: actionsD.updateItems, payload: updatedItems });
+
+    // Automatically process the next item if the flag is true
+    if (nextItem && nextItem.readyToUpload) {
+      handleUpload(nextItem); // Start the upload process for the next item
+    } else if (nextItem) {
+      navigate(`/item/${nextItem.id}`);
+    } else {
+      navigate("/"); // Return to the list if no next item exists
+    }
+  };
+
+  const handleAutomaticProcess = async (itemId, nextItem, status) => {
+    if (item.readyToUpload) {
+      // Wait for 5 seconds before automatically moving to the next item
+      setTimeout(() => {
+        updateItemStatusAndNavigate(itemId, nextItem, status);
+      }, 5000);
+    } else {
+      // If not ready for automatic upload, rely on manual navigation
+      updateItemStatusAndNavigate(itemId, nextItem, status);
     }
   };
 
