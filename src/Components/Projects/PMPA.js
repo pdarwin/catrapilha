@@ -1260,5 +1260,5 @@ const setReadyToUploadFlag = metadata => {
   const allTagsValid = metadata.tags.every(tag => validTags.includes(tag));
 
   // Set the readyToUpload flag based on the validity check
-  return false; //allTagsValid;
+  return allTagsValid;
 };

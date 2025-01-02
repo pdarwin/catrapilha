@@ -6,12 +6,13 @@ export default function MyModal() {
   const { modalState, modalDispatch } = useModalContext();
 
   const handleClose = () => {
-    if (typeof modalState.onClose === "function") {
-      modalState.onClose(); // Execute the callback if it exists
+    // if it's a manual close
+    if (typeof modalState.onManualClose === "function") {
+      modalState.onManualClose();
+    } else {
+      // fallback
+      modalDispatch({ type: actionsM.closeModal });
     }
-    modalDispatch({
-      type: actionsM.closeModal,
-    });
   };
 
   return (

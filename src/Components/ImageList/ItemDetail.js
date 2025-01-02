@@ -27,9 +27,32 @@ export default function ItemDetail() {
   const itemId = parseInt(id);
   const { modalDispatch } = useModalContext();
   const [ignoreWarnings, setIgnoreWarnings] = useState(false);
+  const [autoCloseTimer, setAutoCloseTimer] = useState(null);
+  // 1) local state to avoid repeated auto-uploads
+  //   const [autoTriggered, setAutoTriggered] = useState(false);
 
   // Find the item in dataState.items
   const item = dataState.items.find(item => item.id === parseInt(id));
+
+  //   useEffect(() => {
+  //     if (item && item.readyToUpload && !autoTriggered) {
+  //       console.log("Auto-uploading item:", item.id);
+  //       handleUpload(item);
+  //       setAutoTriggered(true);
+
+  //       // Option A: also dispatch an action so that
+  //       // item.readyToUpload becomes false in the store:
+  //       dataDispatch({
+  //         type: actionsD.updateItemField,
+  //         payload: { id: item.id, field: "readyToUpload", value: false },
+  //       });
+  //     }
+  //     // eslint-disable-next-line
+  //   }, [item, autoTriggered]);
+
+  //   useEffect(() => {
+  //     setAutoTriggered(false);
+  //   }, [item?.id]);
 
   const buildInfoPanel = item => {
     if (!item) return "No information available.";
@@ -66,25 +89,29 @@ export default function ItemDetail() {
   }, [item]);
 
   // Find the previous and next items
-  const sortedItems = dataState.items.sort((a, b) => a.id - b.id); // Ensure the items are sorted by ID
+  // Ensure the items are sorted by ID
+  const sortedItems = [...dataState.items].sort((a, b) => a.id - b.id);
   const currentIndex = sortedItems.findIndex(item => item.id === itemId);
   const previousItem = sortedItems[currentIndex - 1];
   const nextItem = sortedItems[currentIndex + 1];
 
-  const handleUpload = async () => {
+  const handleUpload = async currentItem => {
+    if (!currentItem) {
+      console.error("Invalid item passed to handleUpload");
+      return;
+    }
+
     try {
-      // Prepare and update the item before uploading
       const project = getProject(dataState.projectId);
 
       const updatedItem = {
-        ...item,
+        ...currentItem,
         infoPanel: editableInfoPanel,
         imagelink: project.uploadByLink
-          ? item.imagelink
-          : item.imagelink.replace(project.baseUrl, project.pathRewrite),
+          ? currentItem.imagelink
+          : currentItem.imagelink.replace(project.baseUrl, project.pathRewrite),
       };
 
-      // Upload the updated item
       const data = await uploadToCommons(
         updatedItem,
         ignoreWarnings,
@@ -104,25 +131,42 @@ export default function ItemDetail() {
                 msg: msg + ":",
                 level: "warning",
                 link: "https://commons.wikimedia.org/wiki/File:" + file,
-                onClose: () => handleAutomaticProcess(item.id, nextItem, "Y"),
+                onManualClose: () => {
+                  // If user closes early
+                  if (autoCloseTimer) clearTimeout(autoCloseTimer);
+                  modalDispatch({ type: actionsM.closeModal });
+                  // do NOT remove item => user has canceled the chain
+                },
               },
             });
+            // If we want auto-advance in 5s:
+            if (currentItem.readyToUpload) {
+              const timerId = setTimeout(() => {
+                // 1) close modal automatically
+                modalDispatch({ type: actionsM.closeModal });
+                // 2) remove item & go next
+                removeAndGoNext(currentItem.id, "Y");
+              }, 5000);
+              setAutoCloseTimer(timerId);
+            }
             break;
           case "duplicate":
             msg = "Imagem duplicada no Commons";
             break;
+
           case "was-deleted":
             msg = "Imagem apagada no Commons";
             break;
+
           case "badfilename":
             msg = "Nome de ficheiro inválido";
             break;
+
           default:
             msg = `Aviso não tratado (${type})`;
             break;
         }
 
-        // Dispatch the modal for non-"exists" cases
         if (type !== "exists") {
           modalDispatch({
             type: actionsM.fireModal,
@@ -135,7 +179,7 @@ export default function ItemDetail() {
         }
       }
 
-      if (data.upload.result === "Success") {
+      if (data.upload.result === "Success" && currentItem.readyToUpload) {
         modalDispatch({
           type: actionsM.fireModal,
           payload: {
@@ -143,9 +187,24 @@ export default function ItemDetail() {
             level: "success",
             link:
               "https://commons.wikimedia.org/wiki/File:" + data.upload.filename,
-            onClose: () => handleAutomaticProcess(item.id, nextItem, "Y"),
+            onManualClose: () => {
+              // If user closes early
+              if (autoCloseTimer) clearTimeout(autoCloseTimer);
+              modalDispatch({ type: actionsM.closeModal });
+              // do NOT remove item => user has canceled the chain
+            },
           },
         });
+        // If we want auto-advance in 5s:
+        if (currentItem.readyToUpload) {
+          const timerId = setTimeout(() => {
+            // 1) close modal automatically
+            modalDispatch({ type: actionsM.closeModal });
+            // 2) remove item & go next
+            removeAndGoNext(currentItem.id, "Y");
+          }, 5000);
+          setAutoCloseTimer(timerId);
+        }
       }
     } catch (error) {
       modalDispatch({
@@ -158,39 +217,35 @@ export default function ItemDetail() {
     }
   };
 
-  const updateItemStatusAndNavigate = async (itemId, nextItem, status) => {
-    // Add new object to dataState.data with the given status
+  const removeAndGoNext = (itemId, status) => {
+    // 1) Mark status in the local dataset
     const localDataset = [...dataState.data];
-    localDataset.push({ id: itemId, status }); // Use the provided status
-
-    // Dispatch updated dataset
+    localDataset.push({ id: itemId, status });
     dataDispatch({ type: actionsD.updateData, payload: localDataset });
 
-    // Remove the item with the given ID from dataState.items
-    const updatedItems = dataState.items.filter(
-      currentItem => currentItem.id !== itemId
-    );
+    // 2) Remove the item from dataState
+    const updatedItems = dataState.items.filter(it => it.id !== itemId);
     dataDispatch({ type: actionsD.updateItems, payload: updatedItems });
 
-    // Automatically process the next item if the flag is true
-    if (nextItem && nextItem.readyToUpload) {
-      handleUpload(nextItem); // Start the upload process for the next item
-    } else if (nextItem) {
-      navigate(`/item/${nextItem.id}`);
-    } else {
-      navigate("/"); // Return to the list if no next item exists
-    }
-  };
+    // 3) Sort the UPDATED list
+    const sortedUpdated = [...updatedItems].sort((a, b) => a.id - b.id);
 
-  const handleAutomaticProcess = async (itemId, nextItem, status) => {
-    if (item.readyToUpload) {
-      // Wait for 5 seconds before automatically moving to the next item
-      setTimeout(() => {
-        updateItemStatusAndNavigate(itemId, nextItem, status);
-      }, 5000);
+    // 4) Find the next item by ID order (first ID bigger than the one removed)
+    const nextIndex = sortedUpdated.findIndex(it => it.id > itemId);
+
+    // 5) Immediately navigate to the next item
+    if (nextIndex >= 0) {
+      const nextCandidate = sortedUpdated[nextIndex];
+      navigate(`/item/${nextCandidate.id}`);
+      if (nextCandidate.readyToUpload) {
+        // Allow the UI to update before triggering the upload
+        setTimeout(() => {
+          handleUpload(nextCandidate);
+        }, 0);
+      }
     } else {
-      // If not ready for automatic upload, rely on manual navigation
-      updateItemStatusAndNavigate(itemId, nextItem, status);
+      // No next item, navigate home
+      navigate("/");
     }
   };
 
@@ -291,9 +346,7 @@ export default function ItemDetail() {
                 <Button
                   variant="contained"
                   color="warning"
-                  onClick={() =>
-                    updateItemStatusAndNavigate(item.id, nextItem, "N")
-                  }
+                  onClick={() => removeAndGoNext(item.id, "N")}
                   size="large"
                   sx={{ marginRight: 2 }}
                 >
@@ -301,7 +354,7 @@ export default function ItemDetail() {
                 </Button>
                 <Button
                   variant="contained"
-                  onClick={handleUpload}
+                  onClick={() => handleUpload(item)}
                   size="large"
                   sx={{ marginRight: 2 }}
                 >
