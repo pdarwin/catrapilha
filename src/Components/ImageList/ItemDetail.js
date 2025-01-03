@@ -6,6 +6,7 @@ import {
   CardContent,
   CardMedia,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   Grid,
   TextField,
@@ -28,31 +29,19 @@ export default function ItemDetail() {
   const { modalDispatch } = useModalContext();
   const [ignoreWarnings, setIgnoreWarnings] = useState(false);
   const [autoCloseTimer, setAutoCloseTimer] = useState(null);
-  // 1) local state to avoid repeated auto-uploads
-  //   const [autoTriggered, setAutoTriggered] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [localItems, setLocalItems] = useState([...dataState.items]);
+  const [localData, setLocalData] = useState([...dataState.data]);
 
-  // Find the item in dataState.items
-  const item = dataState.items.find(item => item.id === parseInt(id));
+  // Find the item in localItems
+  const item = localItems.find(item => item.id === parseInt(id));
 
-  //   useEffect(() => {
-  //     if (item && item.readyToUpload && !autoTriggered) {
-  //       console.log("Auto-uploading item:", item.id);
-  //       handleUpload(item);
-  //       setAutoTriggered(true);
-
-  //       // Option A: also dispatch an action so that
-  //       // item.readyToUpload becomes false in the store:
-  //       dataDispatch({
-  //         type: actionsD.updateItemField,
-  //         payload: { id: item.id, field: "readyToUpload", value: false },
-  //       });
-  //     }
-  //     // eslint-disable-next-line
-  //   }, [item, autoTriggered]);
-
-  //   useEffect(() => {
-  //     setAutoTriggered(false);
-  //   }, [item?.id]);
+  useEffect(() => {
+    //if (localItems.length === 0) {
+    dataDispatch({ type: actionsD.updateItems, payload: localItems });
+    dataDispatch({ type: actionsD.updateData, payload: localData });
+    //}
+  }, [localItems, localData, dataDispatch]);
 
   const buildInfoPanel = item => {
     if (!item) return "No information available.";
@@ -90,23 +79,30 @@ export default function ItemDetail() {
 
   // Find the previous and next items
   // Ensure the items are sorted by ID
-  const sortedItems = [...dataState.items].sort((a, b) => a.id - b.id);
+  const sortedItems = [...localItems].sort((a, b) => a.id - b.id);
   const currentIndex = sortedItems.findIndex(item => item.id === itemId);
   const previousItem = sortedItems[currentIndex - 1];
   const nextItem = sortedItems[currentIndex + 1];
 
-  const handleUpload = async currentItem => {
+  const handleUpload = async (currentItem, items, dataset) => {
+    setLocalItems(items);
+    setLocalData(dataset);
+
     if (!currentItem) {
       console.error("Invalid item passed to handleUpload");
       return;
     }
+
+    setLoading(true); // Signal that the upload has started
 
     try {
       const project = getProject(dataState.projectId);
 
       const updatedItem = {
         ...currentItem,
-        infoPanel: editableInfoPanel,
+        infoPanel: item.readyToUpload
+          ? buildInfoPanel(currentItem)
+          : editableInfoPanel,
         imagelink: project.uploadByLink
           ? currentItem.imagelink
           : currentItem.imagelink.replace(project.baseUrl, project.pathRewrite),
@@ -145,8 +141,8 @@ export default function ItemDetail() {
                 // 1) close modal automatically
                 modalDispatch({ type: actionsM.closeModal });
                 // 2) remove item & go next
-                removeAndGoNext(currentItem.id, "Y");
-              }, 5000);
+                removeAndGoNext(currentItem.id, "Y", items, dataset);
+              }, 2000);
               setAutoCloseTimer(timerId);
             }
             break;
@@ -201,8 +197,8 @@ export default function ItemDetail() {
             // 1) close modal automatically
             modalDispatch({ type: actionsM.closeModal });
             // 2) remove item & go next
-            removeAndGoNext(currentItem.id, "Y");
-          }, 5000);
+            removeAndGoNext(currentItem.id, "Y", items, dataset);
+          }, 2000);
           setAutoCloseTimer(timerId);
         }
       }
@@ -214,38 +210,37 @@ export default function ItemDetail() {
           level: "error",
         },
       });
+    } finally {
+      setLoading(false); // Reset loading state when done
     }
   };
 
-  const removeAndGoNext = (itemId, status) => {
-    // 1) Mark status in the local dataset
-    const localDataset = [...dataState.data];
-    localDataset.push({ id: itemId, status });
-    dataDispatch({ type: actionsD.updateData, payload: localDataset });
+  const removeAndGoNext = (itemId, status, items, dataset) => {
+    setLocalItems(items);
 
-    // 2) Remove the item from dataState
-    const updatedItems = dataState.items.filter(it => it.id !== itemId);
-    dataDispatch({ type: actionsD.updateItems, payload: updatedItems });
+    const updatedDataset = [...dataset, { id: itemId, status }];
+    setLocalData(updatedDataset);
 
-    // 3) Sort the UPDATED list
-    const sortedUpdated = [...updatedItems].sort((a, b) => a.id - b.id);
+    // Update localItems
+    const updatedItems = items.filter(it => it.id !== itemId);
+    setLocalItems(updatedItems); // Update local state
 
-    // 4) Find the next item by ID order (first ID bigger than the one removed)
+    // Sort the updated local list
+    const sortedUpdated = updatedItems.sort((a, b) => a.id - b.id);
     const nextIndex = sortedUpdated.findIndex(it => it.id > itemId);
 
-    // 5) Immediately navigate to the next item
+    // Navigate using the updated local list
     if (nextIndex >= 0) {
       const nextCandidate = sortedUpdated[nextIndex];
       navigate(`/item/${nextCandidate.id}`);
       if (nextCandidate.readyToUpload) {
-        // Allow the UI to update before triggering the upload
-        setTimeout(() => {
-          handleUpload(nextCandidate);
-        }, 0);
+        handleUpload(nextCandidate, updatedItems, updatedDataset); // Continue processing
       }
     } else {
-      // No next item, navigate home
-      navigate("/");
+      // Process ends, update global state
+      dataDispatch({ type: actionsD.updateItems, payload: updatedItems });
+      dataDispatch({ type: actionsD.updateData, payload: updatedDataset });
+      navigate("/"); // Navigate home
     }
   };
 
@@ -327,7 +322,13 @@ export default function ItemDetail() {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => navigate("/")}
+                  onClick={() => {
+                    dataDispatch({
+                      type: actionsD.updateItems,
+                      payload: localItems,
+                    });
+                    navigate("/"); // Navigate home
+                  }}
                   size="large"
                   sx={{ marginRight: 2 }}
                 >
@@ -346,7 +347,9 @@ export default function ItemDetail() {
                 <Button
                   variant="contained"
                   color="warning"
-                  onClick={() => removeAndGoNext(item.id, "N")}
+                  onClick={() =>
+                    removeAndGoNext(item.id, "N", localItems, localData)
+                  }
                   size="large"
                   sx={{ marginRight: 2 }}
                 >
@@ -354,9 +357,30 @@ export default function ItemDetail() {
                 </Button>
                 <Button
                   variant="contained"
-                  onClick={() => handleUpload(item)}
+                  color="warning"
+                  onClick={() =>
+                    removeAndGoNext(item.id, "Y", localItems, localData)
+                  }
                   size="large"
                   sx={{ marginRight: 2 }}
+                >
+                  Já existe
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    handleUpload(
+                      item,
+                      [...dataState.items],
+                      [...dataState.data]
+                    )
+                  }
+                  size="large"
+                  sx={{ marginRight: 2 }}
+                  disabled={loading} // Disable button while loading
+                  startIcon={
+                    loading && <CircularProgress size={20} color="inherit" />
+                  }
                 >
                   Carregar no Commons
                 </Button>

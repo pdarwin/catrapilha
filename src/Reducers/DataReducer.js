@@ -92,7 +92,7 @@ export const DataReducer = (state, action) => {
     case actionsD.updateItems:
       return {
         ...state,
-        items: Array.isArray(action.payload) ? action.payload : [],
+        items: action.payload, // Update the items array in the global state
       };
     case actionsD.moveBack:
       return {

@@ -235,11 +235,12 @@ const processDescription = description => {
 
   description = description
     .replace(
-      /Porto Alegre, RS(, Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\s-?\s?/,
+      /Porto Alegre(, RS)?(, Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\s-?\s?/,
       ""
     )
     .replace(/[/:]/g, "-")
     .replace(/[#?]/g, "");
+
   // Truncate at the end of the 5th word with more than 3 characters
   const words = description.split(" ");
   let count = 0;
@@ -263,6 +264,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Executivo") ||
     tags.includes("Gabinete") ||
+    tags.includes("Gabinete do Prefeito") ||
+    tags.includes("Gabinete Prefeito") ||
     tags.includes("Conselhos Municipais") ||
     tags.includes("CMDUA") ||
     tags.includes("Grupos de Trabalho") ||
@@ -615,11 +618,6 @@ const getCategoriesFromTags = metadata => {
     categories.push("Roadworks in Rio Grande do Sul");
   }
 
-  if (tags.includes("Casa de Bombas")) {
-    categories.push("DMAP (Porto Alegre)");
-    categories.push("Pumping stations in Brazil");
-  }
-
   if (tags.includes("Aldeia Indígena")) {
     categories.push("Indigenous peoples in Rio Grande do Sul");
     categories.push("Indigenous territories in Brazil");
@@ -820,6 +818,7 @@ const getMappedCategories = metadata => {
     "Vila Minuano",
     "Lomba do Pinheiro",
     "Ilha da Pintada",
+    "Colônia de Pescadores Z5",
     "Viaduto Otávio Rocha",
     "Avenida Sertório",
     "Largo Glênio Peres",
@@ -833,8 +832,11 @@ const getMappedCategories = metadata => {
     "Unidade de Saúde Orfanotrófio",
     "Unidade de Saúde Osmar Freitas",
     "Unidade de Saúde Santo Alfredo",
+    "Unidade Móvel de Saúde",
     "Centro de Saúde IAPI",
     "Centro de Saúde Modelo",
+    "Consultório na Rua",
+    "Comando Militar do Sul",
     "Unipoa",
     "Grêmio Foot-Ball Porto Alegrense",
     "Sport Club Internacional",
@@ -870,6 +872,7 @@ const getMappedCategories = metadata => {
     "Capester",
     "Rede Calabria",
     "Operação Inverno",
+    "Extremo Sul",
   ];
 
   // Check each tag and add it as a category if not already included
@@ -961,6 +964,10 @@ const getMappedCategories = metadata => {
     Parcerias: "Secretaria Municipal de Parcerias Estratégicas (Porto Alegre)",
     Visita: "Official visits involving the Municipality of Porto Alegre",
     Convênio: "Partnerships involving the Municipality of Porto Alegre",
+    "Coletiva de Imprensa":
+      "Press conferences by the Municipality of Porto Alegre",
+    "Entrevista Coletiva":
+      "Press conferences by the Municipality of Porto Alegre",
     "Guarda Municipal": "Guarda Municipal (Porto Alegre)",
     "Rede Municipal de Ensino": "Rede Municipal de Ensino (Porto Alegre)",
     "Núcleo de Imunizações DVS (NI)":
@@ -972,8 +979,12 @@ const getMappedCategories = metadata => {
     "Sistema Único de Saúde (SUS)": "Sistema Único de Saúde",
     "Serviço de Atendimento Móvel de Urgência (SAMU)":
       "Serviço de Atendimento Móvel de Urgência",
+    "Estação de Bombeamento de Águas Pluviais (Ebap)":
+      "Estações de Bombeamento de Águas Pluviais",
+    "Casa de Bombas": "Estações de Bombeamento de Águas Pluviais",
 
     Guaíba: "Rio Guaíba in Porto Alegre",
+    "Lago Guaíba": "Rio Guaíba in Porto Alegre",
     Senac: "Serviço Nacional de Aprendizagem Comercial",
     Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
     Granpal:
@@ -1005,14 +1016,17 @@ const getMappedCategories = metadata => {
       "Catedral Metropolitana de Porto Alegre",
     "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
     "Orla Moacyr Scliar": "Parque Moacyr Scliar",
+
     "Bairro Belém Novo": "Belém Novo",
     "Bairro Bom Fim": "Bom Fim",
     "Bairro Centro Histórico": "Centro (Porto Alegre)",
-    "Bairro Ipanema": "Ipanema (Porto Alegre)",
-    "Bairro Restinga": "Restinga (Porto Alegre)",
     "Bairro Cidade Baixa": "Cidade Baixa (Porto Alegre)",
     "Bairro Cruzeiro": "Cruzeiro (Porto Alegre)",
+    "Bairro Ipanema": "Ipanema (Porto Alegre)",
     "Bairro Lami": "Lami (Porto Alegre)",
+    "Bairro Ponta Grossa": "Ponta Grossa (Porto Alegre)",
+    "bairro Restinga": "Restinga (Porto Alegre)",
+    "Bairro Restinga": "Restinga (Porto Alegre)",
     "Bairro Santa Tereza": "Santa Tereza (Porto Alegre)",
     "Bairro Cristal": "Cristal (Porto Alegre)",
     "Bairro Hípica": "Hípica",
@@ -1044,6 +1058,7 @@ const getMappedCategories = metadata => {
     "Arquipélago (Ilhas)": "Islands of Porto Alegre",
     "Vila Nova": "Vila Nova (Porto Alegre)",
     "Exército Brasileiro": "Army of Brazil",
+
     "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
     "#eufaçopoa": "EuFaçoPOA",
     "Universidade Federal do Rio Grande do Sul (UFRGS)":
@@ -1074,6 +1089,8 @@ const getMappedCategories = metadata => {
     "Paróquia de São Jorge": "Procissão de São Jorge (Porto Alegre)",
     "Programa Nacional de Apoio à Gestão Administrativa e Fiscal dos Municípios Brasileiros (PNAFM).":
       "Programa Nacional de Apoio à Gestão Administrativa e Fiscal dos Municípios Brasileiros",
+    "CETE - Centro Estadual de Treinamento Esportivo":
+      "Centro Estadual de Treinamento Esportivo",
 
     Lazer: "Recreation in Porto Alegre",
     Teatro: "Theatre of Porto Alegre",
@@ -1152,9 +1169,9 @@ const getMappedCategories = metadata => {
     Tecnologia: "Technology in Brazil",
     Páscoa: "Easter in Brazil",
     Pedestre: "Pedestrians in Brazil",
+    Resgate: "Search and rescue in Brazil",
     "febre amarela": "Yellow fever in Brazil",
     "Comissão da Pessoa com Deficiência": "Disability in Brazil",
-    "Coletiva de Imprensa": "Press conferences in Brazil",
     "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
     "Vigilância de Alimentos": "Food security in Brazil",
     "Direitos Humanos": "Human rights in Brazil",
@@ -1244,10 +1261,44 @@ const getYear = date => {
 
 const setReadyToUploadFlag = metadata => {
   const validTags = [
+    "Arquipélago (Ilhas)",
+    "bairro Restinga",
+    "Bairro Centro Histórico",
+    "Bairro Ponta Grossa",
+    "Bairro Sarandi",
+    "Brigada Militar",
+    "Cais Mauá",
+    "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)",
+    "CETE - Centro Estadual de Treinamento Esportivo",
+    "Chuva",
+    "Coletiva de Imprensa",
+    "Colônia de Pescadores Z5",
+    "Comando Militar do Sul",
+    "Consultório na Rua",
+    "Defesa Civil",
+    "Departamento Municipal de Água e Esgotos (DMAE)",
+    "Desenvolvimento Social",
     "Enchente",
+    "Entrevista Coletiva",
+    "Estação de Bombeamento de Águas Pluviais (Ebap)",
+    "Executivo",
+    "Extremo Sul",
+    "Fundação de Assistência Social e Cidadania – Fasc",
+    "Gabinete do Prefeito",
+    "Gabinete Prefeito",
+    "Ilha da Pintada",
+    "Lago Guaíba",
     "Polícia Rodoviária Federal",
+    "Prefeito de Porto Alegre, Sebastião Melo",
+    "Resgate",
+    "Saúde",
+    "Secretaria Municipal de Desenvolvimento Social (SMDS)",
     "Serviço de Atendimento Móvel de Urgência (SAMU)",
+    "Serviços Urbanos",
     "Sms",
+    "Teatro Renascença",
+    "Unidade Móvel de Saúde",
+    "Zona Sul",
   ];
 
   if (!Array.isArray(metadata?.tags) || !Array.isArray(validTags)) {
