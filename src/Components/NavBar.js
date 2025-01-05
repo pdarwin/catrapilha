@@ -100,6 +100,7 @@ export default function NavBar({ stopRef }) {
   const handleGetData = async () => {
     stopRef.current = true;
     await getData(dataState.projectId, dataDispatch, modalDispatch);
+    //findNaFotos(dataState);
   };
 
   // Memoize project options to prevent unnecessary re-renders
