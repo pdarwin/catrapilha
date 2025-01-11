@@ -246,18 +246,21 @@ const processDescription = description => {
   if (!description) return "No Description";
 
   // Remove anything after "Foto:" and trim the string
-  if (description.includes("Foto:")) {
-    description = description.split("Foto:")[0].trim();
+  if (description.match(/\.?\s?Fotos?:/)) {
+    description = description.split(/\.?\s?Fotos?:/)[0].trim();
   }
 
-  // Remove anything after "Foto:" and trim the string
   if (description.includes("Local:")) {
     description = description.split("Local:")[0].trim();
   }
 
+  if (description.includes(".<br/>")) {
+    description = description.split(".<br/>")[0].trim();
+  }
+
   description = description
     .replace(
-      /Porto Alegre(, RS)?,?\.?( Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\.?\s?-?\s?/,
+      /Porto Alegre(, RS)?,?\.?(\s*?Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\.?\s?-?\s?/,
       ""
     )
     .replace(/[/:]/g, "-")
@@ -288,6 +291,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Gabinete") ||
     tags.includes("Gabinete do Prefeito") ||
     tags.includes("Gabinete Prefeito") ||
+    tags.includes("Gp") ||
     tags.includes("Conselhos Municipais") ||
     tags.includes("CMDUA") ||
     tags.includes("Grupos de Trabalho") ||
@@ -302,12 +306,18 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Atendimento") ||
     tags.includes("Arrecadação Fiscal") ||
-    tags.includes("Agentes de Trânsito")
+    tags.includes("Agentes de Trânsito") ||
+    tags.includes("Coordenação de Operações Especiais (COE)")
   ) {
     categories.push("Municipal services in Porto Alegre");
   }
 
-  if (!tags.includes("Salão Nobre") && tags.includes("Paço dos Açorianos")) {
+  if (
+    !tags.includes("Salão Nobre") &&
+    (tags.includes("Paço dos Açorianos") ||
+      tags.includes("Porão do Paço") ||
+      tags.includes("Prefeitura de Porto Alegre"))
+  ) {
     categories.push("Paço Municipal de Porto Alegre");
   }
 
@@ -333,18 +343,22 @@ const getCategoriesFromTags = metadata => {
       tags.includes("EPTC") ||
       tags.includes("Empresa Pública de Transporte e Circulação (EPTC)")
     ) &&
-      (tags.includes("Transporte") ||
+      (tags.includes("trânsito") ||
+        tags.includes("Transporte") ||
         tags.includes("Transporte e Circulação") ||
+        tags.includes("Trânsito e Circulação") ||
         tags.includes("Circulação"))) ||
     tags.includes("Agentes de Trânsito") ||
     tags.includes("Educação no Trânsito") ||
-    tags.includes("Mobilidade") ||
-    tags.includes("Mobilidade Urbana")
+    tags.includes("Mobilidade")
   ) {
     categories.push("Transport in Porto Alegre");
   }
 
-  if (tags.includes("Agentes de Trânsito")) {
+  if (
+    tags.includes("Agentes de Trânsito") ||
+    tags.includes("Coordenação de Operações Especiais (COE)")
+  ) {
     categories.push("Traffic police of Brazil");
     categories.push("Police of Porto Alegre");
   }
@@ -362,7 +376,10 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Secretário Municipal da Fazenda (SMF)") ||
-    tags.includes("Secretário Municipal da Saúde (SMS)")
+    tags.includes("Secretário Municipal da Saúde (SMS)") ||
+    tags.includes(
+      "Secretário Municipal de Governança Local e Coordenação Política (SMGOV)"
+    )
   ) {
     categories.push("Municipality secretaries of Porto Alegre");
   }
@@ -413,9 +430,55 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Primeira Infância Melhor (PIM)")
     ) &&
     (tags.includes("Secretaria Municipal de Educação (SMED)") ||
+      tags.includes("Secretária municipal da Educação (SMED)") ||
       tags.includes("SMED"))
   ) {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
+  }
+
+  if (
+    !(
+      tags.includes("EMEF João Carlos D`Ávila Paixão Côrtes (Laçador)") ||
+      tags.includes("EMEF Vereador Antônio Giúdice") ||
+      tags.includes("EMEI Miguel Granato Velasquez")
+    ) &&
+    (tags.includes("Escola") ||
+      tags.includes("EMEF") ||
+      tags.includes("Escolas Municipais de Educação Infantil") ||
+      tags.includes("EMEI") ||
+      tags.includes("EMEM"))
+  ) {
+    categories.push("Municipal schools in Porto Alegre");
+  }
+
+  if (
+    !tags.includes(
+      "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)"
+    ) &&
+    tags.includes("Educação Superior")
+  ) {
+    categories.push("Universities and colleges in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Educação") ||
+    tags.includes("Oficina") ||
+    tags.includes("Material Escolar") ||
+    tags.includes("Educação no Trânsito") ||
+    tags.includes("Educação Básica") ||
+    tags.includes("Educação Especial") ||
+    tags.includes("Educação Fundamental") ||
+    tags.includes("Educação Infantil") ||
+    tags.includes("Educação Ambiental") ||
+    tags.includes("Educação Educação Técnica") ||
+    tags.includes("Ensino") ||
+    tags.includes("Cidades Educadoras")
+  ) {
+    categories.push("Education in Porto Alegre");
+  }
+
+  if (tags.includes("Educação Ambiental")) {
+    categories.push("Nature of Porto Alegre");
   }
 
   if (tags.includes("Procon Municipal") || tags.includes("Procon Móvel")) {
@@ -462,15 +525,6 @@ const getCategoriesFromTags = metadata => {
     categories.push("Aedes aegypti");
   }
 
-  if (
-    !tags.includes(
-      "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)"
-    ) &&
-    tags.includes("Educação Superior")
-  ) {
-    categories.push("Universities and colleges in Porto Alegre");
-  }
-
   if (tags.includes("Leishmaniose")) {
     categories.push("Leishmaniasis");
     categories.push("Diseases and disorders in Brazil");
@@ -480,31 +534,6 @@ const getCategoriesFromTags = metadata => {
     categories.push("Storm drains in Brazil");
     categories.push("Street furniture in Porto Alegre");
     categories.push("Storms in Rio Grande do Sul");
-  }
-
-  if (
-    tags.includes("Educação") ||
-    tags.includes("Oficina") ||
-    tags.includes("Material Escolar") ||
-    tags.includes("Educação no Trânsito") ||
-    tags.includes("Educação Básica") ||
-    tags.includes("Educação Especial") ||
-    tags.includes("Educação Fundamental") ||
-    tags.includes("Educação Infantil") ||
-    tags.includes("Educação Ambiental") ||
-    tags.includes("Educação Educação Técnica") ||
-    tags.includes("Ensino") ||
-    tags.includes("Cidades Educadoras")
-  ) {
-    categories.push("Education in Porto Alegre");
-  }
-
-  if (tags.includes("Educação Ambiental")) {
-    categories.push("Nature of Porto Alegre");
-  }
-
-  if (tags.includes("EMEF") || tags.includes("EMEI") || tags.includes("EMEM")) {
-    categories.push("Municipal schools in Porto Alegre");
   }
 
   if (
@@ -522,15 +551,6 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Trabalho e Emprego")
   ) {
     categories.push("Society of Porto Alegre");
-  }
-
-  if (
-    tags.includes("Medicina") ||
-    tags.includes("Nutrição") ||
-    tags.includes("Saúde Nutricional e Amamentação") ||
-    tags.includes("Atenção Primária à Saúde (APS)")
-  ) {
-    categories.push("Health in Porto Alegre");
   }
 
   if (
@@ -574,6 +594,11 @@ const getCategoriesFromTags = metadata => {
     categories.push("Dermatology");
   }
 
+  if (tags.includes("Hospital de campanha")) {
+    categories.push("Field hospitals in Brazil");
+    categories.push("Hospitals in Porto Alegre");
+  }
+
   if (tags.includes("Encerramento")) {
     categories.push("Closing ceremonies");
   }
@@ -602,6 +627,58 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Atendimento Improvisado")) {
     categories.push("Emergency services in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Primeiros Socorros") ||
+    tags.includes("Hospital de campanha")
+  ) {
+    categories.push("Emergency medical services in Porto Alegre");
+  }
+
+  if (
+    !tags.includes("Força Nacional do SUS") &&
+    tags.includes("Sistema Único de Saúde (SUS)")
+  ) {
+    categories.push("Sistema Único de Saúde");
+  }
+
+  if (
+    !tags.includes("UPA Moacyr Scliar") &&
+    tags.includes("Unidade de Pronto Atendimento (UPA)")
+  ) {
+    categories.push("Unidade de Pronto Atendimento");
+  }
+
+  if (tags.includes("Saúde do Idoso") || tags.includes("Idosos")) {
+    categories.push("Geriatrics in Brazil");
+  }
+
+  if (
+    tags.includes("Nutrição") ||
+    tags.includes("Saúde Mental") ||
+    tags.includes("Saúde Nutricional e Amamentação")
+  ) {
+    categories.push("Health in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Medicina") ||
+    tags.includes("Atenção Primária à Saúde (APS)") ||
+    tags.includes("Assistência Hospitalar") ||
+    tags.includes("Clínica da Família") ||
+    tags.includes("Saúde do Idoso")
+  ) {
+    categories.push("Healthcare in Porto Alegre");
+  }
+
+  if (
+    !tags.includes(
+      "Centro Administrativo Municipal Guilherme Socias Villela"
+    ) &&
+    tags.includes("Centro Administrativo Municipal (CAM)")
+  ) {
+    categories.push("Centros Administrativos Municipais (Porto Alegre)");
   }
 
   if (
@@ -686,7 +763,11 @@ const getCategoriesFromTags = metadata => {
     ) &&
     (tags.includes("Enchente") || tags.includes("Alagamento"))
   ) {
-    categories.push("Floods in Porto Alegre");
+    if (getYear(metadata.humanReadableDate) === 2024) {
+      categories.push("2024 Porto Alegre floods");
+    } else {
+      categories.push("Floods in Porto Alegre");
+    }
   }
 
   if (!tags.includes("ETA São João") && tags.includes("ETA")) {
@@ -705,6 +786,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Food relief in Brazil");
     categories.push("Charity in Brazil");
     categories.push("Social services in Porto Alegre");
+    categories.push("Humanitarian aid for the 2024 Rio Grande do Sul floods");
   }
 
   if (
@@ -723,10 +805,17 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
+  if (tags.includes("Retirada de Passarela")) {
+    categories.push("Overpass bridges in Brazil");
+    categories.push("Footbridges in Brazil");
+    categories.push("Demolitions in Brazil");
+  }
+
   if (
     tags.includes("Obras") ||
     tags.includes("Pintura") ||
-    tags.includes("Asfalto")
+    tags.includes("Asfalto") ||
+    tags.includes("Retirada de Passarela")
   ) {
     categories.push("Construction in Porto Alegre");
     categories.push(`${getYear(metadata.humanReadableDate)} in construction`);
@@ -805,7 +894,9 @@ const getCategoriesFromTags = metadata => {
     !(
       categories.includes(
         `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
-      ) || tags.includes("Fórum da Liberdade")
+      ) ||
+      tags.includes("Fórum da Liberdade") ||
+      categories.includes("2024 Porto Alegre floods")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
@@ -843,16 +934,23 @@ const keywordToCategoryMap = {
   "diretor-presidente do DMAE, Maurício Loss": "Maurício Loss",
   "Secretário municipal de Obras e Infraestrutura, André Flores":
     "André Flores",
+  "Comandante da Guarda Municipal, Marcelo Nascimento": "Marcelo Nascimento",
+  "Cel QOEM Mário Yukio Ikeda": "Mário Yukio Ikeda",
+  "Vice-governador Gabriel Souza": "Gabriel Souza",
+  "Secretária municipal de Habitação e Regularização Fundiária, Simone Somensi":
+    "Simone Somensi",
+  "Secretário municipal da Fazenda, Rodrigo Fantinel": "Rodrigo Fantinel",
 };
 
 const sameNameKeywords = [
+  "Adão Cândido",
+  "Cezar Schirmer",
   "Eduardo Leite",
+  "Gabriel Souza",
   "Gustavo Paim",
   "Letícia Batistela",
   "Osmar Terra",
   "Ronaldo Nogueira",
-  "Cezar Schirmer",
-  "Adão Cândido",
   "Edson Leal Pujol",
   "José Ivo Sartori",
   "Michel Costa",
@@ -968,11 +1066,6 @@ const getMappedCategories = metadata => {
     }
   });
 
-  // Log unmatched tags for debugging
-  if (unmatchedTags.length > 0) {
-    console.warn("Unmatched tags:", unmatchedTags);
-  }
-
   return categories;
 };
 
@@ -983,8 +1076,16 @@ const setReadyToUploadFlag = metadata => {
     );
   }
 
+  // Find the invalid tags
+  const invalidTags = metadata.tags.filter(tag => !validTags.includes(tag));
+
+  // Log the invalid tags if any
+  if (invalidTags.length > 0) {
+    console.log("Invalid tags:", invalidTags);
+  }
+
   // Check if all tags in metadata.tags are valid
-  const allTagsValid = metadata.tags.every(tag => validTags.includes(tag));
+  const allTagsValid = invalidTags.length === 0;
 
   // Set the readyToUpload flag based on the validity check
   return allTagsValid;
