@@ -12,8 +12,8 @@ export const tagToCategoryMap = {
   Smdse: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Social (SMDS)":
     "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
-  "Desenvolvimento Econômico":
-    "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
+  "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
+    "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   "Meio Ambiente":
     "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
   "Meio Ambiente e Sustentabilidade":
@@ -55,6 +55,8 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Esporte, Lazer e Juventude (Porto Alegre)",
   "Esporte, Lazer e Juventude":
     "Secretaria Municipal de Esporte, Lazer e Juventude (Porto Alegre)",
+  "Esporte Lazer e Juventude":
+    "Secretaria Municipal de Esporte, Lazer e Juventude (Porto Alegre)",
   "Secretaria Municipal de Transparência e Controladoria (SMTC)":
     "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
   "Secretaria Municipal de Governança Local e Coordenação Política (SMGOV)":
@@ -65,10 +67,18 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
   "Habitação Regularização Fundiária":
     "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
-  Parcerias: "Secretaria Municipal de Parcerias Estratégicas (Porto Alegre)",
+  "Habitação e Regularização Fundiária":
+    "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
+  Parcerias: "Secretaria Municipal de Parcerias (Porto Alegre)",
+  "Secretaria Municipal de Parcerias (SMP)":
+    "Secretaria Municipal de Parcerias (Porto Alegre)",
   "Secretaria Municipal de Administração e Patrimônio (SMAP)":
     "Secretaria Municipal de Administração e Patrimônio (Porto Alegre)",
   "Administração e Patrimônio":
+    "Secretaria Municipal de Administração e Patrimônio (Porto Alegre)",
+  "Administração É Patrimônio":
+    "Secretaria Municipal de Administração e Patrimônio (Porto Alegre)",
+  "Secretário Municipal de Administração e Patrimônio (SMAP)":
     "Secretaria Municipal de Administração e Patrimônio (Porto Alegre)",
   "Secretaria Municipal de Planejamento e Assuntos Estratégicos (SMPAE)":
     "Secretaria Municipal de Planejamento e Assuntos Estratégicos (Porto Alegre)",
@@ -80,7 +90,10 @@ export const tagToCategoryMap = {
   "Causa Animal": "Gabinete da Causa Animal (Porto Alegre)",
   Procuradoria: "Procuradoria-Geral do Município de Porto Alegre",
   Secretariado: "Municipal secretariats of Porto Alegre",
-
+  "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (SMTQ)":
+    "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (Porto Alegre)",
+  "Trabalho e Qualificação":
+    "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (Porto Alegre)",
   Procempa: "Companhia de Processamento de Dados do Município de Porto Alegre",
   "Companhia de Processamento de Dados do Município (Procempa)":
     "Companhia de Processamento de Dados do Município de Porto Alegre",
@@ -108,10 +121,12 @@ export const tagToCategoryMap = {
   Dmae: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   Água: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Água e Esgotos": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+  "Água e Esgoto": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Departamento Municipal de Água e Esgotos (DMAE)":
     "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Rede de abastecimento de água":
     "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+  "redes de água": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Sine Municipal": "Sine Municipal (Porto Alegre)",
   EPTC: "Empresa Pública de Transporte e Circulação de Porto Alegre",
   "Empresa Pública de Transporte e Circulação (EPTC)":
@@ -123,16 +138,23 @@ export const tagToCategoryMap = {
     "Fundação de Assistência Social e Cidadania",
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
+  vereador: "City councillors of Porto Alegre",
   Pisa: "Programa Integrado Socioambiental",
   "Unidade de Saúde Orfanotrófrio": "Unidade de Saúde Orfanotrófio",
   "Unidade de Saúde Animal Victória (Usav)": "Unidade de Saúde Animal Victória",
   "Primeira Infância Melhor (PIM)": "Primeira Infância Melhor",
   "Salão Nobre": "Salão Nobre (Paço Municipal de Porto Alegre)",
+  "Salão Nobre do Paço Municipal":
+    "Salão Nobre (Paço Municipal de Porto Alegre)",
+  "Sala dos Embaixadores":
+    "Sala dos Embaixadores (Paço Municipal de Porto Alegre)",
   "Restaurante Popular": "Restaurantes Populares",
   Capacitação: "Trainings by the Municipality of Porto Alegre",
   Curso: "Courses (education) by the Municipality of Porto Alegre",
   "Curso de Formação": "Training courses by the Municipality of Porto Alegre",
   Visita: "Official visits involving the Municipality of Porto Alegre",
+  "Visita de Cortesia":
+    "Official visits involving the Municipality of Porto Alegre",
   "Viagem à Brasília":
     "Official visits involving the Municipality of Porto Alegre",
   Convênio: "Partnerships involving the Municipality of Porto Alegre",
@@ -152,9 +174,12 @@ export const tagToCategoryMap = {
   "Estação de Bombeamento de Águas Pluviais (Ebap)":
     "Estações de Bombeamento de Águas Pluviais",
   "Casa de Bombas": "Estações de Bombeamento de Águas Pluviais",
+  "Estações de Bombeamento de Águas Pluviais (Ebaps)":
+    "Estações de Bombeamento de Águas Pluviais",
   "(EBAB) Moinhos de Vento": "EBAB Moinhos de Vento",
   "Aplicativo (app)": "Mobile apps of the Municipality of Porto Alegre",
   Carris: "Companhia Carris Porto-Alegrense",
+  "Companhia Carris Porto Alegrense": "Companhia Carris Porto-Alegrense",
   "Assistência Farmacêutica": "Assistência Farmacêutica (Porto Alegre)",
   "Centro Humanístico Vida": "Vida Centro Humanístico",
   "Coordenação Municipal de Urgências (CMU)":
@@ -164,16 +189,16 @@ export const tagToCategoryMap = {
     "EMEB Liberato Salzano Vieira da Cunha",
   "#eufaçopoa": "EuFaçoPOA",
   "Plano de ação Porto Alegre Forte": "Porto Alegre Forte",
+  "Programa de Residência Técnico-Superior (PRTS)":
+    "Programa de Residência Técnico-Superior",
+  "Lei Orçamentária Anual (LOA)": "Lei Orçamentária Anual",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
   Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
   Granpal: "Associação dos Municípios da Região Metropolitana de Porto Alegre",
   "Associação dos Auditores Fiscais da Receita Municipal de Porto Alegre (Aiamu)":
     "Associação dos Auditores Fiscais da Receita Municipal de Porto Alegre",
-  "Parque Farroupilha (Redenção)": "Parque da Redenção",
-  "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
-  "Praça da Alfândega": "Praça da Alfândega (Porto Alegre)",
-  "Praça Marechal Deodoro (Matriz)": "Praça da Matriz (Porto Alegre)",
+
   "Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA)":
     "Universidade Federal de Ciências da Saúde de Porto Alegre",
   "Universidade Federal do Rio Grande do Sul (UFRGS)":
@@ -181,7 +206,8 @@ export const tagToCategoryMap = {
   PUCRS: "Pontifícia Universidade Católica do Rio Grande do Sul",
   "Pontifícia Universidade Católica do RS (PUCRS)":
     "Pontifícia Universidade Católica do Rio Grande do Sul",
-  "Moab Caldas": "Avenida Moab Caldas",
+  "Escola de Gestão Pública (EGP)": "Escola de Gestão Pública (Porto Alegre)",
+
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
   "Igreja Nossa Senhora das Dores":
@@ -189,14 +215,22 @@ export const tagToCategoryMap = {
   "Assembléia Legislativa": "Legislative Assembly of Rio Grande do Sul",
   "Fonte Talavera": "Fonte Talavera de La Reina",
   "Mercado Público Central": "Mercado Público de Porto Alegre",
+
   HMIPV: "Hospital Materno-Infantil Presidente Vargas",
   "Hospital de Pronto Socorro (HPS)":
+    "Hospital de Pronto Socorro (Porto Alegre)",
+  "Unidade de Coleta e Transfusão (UCT) do HPS":
     "Hospital de Pronto Socorro (Porto Alegre)",
   "Hospital Materno-Infantil Presidente Vargas (HMIPV)":
     "Hospital Materno-Infantil Presidente Vargas",
   "Unidade de Saúde Modelo": "Centro de Saúde Modelo",
   "Unidade de Saúde Santa Marta": "Centro de Saúde Santa Marta",
+  "Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)":
+    "Centros de Atenção Psicossocial Álcool e Drogas",
+
   "Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS)":
+    "Tribunal de Contas do Estado do Rio Grande do Sul",
+  "Sede do Tribunal de Contas do Estado (TCE)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Catedral Metropolitana de Porto Alegre (Matriz)":
@@ -216,6 +250,9 @@ export const tagToCategoryMap = {
     "Salgado Filho International Airport",
   "Aeroporto Salgado Filho": "Salgado Filho International Airport",
   "Centro Popular de Compras (CPC)": "Centro Popular de Compras (Porto Alegre)",
+  "Biblioteca Pública Josué Guimarães":
+    "Biblioteca Pública Municipal Josué Guimarães",
+  "CEEE Equatorial": "CEEE Grupo Equatorial",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -249,6 +286,7 @@ export const tagToCategoryMap = {
   "Bairro Moinhos de Vento": "Moinhos de Vento",
   "Bairro Navegantes": "Navegantes (Porto Alegre)",
   "Bairro Partenon": "Partenon (Porto Alegre)",
+  "Bairro Petrópolis": "Petrópolis (Porto Alegre)",
   "Bairro Ponta Grossa": "Ponta Grossa (Porto Alegre)",
   "Bairro Praia de Belas": "Praia de Belas",
   "bairro Restinga": "Restinga (Porto Alegre)",
@@ -261,7 +299,7 @@ export const tagToCategoryMap = {
   "Bairro Teresópolis": "Teresópolis (Porto Alegre)",
   "Bairro Tristeza": "Tristeza (Porto Alegre)",
   "Bairro Vila Conceição": "Vila Conceição",
-  "Bairro Petrópolis": "Petrópolis (Porto Alegre)",
+  "Bairro Vila Farrapos": "Vila Farrapos",
   Petrópolis: "Petrópolis (Porto Alegre)",
   Partenon: "Partenon (Porto Alegre)",
   Navegantes: "Navegantes (Porto Alegre)",
@@ -270,31 +308,40 @@ export const tagToCategoryMap = {
   "Capital Gaúcha": "Porto Alegre",
 
   "Orla Moacyr Scliar": "Parque Moacyr Scliar",
+  "Parque Urbano da Orla Moacyr Scliar": "Parque Moacyr Scliar",
+  "Orla do Guaíba": "Parque da Orla do Guaíba",
+  "Parque Farroupilha (Redenção)": "Parque da Redenção",
+  "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
   Guaíba: "Rio Guaíba in Porto Alegre",
   "Lago Guaíba": "Rio Guaíba in Porto Alegre",
   "Avenida Ipiranga": "Avenida Ipiranga (Porto Alegre)",
   "Avenida Castello Branco": "Avenida Presidente Castello Branco",
   "Av. Mauá": "Avenida Mauá",
+  "Moab Caldas": "Avenida Moab Caldas",
+  "Avenida Voluntários da Pátria": "Rua Voluntários da Pátria (Porto Alegre)",
   "Praça Revolução Farroupilha (Trensurb)": "Praça Revolução Farroupilha",
   "Praça Montevideo": "Praça Montevidéu",
+  "Praça Marechal Deodoro (Matriz)": "Praça da Matriz (Porto Alegre)",
+  "Praça da Alfândega": "Praça da Alfândega (Porto Alegre)",
+  "Terminal Parobé": "Praça Pereira Parobé",
   "Viaduto Conceição": "Viaduto da Conceição",
   "Baronesa do Gravataí": "Rua Baronesa do Gravataí",
   "Trincheira da Ceará": "Trincheira da Avenida Ceará",
 
   "Exército Brasileiro": "Army of Brazil",
+  "Forças Armadas": "Army of Brazil",
   "Marinha do Brasil": "Brazilian Navy",
   "Ministerio Público - RS": "Ministério Público do Rio Grande do Sul",
   "Governo Federal": "Federal government of Brazil",
-
+  SESI: "Serviço Social da Indústria",
+  Fecomércio: "Fecomércio-RS",
   "Comissão de Combate à Informalidade": "Fecomércio-RS",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
+
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
   Trabalho: "Festa de Nossa Senhora do Trabalho",
   Metas: "Prometas",
-  Fecomércio: "Fecomércio-RS",
-  "Biblioteca Pública Josué Guimarães":
-    "Biblioteca Pública Municipal Josué Guimarães",
   Unisinos: "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)",
   "Caminhos Rurais": "Caminhos Rurais de Porto Alegre",
   "Parque Moinhos de Vento (Parcão)": "Parque Moinhos de Vento",
@@ -327,12 +374,8 @@ export const tagToCategoryMap = {
   Teatro: "Theatre of Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
   Árvore: "Trees in Porto Alegre",
-  Música: "Music of Porto Alegre",
   Futebol: "Association football in Porto Alegre",
   roubo: "Crime in Porto Alegre",
-  veículo: "Automobiles in Porto Alegre",
-  Veículos: "Automobiles in Porto Alegre",
-  Viaturas: "Automobiles in Porto Alegre",
   Habitação: "Housing in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
   Procissão: "Processions in Porto Alegre",
@@ -367,6 +410,8 @@ export const tagToCategoryMap = {
   Coronavírus: "COVID-19 pandemic in Porto Alegre",
   "Covid-19": "COVID-19 pandemic in Porto Alegre",
   Mapa: "Maps of Porto Alegre",
+  Ônibus: "Buses in Porto Alegre",
+  Quilombos: "Quilombos in Porto Alegre",
   "Artes Cênicas": "Performing arts in Porto Alegre",
   "Transporte Público": "Public transport in Porto Alegre",
   "Assistência Social": "Social services in Porto Alegre",
@@ -380,6 +425,7 @@ export const tagToCategoryMap = {
   "Fios Soltos": "Overhead power lines in Porto Alegre",
   "Unidade de Saúde": "Unidades de Saúde in Porto Alegre",
   "foco de lixo": "Waste management in Porto Alegre",
+  "Terminais de ônibus": "Bus stations in Porto Alegre",
 
   Infográfico: "Information graphics of Brazil",
   Dengue: "Dengue in Brazil",
@@ -391,6 +437,7 @@ export const tagToCategoryMap = {
   Servidor: "Civil servants of Brazil",
   Espetáculo: "Shows in Rio Grande do Sul",
   Aluno: "Students in Brazil",
+  Alunos: "Students in Brazil",
   Abertura: "Opening ceremonies in Brazil",
   Inauguração: "Inaugurations in Brazil",
   Licitações: "Auctions in Brazil",
@@ -401,11 +448,11 @@ export const tagToCategoryMap = {
   Acessibilidade: "Accessibility in Brazil",
   Empreendedorismo: "Entrepreneurship in Brazil",
   Adolescente: "Teenagers of Brazil",
-  Vacinação: "Vaccinations in Brazil",
-  Vacina: "Vaccinations in Brazil",
   Poda: "Pruning in Brazil",
   Embaixada: "Embassies in Brazil",
   Consulado: "Diplomatic missions to Brazil",
+  "Consul Honorária dos Países Baixos em Porto Alegre":
+    "Diplomatic missions to Brazil",
   Juventude: "Youth in Brazil",
   Eclipse: "Solar eclipses in Brazil",
   Gato: "Cats of Brazil",
@@ -423,6 +470,7 @@ export const tagToCategoryMap = {
   gari: "Street sweepers from Brazil",
   Abastecimento: "Logistics in Brazil",
   Limpeza: "Cleaning in Brazil",
+  Escolta: "Police escorts in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -443,6 +491,8 @@ export const tagToCategoryMap = {
   "lavagem de vias e pontos": "Street cleaning in Brazil",
   "caminhões-pipa": "Tank trucks in Brazil",
   "Porão do Paço": "Basements in Brazil",
+  "doação de sangue": "Blood donation in Brazil",
+  "Ambulatório Odontológico": "Dental clinics in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -450,6 +500,10 @@ export const tagToCategoryMap = {
     )} in Brazil`,
   Criança: metadata =>
     `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
+  "Programação do Reveillon": metadata =>
+    `New Year ${getYear(metadata.humanReadableDate)} in Brazil`,
+  "Concerto Musical": metadata =>
+    `${getYear(metadata.humanReadableDate)} concerts in Brazil`,
 
   Transexualidade: "Transgender in South America",
 
@@ -500,6 +554,7 @@ export const tagToCategoryMap = {
   Flashmob: "Flash mobs",
   CMDUA: "Urban development",
   "Trabalho e Emprego": "Employment",
+  "Vagas de Emprego": "Employment",
   "Centro de triagem": "Screening centers",
   Monitoramento: "Monitoring",
   Premiação: "Prizes",
@@ -509,11 +564,21 @@ export const tagToCategoryMap = {
   "Saúde Nutricional e Amamentação": "Breastfeeding",
   Live: "Video streaming",
   "Atenção Primária à Saúde (APS)": "Primary health care",
-  Escolta: "Police escorts",
   Mãe: "Maternal health",
   Desabrigados: "Displaced persons",
   "Primeiros Socorros": "First aid",
   "Clínica da Família": "Family medicine",
   "Agentes Comunitários de Saúde (ACS)": "Community health agents",
   "Saúde do Idoso": "Elderlycare",
+  "Banco de Sangue": "Blood banks",
+  "Declaração de Edimburgo": "Collective agreements",
+  "Novo Marco Global": "Biodiversity",
+  Assinatura: "Signing ceremonies",
+  Certificado: "School certificates",
+  Homenagem: "Homages to people",
+  "doação e transplante de órgãos": "Organ donation",
+  "Inspeção veicular": "Vehicle inspection",
+  "Educação Permanente": "Professional development and training",
+  "Agentes de Fiscalização": "Inspectors",
+  Conscientização: "Awareness activism",
 };

@@ -247,11 +247,18 @@ const processDescription = description => {
 
   // Remove anything after "Foto:" and trim the string
   if (description.match(/\.?\s?Fotos?:/)) {
-    description = description.split(/\.?\s?Fotos?:/)[0].trim();
+    description = description
+      .replace("A Foto: ", "")
+      .split(/\.?\s?Fotos?:/)[0]
+      .trim();
   }
 
-  if (description.includes("Local:")) {
-    description = description.split("Local:")[0].trim();
+  if (description.match(/\.?\s?Local:/)) {
+    description = description.split(/\.?\s?Local:/)[0].trim();
+  }
+
+  if (description.match(/\.?\s?Arte:/)) {
+    description = description.split(/\.?\s?Arte:/)[0].trim();
   }
 
   if (description.includes(".<br/>")) {
@@ -260,7 +267,7 @@ const processDescription = description => {
 
   description = description
     .replace(
-      /Porto Alegre(, RS)?,?\.?(\s*?Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\.?\s?-?\s?/,
+      /Porto\s\s?Alegre(, RS)?,?\.?(\s*?Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\.?\s?-?\s?/,
       ""
     )
     .replace(/[/:]/g, "-")
@@ -313,10 +320,11 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Salão Nobre") &&
+    !(tags.includes("Salão Nobre") || tags.includes("Sala dos Embaixadores")) &&
     (tags.includes("Paço dos Açorianos") ||
       tags.includes("Porão do Paço") ||
-      tags.includes("Prefeitura de Porto Alegre"))
+      tags.includes("Prefeitura de Porto Alegre") ||
+      tags.includes("Paço Municipal de Porto Alegre"))
   ) {
     categories.push("Paço Municipal de Porto Alegre");
   }
@@ -332,8 +340,10 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Projeto de Lei") ||
+    tags.includes("sanção de Projeto de Lei") ||
     tags.includes("Lei") ||
-    tags.includes("Alvará")
+    tags.includes("Alvará") ||
+    tags.includes("Lei Orçamentária Anual (LOA)")
   ) {
     categories.push("Law of Porto Alegre");
   }
@@ -379,7 +389,9 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Secretário Municipal da Saúde (SMS)") ||
     tags.includes(
       "Secretário Municipal de Governança Local e Coordenação Política (SMGOV)"
-    )
+    ) ||
+    tags.includes("Secretário Municipal da Educação (SMED)") ||
+    tags.includes("Secretário Municipal de Administração e Patrimônio (SMAP)")
   ) {
     categories.push("Municipality secretaries of Porto Alegre");
   }
@@ -389,7 +401,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Arrecadação Fiscal") ||
     tags.includes("Tarifa") ||
     tags.includes("Sustentabilidade") ||
-    tags.includes("Tributação")
+    tags.includes("Tributação") ||
+    tags.includes("Lei Orçamentária Anual (LOA)")
   ) {
     categories.push("Economy of Porto Alegre");
   }
@@ -410,13 +423,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("CGVS") ||
-      tags.includes("Unidade de Saúde Alto Embratel") ||
-      tags.includes("Unidade de Saúde Osmar Freitas") ||
-      tags.includes("Unidade de Saúde Santo Alfredo") ||
-      tags.includes("Farmácia")
-    ) &&
+    !(tags.includes("CGVS") || tags.includes("Farmácia")) &&
     (tags.includes("Saúde") ||
       tags.includes("Sms") ||
       tags.includes("Secretaria Municipal de Saúde (SMS)"))
@@ -431,7 +438,8 @@ const getCategoriesFromTags = metadata => {
     ) &&
     (tags.includes("Secretaria Municipal de Educação (SMED)") ||
       tags.includes("Secretária municipal da Educação (SMED)") ||
-      tags.includes("SMED"))
+      tags.includes("SMED") ||
+      tags.includes("Secretário Municipal da Educação (SMED)"))
   ) {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
   }
@@ -440,7 +448,10 @@ const getCategoriesFromTags = metadata => {
     !(
       tags.includes("EMEF João Carlos D`Ávila Paixão Côrtes (Laçador)") ||
       tags.includes("EMEF Vereador Antônio Giúdice") ||
-      tags.includes("EMEI Miguel Granato Velasquez")
+      tags.includes("EMEI Miguel Granato Velasquez") ||
+      tags.includes("EMEI JP Patinho Feio") ||
+      tags.includes("EMEI Tio Barnabé") ||
+      tags.includes("EMEI JP Passarinho Dourado")
     ) &&
     (tags.includes("Escola") ||
       tags.includes("EMEF") ||
@@ -471,6 +482,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Educação Infantil") ||
     tags.includes("Educação Ambiental") ||
     tags.includes("Educação Educação Técnica") ||
+    tags.includes("Educação Permanente") ||
     tags.includes("Ensino") ||
     tags.includes("Cidades Educadoras")
   ) {
@@ -493,7 +505,12 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Companhia Municipal de Dança") &&
+    !(
+      tags.includes("Companhia Municipal de Dança") ||
+      tags.includes(
+        "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)"
+      )
+    ) &&
     tags.includes("Cultura")
   ) {
     categories.push("Secretaria Municipal da Cultura (Porto Alegre)");
@@ -507,7 +524,11 @@ const getCategoriesFromTags = metadata => {
     categories.push("Secretaria Municipal da Fazenda (Porto Alegre)");
   }
 
-  if (tags.includes("Fiscalização") || tags.includes("Vistoria")) {
+  if (
+    tags.includes("Fiscalização") ||
+    tags.includes("Vistoria") ||
+    tags.includes("Agentes de Fiscalização")
+  ) {
     categories.push("Inspections");
   }
 
@@ -516,7 +537,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Segurança Pública") ||
     tags.includes("Interdição") ||
     tags.includes("Apreensão") ||
-    tags.includes("Vistoria")
+    tags.includes("Vistoria") ||
+    tags.includes("Agentes de Fiscalização")
   ) {
     categories.push("Law enforcement in Porto Alegre");
   }
@@ -534,6 +556,15 @@ const getCategoriesFromTags = metadata => {
     categories.push("Storm drains in Brazil");
     categories.push("Street furniture in Porto Alegre");
     categories.push("Storms in Rio Grande do Sul");
+  }
+
+  if (
+    tags.includes("veículo") ||
+    tags.includes("Veículos") ||
+    tags.includes("Viaturas") ||
+    tags.includes("Inspeção veicular")
+  ) {
+    categories.push("Automobiles in Porto Alegre");
   }
 
   if (
@@ -585,27 +616,19 @@ const getCategoriesFromTags = metadata => {
     categories.push("Animals of Porto Alegre");
   }
 
+  if (tags.includes("Futebol Feminino")) {
+    categories.push("Association football in Porto Alegre");
+    categories.push("Women's association football in Brazil");
+  }
   if (tags.includes("Esporte") || tags.includes("Ginástica")) {
     categories.push("Sports in Porto Alegre");
   }
 
-  if (tags.includes("Teledermatologia")) {
-    categories.push("Telemedicine");
-    categories.push("Dermatology");
-  }
-
-  if (tags.includes("Hospital de campanha")) {
-    categories.push("Field hospitals in Brazil");
-    categories.push("Hospitals in Porto Alegre");
-  }
-
-  if (tags.includes("Encerramento")) {
-    categories.push("Closing ceremonies");
-  }
-
   if (
     !(tags.includes("Inauguração") || tags.includes("Abertura")) &&
-    (tags.includes("Encerramento") || tags.includes("Cerimônia"))
+    (tags.includes("Encerramento") ||
+      tags.includes("Cerimônia") ||
+      tags.includes("Assinatura"))
   ) {
     categories.push("Ceremonies in Brazil");
   }
@@ -629,6 +652,20 @@ const getCategoriesFromTags = metadata => {
     categories.push("Emergency services in Porto Alegre");
   }
 
+  if (tags.includes("Teledermatologia")) {
+    categories.push("Telemedicine");
+    categories.push("Dermatology");
+  }
+
+  if (tags.includes("Hospital de campanha")) {
+    categories.push("Field hospitals in Brazil");
+    categories.push("Hospitals in Porto Alegre");
+  }
+
+  if (tags.includes("Encerramento")) {
+    categories.push("Closing ceremonies");
+  }
+
   if (
     tags.includes("Primeiros Socorros") ||
     tags.includes("Hospital de campanha")
@@ -650,6 +687,15 @@ const getCategoriesFromTags = metadata => {
     categories.push("Unidade de Pronto Atendimento");
   }
 
+  if (
+    !tags.includes("Dia D de Vacinação") &&
+    (tags.includes("Vacinação") ||
+      tags.includes("Vacina") ||
+      tags.includes("multivacinação"))
+  ) {
+    categories.push("Vaccinations in Brazil");
+  }
+
   if (tags.includes("Saúde do Idoso") || tags.includes("Idosos")) {
     categories.push("Geriatrics in Brazil");
   }
@@ -657,7 +703,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Nutrição") ||
     tags.includes("Saúde Mental") ||
-    tags.includes("Saúde Nutricional e Amamentação")
+    tags.includes("Saúde Nutricional e Amamentação") ||
+    tags.includes("doação de sangue")
   ) {
     categories.push("Health in Porto Alegre");
   }
@@ -667,7 +714,10 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Atenção Primária à Saúde (APS)") ||
     tags.includes("Assistência Hospitalar") ||
     tags.includes("Clínica da Família") ||
-    tags.includes("Saúde do Idoso")
+    tags.includes("Saúde do Idoso") ||
+    tags.includes("Ambulatório Odontológico") ||
+    tags.includes("doação e transplante de órgãos") ||
+    tags.includes("Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)")
   ) {
     categories.push("Healthcare in Porto Alegre");
   }
@@ -782,6 +832,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Donations");
   }
 
+  if (tags.includes("Música") || tags.includes("Concerto Musical")) {
+    categories.push("Music of Porto Alegre");
+  }
+
   if (tags.includes("doações de cestas básicas")) {
     categories.push("Food relief in Brazil");
     categories.push("Charity in Brazil");
@@ -856,7 +910,11 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Reunião") ||
       tags.includes("Cerimônia") ||
       tags.includes("Conferência") ||
-      tags.includes("Debate"))
+      tags.includes("Debate") ||
+      tags.includes("Programação do Reveillon") ||
+      tags.includes("Concerto Musical") ||
+      tags.includes("Assinatura") ||
+      tags.includes("Homenagem"))
   ) {
     categories.push("Events in Porto Alegre");
     categories.push(`${getYear(metadata.humanReadableDate)} events in Brazil`);
@@ -913,6 +971,7 @@ const keywordToCategoryMap = {
   "Roberto Freire": "Roberto Freire (politician)",
   "Prefeito de Porto Alegre, Sebastião Melo": "Sebastião Melo",
   "Ricardo Gomes": "Ricardo Gomes (politician)",
+  "Peter Wilson": "Peter Wilson (diplomat)",
   "vice-prefeito Ricardo Gomes": "Ricardo Gomes (politician)",
   "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes (politician)",
   "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
@@ -940,25 +999,35 @@ const keywordToCategoryMap = {
   "Secretária municipal de Habitação e Regularização Fundiária, Simone Somensi":
     "Simone Somensi",
   "Secretário municipal da Fazenda, Rodrigo Fantinel": "Rodrigo Fantinel",
+  "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
+    "Cezar Schirmer",
+  "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
+    "Idenir Cecchim",
+  "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
+    "Germano Bremm",
 };
 
 const sameNameKeywords = [
   "Adão Cândido",
+  "Any Ortiz",
   "Cezar Schirmer",
+  "Edson Leal Pujol",
   "Eduardo Leite",
   "Gabriel Souza",
+  "Germano Bremm",
   "Gustavo Paim",
+  "Hamilton Sossmeier",
+  "Idenir Cecchim",
+  "João Fischer",
+  "José Ivo Sartori",
   "Letícia Batistela",
+  "Liziane Bayer",
+  "Maria Helena Sartori",
+  "Mauro Pinheiro",
+  "Michel Costa",
   "Osmar Terra",
   "Ronaldo Nogueira",
-  "Edson Leal Pujol",
-  "José Ivo Sartori",
-  "Michel Costa",
-  "Liziane Bayer",
-  "Any Ortiz",
   "Skank",
-  "Maria Helena Sartori",
-  "João Fischer",
   "Valdir Bonatto",
 ];
 
@@ -974,6 +1043,16 @@ const positionYearMap = {
   Governador: [
     { name: "José Ivo Sartori", years: [2015, 2018] },
     { name: "Eduardo Leite", years: [2019, 2024] },
+  ],
+  "Desenvolvimento Econômico": [
+    {
+      name: "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
+      years: [2017, 2020],
+    },
+    {
+      name: "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
+      years: [2021, 2025],
+    },
   ],
 };
 
