@@ -533,7 +533,10 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    tags.includes("Ação Integrada") ||
+    tags.includes("Blitz") ||
     tags.includes("Fiscalização") ||
+    tags.includes("Segurança Publica") ||
     tags.includes("Segurança Pública") ||
     tags.includes("Interdição") ||
     tags.includes("Apreensão") ||
@@ -555,10 +558,17 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("Esgoto Pluvial") || tags.includes("Esgotos Pluviais")) {
     categories.push("Storm drains in Brazil");
     categories.push("Street furniture in Porto Alegre");
-    categories.push("Storms in Rio Grande do Sul");
   }
 
   if (
+    tags.includes("Esgoto Pluvial") ||
+    tags.includes("Esgotos Pluviais") | tags.includes("Temporal")
+  ) {
+    categories.push("Storms in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Carro") ||
     tags.includes("veículo") ||
     tags.includes("Veículos") ||
     tags.includes("Viaturas") ||
@@ -616,6 +626,14 @@ const getCategoriesFromTags = metadata => {
     categories.push("Animals of Porto Alegre");
   }
 
+  if (
+    tags.includes("Guaíba") ||
+    tags.includes("Lago Guaíba") ||
+    tags.includes("Nivel do Guaíba")
+  ) {
+    categories.push("Rio Guaíba in Porto Alegre");
+  }
+
   if (tags.includes("Futebol Feminino")) {
     categories.push("Association football in Porto Alegre");
     categories.push("Women's association football in Brazil");
@@ -633,19 +651,21 @@ const getCategoriesFromTags = metadata => {
     categories.push("Ceremonies in Brazil");
   }
 
-  if (tags.includes("Informatização")) {
+  if (tags.includes("Informatização") || tags.includes("Computador")) {
     categories.push("Information technology in Brazil");
     categories.push("Digital transformation");
     categories.push("Computing in Brazil");
     categories.push("E-Government in Brazil");
+    categories.push("Digital infrastructure");
   }
 
   if (
     tags.includes("Informatização") ||
     tags.includes("Tecnologia") ||
-    tags.includes("Cidades Inteligentes")
+    tags.includes("Cidades Inteligentes") ||
+    tags.includes("Computador")
   ) {
-    categories.push("Science in Porto Alegre");
+    categories.push("Technology in Porto Alegre");
   }
 
   if (tags.includes("Atendimento Improvisado")) {
@@ -687,6 +707,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Unidade de Pronto Atendimento");
   }
 
+  if (!tags.includes("Campanha do Agasalho") && tags.includes("Campanha")) {
+    categories.push("Campaigns");
+  }
+
   if (
     !tags.includes("Dia D de Vacinação") &&
     (tags.includes("Vacinação") ||
@@ -704,7 +728,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Nutrição") ||
     tags.includes("Saúde Mental") ||
     tags.includes("Saúde Nutricional e Amamentação") ||
-    tags.includes("doação de sangue")
+    tags.includes("doação de sangue") ||
+    tags.includes("Saúde do Trabalhador")
   ) {
     categories.push("Health in Porto Alegre");
   }
@@ -781,8 +806,9 @@ const getCategoriesFromTags = metadata => {
     categories.push("Asphalters");
   }
 
-  if (tags.includes("Asfalto")) {
-    categories.push("Roadworks in Rio Grande do Sul");
+  if (tags.includes("Asfalto") || tags.includes("Manutenção")) {
+    categories.push("Roadworks in Porto Alegre");
+    categories.push(`${getYear(metadata.humanReadableDate)} in construction`);
   }
 
   if (tags.includes("Aldeia Indígena")) {
@@ -868,7 +894,6 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Obras") ||
     tags.includes("Pintura") ||
-    tags.includes("Asfalto") ||
     tags.includes("Retirada de Passarela")
   ) {
     categories.push("Construction in Porto Alegre");
@@ -1005,6 +1030,9 @@ const keywordToCategoryMap = {
     "Idenir Cecchim",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
     "Germano Bremm",
+  "Secretário municipal de Administração e Patrimônio, André Barbosa":
+    "André Barbosa (politician)",
+  "André Barbosa": "André Barbosa (politician)",
 };
 
 const sameNameKeywords = [
@@ -1013,6 +1041,8 @@ const sameNameKeywords = [
   "Cezar Schirmer",
   "Edson Leal Pujol",
   "Eduardo Leite",
+  "Erno Harzheim",
+  "Fernando Ritter",
   "Gabriel Souza",
   "Germano Bremm",
   "Gustavo Paim",
@@ -1025,6 +1055,7 @@ const sameNameKeywords = [
   "Maria Helena Sartori",
   "Mauro Pinheiro",
   "Michel Costa",
+  "Nísia Trindade",
   "Osmar Terra",
   "Ronaldo Nogueira",
   "Skank",
@@ -1037,6 +1068,10 @@ const positionYearMap = {
     { name: "Sebastião Melo", years: [2021, 2024] },
   ],
   "Vice-Prefeito": [
+    { name: "Gustavo Paim", years: [2017, 2020] },
+    { name: "Ricardo Gomes", years: [2021, 2024] },
+  ],
+  "Vice-prefeito": [
     { name: "Gustavo Paim", years: [2017, 2020] },
     { name: "Ricardo Gomes", years: [2021, 2024] },
   ],
@@ -1097,13 +1132,21 @@ const getPplCategories = metadata => {
   });
 
   // Add categories based on position and year
-  const positionKeywords = ["Prefeito", "Vice-Prefeito", "Governador"];
+  const positionKeywords = [
+    "Prefeito",
+    "Vice-prefeito",
+    "Vice-Prefeito",
+    "Governador",
+    "Desenvolvimento Econômico",
+  ];
   positionKeywords.forEach(position => {
-    const year = new Date(metadata.humanReadableDate).getFullYear(); // Extract the year
-    const personName = getPersonByPositionAndYear(position, year); // Get the person by position and year
+    if (tags.includes(position)) {
+      const year = new Date(metadata.publicationDate).getFullYear(); // Extract the year
+      const personName = getPersonByPositionAndYear(position, year); // Get the person by position and year
 
-    if (personName) {
-      uniqueCategories.add(personName); // Add the person's name as a category
+      if (personName) {
+        uniqueCategories.add(personName); // Add the person's name as a category
+      }
     }
   });
 

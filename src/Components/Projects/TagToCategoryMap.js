@@ -89,6 +89,7 @@ export const tagToCategoryMap = {
   "Gabinete da Causa Animal (GCA)": "Gabinete da Causa Animal (Porto Alegre)",
   "Causa Animal": "Gabinete da Causa Animal (Porto Alegre)",
   Procuradoria: "Procuradoria-Geral do Município de Porto Alegre",
+  PGM: "Procuradoria-Geral do Município de Porto Alegre",
   Secretariado: "Municipal secretariats of Porto Alegre",
   "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (SMTQ)":
     "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (Porto Alegre)",
@@ -115,6 +116,9 @@ export const tagToCategoryMap = {
   "Equipe de Manejo Arbóreo (EMA)": "Equipe de Manejo Arbóreo (Porto Alegre)",
   "Equipe de Vigilância em Saúde Ambiental e Águas (EVSAA)":
     "Equipe de Vigilância em Saúde Ambiental e Águas (Porto Alegre)",
+  "Equipe de Vigilância de Alimentos da SMS":
+    "Equipe de Vigilância de Alimentos (Porto Alegre)",
+  "Vigilância de Alimentos": "Equipe de Vigilância de Alimentos (Porto Alegre)",
   DMAP: "DMAP (Porto Alegre)",
   CGVS: "CGVS (Porto Alegre)",
   DMAE: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
@@ -185,6 +189,7 @@ export const tagToCategoryMap = {
   "Coordenação Municipal de Urgências (CMU)":
     "Coordenação Municipal de Urgências (Porto Alegre)",
   "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
+  "Emei Ilha da Pintada": "EMEI Ilha da Pintada",
   "Emeb Liberato Salzano Vieira da Cunha":
     "EMEB Liberato Salzano Vieira da Cunha",
   "#eufaçopoa": "EuFaçoPOA",
@@ -192,6 +197,7 @@ export const tagToCategoryMap = {
   "Programa de Residência Técnico-Superior (PRTS)":
     "Programa de Residência Técnico-Superior",
   "Lei Orçamentária Anual (LOA)": "Lei Orçamentária Anual",
+  "Tapa Buracos": "Operação Tapa-Buracos",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
   Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
@@ -213,8 +219,6 @@ export const tagToCategoryMap = {
   "Igreja Nossa Senhora das Dores":
     "Igreja Nossa Senhora das Dores (Porto Alegre)",
   "Assembléia Legislativa": "Legislative Assembly of Rio Grande do Sul",
-  "Fonte Talavera": "Fonte Talavera de La Reina",
-  "Mercado Público Central": "Mercado Público de Porto Alegre",
 
   HMIPV: "Hospital Materno-Infantil Presidente Vargas",
   "Hospital de Pronto Socorro (HPS)":
@@ -253,6 +257,9 @@ export const tagToCategoryMap = {
   "Biblioteca Pública Josué Guimarães":
     "Biblioteca Pública Municipal Josué Guimarães",
   "CEEE Equatorial": "CEEE Grupo Equatorial",
+  "Fonte Talavera": "Fonte Talavera de La Reina",
+  "Mercado Público Central": "Mercado Público de Porto Alegre",
+  "Mercado Público": "Mercado Público de Porto Alegre",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -261,6 +268,8 @@ export const tagToCategoryMap = {
   "Zona Sul": "Zona Sul (Porto Alegre)",
   "Zona Leste": "Zona Leste (Porto Alegre)",
   "Arquipélago (Ilhas)": "Islands of Porto Alegre",
+  "Ilha dos Marinheiros": "Ilha dos Marinheiros (Porto Alegre)",
+  "Bairro Anchieta": "Anchieta (Porto Alegre)",
   "Bairro Auxiliadora": "Auxiliadora",
   "Bairro Azenha": "Azenha",
   "Bairro Bela Vista": "Bela Vista (Porto Alegre)",
@@ -274,6 +283,8 @@ export const tagToCategoryMap = {
   "Bairro Cidade Baixa": "Cidade Baixa (Porto Alegre)",
   "Bairro Cristal": "Cristal (Porto Alegre)",
   "Bairro Cruzeiro": "Cruzeiro (Porto Alegre)",
+  "Bairro Farrapos": "Farrapos (Porto Alegre)",
+  "Bairro Floresta": "Floresta (Porto Alegre)",
   "Bairro Glória": "Glória (Porto Alegre)",
   "Bairro Higienópolis": "Higienópolis (Porto Alegre)",
   "Bairro Hípica": "Hípica",
@@ -283,10 +294,14 @@ export const tagToCategoryMap = {
   "Bairro Lami": "Lami (Porto Alegre)",
   "Bairro Lomba do Pinheiro": "Lomba do Pinheiro",
   "Bairro Menino Deus": "Menino Deus (Porto Alegre)",
+  "Menino Deus": "Menino Deus (Porto Alegre)",
   "Bairro Moinhos de Vento": "Moinhos de Vento",
   "Bairro Navegantes": "Navegantes (Porto Alegre)",
+  Navegantes: "Navegantes (Porto Alegre)",
   "Bairro Partenon": "Partenon (Porto Alegre)",
+  Partenon: "Partenon (Porto Alegre)",
   "Bairro Petrópolis": "Petrópolis (Porto Alegre)",
+  Petrópolis: "Petrópolis (Porto Alegre)",
   "Bairro Ponta Grossa": "Ponta Grossa (Porto Alegre)",
   "Bairro Praia de Belas": "Praia de Belas",
   "bairro Restinga": "Restinga (Porto Alegre)",
@@ -300,9 +315,6 @@ export const tagToCategoryMap = {
   "Bairro Tristeza": "Tristeza (Porto Alegre)",
   "Bairro Vila Conceição": "Vila Conceição",
   "Bairro Vila Farrapos": "Vila Farrapos",
-  Petrópolis: "Petrópolis (Porto Alegre)",
-  Partenon: "Partenon (Porto Alegre)",
-  Navegantes: "Navegantes (Porto Alegre)",
   Nonoai: "Nonoai (Porto Alegre)",
   "Vila Nova": "Vila Nova (Porto Alegre)",
   "Capital Gaúcha": "Porto Alegre",
@@ -312,8 +324,6 @@ export const tagToCategoryMap = {
   "Orla do Guaíba": "Parque da Orla do Guaíba",
   "Parque Farroupilha (Redenção)": "Parque da Redenção",
   "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
-  Guaíba: "Rio Guaíba in Porto Alegre",
-  "Lago Guaíba": "Rio Guaíba in Porto Alegre",
   "Avenida Ipiranga": "Avenida Ipiranga (Porto Alegre)",
   "Avenida Castello Branco": "Avenida Presidente Castello Branco",
   "Av. Mauá": "Avenida Mauá",
@@ -338,6 +348,8 @@ export const tagToCategoryMap = {
   "Comissão de Combate à Informalidade": "Fecomércio-RS",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
+  "Campanha do Agasalho": metadata =>
+    `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
 
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
   Trabalho: "Festa de Nossa Senhora do Trabalho",
@@ -369,6 +381,8 @@ export const tagToCategoryMap = {
   "Campanha Nacional de Vacinação contra Gripe (influenza)":
     "Campanha Nacional de Vacinação contra Gripe (Brazil)",
   "Agente de Combate às Endemias (ACE)": "Agentes de Combate às Endemias",
+  "Centro de Referência em Saúde do Trabalhador (Cerest)":
+    "Centro de Referência em Saúde do Trabalhador",
 
   Lazer: "Recreation in Porto Alegre",
   Teatro: "Theatre of Porto Alegre",
@@ -398,7 +412,6 @@ export const tagToCategoryMap = {
   Vandalismo: "Vandalism in Porto Alegre",
   Cavalo: "Horses of Porto Alegre",
   Chuva: "Rain in Porto Alegre",
-  Coleta: "Waste collection in Porto Alegre",
   "remoção de lixo": "Waste collection in Porto Alegre",
   Desastres: "Disasters and accidents in Porto Alegre",
   eleições: "Elections in Porto Alegre",
@@ -426,6 +439,7 @@ export const tagToCategoryMap = {
   "Unidade de Saúde": "Unidades de Saúde in Porto Alegre",
   "foco de lixo": "Waste management in Porto Alegre",
   "Terminais de ônibus": "Bus stations in Porto Alegre",
+  "Sinalização de trânsito": "Road signs in Porto Alegre",
 
   Infográfico: "Information graphics of Brazil",
   Dengue: "Dengue in Brazil",
@@ -459,7 +473,6 @@ export const tagToCategoryMap = {
   Ambulantes: "Street vendors in Brazil",
   Gripe: "Influenza vaccination in Brazil",
   Ginástica: "Gymnastics in Brazil",
-  Tecnologia: "Technology in Brazil",
   Páscoa: "Easter in Brazil",
   Pedestre: "Pedestrians in Brazil",
   Resgate: "Search and rescue in Brazil",
@@ -471,10 +484,13 @@ export const tagToCategoryMap = {
   Abastecimento: "Logistics in Brazil",
   Limpeza: "Cleaning in Brazil",
   Escolta: "Police escorts in Brazil",
+  Tenda: "Tents in Brazil",
+  Aids: "AIDS in Brazil",
+  Solidariedade: "Solidarity in Brazil",
+  Restauração: "Restoration of buildings in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
-  "Vigilância de Alimentos": "Food security in Brazil",
   "Direitos Humanos": "Human rights in Brazil",
   "Artes Plásticas": "Visual arts of Brazil",
   "Educação Ambiental": "Environmental education in Brazil",
@@ -524,7 +540,6 @@ export const tagToCategoryMap = {
   "Consulta Pública": "Public consultation",
   Seminário: "Seminars",
   Capina: "Weed control",
-  Campanha: "Campaigns",
   Mutirão: "Task forces",
   "Força-Tarefa": "Task forces",
   "Adoção de animais": "Animal adoption",
@@ -581,4 +596,10 @@ export const tagToCategoryMap = {
   "Educação Permanente": "Professional development and training",
   "Agentes de Fiscalização": "Inspectors",
   Conscientização: "Awareness activism",
+  Computador: "Computers",
+  Manutenção: "Road maintenance",
+  "Saúde do Trabalhador": "Occupational safety and health",
+  "Infecções Sexualmente Transmissíveis (IST)":
+    "Sexually transmitted diseases and disorders",
+  Vítimas: "Victims",
 };

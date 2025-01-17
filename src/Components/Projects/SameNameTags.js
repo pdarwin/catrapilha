@@ -46,6 +46,7 @@ export const sameNameTags = [
 
   "Edifício Intendente José Montaury",
   "Eixo Baltazar",
+  "EMEF Grande Oriente do Rio Grande do Sul",
   "EMEF João Carlos D`Ávila Paixão Côrtes (Laçador)",
   "EMEF Vereador Antônio Giúdice",
   "EMEI Dom Luiz de Nadal",
@@ -61,6 +62,7 @@ export const sameNameTags = [
   "Extremo Sul",
 
   "Farmácia Distrital Modelo",
+  "Farmácia Móvel",
   "Fique Sabendo Jovem",
   "Fórum Social Mundial da População Idosa",
   "Fundação Iberê Camargo",
@@ -88,6 +90,7 @@ export const sameNameTags = [
   "Orla de Ipanema",
 
   "Palácio Piratini",
+  "Parque Chico Mendes",
   "Parque Marechal Mascarenhas de Moraes",
   "Parque Marinha do Brasil",
   "Parque Natural Municipal Morro do Osso",
@@ -101,7 +104,9 @@ export const sameNameTags = [
   "Praça Darcy Azambuja",
   "Praça Doutor Lopes Trovão",
   "Praia de Belas",
+  "Prefeitura nos Bairros",
   "Procuradoria-Geral do Município de Porto Alegre",
+  "Projeto Pescar",
   "Prometas",
 
   "Rede Calabria",
