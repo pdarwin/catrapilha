@@ -6,6 +6,7 @@ import {
   getYear,
 } from "../../Utils/DateUtils";
 import { getProject } from "../../Utils/ProjectUtils";
+import { getPplCategories } from "./PplCategories";
 import { sameNameTags } from "./SameNameTags";
 import { tagToCategoryMap } from "./TagToCategoryMap";
 import { validTags } from "./ValidTags";
@@ -54,7 +55,7 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
             id: page,
             title: metadata.description || "No Title",
             filename: `IBPA ${page} - ${processDescription(
-              metadata.description
+              metadata.description1
             )} - ${
               formatDateToISO(metadata.humanReadableDate) || "Unknown Date"
             } - ${
@@ -349,18 +350,19 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    (!(
+    !(
       tags.includes("EPTC") ||
       tags.includes("Empresa Pública de Transporte e Circulação (EPTC)")
     ) &&
-      (tags.includes("trânsito") ||
-        tags.includes("Transporte") ||
-        tags.includes("Transporte e Circulação") ||
-        tags.includes("Trânsito e Circulação") ||
-        tags.includes("Circulação"))) ||
-    tags.includes("Agentes de Trânsito") ||
-    tags.includes("Educação no Trânsito") ||
-    tags.includes("Mobilidade")
+    (tags.includes("trânsito") ||
+      tags.includes("Transporte") ||
+      tags.includes("Transporte e Circulação") ||
+      tags.includes("Trânsito e Circulação") ||
+      tags.includes("Circulação") ||
+      tags.includes("Circulação e Transporte") ||
+      tags.includes("Agentes de Trânsito") ||
+      tags.includes("Educação no Trânsito") ||
+      tags.includes("Mobilidade"))
   ) {
     categories.push("Transport in Porto Alegre");
   }
@@ -410,7 +412,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Arrecadação Fiscal") ||
     tags.includes("Tarifa") ||
-    tags.includes("Tributação")
+    tags.includes("Tributação") ||
+    tags.includes("Imposto")
   ) {
     categories.push("Taxation in Brazil");
   }
@@ -431,6 +434,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Secretaria Municipal de Saúde (Porto Alegre)");
   }
 
+  if (!tags.includes("Vigilância de Alimentos") && tags.includes("CGVS")) {
+    categories.push("CGVS (Porto Alegre)");
+  }
+
   if (
     !(
       tags.includes("Capacitação") ||
@@ -442,6 +449,21 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Secretário Municipal da Educação (SMED)"))
   ) {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
+  }
+
+  if (!tags.includes("Curso") && tags.includes("Capacitação")) {
+    categories.push("Trainings by the Municipality of Porto Alegre");
+  }
+
+  if (!tags.includes("Capacitação") && tags.includes("Curso")) {
+    categories.push("Courses (education) by the Municipality of Porto Alegre");
+  }
+
+  if (
+    (tags.includes("Capacitação") && tags.includes("Curso")) ||
+    tags.includes("Curso de Formação")
+  ) {
+    categories.push("Training courses by the Municipality of Porto Alegre");
   }
 
   if (
@@ -493,15 +515,32 @@ const getCategoriesFromTags = metadata => {
     categories.push("Nature of Porto Alegre");
   }
 
-  if (tags.includes("Procon Municipal") || tags.includes("Procon Móvel")) {
+  if (
+    tags.includes("Procon Municipal") ||
+    tags.includes("Procon Móvel") ||
+    tags.includes("Procon Móvel")
+  ) {
     categories.push("Procon Porto Alegre");
   }
 
   if (
-    !(tags.includes("Procon Municipal") || tags.includes("Procon Móvel")) &&
-    (tags.includes("Consumidor") || tags.includes("Direitos do Consumidor"))
+    !(
+      tags.includes("Procon Municipal") ||
+      tags.includes("Procon Móvel") ||
+      tags.includes("Procon")
+    ) &&
+    (tags.includes("Consumidor") ||
+      tags.includes("Direitos do Consumidor") ||
+      tags.includes("Direito do Consumidor"))
   ) {
     categories.push("Consumer protection in Porto Alegre");
+  }
+
+  if (
+    !tags.includes("Brique da Redenção") &&
+    tags.includes("Parque Farroupilha (Redenção)")
+  ) {
+    categories.push("Parque da Redenção");
   }
 
   if (
@@ -550,8 +589,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Aedes aegypti");
   }
 
-  if (tags.includes("Leishmaniose")) {
-    categories.push("Leishmaniasis");
+  if (tags.includes("Leishmaniose") || tags.includes("Doença Respiratória")) {
     categories.push("Diseases and disorders in Brazil");
   }
 
@@ -663,7 +701,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Informatização") ||
     tags.includes("Tecnologia") ||
     tags.includes("Cidades Inteligentes") ||
-    tags.includes("Computador")
+    tags.includes("Computador") ||
+    tags.includes("Internet")
   ) {
     categories.push("Technology in Porto Alegre");
   }
@@ -712,7 +751,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Dia D de Vacinação") &&
+    !(tags.includes("Dia D de Vacinação") || tags.includes("Gripe")) &&
     (tags.includes("Vacinação") ||
       tags.includes("Vacina") ||
       tags.includes("multivacinação"))
@@ -729,13 +768,15 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Saúde Mental") ||
     tags.includes("Saúde Nutricional e Amamentação") ||
     tags.includes("doação de sangue") ||
-    tags.includes("Saúde do Trabalhador")
+    tags.includes("Saúde do Trabalhador") ||
+    tags.includes("Doença Respiratória")
   ) {
     categories.push("Health in Porto Alegre");
   }
 
   if (
     tags.includes("Medicina") ||
+    tags.includes("Exame médico") ||
     tags.includes("Atenção Primária à Saúde (APS)") ||
     tags.includes("Assistência Hospitalar") ||
     tags.includes("Clínica da Família") ||
@@ -754,6 +795,13 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Centro Administrativo Municipal (CAM)")
   ) {
     categories.push("Centros Administrativos Municipais (Porto Alegre)");
+  }
+
+  if (
+    !(tags.includes("#eufaçopoa") || tags.includes("Capester")) &&
+    tags.includes("Aplicativo (app)")
+  ) {
+    categories.push("Mobile apps of the Municipality of Porto Alegre");
   }
 
   if (
@@ -789,10 +837,18 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !categories.includes("Semana de Porto Alegre") &&
+    !tags.includes("Semana de Porto Alegre") &&
     tags.includes("Aniversário")
   ) {
     categories.push("Anniversaries in Brazil");
+  }
+
+  if (!tags.includes("ROMU") && tags.includes("Guarda Municipal")) {
+    categories.push("Guarda Municipal (Porto Alegre)");
+  }
+
+  if (!tags.includes("Maratona") && tags.includes("Corrida")) {
+    categories.push("Running in Brazil");
   }
 
   if (tags.includes("Previsão do Tempo") || tags.includes("Tempo")) {
@@ -802,13 +858,27 @@ const getCategoriesFromTags = metadata => {
     }
   }
 
-  if (tags.includes("Asfalto") || tags.includes("Pavimentação")) {
-    categories.push("Asphalters");
+  if (tags.some(tag => ["Asfalto", "Pavimentação"].includes(tag))) {
+    categories.push("Asphalters", "Roadworks in Porto Alegre");
   }
 
-  if (tags.includes("Asfalto") || tags.includes("Manutenção")) {
-    categories.push("Roadworks in Porto Alegre");
-    categories.push(`${getYear(metadata.humanReadableDate)} in construction`);
+  if (tags.includes("Manutenção")) {
+    if (
+      tags.some(tag =>
+        [
+          "Empresa Pública de Transporte e Circulação (EPTC)",
+          "EPTC",
+          "Eptc",
+        ].includes(tag)
+      )
+    ) {
+      if (!categories.includes("Roadworks in Porto Alegre")) {
+        categories.push("Roadworks in Porto Alegre");
+      }
+      categories.push("Road maintenance");
+    } else {
+      categories.push("Maintenance");
+    }
   }
 
   if (tags.includes("Aldeia Indígena")) {
@@ -879,6 +949,12 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
+  if (tags.includes("Semana de Porto Alegre")) {
+    categories.push(
+      `Semana de Porto Alegre ${getYear(metadata.humanReadableDate)}`
+    );
+  }
+
   if (tags.includes("Dia da Independência")) {
     categories.push(
       `Independence Day ${getYear(metadata.humanReadableDate)} in Porto Alegre`
@@ -897,6 +973,16 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Retirada de Passarela")
   ) {
     categories.push("Construction in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Asfalto") ||
+    tags.includes("Manutenção") ||
+    tags.includes("Pavimentação") ||
+    tags.includes("Obras") ||
+    tags.includes("Pintura") ||
+    tags.includes("Retirada de Passarela")
+  ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in construction`);
   }
 
@@ -921,8 +1007,11 @@ const getCategoriesFromTags = metadata => {
     (tags.includes("Abertura") ||
       tags.includes("Aniversário") ||
       tags.includes("Apresentação") ||
+      tags.includes("Assinatura") ||
       tags.includes("Audiência") ||
+      tags.includes("Caminhada") ||
       tags.includes("Campeonato") ||
+      tags.includes("Conferência") ||
       tags.includes("Palestra") ||
       tags.includes("Visita") ||
       tags.includes("Lançamento") ||
@@ -934,15 +1023,25 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Mutirão") ||
       tags.includes("Reunião") ||
       tags.includes("Cerimônia") ||
-      tags.includes("Conferência") ||
       tags.includes("Debate") ||
       tags.includes("Programação do Reveillon") ||
       tags.includes("Concerto Musical") ||
-      tags.includes("Assinatura") ||
       tags.includes("Homenagem"))
   ) {
-    categories.push("Events in Porto Alegre");
-    categories.push(`${getYear(metadata.humanReadableDate)} events in Brazil`);
+    categories.push(
+      `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
+    );
+  }
+
+  if (
+    tags.includes("Maratona") ||
+    tags.includes("Corrida") ||
+    tags.includes("Campeonato")
+  ) {
+    categories.push("Sports events in Rio Grande do Sul");
+    categories.push(
+      `${getYear(metadata.humanReadableDate)} sports events in Brazil`
+    );
   }
 
   if (
@@ -954,18 +1053,8 @@ const getCategoriesFromTags = metadata => {
     ) &&
     (tags.includes("Festejos") || tags.includes("Festival"))
   ) {
-    categories.push("Festivals in Porto Alegre");
-  }
-
-  if (
-    tags.includes("Festival de Inverno") ||
-    tags.includes("Semana de Porto Alegre") ||
-    tags.includes("Trabalho") ||
-    tags.includes("Festejos") ||
-    tags.includes("Festival")
-  ) {
     categories.push(
-      `${getYear(metadata.humanReadableDate)} festivals in Brazil`
+      `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
     );
   }
 
@@ -976,182 +1065,21 @@ const getCategoriesFromTags = metadata => {
   if (
     !(
       categories.includes(
+        `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
+      ) ||
+      categories.includes(
+        `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
+      ) ||
+      categories.includes(
         `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
       ) ||
       tags.includes("Fórum da Liberdade") ||
-      categories.includes("2024 Porto Alegre floods")
+      categories.includes("2024 Porto Alegre floods") ||
+      tags.includes("Semana de Porto Alegre")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
   }
-
-  return categories;
-};
-
-const keywordToCategoryMap = {
-  Marchezan: "Nelson Marchezan Júnior",
-  Hamm: "Afonso Hamm",
-  Lula: "Luiz Inácio Lula da Silva",
-  "Jorge Benjor": "Jorge Ben Jor",
-  "Roberto Freire": "Roberto Freire (politician)",
-  "Prefeito de Porto Alegre, Sebastião Melo": "Sebastião Melo",
-  "Ricardo Gomes": "Ricardo Gomes (politician)",
-  "Peter Wilson": "Peter Wilson (diplomat)",
-  "vice-prefeito Ricardo Gomes": "Ricardo Gomes (politician)",
-  "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes (politician)",
-  "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
-    "Adão de Castro Júnior",
-  "Secretário Municipal da Saúde (SMS), Fernando Ritter": "Fernando Ritter",
-  "Presidente da Companhia de Processamentos de Dados do Município de Porto Alegre, Leticia Batistela":
-    "Letícia Batistela",
-  "Secretário municipal do Gabinete de Inovação, Luiz Carlos Pinto da Silva Filho":
-    "Luiz Carlos Pinto da Silva Filho",
-  "presidente da Fundação de Assistência Social e Cidadania (FASC), Cristiano Roratto":
-    "Cristiano Roratto",
-  "Cel. Evaldo Rodrigues Oliveira": "Evaldo Rodrigues de Oliveira Júnior",
-  "Procurador geral do município de Porto Alegre, Roberto Silva da Rocha":
-    "Roberto Silva da Rocha",
-  "Secretário municipal de Desenvolvimento Social, Leo Voigt": "Leo Voigt",
-  "Governador Eduardo Leite": "Eduardo Leite",
-  "Presidente da República Luiz Inácio Lula da Silva":
-    "Luiz Inácio Lula da Silva",
-  "diretor-presidente do DMAE, Maurício Loss": "Maurício Loss",
-  "Secretário municipal de Obras e Infraestrutura, André Flores":
-    "André Flores",
-  "Comandante da Guarda Municipal, Marcelo Nascimento": "Marcelo Nascimento",
-  "Cel QOEM Mário Yukio Ikeda": "Mário Yukio Ikeda",
-  "Vice-governador Gabriel Souza": "Gabriel Souza",
-  "Secretária municipal de Habitação e Regularização Fundiária, Simone Somensi":
-    "Simone Somensi",
-  "Secretário municipal da Fazenda, Rodrigo Fantinel": "Rodrigo Fantinel",
-  "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
-    "Cezar Schirmer",
-  "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
-    "Idenir Cecchim",
-  "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
-    "Germano Bremm",
-  "Secretário municipal de Administração e Patrimônio, André Barbosa":
-    "André Barbosa (politician)",
-  "André Barbosa": "André Barbosa (politician)",
-};
-
-const sameNameKeywords = [
-  "Adão Cândido",
-  "Any Ortiz",
-  "Cezar Schirmer",
-  "Edson Leal Pujol",
-  "Eduardo Leite",
-  "Erno Harzheim",
-  "Fernando Ritter",
-  "Gabriel Souza",
-  "Germano Bremm",
-  "Gustavo Paim",
-  "Hamilton Sossmeier",
-  "Idenir Cecchim",
-  "João Fischer",
-  "José Ivo Sartori",
-  "Letícia Batistela",
-  "Liziane Bayer",
-  "Maria Helena Sartori",
-  "Mauro Pinheiro",
-  "Michel Costa",
-  "Nísia Trindade",
-  "Osmar Terra",
-  "Ronaldo Nogueira",
-  "Skank",
-  "Valdir Bonatto",
-];
-
-const positionYearMap = {
-  Prefeito: [
-    { name: "Nelson Marchezan Júnior", years: [2017, 2020] },
-    { name: "Sebastião Melo", years: [2021, 2024] },
-  ],
-  "Vice-Prefeito": [
-    { name: "Gustavo Paim", years: [2017, 2020] },
-    { name: "Ricardo Gomes", years: [2021, 2024] },
-  ],
-  "Vice-prefeito": [
-    { name: "Gustavo Paim", years: [2017, 2020] },
-    { name: "Ricardo Gomes", years: [2021, 2024] },
-  ],
-  Governador: [
-    { name: "José Ivo Sartori", years: [2015, 2018] },
-    { name: "Eduardo Leite", years: [2019, 2024] },
-  ],
-  "Desenvolvimento Econômico": [
-    {
-      name: "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
-      years: [2017, 2020],
-    },
-    {
-      name: "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
-      years: [2021, 2025],
-    },
-  ],
-};
-
-function getPersonByPositionAndYear(position, year) {
-  const mapping = positionYearMap[position];
-  if (!mapping) return null; // Return null if position doesn't exist
-
-  const person = mapping.find(
-    ({ years }) =>
-      Array.isArray(years)
-        ? years.includes(year) // Check if the year falls within the range
-        : year === years // For specific years
-  );
-
-  return person ? person.name : null; // Return the person's name or null if not found
-}
-
-const getPplCategories = metadata => {
-  const tags = metadata.tags;
-  const categories = [];
-  // Use a Set to prevent duplicate categories
-  const uniqueCategories = new Set();
-
-  // Add categories from the map
-  Object.entries(keywordToCategoryMap).forEach(([keyword, category]) => {
-    if (
-      tags.includes(keyword) ||
-      (metadata.description && metadata.description.includes(keyword))
-    ) {
-      uniqueCategories.add(category);
-    }
-  });
-
-  // Add categories where the name is the same
-  sameNameKeywords.forEach(keyword => {
-    if (
-      tags.includes(keyword) ||
-      (metadata.description && metadata.description.includes(keyword))
-    ) {
-      uniqueCategories.add(keyword);
-    }
-  });
-
-  // Add categories based on position and year
-  const positionKeywords = [
-    "Prefeito",
-    "Vice-prefeito",
-    "Vice-Prefeito",
-    "Governador",
-    "Desenvolvimento Econômico",
-  ];
-  positionKeywords.forEach(position => {
-    if (tags.includes(position)) {
-      const year = new Date(metadata.publicationDate).getFullYear(); // Extract the year
-      const personName = getPersonByPositionAndYear(position, year); // Get the person by position and year
-
-      if (personName) {
-        uniqueCategories.add(personName); // Add the person's name as a category
-      }
-    }
-  });
-
-  // Convert Set to an array and merge with existing categories
-  categories.push(...Array.from(uniqueCategories));
 
   return categories;
 };

@@ -18,6 +18,8 @@ export const sameNameTags = [
   "Banco de Talentos",
   "Bikepoa",
   "Brechocão",
+  "Brique da Redenção",
+
   "Cais Mauá",
   "Capester",
   "Casa de Cultura Mario Quintana",
@@ -81,6 +83,7 @@ export const sameNameTags = [
   "Lomba do Pinheiro",
 
   "Maio Vermelho",
+  "Moinhos de Vento",
   "Morro Ricaldone",
   "Museu de Porto Alegre Joaquim Felizardo",
 
@@ -115,14 +118,16 @@ export const sameNameTags = [
   "Rua José Pedro Boessio",
 
   "Sala Álvaro Moreyra",
-  "Semana de Porto Alegre",
   "Shopping Total",
+  "Sindilojas",
   "Sport Club Internacional",
+
   "TelessaúdeRS",
   "Todos Somos Porto Alegre",
   "Teatro Renascença",
   "Trensurb",
   "Tribunal de Justiça do Estado do Rio Grande do Sul",
+  "Tristeza",
   "Túnel da Conceição",
 
   "Unidade de Saúde Alto Embratel",
