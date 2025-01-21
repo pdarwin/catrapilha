@@ -8,7 +8,9 @@ export const sameNameTags = [
   "Aplicativo 156+POA",
   "Arena do Grêmio",
   "Arroio Dilúvio",
+  "Arroio Sarandi",
   "Asilo Padre Cacique",
+  "Auditório Araújo Vianna",
   "Avenida Assis Brasil",
   "Avenida Coronel Marcos",
   "Avenida Padre Cacique",
@@ -48,6 +50,7 @@ export const sameNameTags = [
 
   "Edifício Intendente José Montaury",
   "Eixo Baltazar",
+  "Embratel",
   "EMEF Grande Oriente do Rio Grande do Sul",
   "EMEF João Carlos D`Ávila Paixão Côrtes (Laçador)",
   "EMEF Vereador Antônio Giúdice",
@@ -69,6 +72,8 @@ export const sameNameTags = [
   "Fórum Social Mundial da População Idosa",
   "Fundação Iberê Camargo",
 
+  "GeraçãoPoa",
+  "GeraEncontro",
   "Ginásio Tesourinha",
   "Grêmio Foot-Ball Porto Alegrense",
 
@@ -89,6 +94,7 @@ export const sameNameTags = [
 
   "Natal dos Encantos",
 
+  "OdontoSesc",
   "Operação Inverno",
   "Orla de Ipanema",
 
@@ -118,6 +124,7 @@ export const sameNameTags = [
   "Rua José Pedro Boessio",
 
   "Sala Álvaro Moreyra",
+  "Sala P. F. Gastal",
   "Shopping Total",
   "Sindilojas",
   "Sport Club Internacional",

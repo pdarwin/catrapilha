@@ -300,11 +300,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Gabinete do Prefeito") ||
     tags.includes("Gabinete Prefeito") ||
     tags.includes("Gp") ||
-    tags.includes("Conselhos Municipais") ||
-    tags.includes("CMDUA") ||
     tags.includes("Grupos de Trabalho") ||
-    tags.includes("PPA") ||
-    tags.includes("Coordenações")
+    tags.includes("PPA")
   ) {
     categories.push(
       "Executive office of the Porto Alegre municipal government"
@@ -318,6 +315,21 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Coordenação de Operações Especiais (COE)")
   ) {
     categories.push("Municipal services in Porto Alegre");
+  }
+
+  if (!tags.includes("Diversidade sexual") && tags.includes("Coordenações")) {
+    categories.push("Municipal coordinators of Porto Alegre");
+  }
+
+  if (
+    !(
+      tags.includes("Conselho Municipal de Saúde") ||
+      tags.includes("CMDUA") ||
+      tags.includes("COMTU")
+    ) &&
+    tags.includes("Conselhos Municipais")
+  ) {
+    categories.push("Municipal councils of Porto Alegre");
   }
 
   if (
@@ -426,12 +438,21 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(tags.includes("CGVS") || tags.includes("Farmácia")) &&
+    !(
+      tags.includes("CGVS") ||
+      tags.includes("Farmácia") ||
+      tags.includes("Conselho Municipal de Saúde")
+    ) &&
     (tags.includes("Saúde") ||
       tags.includes("Sms") ||
       tags.includes("Secretaria Municipal de Saúde (SMS)"))
   ) {
     categories.push("Secretaria Municipal de Saúde (Porto Alegre)");
+  }
+
+  if (tags.includes("Álcool  e Outras Drogas")) {
+    categories.push("Alcoholism in Brazil");
+    categories.push("Substance dependence in Brazil");
   }
 
   if (!tags.includes("Vigilância de Alimentos") && tags.includes("CGVS")) {
@@ -456,7 +477,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (!tags.includes("Capacitação") && tags.includes("Curso")) {
-    categories.push("Courses (education) by the Municipality of Porto Alegre");
+    categories.push("Courses by the Municipality of Porto Alegre");
   }
 
   if (
@@ -495,6 +516,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Educação") ||
+    tags.includes("Aula aberta") ||
     tags.includes("Oficina") ||
     tags.includes("Material Escolar") ||
     tags.includes("Educação no Trânsito") ||
@@ -543,6 +565,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Parque da Redenção");
   }
 
+  if (!tags.includes("OdontoSesc") && tags.includes("Sesc")) {
+    categories.push("Serviço Social do Comércio");
+  }
+
   if (
     !(
       tags.includes("Companhia Municipal de Dança") ||
@@ -557,6 +583,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Fazenda") ||
+    tags.includes("Finanças") ||
     tags.includes("Finanças Públicas") ||
     tags.includes("Secretário Municipal da Fazenda (SMF)")
   ) {
@@ -580,6 +607,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Interdição") ||
     tags.includes("Apreensão") ||
     tags.includes("Vistoria") ||
+    tags.includes("Flagrante") ||
     tags.includes("Agentes de Fiscalização")
   ) {
     categories.push("Law enforcement in Porto Alegre");
@@ -617,7 +645,6 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Social") ||
-    tags.includes("Diversidade sexual") ||
     tags.includes("LGBT") ||
     tags.includes("Transexualidade") ||
     tags.includes("Idosos") ||
@@ -632,12 +659,16 @@ const getCategoriesFromTags = metadata => {
     categories.push("Society of Porto Alegre");
   }
 
-  if (
-    tags.includes("Diversidade sexual") ||
-    tags.includes("LGBT") ||
-    tags.includes("Transexualidade")
-  ) {
-    categories.push("LGBT in Brazil");
+  if (tags.includes("LGBT") || tags.includes("Transexualidade")) {
+    categories.push("LGBT in Rio Grande do Sul");
+  }
+
+  if (tags.includes("remoção de lixo") || tags.includes("Coleta Seletiva")) {
+    categories.push("Waste collection in Porto Alegre");
+  }
+
+  if (tags.includes("Reciclagem") || tags.includes("Compostagem")) {
+    categories.push("Recycling in Porto Alegre");
   }
 
   if (tags.includes("Drenagem")) {
@@ -672,11 +703,24 @@ const getCategoriesFromTags = metadata => {
     categories.push("Rio Guaíba in Porto Alegre");
   }
 
+  if (
+    !tags.includes("Arquivo Histórico Moysés Vellinho") &&
+    tags.includes("Arquivo")
+  ) {
+    categories.push("Archives in Porto Alegre");
+  }
+
   if (tags.includes("Futebol Feminino")) {
     categories.push("Association football in Porto Alegre");
     categories.push("Women's association football in Brazil");
   }
-  if (tags.includes("Esporte") || tags.includes("Ginástica")) {
+
+  if (
+    tags.includes("Esporte") ||
+    tags.includes("Ginástica") ||
+    tags.includes("Atletismo") ||
+    tags.includes("Vôlei")
+  ) {
     categories.push("Sports in Porto Alegre");
   }
 
@@ -851,6 +895,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Running in Brazil");
   }
 
+  if (!categories.includes("Running in Brazil") && tags.includes("Atletismo")) {
+    categories.push("Athletics in Brazil");
+  }
+
   if (tags.includes("Previsão do Tempo") || tags.includes("Tempo")) {
     categories.push("Weather and climate of Porto Alegre");
     if (categories.length === 1) {
@@ -882,7 +930,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (tags.includes("Aldeia Indígena")) {
-    categories.push("Indigenous peoples in Rio Grande do Sul");
+    categories.push("Indigenous peoples in Porto Alegre");
     categories.push("Indigenous territories in Brazil");
   }
 
@@ -935,8 +983,15 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("doações de cestas básicas")) {
     categories.push("Food relief in Brazil");
     categories.push("Charity in Brazil");
-    categories.push("Social services in Porto Alegre");
     categories.push("Humanitarian aid for the 2024 Rio Grande do Sul floods");
+  }
+
+  if (
+    tags.includes("Assistência Social") ||
+    tags.includes("Serviço Social") ||
+    tags.includes("Previdência")
+  ) {
+    categories.push("Social services in Porto Alegre");
   }
 
   if (
@@ -1009,23 +1064,28 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Apresentação") ||
       tags.includes("Assinatura") ||
       tags.includes("Audiência") ||
+      tags.includes("Aula aberta") ||
       tags.includes("Caminhada") ||
       tags.includes("Campeonato") ||
-      tags.includes("Conferência") ||
-      tags.includes("Palestra") ||
-      tags.includes("Visita") ||
-      tags.includes("Lançamento") ||
-      tags.includes("Inauguração") ||
-      tags.includes("Fórum") ||
-      tags.includes("Coletiva de Imprensa") ||
-      tags.includes("Encerramento") ||
-      tags.includes("Seminário") ||
-      tags.includes("Mutirão") ||
-      tags.includes("Reunião") ||
+      tags.includes("Capacitação") ||
       tags.includes("Cerimônia") ||
-      tags.includes("Debate") ||
-      tags.includes("Programação do Reveillon") ||
+      tags.includes("Coletiva de Imprensa") ||
       tags.includes("Concerto Musical") ||
+      tags.includes("Conferência") ||
+      tags.includes("Curso") ||
+      tags.includes("Debate") ||
+      tags.includes("Encerramento") ||
+      tags.includes("Fórum") ||
+      tags.includes("Inauguração") ||
+      tags.includes("Lançamento") ||
+      tags.includes("Mutirão") ||
+      tags.includes("Oficina") ||
+      tags.includes("Palestra") ||
+      tags.includes("Procissão") ||
+      tags.includes("Visita") ||
+      tags.includes("Seminário") ||
+      tags.includes("Reunião") ||
+      tags.includes("Programação do Reveillon") ||
       tags.includes("Homenagem"))
   ) {
     categories.push(
@@ -1036,11 +1096,14 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Maratona") ||
     tags.includes("Corrida") ||
-    tags.includes("Campeonato")
+    tags.includes("Campeonato") ||
+    tags.includes("Jogos Abertos")
   ) {
-    categories.push("Sports events in Rio Grande do Sul");
+    categories.push("Sports events in Porto Alegre");
     categories.push(
-      `${getYear(metadata.humanReadableDate)} sports events in Brazil`
+      `${getYear(
+        metadata.humanReadableDate
+      )} sports events in Rio Grande do Sul`
     );
   }
 
@@ -1048,10 +1111,11 @@ const getCategoriesFromTags = metadata => {
     !(
       tags.includes("Festival de Inverno") ||
       tags.includes("Semana de Porto Alegre") ||
-      tags.includes("Trabalho") ||
-      tags.includes("Festejos")
+      tags.includes("Trabalho")
     ) &&
-    (tags.includes("Festejos") || tags.includes("Festival"))
+    (tags.includes("Festejos") ||
+      tags.includes("Festival") ||
+      tags.includes("Semana Farroupilha"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`

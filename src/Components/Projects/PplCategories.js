@@ -43,11 +43,13 @@ const keywordToCategoryMap = {
   "Secretário municipal de Administração e Patrimônio, André Barbosa":
     "André Barbosa (politician)",
   "André Barbosa": "André Barbosa (politician)",
+  "Záchia Paludo": "Maria de Fátima Záchia Paludo",
 };
 
 const sameNameKeywords = [
   "Adão Cândido",
   "Any Ortiz",
+  "Cássio Trogildo",
   "Cezar Schirmer",
   "Edson Leal Pujol",
   "Eduardo Leite",

@@ -76,6 +76,7 @@ export const tagToCategoryMap = {
   "Habitação e Regularização Fundiária":
     "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
   Parcerias: "Secretaria Municipal de Parcerias (Porto Alegre)",
+  "Parcerias Estratégicas": "Secretaria Municipal de Parcerias (Porto Alegre)",
   "Secretaria Municipal de Parcerias (SMP)":
     "Secretaria Municipal de Parcerias (Porto Alegre)",
   "Secretaria Municipal de Administração e Patrimônio (SMAP)":
@@ -112,6 +113,7 @@ export const tagToCategoryMap = {
     "Centro Integrado de Comando da Cidade de Porto Alegre",
   "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)":
     "Centro Integrado de Comando da Cidade de Porto Alegre",
+  CEIC: "Centro Integrado de Comando da Cidade de Porto Alegre",
   "Comissão Permanente de Atuação em Emergências (Copae)":
     "Comissão Permanente de Atuação em Emergências",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
@@ -199,6 +201,14 @@ export const tagToCategoryMap = {
   "Prefeitura Nos Bairros": "Prefeitura nos Bairros",
   ROMU: "Ronda Ostensiva Municipal in Porto Alegre",
   Controladoria: "Controladoria-Geral do Município de Porto Alegre",
+  Resiliência: "Plano de Resiliência (Porto Alegre)",
+  "Diversidade sexual": "Coordenadoria de Diversidade Sexual",
+
+  "Conselho Municipal de Saúde": "Conselho Municipal de Saúde (Porto Alegre)",
+  "Casa dos Conselhos": "Casa dos Conselhos (Porto Alegre)",
+  COMTU: "Conselho Municipal de Transportes Urbanos (Porto Alegre)",
+  CMDUA:
+    "Conselho Municipal de Desenvolvimento Urbano Ambiental (Porto Alegre)",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
   Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
@@ -217,6 +227,8 @@ export const tagToCategoryMap = {
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
+  "Banda Municipal": "Banda Municipal de Porto Alegre",
+
   "Igreja Nossa Senhora das Dores":
     "Igreja Nossa Senhora das Dores (Porto Alegre)",
   "Assembléia Legislativa": "Legislative Assembly of Rio Grande do Sul",
@@ -237,6 +249,7 @@ export const tagToCategoryMap = {
     "Tribunal de Contas do Estado do Rio Grande do Sul",
   "Sede do Tribunal de Contas do Estado (TCE)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
+  "TJ-RS": "Tribunal de Justiça do Estado do Rio Grande do Sul",
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -248,7 +261,6 @@ export const tagToCategoryMap = {
   "Ministério da Saúde": "Ministry of Health of Brazil",
   "Força Nacional do SUS": "Força Nacional do Sistema Único de Saúde",
   "Grupo Hospitalar Conceição (GHC)": "Grupo Hospitalar Conceição",
-  "Casa dos Conselhos": "Casa dos Conselhos (Porto Alegre)",
   "Complexo Cultural Porto Seco": "Complexo Cultural do Porto Seco",
   "comportas do Muro da Mauá": "Mauá Wall floodgates",
   "Aeroporto Internacional Salgado Filho":
@@ -261,6 +273,9 @@ export const tagToCategoryMap = {
   "Fonte Talavera": "Fonte Talavera de La Reina",
   "Mercado Público Central": "Mercado Público de Porto Alegre",
   "Mercado Público": "Mercado Público de Porto Alegre",
+  Brechó: "Brechocão",
+  "Arquivo Histórico Moysés Vellinho": "Arquivo histórico de Porto Alegre",
+  PoaHub: "Poa.Hub",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -278,8 +293,10 @@ export const tagToCategoryMap = {
   "Bairro Bom Fim": "Bom Fim",
   "Bairro Bom Jesus": "Bom Jesus (Porto Alegre)",
   "Bairro Camaquã": "Camaquã (Porto Alegre)",
+  "Bairro Campo Novo": "Campo Novo (Porto Alegre)",
   "Bairro Cavalhada": "Cavalhada (Porto Alegre)",
   "Bairro Centro Histórico": "Centro (Porto Alegre)",
+  "Centro Histórico": "Centro (Porto Alegre)",
   "Bairro Chapéu do Sol": "Chapéu do Sol",
   "Bairro Cidade Baixa": "Cidade Baixa (Porto Alegre)",
   "Bairro Cristal": "Cristal (Porto Alegre)",
@@ -291,6 +308,7 @@ export const tagToCategoryMap = {
   "Bairro Hípica": "Hípica",
   "Bairro Humaitá": "Humaitá (Porto Alegre)",
   "Bairro Ipanema": "Ipanema (Porto Alegre)",
+  "Bairro Jardim Carvalho": "Jardim Carvalho",
   "Bairro Jardim Itu-Sabará": "Jardim Itu-Sabará",
   "Bairro Lami": "Lami (Porto Alegre)",
   "Bairro Lomba do Pinheiro": "Lomba do Pinheiro",
@@ -314,12 +332,14 @@ export const tagToCategoryMap = {
   "Bairro Santa Tereza": "Santa Tereza (Porto Alegre)",
   "Bairro Santo Antônio": "Santo Antônio (Porto Alegre)",
   "Bairro São João": "São João (Porto Alegre)",
+  "Bairro São José": "São José (Porto Alegre)",
   "Bairro Sarandi": "Sarandi (Porto Alegre)",
   "Bairro Teresópolis": "Teresópolis (Porto Alegre)",
   "Bairro Tristeza": "Tristeza",
   "Bairro Vila Conceição": "Vila Conceição",
   "Bairro Vila Farrapos": "Vila Farrapos",
   Nonoai: "Nonoai (Porto Alegre)",
+  "Vila Ipiranga": "Vila Ipiranga (Porto Alegre)",
   "Vila Nova": "Vila Nova (Porto Alegre)",
   "Capital Gaúcha": "Porto Alegre",
 
@@ -352,10 +372,13 @@ export const tagToCategoryMap = {
   MEC: "Ministério da Educação (Brazil)",
   Justiça: "Ministry of Justice (Brazil)",
   Conaf: "Conselho Nacional de Controle Interno",
+  ABRH: "Associação Brasileira de Recursos Humanos",
+  Sebrae: "SEBRAE Rio Grande do Sul",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
+  Greve: "General strike in Brazil (2017-06-30)",
 
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
   Trabalho: "Festa de Nossa Senhora do Trabalho",
@@ -390,6 +413,7 @@ export const tagToCategoryMap = {
   "Centro de Referência em Saúde do Trabalhador (Cerest)":
     "Centro de Referência em Saúde do Trabalhador",
   Santander: "Banco Santander (Brasil)",
+  "Cruz Vermelha do Brasil": "Brazilian Red Cross",
 
   Lazer: "Recreation in Porto Alegre",
   Teatro: "Theatre of Porto Alegre",
@@ -397,12 +421,12 @@ export const tagToCategoryMap = {
   Árvore: "Trees in Porto Alegre",
   Futebol: "Association football in Porto Alegre",
   roubo: "Crime in Porto Alegre",
+  Flagrante: "Crime in Porto Alegre",
   Habitação: "Housing in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
   Procissão: "Processions in Porto Alegre",
   Aéreas: "Aerial photographs of Porto Alegre",
   "Imagem Aérea": "Aerial photographs of Porto Alegre",
-  Reciclagem: "Recycling in Porto Alegre",
   Táxi: "Taxis in Porto Alegre",
   Comércio: "Commerce in Porto Alegre",
   Infraestrutura: "Infrastructure in Porto Alegre",
@@ -419,7 +443,6 @@ export const tagToCategoryMap = {
   Vandalismo: "Vandalism in Porto Alegre",
   Cavalo: "Horses of Porto Alegre",
   Chuva: "Rain in Porto Alegre",
-  "remoção de lixo": "Waste collection in Porto Alegre",
   Desastres: "Disasters and accidents in Porto Alegre",
   eleições: "Elections in Porto Alegre",
   Incêndio: "Fires in Porto Alegre",
@@ -437,21 +460,24 @@ export const tagToCategoryMap = {
   Memória: "History of Porto Alegre",
   Acidente: "Road accidents in Porto Alegre",
   Varejo: "Retail in Porto Alegre",
+  Indústria: "Industry in Porto Alegre",
+  "Indústria e Comércio": "Industry in Porto Alegre",
   "Artes Cênicas": "Performing arts in Porto Alegre",
   "Transporte Público": "Public transport in Porto Alegre",
-  "Assistência Social": "Social services in Porto Alegre",
-  "Serviço Social": "Social services in Porto Alegre",
   "População de Rua": "Homelessness in Porto Alegre",
   "Situação de rua": "Homelessness in Porto Alegre",
   "Ruas e avenidas": "Streets in Porto Alegre",
   "Livro e Literatura": "Literature of Porto Alegre",
   "Artes Visuais": "Art of Porto Alegre",
-  "Indústria e Comércio": "Industry in Porto Alegre",
   "Fios Soltos": "Overhead power lines in Porto Alegre",
   "Unidade de Saúde": "Unidades de Saúde in Porto Alegre",
   "foco de lixo": "Waste management in Porto Alegre",
   "Terminais de ônibus": "Bus stations in Porto Alegre",
   "Sinalização de trânsito": "Road signs in Porto Alegre",
+  "Arte Urbana": "Street art in Porto Alegre",
+  "Semana Farroupilha": "Semana Farroupilha in Porto Alegre",
+
+  "Iluminação Pública": "Street lights in Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
   Dengue: "Dengue in Brazil",
@@ -464,6 +490,7 @@ export const tagToCategoryMap = {
   Espetáculo: "Shows in Rio Grande do Sul",
   Aluno: "Students in Brazil",
   Alunos: "Students in Brazil",
+  Estudantes: "Students in Brazil",
   Abertura: "Opening ceremonies in Brazil",
   Inauguração: "Inaugurations in Brazil",
   Licitações: "Auctions in Brazil",
@@ -505,6 +532,11 @@ export const tagToCategoryMap = {
   Terreno: "Real estate in Brazil",
   Internet: "Internet in Brazil",
   Fotografia: "Photography in Brazil",
+  Dragagem: "Dredging in Brazil",
+  Previdência: "Social insurance in Brazil",
+  Câncer: "Cancer in Brazil",
+  Amamentação: "Breastfeeding in Brazil",
+  "Aleitamento materno": "Breastfeeding in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -514,7 +546,6 @@ export const tagToCategoryMap = {
   "Ação Social": "Social work in Brazil",
   "Plano Diretor": "Urban planning in Brazil",
   "Medicina Veterinária": "Veterinary medicine in Brazil",
-  "Iluminação Pública": "Street lights in Brazil",
   "vacina contra a Dengue": "Dengue vaccine in Brazil",
   "troféu Prefeito Inovador": "Awards of Brazil",
   "Profissionais de Saúde": "People of Brazil in health professions",
@@ -528,6 +559,7 @@ export const tagToCategoryMap = {
   "Ambulatório Odontológico": "Dental clinics in Brazil",
   "Teste do Pezinho": "Neonatal heel pricks in Brazil",
   "Câncer de Mama": "Breast cancer awareness in Brazil",
+  "Banco de Leite Humano": "Human milk banks in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -544,6 +576,7 @@ export const tagToCategoryMap = {
 
   Palestra: "Presentations",
   Oficina: "Workshops (meetings)",
+  "Aula aberta": "Workshops (meetings)",
   "síndrome de down": "Down syndrome",
   Investigação: "Inquiry",
   Microcefalia: "Microcephaly",
@@ -586,7 +619,6 @@ export const tagToCategoryMap = {
   Lançamento: "Product launches",
   Pavimentação: "Road paving",
   Flashmob: "Flash mobs",
-  CMDUA: "Urban development",
   "Trabalho e Emprego": "Employment",
   "Vagas de Emprego": "Employment",
   "Centro de triagem": "Screening centers",
@@ -626,4 +658,8 @@ export const tagToCategoryMap = {
   Catamarã: "Catamarans",
   "Doença Respiratória": "Diseases and disorders of the respiratory system",
   Leishmaniose: "Leishmaniasis",
+  "Coleta Seletiva": "Separate waste collection",
+  Compostagem: "Composting",
+  Prevenção: "Prevention",
+  Ecobarreira: "Waste collection booms",
 };
