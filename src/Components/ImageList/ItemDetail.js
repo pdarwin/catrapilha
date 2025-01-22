@@ -100,7 +100,7 @@ export default function ItemDetail() {
 
       const updatedItem = {
         ...currentItem,
-        infoPanel: item.readyToUpload
+        infoPanel: currentItem.readyToUpload
           ? buildInfoPanel(currentItem)
           : editableInfoPanel,
         imagelink: project.uploadByLink

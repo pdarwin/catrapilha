@@ -262,6 +262,10 @@ const processDescription = description => {
     description = description.split(/\.?\s?Arte:/)[0].trim();
   }
 
+  if (description.match(/\.?\s?Endereço:/)) {
+    description = description.split(/\.?\s?Endereço:/)[0].trim();
+  }
+
   if (description.includes(".<br/>")) {
     description = description.split(".<br/>")[0].trim();
   }
@@ -823,6 +827,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Exame médico") ||
     tags.includes("Atenção Primária à Saúde (APS)") ||
     tags.includes("Assistência Hospitalar") ||
+    tags.includes("Atendimento em Casa") ||
     tags.includes("Clínica da Família") ||
     tags.includes("Saúde do Idoso") ||
     tags.includes("Ambulatório Odontológico") ||
@@ -941,6 +946,13 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    tags.includes("Licenciamento Urbano") ||
+    tags.includes("Regularização Fundiária")
+  ) {
+    categories.push("Urban planning in Brazil");
+  }
+
+  if (
     tags.includes("Orçamento Participativo") ||
     tags.includes("OP") ||
     tags.includes("Conselho do OP")
@@ -966,6 +978,20 @@ const getCategoriesFromTags = metadata => {
 
   if (!tags.includes("ETA São João") && tags.includes("ETA")) {
     categories.push("Water treatment plants in Porto Alegre");
+  }
+
+  if (
+    !tags.includes("Acampamento Farroupilha") &&
+    tags.includes("Parque Maurício Sirotsky Sobrinho (Harmonia)")
+  ) {
+    categories.push("Parque Maurício Sirotski Sobrinho");
+  }
+
+  if (
+    !tags.includes("Acampamento Farroupilha") &&
+    tags.includes("Semana Farroupilha")
+  ) {
+    categories.push("Semana Farroupilha in Porto Alegre");
   }
 
   if (
@@ -1013,6 +1039,12 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("Dia da Independência")) {
     categories.push(
       `Independence Day ${getYear(metadata.humanReadableDate)} in Porto Alegre`
+    );
+  }
+
+  if (tags.includes("Acampamento Farroupilha")) {
+    categories.push(
+      `Acampamento Farroupilha ${getYear(metadata.humanReadableDate)}`
     );
   }
 
@@ -1066,7 +1098,6 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Audiência") ||
       tags.includes("Aula aberta") ||
       tags.includes("Caminhada") ||
-      tags.includes("Campeonato") ||
       tags.includes("Capacitação") ||
       tags.includes("Cerimônia") ||
       tags.includes("Coletiva de Imprensa") ||
@@ -1082,9 +1113,11 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Oficina") ||
       tags.includes("Palestra") ||
       tags.includes("Procissão") ||
-      tags.includes("Visita") ||
-      tags.includes("Seminário") ||
       tags.includes("Reunião") ||
+      tags.includes("Seminário") ||
+      tags.includes("Vacinação") ||
+      tags.includes("Visita") ||
+      tags.includes("Vistoria") ||
       tags.includes("Programação do Reveillon") ||
       tags.includes("Homenagem"))
   ) {
@@ -1099,11 +1132,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Campeonato") ||
     tags.includes("Jogos Abertos")
   ) {
-    categories.push("Sports events in Porto Alegre");
     categories.push(
-      `${getYear(
-        metadata.humanReadableDate
-      )} sports events in Rio Grande do Sul`
+      `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`
     );
   }
 
@@ -1111,6 +1141,7 @@ const getCategoriesFromTags = metadata => {
     !(
       tags.includes("Festival de Inverno") ||
       tags.includes("Semana de Porto Alegre") ||
+      tags.includes("Acampamento Farroupilha") ||
       tags.includes("Trabalho")
     ) &&
     (tags.includes("Festejos") ||
@@ -1135,11 +1166,15 @@ const getCategoriesFromTags = metadata => {
         `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
       ) ||
       categories.includes(
+        `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`
+      ) ||
+      categories.includes(
         `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
       ) ||
       tags.includes("Fórum da Liberdade") ||
       categories.includes("2024 Porto Alegre floods") ||
-      tags.includes("Semana de Porto Alegre")
+      tags.includes("Semana de Porto Alegre") ||
+      tags.includes("Acampamento Farroupilha")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);

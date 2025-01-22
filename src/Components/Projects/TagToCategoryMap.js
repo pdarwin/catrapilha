@@ -203,6 +203,8 @@ export const tagToCategoryMap = {
   Controladoria: "Controladoria-Geral do Município de Porto Alegre",
   Resiliência: "Plano de Resiliência (Porto Alegre)",
   "Diversidade sexual": "Coordenadoria de Diversidade Sexual",
+  "População Negra": "Saúde da População Negra",
+  "Povo Negro": "Saúde da População Negra",
 
   "Conselho Municipal de Saúde": "Conselho Municipal de Saúde (Porto Alegre)",
   "Casa dos Conselhos": "Casa dos Conselhos (Porto Alegre)",
@@ -276,6 +278,8 @@ export const tagToCategoryMap = {
   Brechó: "Brechocão",
   "Arquivo Histórico Moysés Vellinho": "Arquivo histórico de Porto Alegre",
   PoaHub: "Poa.Hub",
+  "Chalé da Praça XV de Novembro": "Chalé da Praça XV",
+  "Theatro São Pedro": "Theatro São Pedro (Porto Alegre)",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -347,6 +351,8 @@ export const tagToCategoryMap = {
   "Parque Urbano da Orla Moacyr Scliar": "Parque Moacyr Scliar",
   "Orla do Guaíba": "Parque da Orla do Guaíba",
   "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
+  "Parque Ararigbóia": "Parque Ararigboia",
+
   "Avenida Ipiranga": "Avenida Ipiranga (Porto Alegre)",
   "Avenida Castello Branco": "Avenida Presidente Castello Branco",
   "Av. Mauá": "Avenida Mauá",
@@ -475,8 +481,8 @@ export const tagToCategoryMap = {
   "Terminais de ônibus": "Bus stations in Porto Alegre",
   "Sinalização de trânsito": "Road signs in Porto Alegre",
   "Arte Urbana": "Street art in Porto Alegre",
-  "Semana Farroupilha": "Semana Farroupilha in Porto Alegre",
 
+  Nuvens: "Clouds in Rio Grande do Sul",
   "Iluminação Pública": "Street lights in Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
@@ -537,6 +543,7 @@ export const tagToCategoryMap = {
   Câncer: "Cancer in Brazil",
   Amamentação: "Breastfeeding in Brazil",
   "Aleitamento materno": "Breastfeeding in Brazil",
+  Imigrantes: "Immigration in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -560,6 +567,7 @@ export const tagToCategoryMap = {
   "Teste do Pezinho": "Neonatal heel pricks in Brazil",
   "Câncer de Mama": "Breast cancer awareness in Brazil",
   "Banco de Leite Humano": "Human milk banks in Brazil",
+  "Atendimento em Casa": "Home care in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -662,4 +670,6 @@ export const tagToCategoryMap = {
   Compostagem: "Composting",
   Prevenção: "Prevention",
   Ecobarreira: "Waste collection booms",
+  "Regularização Fundiária": "Land tenure",
+  Estreia: "Premieres",
 };
