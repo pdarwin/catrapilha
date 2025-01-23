@@ -723,7 +723,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Esporte") ||
     tags.includes("Ginástica") ||
     tags.includes("Atletismo") ||
-    tags.includes("Vôlei")
+    tags.includes("Vôlei") ||
+    tags.includes("Basquete")
   ) {
     categories.push("Sports in Porto Alegre");
   }
@@ -1097,6 +1098,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Assinatura") ||
       tags.includes("Audiência") ||
       tags.includes("Aula aberta") ||
+      tags.includes("Aula Inaugural") ||
       tags.includes("Caminhada") ||
       tags.includes("Capacitação") ||
       tags.includes("Cerimônia") ||
@@ -1106,20 +1108,22 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Curso") ||
       tags.includes("Debate") ||
       tags.includes("Encerramento") ||
+      tags.includes("Feira do Livro") ||
       tags.includes("Fórum") ||
+      tags.includes("Homenagem") ||
       tags.includes("Inauguração") ||
       tags.includes("Lançamento") ||
       tags.includes("Mutirão") ||
       tags.includes("Oficina") ||
       tags.includes("Palestra") ||
       tags.includes("Procissão") ||
+      tags.includes("Programação do Reveillon") ||
       tags.includes("Reunião") ||
+      tags.includes("Semana Cidade Limpa") ||
       tags.includes("Seminário") ||
       tags.includes("Vacinação") ||
       tags.includes("Visita") ||
-      tags.includes("Vistoria") ||
-      tags.includes("Programação do Reveillon") ||
-      tags.includes("Homenagem"))
+      tags.includes("Vistoria"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} events in Porto Alegre`

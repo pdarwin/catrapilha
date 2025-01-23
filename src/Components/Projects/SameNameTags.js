@@ -9,6 +9,7 @@ export const sameNameTags = [
   "Arena do Grêmio",
   "Arroio Dilúvio",
   "Arroio Sarandi",
+  "Atelier Livre Xico Stockinger",
   "Asilo Padre Cacique",
   "Auditório Araújo Vianna",
   "Avenida Assis Brasil",
@@ -23,8 +24,10 @@ export const sameNameTags = [
   "Brique da Redenção",
 
   "Cais Mauá",
+  "Caixa Econômica Federal",
   "Capester",
   "Casa de Cultura Mario Quintana",
+  "Casa do Gaúcho",
   "Casa Lar do Idoso",
   "Cecoflor",
   "Centro Administrativo Municipal Guilherme Socias Villela",
@@ -125,6 +128,7 @@ export const sameNameTags = [
 
   "Sala Álvaro Moreyra",
   "Sala P. F. Gastal",
+  "Semana Cidade Limpa",
   "Shopping Total",
   "Sindilojas",
   "Sport Club Internacional",

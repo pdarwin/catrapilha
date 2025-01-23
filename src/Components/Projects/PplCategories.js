@@ -49,6 +49,7 @@ const keywordToCategoryMap = {
 const sameNameKeywords = [
   "Adão Cândido",
   "Any Ortiz",
+  "Bruno Araújo",
   "Cássio Trogildo",
   "Cezar Schirmer",
   "Edson Leal Pujol",

@@ -10,6 +10,7 @@ export const tagToCategoryMap = {
   "Desenvolvimento Social":
     "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
   Smdse: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
+  Smds: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Social (SMDS)":
     "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
@@ -46,6 +47,7 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Relações Institucionais":
     "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
+  Smri: "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   "Esportes, Recreação e Lazer":
     "Secretaria Municipal de Esportes, Recreação e Lazer",
   Seda: "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
@@ -99,6 +101,7 @@ export const tagToCategoryMap = {
     "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (Porto Alegre)",
   "Trabalho e Qualificação":
     "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (Porto Alegre)",
+
   Procempa: "Companhia de Processamento de Dados do Município de Porto Alegre",
   "Companhia de Processamento de Dados do Município (Procempa)":
     "Companhia de Processamento de Dados do Município de Porto Alegre",
@@ -226,6 +229,7 @@ export const tagToCategoryMap = {
   "Pontifícia Universidade Católica do RS (PUCRS)":
     "Pontifícia Universidade Católica do Rio Grande do Sul",
   "Escola de Gestão Pública (EGP)": "Escola de Gestão Pública (Porto Alegre)",
+  Uniritter: "Centro Universitário Ritter dos Reis",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -280,6 +284,7 @@ export const tagToCategoryMap = {
   PoaHub: "Poa.Hub",
   "Chalé da Praça XV de Novembro": "Chalé da Praça XV",
   "Theatro São Pedro": "Theatro São Pedro (Porto Alegre)",
+  "Sala Aldo Locatelli": "Pinacoteca Aldo Locatelli",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -385,6 +390,7 @@ export const tagToCategoryMap = {
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
   Greve: "General strike in Brazil (2017-06-30)",
+  "Feira do Livro": "Feira do Livro de Porto Alegre",
 
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
   Trabalho: "Festa de Nossa Senhora do Trabalho",
@@ -467,6 +473,7 @@ export const tagToCategoryMap = {
   Acidente: "Road accidents in Porto Alegre",
   Varejo: "Retail in Porto Alegre",
   Indústria: "Industry in Porto Alegre",
+  Vento: "Wind in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
   "Artes Cênicas": "Performing arts in Porto Alegre",
   "Transporte Público": "Public transport in Porto Alegre",
@@ -481,6 +488,7 @@ export const tagToCategoryMap = {
   "Terminais de ônibus": "Bus stations in Porto Alegre",
   "Sinalização de trânsito": "Road signs in Porto Alegre",
   "Arte Urbana": "Street art in Porto Alegre",
+  "Obra de arte": "Art of Porto Alegre",
 
   Nuvens: "Clouds in Rio Grande do Sul",
   "Iluminação Pública": "Street lights in Rio Grande do Sul",
@@ -544,6 +552,7 @@ export const tagToCategoryMap = {
   Amamentação: "Breastfeeding in Brazil",
   "Aleitamento materno": "Breastfeeding in Brazil",
   Imigrantes: "Immigration in Brazil",
+  Basquete: "Basketball in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -672,4 +681,6 @@ export const tagToCategoryMap = {
   Ecobarreira: "Waste collection booms",
   "Regularização Fundiária": "Land tenure",
   Estreia: "Premieres",
+  "Aula Inaugural": "Classes",
+  Desenvolvimento: "Urban development",
 };
