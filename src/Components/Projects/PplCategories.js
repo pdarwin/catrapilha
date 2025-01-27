@@ -48,6 +48,7 @@ const keywordToCategoryMap = {
 
 const sameNameKeywords = [
   "Adão Cândido",
+  "Ana Amélia Lemos",
   "Any Ortiz",
   "Bruno Araújo",
   "Cássio Trogildo",
@@ -76,6 +77,7 @@ const sameNameKeywords = [
   "Ronaldo Nogueira",
   "Skank",
   "Valdir Bonatto",
+  "Valter Nagelstein",
 ];
 
 const positionYearMap = {
@@ -103,6 +105,58 @@ const positionYearMap = {
     {
       name: "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
       years: { start: 2021, end: 2025 },
+    },
+  ],
+  "Feira do Livro": [
+    {
+      name: "63ª Feira do Livro de Porto Alegre (2017)",
+      years: { start: 2017, end: 2017 },
+    },
+    {
+      name: "64ª Feira do Livro de Porto Alegre (2018)",
+      years: { start: 2018, end: 2018 },
+    },
+    {
+      name: "65ª Feira do Livro de Porto Alegre (2019)",
+      years: { start: 2019, end: 2019 },
+    },
+    {
+      name: "66ª Feira do Livro de Porto Alegre (2020)",
+      years: { start: 2020, end: 2020 },
+    },
+    {
+      name: "67ª Feira do Livro de Porto Alegre (2021)",
+      years: { start: 2021, end: 2021 },
+    },
+    {
+      name: "68ª Feira do Livro de Porto Alegre (2022)",
+      years: { start: 2022, end: 2022 },
+    },
+  ],
+  "Material Escolar": [
+    {
+      name: "27ª Feira do Material Escolar (2017)",
+      years: { start: 2017, end: 2017 },
+    },
+    {
+      name: "28ª Feira do Material Escolar (2018)",
+      years: { start: 2018, end: 2018 },
+    },
+    {
+      name: "29ª Feira do Material Escolar (2019)",
+      years: { start: 2019, end: 2019 },
+    },
+    {
+      name: "30ª Feira do Material Escolar (2020)",
+      years: { start: 2020, end: 2020 },
+    },
+    {
+      name: "31ª Feira do Material Escolar (2021)",
+      years: { start: 2021, end: 2021 },
+    },
+    {
+      name: "32ª Feira do Material Escolar (2022)",
+      years: { start: 2022, end: 2022 },
     },
   ],
 };
@@ -151,6 +205,8 @@ export const getPplCategories = metadata => {
     "Vice-Prefeito",
     "Governador",
     "Desenvolvimento Econômico",
+    "Feira do Livro",
+    "Material Escolar",
   ];
   positionKeywords.forEach(position => {
     if (tags.includes(position)) {

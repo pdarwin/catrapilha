@@ -25,7 +25,9 @@ export const sameNameTags = [
 
   "Cais Mauá",
   "Caixa Econômica Federal",
+  "Caminho do Gol",
   "Capester",
+  "Casa de Apoio Viva Maria",
   "Casa de Cultura Mario Quintana",
   "Casa do Gaúcho",
   "Casa Lar do Idoso",
@@ -35,8 +37,10 @@ export const sameNameTags = [
   "Centro de Cultura Lupicínio Rodrigues",
   "Centro de Saúde IAPI",
   "Centro de Saúde Modelo",
+  "Centro de Saúde Murialdo",
   "Centro de Saúde Navegantes",
   "Centro de Saúde Santa Marta",
+  "Chikungunya",
   "Cinemateca Capitólio",
   "Colégio Militar de Porto Alegre",
   "Colônia de Pescadores Z5",
@@ -64,6 +68,7 @@ export const sameNameTags = [
   "EMEI Miguel Granato Velasquez",
   "EMEI Tio Barnabé",
   "EMEI Vila Elizabeth",
+  "Esquina Democrática",
   "Estrada das Furnas",
   "ETA Moinhos de Vento",
   "ETA São João",
@@ -77,8 +82,11 @@ export const sameNameTags = [
 
   "GeraçãoPoa",
   "GeraEncontro",
+  "Ginásio Lupi Martins",
   "Ginásio Tesourinha",
   "Grêmio Foot-Ball Porto Alegrense",
+
+  "Hospital Moinhos de Vento",
 
   "Ilha da Pintada",
   "Instituto Caldeira",
@@ -99,6 +107,7 @@ export const sameNameTags = [
 
   "OdontoSesc",
   "Operação Inverno",
+  "Orçamento Participativo 2018",
   "Orla de Ipanema",
 
   "Palácio Piratini",
@@ -118,6 +127,7 @@ export const sameNameTags = [
   "Praia de Belas",
   "Prefeitura nos Bairros",
   "Procuradoria-Geral do Município de Porto Alegre",
+  "Projeto Jogo Limpo",
   "Projeto Pescar",
   "Prometas",
 
@@ -131,11 +141,13 @@ export const sameNameTags = [
   "Semana Cidade Limpa",
   "Shopping Total",
   "Sindilojas",
+  "Sociedade Libanesa de Porto Alegre",
   "Sport Club Internacional",
 
+  "Teatro de Câmara Túlio Piva",
+  "Teatro Renascença",
   "TelessaúdeRS",
   "Todos Somos Porto Alegre",
-  "Teatro Renascença",
   "Trensurb",
   "Tribunal de Justiça do Estado do Rio Grande do Sul",
   "Tristeza",

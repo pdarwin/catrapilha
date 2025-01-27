@@ -304,12 +304,22 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Gabinete do Prefeito") ||
     tags.includes("Gabinete Prefeito") ||
     tags.includes("Gp") ||
+    tags.includes("Gvp") ||
     tags.includes("Grupos de Trabalho") ||
     tags.includes("PPA")
   ) {
     categories.push(
       "Executive office of the Porto Alegre municipal government"
     );
+  }
+
+  if (
+    tags.includes("Gabinete do Prefeito") ||
+    tags.includes("Gabinete Prefeito") ||
+    tags.includes("Gp") ||
+    tags.includes("Gvp")
+  ) {
+    categories.push("Interior of Paço Municipal de Porto Alegre");
   }
 
   if (
@@ -350,7 +360,8 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Prédio público") ||
-    tags.includes("Prédios e Edificações")
+    tags.includes("Prédios e Edificações") ||
+    tags.includes("Patrimônio")
   ) {
     categories.push("Municipal buildings in Porto Alegre");
   }
@@ -456,6 +467,9 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Álcool  e Outras Drogas")) {
     categories.push("Alcoholism in Brazil");
+  }
+
+  if (tags.includes("Álcool  e Outras Drogas") || tags.includes("Tabagismo")) {
     categories.push("Substance dependence in Brazil");
   }
 
@@ -522,7 +536,6 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Educação") ||
     tags.includes("Aula aberta") ||
     tags.includes("Oficina") ||
-    tags.includes("Material Escolar") ||
     tags.includes("Educação no Trânsito") ||
     tags.includes("Educação Básica") ||
     tags.includes("Educação Especial") ||
@@ -625,6 +638,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Diseases and disorders in Brazil");
   }
 
+  if (!tags.includes("Hanseníase") && tags.includes("Doenças Transmissíveis")) {
+    categories.push("Infectious diseases in Brazil");
+  }
+
   if (tags.includes("Esgoto Pluvial") || tags.includes("Esgotos Pluviais")) {
     categories.push("Storm drains in Brazil");
     categories.push("Street furniture in Porto Alegre");
@@ -665,6 +682,10 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("LGBT") || tags.includes("Transexualidade")) {
     categories.push("LGBT in Rio Grande do Sul");
+  }
+
+  if (!tags.includes("Poa Em Cena") && tags.includes("Teatro")) {
+    categories.push("Theatre of Porto Alegre");
   }
 
   if (tags.includes("remoção de lixo") || tags.includes("Coleta Seletiva")) {
@@ -721,6 +742,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Esporte") ||
+    tags.includes("Desenvolvimento Social e Esporte") ||
     tags.includes("Ginástica") ||
     tags.includes("Atletismo") ||
     tags.includes("Vôlei") ||
@@ -818,6 +840,9 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Saúde Nutricional e Amamentação") ||
     tags.includes("doação de sangue") ||
     tags.includes("Saúde do Trabalhador") ||
+    tags.includes("Outubro Rosa") ||
+    tags.includes("Hanseníase") ||
+    tags.includes("Doenças Transmissíveis") ||
     tags.includes("Doença Respiratória")
   ) {
     categories.push("Health in Porto Alegre");
@@ -893,8 +918,19 @@ const getCategoriesFromTags = metadata => {
     categories.push("Anniversaries in Brazil");
   }
 
+  if (!tags.includes("Feira do Livro") && tags.includes("Livro e Literatura")) {
+    categories.push("Literature of Porto Alegre");
+  }
+
   if (!tags.includes("ROMU") && tags.includes("Guarda Municipal")) {
     categories.push("Guarda Municipal (Porto Alegre)");
+  }
+
+  if (
+    !tags.includes("Material Escolar") &&
+    tags.includes("Praça da Alfândega")
+  ) {
+    categories.push("Praça da Alfândega (Porto Alegre)");
   }
 
   if (!tags.includes("Maratona") && tags.includes("Corrida")) {
@@ -948,15 +984,19 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Licenciamento Urbano") ||
-    tags.includes("Regularização Fundiária")
+    tags.includes("Regularização Fundiária") ||
+    tags.includes("Regularização")
   ) {
     categories.push("Urban planning in Brazil");
   }
 
   if (
-    tags.includes("Orçamento Participativo") ||
-    tags.includes("OP") ||
-    tags.includes("Conselho do OP")
+    !(
+      tags.includes("Orçamento Participativo 2018") || tags.includes("Op 2017")
+    ) &&
+    (tags.includes("Orçamento Participativo") ||
+      tags.includes("OP") ||
+      tags.includes("Conselho do OP"))
   ) {
     categories.push(
       "Participatory budgeting in the Municipality of Porto Alegre"
@@ -979,6 +1019,10 @@ const getCategoriesFromTags = metadata => {
 
   if (!tags.includes("ETA São João") && tags.includes("ETA")) {
     categories.push("Water treatment plants in Porto Alegre");
+  }
+
+  if (!tags.includes("Outubro Rosa") && tags.includes("Câncer de Mama")) {
+    categories.push("Breast cancer awareness in Brazil");
   }
 
   if (
@@ -1005,6 +1049,10 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Música") || tags.includes("Concerto Musical")) {
     categories.push("Music of Porto Alegre");
+  }
+
+  if (tags.includes("Ônibus") || tags.includes("BRT's")) {
+    categories.push("Buses in Porto Alegre");
   }
 
   if (tags.includes("doações de cestas básicas")) {
@@ -1076,9 +1124,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.includes("Fórum da Liberdade") &&
-    (tags.includes("Fórum") ||
-      tags.includes("Audiência") ||
-      tags.includes("Reunião"))
+    (tags.includes("Fórum") || tags.includes("Reunião"))
   ) {
     categories.push("Meetings in Brazil");
   }
@@ -1090,7 +1136,9 @@ const getCategoriesFromTags = metadata => {
   if (
     !(
       tags.includes("Semana de Porto Alegre") ||
-      tags.includes("Fórum da Liberdade")
+      tags.includes("Fórum da Liberdade") ||
+      tags.includes("Feira do Livro") ||
+      tags.includes("Material Escolar")
     ) &&
     (tags.includes("Abertura") ||
       tags.includes("Aniversário") ||
@@ -1107,20 +1155,23 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Conferência") ||
       tags.includes("Curso") ||
       tags.includes("Debate") ||
+      tags.includes("Dia do Desafio") ||
       tags.includes("Encerramento") ||
-      tags.includes("Feira do Livro") ||
+      tags.includes("Espetáculo") ||
       tags.includes("Fórum") ||
       tags.includes("Homenagem") ||
       tags.includes("Inauguração") ||
       tags.includes("Lançamento") ||
       tags.includes("Mutirão") ||
       tags.includes("Oficina") ||
+      tags.includes("Outubro Rosa") ||
       tags.includes("Palestra") ||
       tags.includes("Procissão") ||
       tags.includes("Programação do Reveillon") ||
       tags.includes("Reunião") ||
       tags.includes("Semana Cidade Limpa") ||
       tags.includes("Seminário") ||
+      tags.includes("Simpósio") ||
       tags.includes("Vacinação") ||
       tags.includes("Visita") ||
       tags.includes("Vistoria"))
@@ -1150,7 +1201,8 @@ const getCategoriesFromTags = metadata => {
     ) &&
     (tags.includes("Festejos") ||
       tags.includes("Festival") ||
-      tags.includes("Semana Farroupilha"))
+      tags.includes("Semana Farroupilha") ||
+      tags.includes("Poa Em Cena"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
