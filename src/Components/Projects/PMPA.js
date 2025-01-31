@@ -545,7 +545,9 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Educação Educação Técnica") ||
     tags.includes("Educação Permanente") ||
     tags.includes("Ensino") ||
-    tags.includes("Cidades Educadoras")
+    tags.includes("Formatura") ||
+    tags.includes("Cidades Educadoras") ||
+    tags.includes("Volta às aulas")
   ) {
     categories.push("Education in Porto Alegre");
   }
@@ -589,6 +591,7 @@ const getCategoriesFromTags = metadata => {
   if (
     !(
       tags.includes("Companhia Municipal de Dança") ||
+      tags.includes("Grupo Experimental de Dança (GED)") ||
       tags.includes(
         "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)"
       )
@@ -599,12 +602,26 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !(
+      tags.includes("Companhia Municipal de Dança") ||
+      tags.includes("Grupo Experimental de Dança (GED)")
+    ) &&
+    tags.includes("Dança")
+  ) {
+    categories.push("Dance in Porto Alegre");
+  }
+
+  if (
     tags.includes("Fazenda") ||
     tags.includes("Finanças") ||
     tags.includes("Finanças Públicas") ||
     tags.includes("Secretário Municipal da Fazenda (SMF)")
   ) {
     categories.push("Secretaria Municipal da Fazenda (Porto Alegre)");
+  }
+
+  if (tags.includes("Comércio") || tags.includes("Comércio Irregular")) {
+    categories.push("Commerce in Porto Alegre");
   }
 
   if (
@@ -630,11 +647,18 @@ const getCategoriesFromTags = metadata => {
     categories.push("Law enforcement in Porto Alegre");
   }
 
-  if (!tags.includes("Bloqueio químico") && tags.includes("Aedes aegypti")) {
+  if (
+    !tags.includes("Bloqueio químico") &&
+    (tags.includes("Aedes aegypti") || tags.includes("Mosquito Aedes Aegypti"))
+  ) {
     categories.push("Aedes aegypti");
   }
 
-  if (tags.includes("Leishmaniose") || tags.includes("Doença Respiratória")) {
+  if (
+    tags.includes("Leishmaniose") ||
+    tags.includes("Doença Respiratória") ||
+    tags.includes("síndrome de down")
+  ) {
     categories.push("Diseases and disorders in Brazil");
   }
 
@@ -728,6 +752,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Rio Guaíba in Porto Alegre");
   }
 
+  if (tags.includes("Vento") || tags.includes("Downburst")) {
+    categories.push("Wind in Porto Alegre");
+  }
+
   if (
     !tags.includes("Arquivo Histórico Moysés Vellinho") &&
     tags.includes("Arquivo")
@@ -742,7 +770,6 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Esporte") ||
-    tags.includes("Desenvolvimento Social e Esporte") ||
     tags.includes("Ginástica") ||
     tags.includes("Atletismo") ||
     tags.includes("Vôlei") ||
@@ -832,6 +859,13 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Saúde do Idoso") || tags.includes("Idosos")) {
     categories.push("Geriatrics in Brazil");
+  }
+
+  if (
+    tags.includes("Acessibilidade") ||
+    tags.includes("Pessoa com mobilidade reduzida")
+  ) {
+    categories.push("Accessibility in Brazil");
   }
 
   if (
@@ -1138,7 +1172,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Fórum da Liberdade") ||
       tags.includes("Feira do Livro") ||
-      tags.includes("Material Escolar")
+      tags.includes("Material Escolar") ||
+      tags.includes("Salão Internacional de Desenho para Imprensa (Sidi)")
     ) &&
     (tags.includes("Abertura") ||
       tags.includes("Aniversário") ||
@@ -1149,15 +1184,18 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Aula Inaugural") ||
       tags.includes("Caminhada") ||
       tags.includes("Capacitação") ||
+      tags.includes("Casamento") ||
       tags.includes("Cerimônia") ||
       tags.includes("Coletiva de Imprensa") ||
       tags.includes("Concerto Musical") ||
       tags.includes("Conferência") ||
+      tags.includes("Convite") ||
       tags.includes("Curso") ||
       tags.includes("Debate") ||
       tags.includes("Dia do Desafio") ||
       tags.includes("Encerramento") ||
       tags.includes("Espetáculo") ||
+      tags.includes("Formatura") ||
       tags.includes("Fórum") ||
       tags.includes("Homenagem") ||
       tags.includes("Inauguração") ||
@@ -1166,6 +1204,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Oficina") ||
       tags.includes("Outubro Rosa") ||
       tags.includes("Palestra") ||
+      tags.includes("Passeio") ||
       tags.includes("Procissão") ||
       tags.includes("Programação do Reveillon") ||
       tags.includes("Reunião") ||
@@ -1174,7 +1213,9 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Simpósio") ||
       tags.includes("Vacinação") ||
       tags.includes("Visita") ||
-      tags.includes("Vistoria"))
+      tags.includes("Vistoria") ||
+      tags.includes("Volta às aulas") ||
+      tags.includes("Workshop"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} events in Porto Alegre`

@@ -44,15 +44,20 @@ const keywordToCategoryMap = {
     "André Barbosa (politician)",
   "André Barbosa": "André Barbosa (politician)",
   "Záchia Paludo": "Maria de Fátima Záchia Paludo",
+  "Monica Leal": "Mônica Leal",
+  "Almir Junior": "Almir Júnior",
+  "Aparecido Donizete": "Aparecido Donizete de Souza",
 };
 
 const sameNameKeywords = [
+  "Abena Busia",
   "Adão Cândido",
   "Ana Amélia Lemos",
   "Any Ortiz",
   "Bruno Araújo",
   "Cássio Trogildo",
   "Cezar Schirmer",
+  "Dilan Camargo",
   "Edson Leal Pujol",
   "Eduardo Leite",
   "Erno Harzheim",
@@ -64,6 +69,7 @@ const sameNameKeywords = [
   "Hamilton Sossmeier",
   "Helder Barbalho",
   "Idenir Cecchim",
+  "Jaime Spengler",
   "João Fischer",
   "José Ivo Sartori",
   "Letícia Batistela",
@@ -78,26 +84,24 @@ const sameNameKeywords = [
   "Skank",
   "Valdir Bonatto",
   "Valter Nagelstein",
+  "Yossi Shelley",
 ];
 
+// Normalize position keys in positionYearMap
 const positionYearMap = {
-  Prefeito: [
+  prefeito: [
     { name: "Nelson Marchezan Júnior", years: { start: 2017, end: 2020 } },
     { name: "Sebastião Melo", years: { start: 2021, end: 2024 } },
   ],
-  "Vice-Prefeito": [
+  "vice-prefeito": [
     { name: "Gustavo Paim", years: { start: 2017, end: 2020 } },
     { name: "Ricardo Gomes", years: { start: 2021, end: 2024 } },
   ],
-  "Vice-prefeito": [
-    { name: "Gustavo Paim", years: { start: 2017, end: 2020 } },
-    { name: "Ricardo Gomes", years: { start: 2021, end: 2024 } },
-  ],
-  Governador: [
+  governador: [
     { name: "José Ivo Sartori", years: { start: 2015, end: 2018 } },
     { name: "Eduardo Leite", years: { start: 2019, end: 2024 } },
   ],
-  "Desenvolvimento Econômico": [
+  "desenvolvimento economico": [
     {
       name: "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
       years: { start: 2017, end: 2020 },
@@ -107,7 +111,7 @@ const positionYearMap = {
       years: { start: 2021, end: 2025 },
     },
   ],
-  "Feira do Livro": [
+  "feira do livro": [
     {
       name: "63ª Feira do Livro de Porto Alegre (2017)",
       years: { start: 2017, end: 2017 },
@@ -133,7 +137,7 @@ const positionYearMap = {
       years: { start: 2022, end: 2022 },
     },
   ],
-  "Material Escolar": [
+  "material escolar": [
     {
       name: "27ª Feira do Material Escolar (2017)",
       years: { start: 2017, end: 2017 },
@@ -159,10 +163,44 @@ const positionYearMap = {
       years: { start: 2022, end: 2022 },
     },
   ],
+  "salao internacional de desenho para imprensa (sidi)": [
+    {
+      name: "25º Salão Internacional de Desenho para Imprensa (2017)",
+      years: { start: 2017, end: 2017 },
+    },
+    {
+      name: "26º Salão Internacional de Desenho para Imprensa (2018)",
+      years: { start: 2018, end: 2018 },
+    },
+    {
+      name: "27º Salão Internacional de Desenho para Imprensa (2019)",
+      years: { start: 2019, end: 2019 },
+    },
+    {
+      name: "28º Salão Internacional de Desenho para Imprensa (2020)",
+      years: { start: 2020, end: 2020 },
+    },
+    {
+      name: "29º Salão Internacional de Desenho para Imprensa (2021)",
+      years: { start: 2021, end: 2021 },
+    },
+    {
+      name: "30º Salão Internacional de Desenho para Imprensa (2022)",
+      years: { start: 2022, end: 2022 },
+    },
+  ],
 };
 
+// Helper function to normalize strings (remove accents and convert to lowercase)
+const normalizeString = str =>
+  str
+    .normalize("NFD") // Normalize to decomposed form (e.g., "é" -> "e´")
+    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics (accents)
+    .toLowerCase(); // Convert to lowercase
+
 function getPersonByPositionAndYear(position, year) {
-  const mapping = positionYearMap[position];
+  const normalizedPosition = normalizeString(position);
+  const mapping = positionYearMap[normalizedPosition];
   if (!mapping) return null; // Return null if position doesn't exist
 
   const person = mapping.find(
@@ -173,16 +211,19 @@ function getPersonByPositionAndYear(position, year) {
 }
 
 export const getPplCategories = metadata => {
-  const tags = metadata.tags;
+  const tags = metadata.tags.map(tag => normalizeString(tag)); // Normalize tags
+  const description = metadata.description
+    ? normalizeString(metadata.description)
+    : "";
   const categories = [];
-  // Use a Set to prevent duplicate categories
   const uniqueCategories = new Set();
 
   // Add categories from the map
   Object.entries(keywordToCategoryMap).forEach(([keyword, category]) => {
+    const normalizedKeyword = normalizeString(keyword);
     if (
-      tags.includes(keyword) ||
-      (metadata.description && metadata.description.includes(keyword))
+      tags.includes(normalizedKeyword) ||
+      description.includes(normalizedKeyword)
     ) {
       uniqueCategories.add(category);
     }
@@ -190,32 +231,23 @@ export const getPplCategories = metadata => {
 
   // Add categories where the name is the same
   sameNameKeywords.forEach(keyword => {
+    const normalizedKeyword = normalizeString(keyword);
     if (
-      tags.includes(keyword) ||
-      (metadata.description && metadata.description.includes(keyword))
+      tags.includes(normalizedKeyword) ||
+      description.includes(normalizedKeyword)
     ) {
       uniqueCategories.add(keyword);
     }
   });
 
   // Add categories based on position and year
-  const positionKeywords = [
-    "Prefeito",
-    "Vice-prefeito",
-    "Vice-Prefeito",
-    "Governador",
-    "Desenvolvimento Econômico",
-    "Feira do Livro",
-    "Material Escolar",
-  ];
-  positionKeywords.forEach(position => {
-    if (tags.includes(position)) {
-      const year = new Date(metadata.publicationDate).getFullYear(); // Extract the year
-      const personName = getPersonByPositionAndYear(position, year); // Get the person by position and year
-
-      if (personName) {
-        uniqueCategories.add(personName); // Add the person's name as a category
-      }
+  tags.forEach(tag => {
+    const personName = getPersonByPositionAndYear(
+      tag,
+      new Date(metadata.publicationDate).getFullYear()
+    );
+    if (personName) {
+      uniqueCategories.add(personName); // Add the person's name as a category
     }
   });
 

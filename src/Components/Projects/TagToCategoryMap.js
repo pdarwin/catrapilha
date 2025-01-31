@@ -3,6 +3,7 @@ import { getYear } from "../../Utils/DateUtils";
 // Define a mapping of tags to categories
 export const tagToCategoryMap = {
   Segurança: "Secretaria Municipal de Segurança (Porto Alegre)",
+  Seguranç: "Secretaria Municipal de Segurança (Porto Alegre)",
   Smseg: "Secretaria Municipal de Segurança (Porto Alegre)",
   "Secretaria Municipal de Segurança (SMSEG)":
     "Secretaria Municipal de Segurança (Porto Alegre)",
@@ -50,6 +51,8 @@ export const tagToCategoryMap = {
   "Secretaria Municipal de Obras e Infraestrutura (SMOI)":
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Obras e Infraestrutura":
+    "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
+  "Infraestrutura e Urbanismo":
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Relações Institucionais":
     "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
@@ -128,6 +131,8 @@ export const tagToCategoryMap = {
   Ceic: "Centro Integrado de Comando da Cidade de Porto Alegre",
   "Comissão Permanente de Atuação em Emergências (Copae)":
     "Comissão Permanente de Atuação em Emergências",
+  "Comissão de Saúde e Segurança no Trabalho":
+    "Comissão de Saúde e Segurança no Trabalho (Porto Alegre)",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
   "Defesa Cívil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
   "Equipe de Manejo Arbóreo (EMA)": "Equipe de Manejo Arbóreo (Porto Alegre)",
@@ -162,8 +167,7 @@ export const tagToCategoryMap = {
   vereador: "City councillors of Porto Alegre",
   Vereadores: "City councillors of Porto Alegre",
   Pisa: "Programa Integrado Socioambiental",
-  "Unidade de Saúde Orfanotrófrio": "Unidade de Saúde Orfanotrófio",
-  "Unidade de Saúde Animal Victória (Usav)": "Unidade de Saúde Animal Victória",
+  Socioambiental: "Programa Integrado Socioambiental",
   "Primeira Infância Melhor (PIM)": "Primeira Infância Melhor",
   "Salão Nobre": "Salão Nobre (Paço Municipal de Porto Alegre)",
   "Salão Nobre do Paço Municipal":
@@ -221,6 +225,7 @@ export const tagToCategoryMap = {
   "População Negra": "Saúde da População Negra",
   "Povo Negro": "Saúde da População Negra",
   "Op 2017": "Orçamento Participativo 2017",
+  "Lei Seca": "Lei Seca (Porto Alegre)",
 
   "Conselho Municipal de Saúde": "Conselho Municipal de Saúde (Porto Alegre)",
   "Casa dos Conselhos": "Casa dos Conselhos (Porto Alegre)",
@@ -233,6 +238,7 @@ export const tagToCategoryMap = {
   Granpal: "Associação dos Municípios da Região Metropolitana de Porto Alegre",
   "Associação dos Auditores Fiscais da Receita Municipal de Porto Alegre (Aiamu)":
     "Associação dos Auditores Fiscais da Receita Municipal de Porto Alegre",
+  "CDL Porto Alegre": "Câmara de Dirigentes Lojistas de Porto Alegre",
 
   "Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA)":
     "Universidade Federal de Ciências da Saúde de Porto Alegre",
@@ -244,9 +250,11 @@ export const tagToCategoryMap = {
   "Escola de Gestão Pública (EGP)": "Escola de Gestão Pública (Porto Alegre)",
   Uniritter: "Centro Universitário Ritter dos Reis",
   Estácio: "Faculdade Estácio",
+  Ulbra: "Universidade Luterana do Brasil",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
+  Sindha: "Sindicato de Hospedagem e Alimentação de Porto Alegre e Região",
   "Banda Municipal": "Banda Municipal de Porto Alegre",
 
   "Igreja Nossa Senhora das Dores":
@@ -264,6 +272,8 @@ export const tagToCategoryMap = {
   "Unidade de Saúde Santa Marta": "Centro de Saúde Santa Marta",
   "Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)":
     "Centros de Atenção Psicossocial Álcool e Drogas",
+  "Unidade de Saúde Orfanotrófrio": "Unidade de Saúde Orfanotrófio",
+  "Unidade de Saúde Animal Victória (Usav)": "Unidade de Saúde Animal Victória",
 
   "Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
@@ -299,6 +309,7 @@ export const tagToCategoryMap = {
   "Chalé da Praça XV de Novembro": "Chalé da Praça XV",
   "Theatro São Pedro": "Theatro São Pedro (Porto Alegre)",
   "Sala Aldo Locatelli": "Pinacoteca Aldo Locatelli",
+  Laçador: "Estátua do Laçador",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -402,6 +413,9 @@ export const tagToCategoryMap = {
   Sebrae: "SEBRAE Rio Grande do Sul",
   "OAB-RS": "Ordem dos Advogados do Brasil - Rio Grande do Sul",
   "Fundação O Pão dos Pobres": "Fundação Pão dos Pobres",
+  "Obras da Copa de 2014": "2014 FIFA World Cup Construction Projects",
+  Apae: "Associação de Pais e Amigos dos Excepcionais",
+  Tradicionalismo: "Sindicatos Rurais",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   "Campanha do Agasalho": metadata =>
@@ -445,6 +459,8 @@ export const tagToCategoryMap = {
     "Centro de Referência em Saúde do Trabalhador",
   Santander: "Banco Santander (Brasil)",
   "Cruz Vermelha do Brasil": "Brazilian Red Cross",
+  "Grupo Experimental de Dança (GED)":
+    "Grupo Experimental de Dança de Porto Alegre",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -458,9 +474,7 @@ export const tagToCategoryMap = {
   Aéreas: "Aerial photographs of Porto Alegre",
   "Imagem Aérea": "Aerial photographs of Porto Alegre",
   Táxi: "Taxis in Porto Alegre",
-  Comércio: "Commerce in Porto Alegre",
   Infraestrutura: "Infrastructure in Porto Alegre",
-  Dança: "Dance in Porto Alegre",
   Artesanato: "Handicrafts of Porto Alegre",
   exposição: "Exhibitions in Porto Alegre",
   Lixo: "Waste management in Porto Alegre",
@@ -474,6 +488,7 @@ export const tagToCategoryMap = {
   Cavalo: "Horses of Porto Alegre",
   Chuva: "Rain in Porto Alegre",
   Desastres: "Disasters and accidents in Porto Alegre",
+  "Área de risco": "Disasters and accidents in Porto Alegre",
   eleições: "Elections in Porto Alegre",
   Incêndio: "Fires in Porto Alegre",
   Subprefeituras: "Subprefeituras of Porto Alegre",
@@ -490,11 +505,13 @@ export const tagToCategoryMap = {
   Acidente: "Road accidents in Porto Alegre",
   Varejo: "Retail in Porto Alegre",
   Indústria: "Industry in Porto Alegre",
-  Vento: "Wind in Porto Alegre",
   Espetáculo: "Shows in Porto Alegre",
+  Hipismo: "Equestrian sports in Porto Alegre",
+  Fauna: "Animals of Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
   "Artes Cênicas": "Performing arts in Porto Alegre",
   "Transporte Público": "Public transport in Porto Alegre",
+  "Transporte Coletivo": "Public transport in Porto Alegre",
   "População de Rua": "Homelessness in Porto Alegre",
   "Situação de rua": "Homelessness in Porto Alegre",
   "Ruas e avenidas": "Streets in Porto Alegre",
@@ -506,9 +523,9 @@ export const tagToCategoryMap = {
   "Sinalização de trânsito": "Road signs in Porto Alegre",
   "Arte Urbana": "Street art in Porto Alegre",
   "Obra de arte": "Art of Porto Alegre",
+  "Iluminação Pública": "Street lights in Porto Alegre",
 
   Nuvens: "Clouds in Rio Grande do Sul",
-  "Iluminação Pública": "Street lights in Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
   Dengue: "Dengue in Brazil",
@@ -528,7 +545,6 @@ export const tagToCategoryMap = {
   Albergues: "Shelters in Brazil",
   Acolhimento: "Shelters in Brazil",
   Transparência: "Open government in Brazil",
-  Acessibilidade: "Accessibility in Brazil",
   Empreendedorismo: "Entrepreneurship in Brazil",
   Adolescente: "Teenagers of Brazil",
   Poda: "Pruning in Brazil",
@@ -576,6 +592,10 @@ export const tagToCategoryMap = {
   Audiência: "Audiences (meeting) in Brazil",
   Hanseníase: "Leprosy in Brazil",
   Retrato: "Portrait photographs of politicians of Brazil",
+  Formatura: "Graduation ceremonies in Brazil",
+  Casamento: "Collective weddings in Brazil",
+  Oficina: "Workshops (meetings) in Brazil",
+  Workshop: "Workshops (meetings) in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -601,6 +621,9 @@ export const tagToCategoryMap = {
   "Atendimento em Casa": "Home care in Brazil",
   "Outubro Rosa": "Pink October in Brazil",
   "BRT's": "Bus rapid transit in Brazil",
+  "Leito Hospitalar": "Hospital beds in Brazil",
+  "Economia Solidária": "Social economy in Brazil",
+  "Novembro Azul": "Movember in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -615,7 +638,6 @@ export const tagToCategoryMap = {
 
   Transexualidade: "Transgender in South America",
 
-  Oficina: "Workshops (meetings)",
   "Aula aberta": "Workshops (meetings)",
   "síndrome de down": "Down syndrome",
   Investigação: "Inquiry",
@@ -707,4 +729,11 @@ export const tagToCategoryMap = {
   Desenvolvimento: "Urban development",
   Tabagismo: "Nicotine dependence",
   Mascote: "Animal mascots",
+  Plantio: "Planting",
+  "Pessoa com mobilidade reduzida": "People with mobility impairment",
+  Testagem: "Medical tests",
+  Downburst: "Downbursts",
+  Passeio: "Walking tours",
+  "Volta às aulas": "Back to school",
+  "Comércio Irregular": "Gray market",
 };
