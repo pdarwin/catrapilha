@@ -383,6 +383,7 @@ const getCategoriesFromTags = metadata => {
     ) &&
     (tags.includes("trânsito") ||
       tags.includes("Transporte") ||
+      tags.includes("Transporte e Circulaçao") ||
       tags.includes("Transporte e Circulação") ||
       tags.includes("Trânsito e Circulação") ||
       tags.includes("Circulação") ||
@@ -494,7 +495,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Trainings by the Municipality of Porto Alegre");
   }
 
-  if (!tags.includes("Capacitação") && tags.includes("Curso")) {
+  if (
+    !tags.includes("Capacitação") &&
+    (tags.includes("Curso") || tags.includes("Curso de Mecânica"))
+  ) {
     categories.push("Courses by the Municipality of Porto Alegre");
   }
 
@@ -509,6 +513,7 @@ const getCategoriesFromTags = metadata => {
     !(
       tags.includes("EMEF João Carlos D`Ávila Paixão Côrtes (Laçador)") ||
       tags.includes("EMEF Vereador Antônio Giúdice") ||
+      tags.includes("Emef Migrantes") ||
       tags.includes("EMEI Miguel Granato Velasquez") ||
       tags.includes("EMEI JP Patinho Feio") ||
       tags.includes("EMEI Tio Barnabé") ||
@@ -530,6 +535,10 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Educação Superior")
   ) {
     categories.push("Universities and colleges in Porto Alegre");
+  }
+
+  if (tags.includes("Educação Técnica") || tags.includes("Curso de Mecânica")) {
+    categories.push("Career and technical education");
   }
 
   if (
@@ -606,7 +615,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Companhia Municipal de Dança") ||
       tags.includes("Grupo Experimental de Dança (GED)")
     ) &&
-    tags.includes("Dança")
+    (tags.includes("Dança") || tags.includes("Maratona de Dança"))
   ) {
     categories.push("Dance in Porto Alegre");
   }
@@ -773,18 +782,11 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Ginástica") ||
     tags.includes("Atletismo") ||
     tags.includes("Vôlei") ||
-    tags.includes("Basquete")
+    tags.includes("Basquete") ||
+    tags.includes("Desenvolvimento Social e Esporte") ||
+    tags.includes("Desenvolvimento Economico e Esporte")
   ) {
     categories.push("Sports in Porto Alegre");
-  }
-
-  if (
-    !(tags.includes("Inauguração") || tags.includes("Abertura")) &&
-    (tags.includes("Encerramento") ||
-      tags.includes("Cerimônia") ||
-      tags.includes("Assinatura"))
-  ) {
-    categories.push("Ceremonies in Brazil");
   }
 
   if (tags.includes("Informatização") || tags.includes("Computador")) {
@@ -825,7 +827,8 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes("Primeiros Socorros") ||
-    tags.includes("Hospital de campanha")
+    tags.includes("Hospital de campanha") ||
+    tags.includes("Atendimento de Urgência")
   ) {
     categories.push("Emergency medical services in Porto Alegre");
   }
@@ -845,7 +848,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (!tags.includes("Campanha do Agasalho") && tags.includes("Campanha")) {
-    categories.push("Campaigns");
+    categories.push("Campaigns in Brazil");
   }
 
   if (
@@ -1019,7 +1022,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Licenciamento Urbano") ||
     tags.includes("Regularização Fundiária") ||
-    tags.includes("Regularização")
+    tags.includes("Regularização") ||
+    tags.includes("Loteamento")
   ) {
     categories.push("Urban planning in Brazil");
   }
@@ -1103,6 +1107,18 @@ const getCategoriesFromTags = metadata => {
     categories.push("Social services in Porto Alegre");
   }
 
+  if (tags.includes("Habitação" || tags.includes("Loteamento"))) {
+    categories.push("Housing in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Terreno") ||
+    tags.includes("Loteamento") ||
+    tags.includes("Reintegração de Posse")
+  ) {
+    categories.push("Real estate in Brazil");
+  }
+
   if (
     tags.includes("Carnaval") ||
     tags.includes("Carnaval de Rua") ||
@@ -1145,6 +1161,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Construction in Porto Alegre");
   }
 
+  if (tags.includes("Transmissão de Cargo")) {
+    categories.push("Politics of Porto Alegre");
+  }
+
   if (
     tags.includes("Asfalto") ||
     tags.includes("Manutenção") ||
@@ -1158,9 +1178,11 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.includes("Fórum da Liberdade") &&
-    (tags.includes("Fórum") || tags.includes("Reunião"))
+    (tags.includes("Fórum") ||
+      tags.includes("Reunião") ||
+      tags.includes("Reunião-almoço Tá Na Mesa"))
   ) {
-    categories.push("Meetings in Brazil");
+    categories.push("Meetings in Porto Alegre");
   }
 
   if (!tags.includes("Fórum da Liberdade") && tags.includes("Conferência")) {
@@ -1168,24 +1190,33 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !(tags.includes("Inauguração") || tags.includes("Abertura")) &&
+    (tags.includes("Assinatura") ||
+      tags.includes("Cerimônia") ||
+      tags.includes("Encerramento") ||
+      tags.includes("Transmissão de Cargo"))
+  ) {
+    categories.push("Ceremonies in Brazil");
+  }
+
+  if (
     !(
-      tags.includes("Semana de Porto Alegre") ||
-      tags.includes("Fórum da Liberdade") ||
       tags.includes("Feira do Livro") ||
+      tags.includes("Fórum da Liberdade") ||
       tags.includes("Material Escolar") ||
-      tags.includes("Salão Internacional de Desenho para Imprensa (Sidi)")
+      tags.includes("Salão Internacional de Desenho para Imprensa (Sidi)") ||
+      tags.includes("Semana de Porto Alegre")
     ) &&
     (tags.includes("Abertura") ||
+      tags.includes("Ação Rua") ||
       tags.includes("Aniversário") ||
       tags.includes("Apresentação") ||
-      tags.includes("Assinatura") ||
       tags.includes("Audiência") ||
       tags.includes("Aula aberta") ||
       tags.includes("Aula Inaugural") ||
       tags.includes("Caminhada") ||
       tags.includes("Capacitação") ||
       tags.includes("Casamento") ||
-      tags.includes("Cerimônia") ||
       tags.includes("Coletiva de Imprensa") ||
       tags.includes("Concerto Musical") ||
       tags.includes("Conferência") ||
@@ -1205,9 +1236,12 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Outubro Rosa") ||
       tags.includes("Palestra") ||
       tags.includes("Passeio") ||
+      tags.includes("Prefeitura nos Bairros") ||
+      tags.includes("Prefeitura Nos Bairros") ||
       tags.includes("Procissão") ||
       tags.includes("Programação do Reveillon") ||
       tags.includes("Reunião") ||
+      tags.includes("Reunião-almoço Tá Na Mesa") ||
       tags.includes("Semana Cidade Limpa") ||
       tags.includes("Seminário") ||
       tags.includes("Simpósio") ||
@@ -1215,7 +1249,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Visita") ||
       tags.includes("Vistoria") ||
       tags.includes("Volta às aulas") ||
-      tags.includes("Workshop"))
+      tags.includes("Workshop") ||
+      categories.includes("Ceremonies in Brazil"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
@@ -1269,6 +1304,7 @@ const getCategoriesFromTags = metadata => {
         `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
       ) ||
       tags.includes("Fórum da Liberdade") ||
+      tags.includes("Páscoa") ||
       categories.includes("2024 Porto Alegre floods") ||
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha")

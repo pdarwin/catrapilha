@@ -17,6 +17,8 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
   "Desenvolvimento Social e Esporte":
     "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
+  "Desenvolvimento Economico e Esporte":
+    "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   "Meio Ambiente":
@@ -226,12 +228,15 @@ export const tagToCategoryMap = {
   "Povo Negro": "Saúde da População Negra",
   "Op 2017": "Orçamento Participativo 2017",
   "Lei Seca": "Lei Seca (Porto Alegre)",
+  CRIPs: "Centros de Relação Institucional Participativa",
 
   "Conselho Municipal de Saúde": "Conselho Municipal de Saúde (Porto Alegre)",
   "Casa dos Conselhos": "Casa dos Conselhos (Porto Alegre)",
   COMTU: "Conselho Municipal de Transportes Urbanos (Porto Alegre)",
   CMDUA:
     "Conselho Municipal de Desenvolvimento Urbano Ambiental (Porto Alegre)",
+  "Auditório da SMPG":
+    "Auditório da Secretaria Municipal de Planejamento de Gestão",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
   Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
@@ -251,6 +256,7 @@ export const tagToCategoryMap = {
   Uniritter: "Centro Universitário Ritter dos Reis",
   Estácio: "Faculdade Estácio",
   Ulbra: "Universidade Luterana do Brasil",
+  "Emef Migrantes": "EMEF Migrantes",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -416,6 +422,7 @@ export const tagToCategoryMap = {
   "Obras da Copa de 2014": "2014 FIFA World Cup Construction Projects",
   Apae: "Associação de Pais e Amigos dos Excepcionais",
   Tradicionalismo: "Sindicatos Rurais",
+  IPTU: "Imposto sobre a Propriedade Predial e Territorial Urbana",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   "Campanha do Agasalho": metadata =>
@@ -461,6 +468,9 @@ export const tagToCategoryMap = {
   "Cruz Vermelha do Brasil": "Brazilian Red Cross",
   "Grupo Experimental de Dança (GED)":
     "Grupo Experimental de Dança de Porto Alegre",
+  "Associação Comercial de Porto Alegre (ACPA)":
+    "Associação Comercial de Porto Alegre",
+  "Reunião-almoço Tá Na Mesa": "Tá na Mesa",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -468,7 +478,6 @@ export const tagToCategoryMap = {
   Futebol: "Association football in Porto Alegre",
   roubo: "Crime in Porto Alegre",
   Flagrante: "Crime in Porto Alegre",
-  Habitação: "Housing in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
   Procissão: "Processions in Porto Alegre",
   Aéreas: "Aerial photographs of Porto Alegre",
@@ -503,6 +512,7 @@ export const tagToCategoryMap = {
   Bocha: "Bocce in Porto Alegre",
   Memória: "History of Porto Alegre",
   Acidente: "Road accidents in Porto Alegre",
+  Acidentalidade: "Road accidents in Porto Alegre",
   Varejo: "Retail in Porto Alegre",
   Indústria: "Industry in Porto Alegre",
   Espetáculo: "Shows in Porto Alegre",
@@ -524,6 +534,9 @@ export const tagToCategoryMap = {
   "Arte Urbana": "Street art in Porto Alegre",
   "Obra de arte": "Art of Porto Alegre",
   "Iluminação Pública": "Street lights in Porto Alegre",
+
+  Páscoa: metadata =>
+    `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
 
   Nuvens: "Clouds in Rio Grande do Sul",
 
@@ -548,6 +561,7 @@ export const tagToCategoryMap = {
   Empreendedorismo: "Entrepreneurship in Brazil",
   Adolescente: "Teenagers of Brazil",
   Poda: "Pruning in Brazil",
+  Remanejo: "Pruning in Brazil",
   Embaixada: "Embassies in Brazil",
   Consulado: "Diplomatic missions to Brazil",
   "Consul Honorária dos Países Baixos em Porto Alegre":
@@ -558,7 +572,6 @@ export const tagToCategoryMap = {
   Ambulantes: "Street vendors in Brazil",
   Gripe: "Influenza vaccination in Brazil",
   Ginástica: "Gymnastics in Brazil",
-  Páscoa: "Easter in Brazil",
   Pedestre: "Pedestrians in Brazil",
   Resgate: "Search and rescue in Brazil",
   Trilha: "Trails in Brazil",
@@ -575,7 +588,6 @@ export const tagToCategoryMap = {
   Restauração: "Restoration of buildings in Brazil",
   Maratona: "Marathons in Brazil",
   Deslizamento: "Landslides in Brazil",
-  Terreno: "Real estate in Brazil",
   Internet: "Internet in Brazil",
   Fotografia: "Photography in Brazil",
   Dragagem: "Dredging in Brazil",
@@ -672,7 +684,6 @@ export const tagToCategoryMap = {
   "Bloqueio no trânsito": "Closed roads",
   Apreensão: "Confiscation",
   "Ação Integrada": "Community-driven programs",
-  "Educação Técnica": "Career and technical education",
   "Saúde Bucal": "Oral health",
   Convite: "Invitations",
   Lançamento: "Product launches",
@@ -736,4 +747,7 @@ export const tagToCategoryMap = {
   Passeio: "Walking tours",
   "Volta às aulas": "Back to school",
   "Comércio Irregular": "Gray market",
+  "Reintegração de Posse": "Eviction",
+  "Curso de Mecânica": "Mechanics",
+  "Maratona de Dança": "Dance marathons",
 };

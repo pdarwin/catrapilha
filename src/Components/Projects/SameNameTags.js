@@ -8,6 +8,7 @@ export const sameNameTags = [
   "Anfiteatro Pôr do Sol",
   "Aplicativo 156+POA",
   "Arena do Grêmio",
+  "Arroio Cavalhada",
   "Arroio Dilúvio",
   "Arroio Sarandi",
   "Associação Hospitalar Vila Nova",
@@ -20,7 +21,9 @@ export const sameNameTags = [
   "Avenida Sertório",
   "Avenida Severo Dullius",
 
+  "Balada Segura",
   "Banco de Talentos",
+  "Biblioteca Ecológica Infantil Maria Dinorah",
   "Bikepoa",
   "Brechocão",
   "Brique da Redenção",
@@ -90,6 +93,7 @@ export const sameNameTags = [
   "Grêmio Foot-Ball Porto Alegrense",
 
   "Hospital Moinhos de Vento",
+  "Hospital Santa Ana",
 
   "Ilha da Pintada",
   "Instituto Caldeira",
@@ -101,6 +105,7 @@ export const sameNameTags = [
   "Liquida Porto Alegre",
   "Lomba do Pinheiro",
 
+  "Maio Amarelo",
   "Maio Vermelho",
   "Moinhos de Vento",
   "Morro Ricaldone",
@@ -152,6 +157,7 @@ export const sameNameTags = [
   "Teatro Renascença",
   "TelessaúdeRS",
   "Terminal Triângulo",
+  "Todos Contra O Assédio",
   "Todos Somos Porto Alegre",
   "Trensurb",
   "Tribunal de Justiça do Estado do Rio Grande do Sul",
