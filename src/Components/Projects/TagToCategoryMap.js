@@ -58,6 +58,8 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Relações Institucionais":
     "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
+  "relações Institucionais":
+    "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   Smri: "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   "Esportes, Recreação e Lazer":
     "Secretaria Municipal de Esportes, Recreação e Lazer",
@@ -184,7 +186,6 @@ export const tagToCategoryMap = {
     "Official visits involving the Municipality of Porto Alegre",
   "Viagem à Europa":
     "Official visits involving the Municipality of Porto Alegre",
-  Convênio: "Partnerships involving the Municipality of Porto Alegre",
   "Coletiva de Imprensa":
     "Press conferences by the Municipality of Porto Alegre",
   "Entrevista Coletiva":
@@ -194,6 +195,7 @@ export const tagToCategoryMap = {
   "Diretoria de Vigilância em Saúde (DVS)":
     "Diretoria de Vigilância em Saúde de Porto Alegre",
   "Vigilância em Saúde": "Diretoria de Vigilância em Saúde de Porto Alegre",
+  "Vigilância Em Saúde": "Diretoria de Vigilância em Saúde de Porto Alegre",
   "Vigilância Sanitária": "Diretoria de Vigilância em Saúde de Porto Alegre",
   "Serviço de Atendimento Móvel de Urgência (SAMU)":
     "Serviço de Atendimento Móvel de Urgência",
@@ -280,6 +282,8 @@ export const tagToCategoryMap = {
     "Centros de Atenção Psicossocial Álcool e Drogas",
   "Unidade de Saúde Orfanotrófrio": "Unidade de Saúde Orfanotrófio",
   "Unidade de Saúde Animal Victória (Usav)": "Unidade de Saúde Animal Victória",
+  "Hospital de Clínicas de Porto Alegre (HCPA)":
+    "Hospital de Clínicas de Porto Alegre",
 
   "Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
@@ -511,13 +515,12 @@ export const tagToCategoryMap = {
   Bicicleta: "Bicycles in Porto Alegre",
   Bocha: "Bocce in Porto Alegre",
   Memória: "History of Porto Alegre",
-  Acidente: "Road accidents in Porto Alegre",
-  Acidentalidade: "Road accidents in Porto Alegre",
   Varejo: "Retail in Porto Alegre",
   Indústria: "Industry in Porto Alegre",
   Espetáculo: "Shows in Porto Alegre",
   Hipismo: "Equestrian sports in Porto Alegre",
   Fauna: "Animals of Porto Alegre",
+  Ave: "Birds of Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
   "Artes Cênicas": "Performing arts in Porto Alegre",
   "Transporte Público": "Public transport in Porto Alegre",
@@ -539,6 +542,7 @@ export const tagToCategoryMap = {
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
 
   Nuvens: "Clouds in Rio Grande do Sul",
+  Semáforos: "Traffic lights in Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
   Dengue: "Dengue in Brazil",
@@ -608,6 +612,9 @@ export const tagToCategoryMap = {
   Casamento: "Collective weddings in Brazil",
   Oficina: "Workshops (meetings) in Brazil",
   Workshop: "Workshops (meetings) in Brazil",
+  Robótica: "Robotics in Brazil",
+  Urbanização: "Urbanization in Brazil",
+  Urbanismo: "Urbanism in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -625,7 +632,6 @@ export const tagToCategoryMap = {
   "Tratamento de água": "Water treatment in Brazil",
   "lavagem de vias e pontos": "Street cleaning in Brazil",
   "caminhões-pipa": "Tank trucks in Brazil",
-  "Porão do Paço": "Basements in Brazil",
   "doação de sangue": "Blood donation in Brazil",
   "Ambulatório Odontológico": "Dental clinics in Brazil",
   "Teste do Pezinho": "Neonatal heel pricks in Brazil",
@@ -636,6 +642,7 @@ export const tagToCategoryMap = {
   "Leito Hospitalar": "Hospital beds in Brazil",
   "Economia Solidária": "Social economy in Brazil",
   "Novembro Azul": "Movember in Brazil",
+  "Food truck": "Food trucks in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -645,8 +652,6 @@ export const tagToCategoryMap = {
     `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
   "Programação do Reveillon": metadata =>
     `New Year ${getYear(metadata.humanReadableDate)} in Brazil`,
-  "Concerto Musical": metadata =>
-    `${getYear(metadata.humanReadableDate)} concerts in Brazil`,
 
   Transexualidade: "Transgender in South America",
 
@@ -666,8 +671,6 @@ export const tagToCategoryMap = {
   "Consulta Pública": "Public consultation",
   Capina: "Weed control",
   Roçada: "String trimmers",
-  Mutirão: "Task forces",
-  "Força-Tarefa": "Task forces",
   "Adoção de animais": "Animal adoption",
   "Educação Especial": "Special education",
   "Carnaval de Rua": "Street carnival",
@@ -675,7 +678,6 @@ export const tagToCategoryMap = {
   Debate: "Debating",
   Interdição: "Forced business closures",
   "Inclusão Social": "Social inclusion",
-  Urbanismo: "Urbanism",
   Mulher: "Gender equality",
   Medicamentos: "Pharmaceutical drugs",
   Sangue: "Blood collection",
@@ -750,4 +752,6 @@ export const tagToCategoryMap = {
   "Reintegração de Posse": "Eviction",
   "Curso de Mecânica": "Mechanics",
   "Maratona de Dança": "Dance marathons",
+  "Mutirão de cirurgias": "Surgery",
+  "Parceria Público-Privada": "Public-private partnership projects",
 };

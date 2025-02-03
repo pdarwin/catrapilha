@@ -356,6 +356,13 @@ const getCategoriesFromTags = metadata => {
     categories.push("Paço Municipal de Porto Alegre");
   }
 
+  if (
+    !(tags.includes("Sala da Fonte") || tags.includes("Porão do Paço")) &&
+    tags.includes("Pinacoteca Aldo Locatelli")
+  ) {
+    categories.push("Pinacoteca Aldo Locatelli");
+  }
+
   categories.push(...getPplCategories(metadata));
 
   if (
@@ -386,6 +393,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Transporte e Circulaçao") ||
       tags.includes("Transporte e Circulação") ||
       tags.includes("Trânsito e Circulação") ||
+      tags.includes("Transito e Transporte") ||
       tags.includes("Circulação") ||
       tags.includes("Circulação e Transporte") ||
       tags.includes("Agentes de Trânsito") ||
@@ -603,7 +611,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Grupo Experimental de Dança (GED)") ||
       tags.includes(
         "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)"
-      )
+      ) ||
+      tags.includes("Clássicos na Pinacoteca")
     ) &&
     tags.includes("Cultura")
   ) {
@@ -638,7 +647,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Vistoria") ||
     tags.includes("Agentes de Fiscalização")
   ) {
-    categories.push("Inspections");
+    categories.push("Inspections in Brazil");
   }
 
   if (
@@ -802,7 +811,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Tecnologia") ||
     tags.includes("Cidades Inteligentes") ||
     tags.includes("Computador") ||
-    tags.includes("Internet")
+    tags.includes("Internet") ||
+    tags.includes("Robótica")
   ) {
     categories.push("Technology in Porto Alegre");
   }
@@ -852,6 +862,14 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    tags.includes("Mutirão") ||
+    tags.includes("Força-Tarefa") ||
+    tags.includes("Mutirão de cirurgias")
+  ) {
+    categories.push("Task forces in Brazil");
+  }
+
+  if (
     !(tags.includes("Dia D de Vacinação") || tags.includes("Gripe")) &&
     (tags.includes("Vacinação") ||
       tags.includes("Vacina") ||
@@ -895,7 +913,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Saúde do Idoso") ||
     tags.includes("Ambulatório Odontológico") ||
     tags.includes("doação e transplante de órgãos") ||
-    tags.includes("Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)")
+    tags.includes("Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)") ||
+    tags.includes("Mutirão de cirurgias")
   ) {
     categories.push("Healthcare in Porto Alegre");
   }
@@ -1028,6 +1047,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Urban planning in Brazil");
   }
 
+  if (tags.includes("Convênio") || tags.includes("Parceria Público-Privada")) {
+    categories.push("Partnerships involving the Municipality of Porto Alegre");
+  }
+
   if (
     !(
       tags.includes("Orçamento Participativo 2018") || tags.includes("Op 2017")
@@ -1085,7 +1108,23 @@ const getCategoriesFromTags = metadata => {
     categories.push("Donations");
   }
 
-  if (tags.includes("Música") || tags.includes("Concerto Musical")) {
+  if (
+    tags.includes("Acidente") ||
+    tags.includes("Acidentalidade") ||
+    tags.includes("Mortes no trânsito")
+  ) {
+    categories.push("Road accidents in Porto Alegre");
+  }
+
+  if (tags.includes("Mortes no trânsito")) {
+    categories.push("Death in Porto Alegre");
+    categories.push("Road accidents with fatalities");
+  }
+
+  if (
+    !tags.includes("Clássicos na Pinacoteca") &&
+    (tags.includes("Música") || tags.includes("Concerto Musical"))
+  ) {
     categories.push("Music of Porto Alegre");
   }
 
@@ -1185,8 +1224,26 @@ const getCategoriesFromTags = metadata => {
     categories.push("Meetings in Porto Alegre");
   }
 
+  if (tags.includes("Manifestação")) {
+    categories.push("Demonstrations and protests in Porto Alegre");
+    categories.push(
+      `Demonstrations and protests in Brazil in ${getYear(
+        metadata.humanReadableDate
+      )}`
+    );
+  }
+
   if (!tags.includes("Fórum da Liberdade") && tags.includes("Conferência")) {
     categories.push("Conferences in Brazil");
+  }
+
+  if (
+    tags.includes("Concerto Musical") ||
+    tags.includes("Clássicos na Pinacoteca")
+  ) {
+    categories.push(
+      `${getYear(metadata.humanReadableDate)} concerts in Brazil`
+    );
   }
 
   if (
@@ -1217,6 +1274,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Caminhada") ||
       tags.includes("Capacitação") ||
       tags.includes("Casamento") ||
+      tags.includes("Clássicos na Pinacoteca") ||
       tags.includes("Coletiva de Imprensa") ||
       tags.includes("Concerto Musical") ||
       tags.includes("Conferência") ||
@@ -1231,6 +1289,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Homenagem") ||
       tags.includes("Inauguração") ||
       tags.includes("Lançamento") ||
+      tags.includes("Manifestação") ||
       tags.includes("Mutirão") ||
       tags.includes("Oficina") ||
       tags.includes("Outubro Rosa") ||

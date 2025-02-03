@@ -58,6 +58,7 @@ const sameNameKeywords = [
   "Cássio Trogildo",
   "Cezar Schirmer",
   "Dilan Camargo",
+  "Dori Goren",
   "Edson Leal Pujol",
   "Eduardo Leite",
   "Erno Harzheim",
