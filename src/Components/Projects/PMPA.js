@@ -182,8 +182,10 @@ const processImageMetadata = htmlResponse => {
     $(".views-field-field-fotografo .field-content").text().trim() ||
     "Unknown Author";
   const description1 =
-    $(".views-field-field-legenda .field-content").text().trim() ||
-    "No description available";
+    $(".views-field-field-legenda .field-content")
+      .text()
+      .trim()
+      .replace(/"( *)/, '"') || "No description available";
   const publicationDate =
     $(".views-field-field-data-de-publicacao time").attr("datetime") || null;
   const humanReadableDate =
@@ -196,9 +198,9 @@ const processImageMetadata = htmlResponse => {
       .replace(/^\s*Na foto:\s*/, "")
       .trim() || null;
   // Combine "naFoto" with description if it exists
-  const description = naFoto
-    ? `${description1}<br/>(Na foto: ${naFoto})`
-    : description1;
+  const description = (
+    naFoto ? `${description1}<br/>(Na foto: ${naFoto})` : description1
+  ).replace("|", "{{!}}");
 
   const tags =
     $(".views-field-field-tags .field-content a")
@@ -246,30 +248,21 @@ const processImageMetadata = htmlResponse => {
 const processDescription = description => {
   if (!description) return "No Description";
 
-  // Remove anything after "Foto:" and trim the string
-  if (description.match(/\.?\s?Fotos?:/)) {
-    description = description
-      .replace("A Foto: ", "")
-      .split(/\.?\s?Fotos?:/)[0]
-      .trim();
+  // Remove anything after specific keywords and trim the string
+  const keywords = [
+    /\.?\s?Fotos?:/,
+    /\.?\s?Local:/,
+    /\.?\s?Arte:/,
+    /\.?\s?Endereço:/,
+    /\.<br\/>/,
+  ];
+  for (const keyword of keywords) {
+    if (description.match(keyword)) {
+      description = description.split(keyword)[0].trim();
+    }
   }
 
-  if (description.match(/\.?\s?Local:/)) {
-    description = description.split(/\.?\s?Local:/)[0].trim();
-  }
-
-  if (description.match(/\.?\s?Arte:/)) {
-    description = description.split(/\.?\s?Arte:/)[0].trim();
-  }
-
-  if (description.match(/\.?\s?Endereço:/)) {
-    description = description.split(/\.?\s?Endereço:/)[0].trim();
-  }
-
-  if (description.includes(".<br/>")) {
-    description = description.split(".<br/>")[0].trim();
-  }
-
+  // Remove specific patterns and unwanted characters
   description = description
     .replace(
       /Porto\s\s?Alegre(, RS)?,?\.?(\s*?Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\.?\s?-?\s?/,
@@ -278,20 +271,21 @@ const processDescription = description => {
     .replace(/[/:]/g, "-")
     .replace(/[#?]/g, "");
 
-  // Truncate at the end of the 5th word with more than 3 characters
+  // Truncate at the end of the 6th word with more than 3 characters
   const words = description.split(" ");
   let count = 0;
-  const truncatedDescription = [];
+  const truncatedDescription = words.filter(word => {
+    if (word.length > 3) count++;
+    return count <= 6; // Keep only the first 6 words with more than 3 characters
+  });
 
-  for (const word of words) {
-    if (word.length > 3) {
-      count++;
-    }
-    truncatedDescription.push(word);
-    if (count >= 6) break; // Stop after 5 words with more than 3 characters
+  // Join the words and remove trailing "." if it exists
+  let result = truncatedDescription.join(" ").trim() || "No Description";
+  if (result.endsWith(".")) {
+    result = result.slice(0, -1); // Remove the last character (the ".")
   }
 
-  return truncatedDescription.join(" ") || "No Description";
+  return result;
 };
 
 const getCategoriesFromTags = metadata => {
@@ -378,7 +372,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("sanção de Projeto de Lei") ||
     tags.includes("Lei") ||
     tags.includes("Alvará") ||
-    tags.includes("Lei Orçamentária Anual (LOA)")
+    tags.includes("Lei Orçamentária Anual (LOA)") ||
+    tags.includes("Lei de Diretrizes Orçamentárias (LDO)")
   ) {
     categories.push("Law of Porto Alegre");
   }
@@ -499,7 +494,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
   }
 
-  if (!tags.includes("Curso") && tags.includes("Capacitação")) {
+  if (
+    !tags.includes("Curso") &&
+    (tags.includes("Capacitação") || tags.includes("Formação"))
+  ) {
     categories.push("Trainings by the Municipality of Porto Alegre");
   }
 
@@ -511,7 +509,8 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    (tags.includes("Capacitação") && tags.includes("Curso")) ||
+    ((tags.includes("Capacitação") || tags.includes("Formação")) &&
+      tags.includes("Curso")) ||
     tags.includes("Curso de Formação")
   ) {
     categories.push("Training courses by the Municipality of Porto Alegre");
@@ -717,6 +716,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Inclusão Social") ||
     tags.includes("Mulher") ||
     tags.includes("Comissão da Pessoa com Deficiência") ||
+    tags.includes("Pessoa com Deficiência") ||
     tags.includes("Trabalho e Emprego")
   ) {
     categories.push("Society of Porto Alegre");
@@ -792,7 +792,6 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Atletismo") ||
     tags.includes("Vôlei") ||
     tags.includes("Basquete") ||
-    tags.includes("Desenvolvimento Social e Esporte") ||
     tags.includes("Desenvolvimento Economico e Esporte")
   ) {
     categories.push("Sports in Porto Alegre");
@@ -906,6 +905,7 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Medicina") ||
     tags.includes("Exame médico") ||
+    tags.includes("Atenção Básica") ||
     tags.includes("Atenção Primária à Saúde (APS)") ||
     tags.includes("Assistência Hospitalar") ||
     tags.includes("Atendimento em Casa") ||
@@ -980,6 +980,20 @@ const getCategoriesFromTags = metadata => {
 
   if (!tags.includes("ROMU") && tags.includes("Guarda Municipal")) {
     categories.push("Guarda Municipal (Porto Alegre)");
+  }
+
+  if (
+    !tags.includes("Albergue Felipe Diehl") &&
+    (tags.includes("Abrigos") ||
+      tags.includes("Albergues") ||
+      tags.includes("Albergue Municipal") ||
+      tags.includes("Acolhimento"))
+  ) {
+    categories.push("Shelters in Brazil");
+  }
+
+  if (tags.includes("Obra de arte") || tags.includes("Arte Cemiterial")) {
+    categories.push("Art of Porto Alegre");
   }
 
   if (
@@ -1094,6 +1108,16 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !(
+      tags.includes("Orla Moacyr Scliar") ||
+      tags.includes("Parque Urbano da Orla Moacyr Scliar")
+    ) &&
+    tags.includes("Orla do Guaíba")
+  ) {
+    categories.push("Parque da Orla do Guaíba");
+  }
+
+  if (
     !tags.includes("Acampamento Farroupilha") &&
     tags.includes("Semana Farroupilha")
   ) {
@@ -1114,6 +1138,11 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Mortes no trânsito")
   ) {
     categories.push("Road accidents in Porto Alegre");
+  }
+
+  if (tags.includes("Adutora")) {
+    categories.push("Water pipelines in Brazil");
+    categories.push("Water supply infrastructure in Porto Alegre");
   }
 
   if (tags.includes("Mortes no trânsito")) {
@@ -1171,6 +1200,12 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("Semana de Porto Alegre")) {
     categories.push(
       `Semana de Porto Alegre ${getYear(metadata.humanReadableDate)}`
+    );
+  }
+
+  if (tags.includes("Festival do Japão")) {
+    categories.push(
+      `Festival do Japão RS ${getYear(metadata.humanReadableDate)}`
     );
   }
 
@@ -1262,16 +1297,19 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Fórum da Liberdade") ||
       tags.includes("Material Escolar") ||
       tags.includes("Salão Internacional de Desenho para Imprensa (Sidi)") ||
-      tags.includes("Semana de Porto Alegre")
+      tags.includes("Semana de Porto Alegre") ||
+      tags.includes("Festival do Japão")
     ) &&
     (tags.includes("Abertura") ||
       tags.includes("Ação Rua") ||
       tags.includes("Aniversário") ||
       tags.includes("Apresentação") ||
+      tags.includes("Asfalto") ||
       tags.includes("Audiência") ||
       tags.includes("Aula aberta") ||
       tags.includes("Aula Inaugural") ||
       tags.includes("Caminhada") ||
+      tags.includes("Campanha do Agasalho") ||
       tags.includes("Capacitação") ||
       tags.includes("Casamento") ||
       tags.includes("Clássicos na Pinacoteca") ||
@@ -1284,6 +1322,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Dia do Desafio") ||
       tags.includes("Encerramento") ||
       tags.includes("Espetáculo") ||
+      tags.includes("Formação") ||
       tags.includes("Formatura") ||
       tags.includes("Fórum") ||
       tags.includes("Homenagem") ||
@@ -1304,6 +1343,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Semana Cidade Limpa") ||
       tags.includes("Seminário") ||
       tags.includes("Simpósio") ||
+      tags.includes("Tapa Buracos") ||
       tags.includes("Vacinação") ||
       tags.includes("Visita") ||
       tags.includes("Vistoria") ||
@@ -1332,12 +1372,15 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Festival de Inverno") ||
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha") ||
-      tags.includes("Trabalho")
+      tags.includes("Trabalho") ||
+      tags.includes("Festival do Japão")
     ) &&
     (tags.includes("Festejos") ||
       tags.includes("Festival") ||
       tags.includes("Semana Farroupilha") ||
-      tags.includes("Poa Em Cena"))
+      tags.includes("Poa Em Cena") ||
+      tags.includes("Feira Temática") ||
+      tags.includes("Semana do Japão"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
