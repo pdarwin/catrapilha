@@ -800,7 +800,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Gre-nal de Todos") &&
+    !(tags.includes("Gre-nal de Todos") || tags.includes("Gre-Nal")) &&
     (tags.includes("Futebol") || tags.includes("Futebol de Várzea"))
   ) {
     categories.push("Association football in Porto Alegre");
@@ -1402,7 +1402,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Corrida") ||
     tags.includes("Campeonato") ||
     tags.includes("Jogos Abertos") ||
-    tags.includes("Gre-nal de Todos")
+    tags.includes("Gre-nal de Todos") ||
+    tags.includes("Gre-Nal")
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`

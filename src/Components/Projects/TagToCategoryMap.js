@@ -416,6 +416,7 @@ export const tagToCategoryMap = {
   "Avenida Castello Branco": "Avenida Presidente Castello Branco",
   "Entrada da cidade": "Avenida Presidente Castello Branco",
   "Av. Mauá": "Avenida Mauá",
+  "Av. Tronco": "Avenida Moab Caldas",
   "Moab Caldas": "Avenida Moab Caldas",
   "Avenida Voluntários da Pátria": "Rua Voluntários da Pátria (Porto Alegre)",
   "Praça Revolução Farroupilha (Trensurb)": "Praça Revolução Farroupilha",
@@ -502,6 +503,7 @@ export const tagToCategoryMap = {
     "Associação Comercial de Porto Alegre",
   "Reunião-almoço Tá Na Mesa": "Tá na Mesa",
   "Gre-nal de Todos": "Grenal",
+  "Gre-Nal": "Grenal",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
