@@ -80,6 +80,7 @@ const sameNameKeywords = [
   "Michel Costa",
   "Nísia Trindade",
   "Osmar Terra",
+  "Paixão Côrtes",
   "Ramiro Rosário",
   "Ronaldo Nogueira",
   "Skank",

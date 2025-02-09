@@ -212,12 +212,11 @@ export default function ItemDetail() {
       });
     } finally {
       setLoading(false); // Reset loading state when done
+      setIgnoreWarnings(false);
     }
   };
 
   const removeAndGoNext = (itemId, status, items, dataset) => {
-    setLocalItems(items);
-
     const updatedDataset = [...dataset, { id: itemId, status }];
     setLocalData(updatedDataset);
 
