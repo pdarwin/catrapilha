@@ -1,4 +1,4 @@
-import { getYear } from "../../Utils/DateUtils";
+import { getYear } from "../../../Utils/DateUtils";
 
 // Define a mapping of tags to categories
 export const tagToCategoryMap = {
@@ -59,8 +59,6 @@ export const tagToCategoryMap = {
   "Infraestrutura e Urbanismo":
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Relações Institucionais":
-    "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
-  "relações Institucionais":
     "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   Smri: "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   "Esportes, Recreação e Lazer":
@@ -238,6 +236,10 @@ export const tagToCategoryMap = {
   CRIPs: "Centros de Relação Institucional Participativa",
   "Programa de Trabalho Educativo (PTE)": "Programa de Trabalho Educativo",
   "Projeto Mais Comunidade": "Mais Comunidade",
+  "Núcleo Municipal de Segurança do Paciente":
+    "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
+  "Segurança do Paciente":
+    "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -809,4 +811,5 @@ export const tagToCategoryMap = {
   bullying: "Bullying",
   "Saúde Prisional": "Prison healthcare",
   "Escorpião Amarelo": "Tityus serrulatus",
+  "#proconpoaresponde": "Hashtags",
 };

@@ -3,6 +3,7 @@ export const validTags = [
   "(EBAB) Moinhos de Vento",
   "(Emei JP) Cantinho Amigo",
   "#eufaçopoa",
+  "#proconpoaresponde",
   "4º Distrito",
 
   "A Cara da Obra",
@@ -333,6 +334,7 @@ export const validTags = [
   "Desenvolvimento Social e Esporte",
   "Deslizamento",
   "desvio de trânsito",
+  "Dia D",
   "Dia D de Vacinação",
   "Dia do Desafio",
   "Dia do Gari",
@@ -659,6 +661,7 @@ export const validTags = [
   "Novembro Azul",
   "Novo Marco Global",
   "Núcleo de Imunizações DVS (NI)",
+  "Núcleo Municipal de Segurança do Paciente",
   "Nutrição",
   "Nuvens",
 
@@ -890,6 +893,7 @@ export const validTags = [
   "Sede do Tribunal de Contas do Estado (TCE)",
   "Seguranç",
   "Segurança",
+  "Segurança do Paciente",
   "Segurança Publica",
   "Segurança Pública",
   "Semáforos",

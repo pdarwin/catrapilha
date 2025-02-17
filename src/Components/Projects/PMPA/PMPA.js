@@ -1,13 +1,14 @@
-import { actionsD } from "../../Reducers/DataReducer";
-import { fetchPMPA1Page } from "../../Services/PMPAApis";
+import { actionsD } from "../../../Reducers/DataReducer";
+import { fetchPMPA1Page } from "../../../Services/PMPAApis";
 import {
   formatDateToISO,
   formatFriendlyDate,
   getYear,
-} from "../../Utils/DateUtils";
-import { getProject } from "../../Utils/ProjectUtils";
+} from "../../../Utils/DateUtils";
+import { getProject } from "../../../Utils/ProjectUtils";
 import { getPplCategories } from "./PplCategories";
 import { sameNameTags } from "./SameNameTags";
+import { tagReplacements } from "./TagReplacements";
 import { tagToCategoryMap } from "./TagToCategoryMap";
 import { validTags } from "./ValidTags";
 const cheerio = require("cheerio");
@@ -143,35 +144,6 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
     throw error; // Ensure any unhandled errors are propagated
   }
 };
-
-// export const findNaFotos = async dataState => {
-//   try {
-//     // Filter items in dataState.data with status = "Y"
-//     const itemsToProcess = dataState.data.filter(item => item.status === "Y");
-
-//     // Iterate over all filtered items
-//     for (const item of itemsToProcess) {
-//       if (item.id < 468) continue;
-//       // Fetch the page for the current item
-//       const res = await fetchPMPA1Page(item.id);
-
-//       if (res && res.data) {
-//         const metadata = processImageMetadata(res.data);
-
-//         // Check if metadata contains naFoto and log the description
-//         if (metadata.naFoto) {
-//           console.log(
-//             item.id + " updated description: " + metadata.description
-//           );
-//         }
-//       }
-
-//       console.log("Done item: " + item.id);
-//     }
-//   } catch (error) {
-//     console.error("Error in findNaFotos:", error);
-//   }
-// };
 
 const processImageMetadata = htmlResponse => {
   const $ = cheerio.load(htmlResponse);
@@ -585,7 +557,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Procon Municipal") ||
     tags.includes("Procon Móvel") ||
-    tags.includes("Procon Móvel")
+    tags.includes("Procon") ||
+    tags.includes("#proconpoaresponde")
   ) {
     categories.push("Procon Porto Alegre");
   }
@@ -986,7 +959,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Public administration in Brazil");
   }
 
-  categories.push(...getMappedCategories(metadata));
+  categories.push(...getMappedCategories(metadata, tags));
 
   if (
     !(
@@ -1490,23 +1463,19 @@ const getCategoriesFromTags = metadata => {
   return categories;
 };
 
-const getMappedCategories = metadata => {
-  if (!Array.isArray(metadata?.tags)) {
-    throw new Error("Invalid input: metadata.tags must be an array.");
-  }
-
+const getMappedCategories = (metadata, tags) => {
   const categories = [];
   const unmatchedTags = [];
 
   // Check each tag against sameNameTags and add it directly if there's a match
-  metadata.tags.forEach(tag => {
+  tags.forEach(tag => {
     if (sameNameTags.includes(tag) && !categories.includes(tag)) {
       categories.push(tag);
     }
   });
 
   // Loop through the tags and add the corresponding category if it exists
-  metadata.tags.forEach(tag => {
+  tags.forEach(tag => {
     const category = tagToCategoryMap[tag];
 
     if (category) {
@@ -1545,12 +1514,4 @@ const setReadyToUploadFlag = metadata => {
 
   // Set the readyToUpload flag based on the validity check
   return allTagsValid;
-};
-
-const tagReplacements = {
-  "Acampamento Farropilha": "Acampamento Farroupilha",
-  "Desenvolviment Econômico": "Desenvolvimento Econômico",
-  "Em Cena": "Poa Em Cena",
-  "Procissão de Nossa Senhora dos Navegantes":
-    "Festa de Nossa Senhora dos Navegantes",
 };

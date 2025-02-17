@@ -241,8 +241,8 @@ function getPersonByPositionAndYear(position, year) {
   return person ? person.name : null; // Return the person's name or null if not found
 }
 
-export const getPplCategories = (metadata, orTags) => {
-  const tags = orTags.map(tag => normalizeString(tag)); // Normalize tags
+export const getPplCategories = (metadata, tags) => {
+  tags = tags.map(tag => normalizeString(tag)); // Normalize tags
   const description = metadata.description
     ? normalizeString(metadata.description)
     : "";

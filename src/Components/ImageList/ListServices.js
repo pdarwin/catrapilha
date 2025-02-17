@@ -1,6 +1,6 @@
 import { actionsD } from "../../Reducers/DataReducer";
 import { getArqListItems } from "../../Services/ArqAPIs";
-import { getPMPA1ListItems } from "../Projects/PMPA";
+import { getPMPA1ListItems } from "../Projects/PMPA/PMPA";
 
 export const fetchListItems = async (dataState, dataDispatch) => {
   try {
