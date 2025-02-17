@@ -290,7 +290,7 @@ const processDescription = description => {
 
 const getCategoriesFromTags = metadata => {
   const categories = [];
-  const tags = metadata.tags;
+  const tags = metadata.tags.map(tag => tagReplacements[tag] || tag);
 
   if (
     tags.includes("Executivo") ||
@@ -357,8 +357,6 @@ const getCategoriesFromTags = metadata => {
     categories.push("Pinacoteca Aldo Locatelli");
   }
 
-  categories.push(...getPplCategories(metadata));
-
   if (
     tags.includes("Prédio público") ||
     tags.includes("Prédios e Edificações") ||
@@ -393,7 +391,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Circulação e Transporte") ||
       tags.includes("Agentes de Trânsito") ||
       tags.includes("Educação no Trânsito") ||
-      tags.includes("Mobilidade"))
+      tags.includes("Mobilidade") ||
+      tags.includes("Estação de Transbordo"))
   ) {
     categories.push("Transport in Porto Alegre");
   }
@@ -775,7 +774,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Cachorro") ||
     tags.includes("Gato") ||
-    tags.includes("Adoção de animais")
+    tags.includes("Adoção de animais") ||
+    tags.includes("Escorpião Amarelo")
   ) {
     categories.push("Animals of Porto Alegre");
   }
@@ -814,7 +814,8 @@ const getCategoriesFromTags = metadata => {
   if (
     !(
       tags.includes("Futebol de Várzea") ||
-      tags.includes("Jogos dos Estudantes Surdos")
+      tags.includes("Jogos dos Estudantes Surdos") ||
+      tags.includes("Mexatchê")
     ) &&
     (tags.includes("Esporte") ||
       tags.includes("Futsal") ||
@@ -900,6 +901,13 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !tags.includes("Instituto Penal Feminino de Porto Alegre") &&
+    tags.includes("Saúde Prisional")
+  ) {
+    categories.push("Prisons in Porto Alegre");
+  }
+
+  if (
     !(tags.includes("Dia D de Vacinação") || tags.includes("Gripe")) &&
     (tags.includes("Vacinação") ||
       tags.includes("Vacina") ||
@@ -944,6 +952,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Visita domiciliar") ||
     tags.includes("Clínica da Família") ||
     tags.includes("Saúde do Idoso") ||
+    tags.includes("Saúde Prisional") ||
     tags.includes("Ambulatório Odontológico") ||
     tags.includes("doação e transplante de órgãos") ||
     tags.includes("Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)") ||
@@ -1111,6 +1120,8 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
+  categories.push(...getPplCategories(metadata, tags));
+
   if (
     !(
       tags.includes("Enchente Porto Alegre Maio de 2024") ||
@@ -1134,7 +1145,10 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Acampamento Farroupilha") &&
+    !(
+      tags.includes("Acampamento Farroupilha") ||
+      tags.includes("Acampamento 2018")
+    ) &&
     tags.includes("Parque Maurício Sirotsky Sobrinho (Harmonia)")
   ) {
     categories.push("Parque Maurício Sirotski Sobrinho");
@@ -1252,7 +1266,10 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Acampamento Farroupilha") &&
+    !(
+      tags.includes("Acampamento Farroupilha") ||
+      tags.includes("Acampamento 2018")
+    ) &&
     tags.includes("Semana Farroupilha")
   ) {
     categories.push("Semana Farroupilha in Porto Alegre");
@@ -1276,7 +1293,10 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
-  if (tags.includes("Acampamento Farroupilha")) {
+  if (
+    tags.includes("Acampamento Farroupilha") ||
+    tags.includes("Acampamento 2018")
+  ) {
     categories.push(
       `Acampamento Farroupilha (Porto Alegre, ${getYear(
         metadata.humanReadableDate
@@ -1340,7 +1360,9 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Material Escolar") ||
       tags.includes("Salão Internacional de Desenho para Imprensa (Sidi)") ||
       tags.includes("Semana de Porto Alegre") ||
-      tags.includes("Festival do Japão")
+      tags.includes("Acampamento 2018") ||
+      tags.includes("Festival do Japão") ||
+      tags.includes("Festa de Nossa Senhora dos Navegantes")
     ) &&
     (tags.includes("Abertura") ||
       tags.includes("Ação Rua") ||
@@ -1403,7 +1425,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Campeonato") ||
     tags.includes("Jogos Abertos") ||
     tags.includes("Gre-nal de Todos") ||
-    tags.includes("Gre-Nal")
+    tags.includes("Gre-Nal") ||
+    tags.includes("Mexatchê")
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`
@@ -1415,13 +1438,14 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Festival de Inverno") ||
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha") ||
+      tags.includes("Acampamento 2018") ||
       tags.includes("Trabalho") ||
+      tags.includes("Poa Em Cena") ||
       tags.includes("Festival do Japão")
     ) &&
     (tags.includes("Festejos") ||
       tags.includes("Festival") ||
       tags.includes("Semana Farroupilha") ||
-      tags.includes("Poa Em Cena") ||
       tags.includes("Feira Temática") ||
       tags.includes("Semana do Japão"))
   ) {
@@ -1453,8 +1477,11 @@ const getCategoriesFromTags = metadata => {
       categories.includes("2024 Porto Alegre floods") ||
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha") ||
+      tags.includes("Acampamento 2018") ||
       tags.includes("Natal") ||
-      tags.includes("Jogos dos Estudantes Surdos")
+      tags.includes("Jogos dos Estudantes Surdos") ||
+      tags.includes("Poa Em Cena") ||
+      tags.includes("Festa de Nossa Senhora dos Navegantes")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
@@ -1518,4 +1545,12 @@ const setReadyToUploadFlag = metadata => {
 
   // Set the readyToUpload flag based on the validity check
   return allTagsValid;
+};
+
+const tagReplacements = {
+  "Acampamento Farropilha": "Acampamento Farroupilha",
+  "Desenvolviment Econômico": "Desenvolvimento Econômico",
+  "Em Cena": "Poa Em Cena",
+  "Procissão de Nossa Senhora dos Navegantes":
+    "Festa de Nossa Senhora dos Navegantes",
 };

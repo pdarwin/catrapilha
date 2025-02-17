@@ -30,23 +30,31 @@ const keywordToCategoryMap = {
     "André Flores",
   "Comandante da Guarda Municipal, Marcelo Nascimento": "Marcelo Nascimento",
   "Cel QOEM Mário Yukio Ikeda": "Mário Yukio Ikeda",
-  "Vice-governador Gabriel Souza": "Gabriel Souza",
   "Secretária municipal de Habitação e Regularização Fundiária, Simone Somensi":
     "Simone Somensi",
   "Secretário municipal da Fazenda, Rodrigo Fantinel": "Rodrigo Fantinel",
   "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
     "Cezar Schirmer",
+  "Almir Junior": "Almir Júnior",
+  "André Barbosa": "André Barbosa (politician)",
+  "Aparecido Donizete": "Aparecido Donizete de Souza",
+  "Diretor-geral do DMAE": "Bruno Vanuzzi",
+  "Monica Leal": "Mônica Leal",
   "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
     "Idenir Cecchim",
-  "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
-    "Germano Bremm",
+  "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
+  "Secretária Municipal Cultura e Economia Criativa, Liliana Cardoso":
+    "Liliana Cardoso",
   "Secretário municipal de Administração e Patrimônio, André Barbosa":
     "André Barbosa (politician)",
-  "André Barbosa": "André Barbosa (politician)",
+  "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
+    "Cássio Trogildo",
+  "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
+    "Germano Bremm",
+  "Vice-governador Gabriel Souza": "Gabriel Souza",
+  "Vice-prefeita, Betina Worm": "Betina Worm",
+  "Wambert Gomes Di Lorenzo": "Wambert Di Lorenzo",
   "Záchia Paludo": "Maria de Fátima Záchia Paludo",
-  "Monica Leal": "Mônica Leal",
-  "Almir Junior": "Almir Júnior",
-  "Aparecido Donizete": "Aparecido Donizete de Souza",
 };
 
 const sameNameKeywords = [
@@ -54,7 +62,9 @@ const sameNameKeywords = [
   "Adão Cândido",
   "Ana Amélia Lemos",
   "Any Ortiz",
+  "Betina Worm",
   "Bruno Araújo",
+  "Bruno Vanuzzi",
   "Cássio Trogildo",
   "Cezar Schirmer",
   "Dilan Camargo",
@@ -74,6 +84,7 @@ const sameNameKeywords = [
   "João Fischer",
   "José Ivo Sartori",
   "Letícia Batistela",
+  "Liliana Cardoso",
   "Liziane Bayer",
   "Maria Helena Sartori",
   "Mauro Pinheiro",
@@ -85,7 +96,9 @@ const sameNameKeywords = [
   "Ronaldo Nogueira",
   "Skank",
   "Valdir Bonatto",
+  "Valéria Leopoldino",
   "Valter Nagelstein",
+  "Wambert Di Lorenzo",
   "Yossi Shelley",
 ];
 
@@ -191,6 +204,22 @@ const positionYearMap = {
       years: { start: 2022, end: 2022 },
     },
   ],
+  "poa em cena": [
+    {
+      name: "25º Porto Alegre em Cena (2018)",
+      years: { start: 2018, end: 2018 },
+    },
+    {
+      name: "26º Porto Alegre em Cena (2019)",
+      years: { start: 2019, end: 2019 },
+    },
+  ],
+  "festa de nossa senhora dos navegantes": [
+    {
+      name: "Festa de Nossa Senhora dos Navegantes (Porto Alegre, 2025)",
+      years: { start: 2025, end: 2025 },
+    },
+  ],
 };
 
 // Helper function to normalize strings (remove accents and convert to lowercase)
@@ -212,8 +241,8 @@ function getPersonByPositionAndYear(position, year) {
   return person ? person.name : null; // Return the person's name or null if not found
 }
 
-export const getPplCategories = metadata => {
-  const tags = metadata.tags.map(tag => normalizeString(tag)); // Normalize tags
+export const getPplCategories = (metadata, orTags) => {
+  const tags = orTags.map(tag => normalizeString(tag)); // Normalize tags
   const description = metadata.description
     ? normalizeString(metadata.description)
     : "";

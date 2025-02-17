@@ -194,6 +194,7 @@ export const tagToCategoryMap = {
   "Entrevista Coletiva":
     "Press conferences by the Municipality of Porto Alegre",
   "Rede Municipal de Ensino": "Rede Municipal de Ensino (Porto Alegre)",
+  "Rede Pública de Ensino": "Rede Municipal de Ensino (Porto Alegre)",
   "Núcleo de Imunizações DVS (NI)": "Núcleo de Imunizações DVS (Porto Alegre)",
   "Diretoria de Vigilância em Saúde (DVS)":
     "Diretoria de Vigilância em Saúde de Porto Alegre",
@@ -236,6 +237,7 @@ export const tagToCategoryMap = {
   "Lei Seca": "Lei Seca (Porto Alegre)",
   CRIPs: "Centros de Relação Institucional Participativa",
   "Programa de Trabalho Educativo (PTE)": "Programa de Trabalho Educativo",
+  "Projeto Mais Comunidade": "Mais Comunidade",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -282,6 +284,8 @@ export const tagToCategoryMap = {
   "Igreja Nossa Senhora das Dores":
     "Igreja Nossa Senhora das Dores (Porto Alegre)",
   "Assembléia Legislativa": "Legislative Assembly of Rio Grande do Sul",
+  "Santuário de Nossa Senhora do Rosário":
+    "Igreja Nossa Senhora do Rosário (Porto Alegre)",
 
   "Ministério da Saúde": "Ministry of Health of Brazil",
   "Força Nacional do SUS": "Força Nacional do Sistema Único de Saúde",
@@ -370,6 +374,7 @@ export const tagToCategoryMap = {
   "Bairro Higienópolis": "Higienópolis (Porto Alegre)",
   "Bairro Hípica": "Hípica",
   "Bairro Humaitá": "Humaitá (Porto Alegre)",
+  "Bairro IAPI": "Vila do IAPI",
   "Bairro Ipanema": "Ipanema (Porto Alegre)",
   "Bairro Jardim Carvalho": "Jardim Carvalho",
   "Bairro Jardim Itu-Sabará": "Jardim Itu-Sabará",
@@ -452,9 +457,7 @@ export const tagToCategoryMap = {
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
-  "Poa Em Cena": "Porto Alegre em Cena",
   "Dia do Desafio": "Challenge Day",
-  "Feira Ecológica": "Feira Orgânica Rômulo Telles",
   "Semana do Japão": "Semana do Japão (Porto Alegre)",
 
   "Campanha do Agasalho": metadata =>
@@ -553,6 +556,7 @@ export const tagToCategoryMap = {
   Flora: "Flora of Porto Alegre",
   Tradicionalismo: "Traditions of Porto Alegre",
   Emprego: "Labour in Porto Alegre",
+  Renda: "Labour in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -573,6 +577,7 @@ export const tagToCategoryMap = {
   "Iluminação Pública": "Street lights in Porto Alegre",
   "Cercamento Eletrônico": "Traffic cameras in Porto Alegre",
   "Totem iluminado": "Illuminated totems in Porto Alegre",
+  "Feira Ecológica": "Ecological farmers' markets in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -651,6 +656,8 @@ export const tagToCategoryMap = {
   Urbanismo: "Urbanism in Brazil",
   Parklet: "Parklets in Brazi",
   Fachada: "Facades in Brazil",
+  Brinquedo: "Toys in Brazil",
+  Revitalização: "Urban renewal in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -769,7 +776,6 @@ export const tagToCategoryMap = {
   Vítimas: "Victims",
   "Exame médico": "Physical examinations",
   Aeronáutica: "Aeronautics",
-  Revitalização: "Urban renewal",
   Catamarã: "Catamarans",
   "Doença Respiratória": "Diseases and disorders of the respiratory system",
   Leishmaniose: "Leishmaniasis",
@@ -799,4 +805,8 @@ export const tagToCategoryMap = {
   "Arte Cemiterial": "Funerary art",
   Videoconferência: "Videoconferencing",
   "Vírus T-linfotrópico humano (HTLV)": "Human T-lymphotropic virus",
+  "Estação de Transbordo": "Transport hubs",
+  bullying: "Bullying",
+  "Saúde Prisional": "Prison healthcare",
+  "Escorpião Amarelo": "Tityus serrulatus",
 };

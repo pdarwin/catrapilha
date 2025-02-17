@@ -101,12 +101,14 @@ export const sameNameTags = [
   "Ginásio Tesourinha",
   "Grêmio Foot-Ball Porto Alegrense",
 
+  "Hortomercado Parobé",
   "Hospital Moinhos de Vento",
   "Hospital Santa Ana",
 
   "Ilha da Pintada",
   "Instituto Caldeira",
   "Instituto Ling",
+  "Instituto Penal Feminino de Porto Alegre",
 
   "Largo Glênio Peres",
   "Largo Zumbi dos Palmares",
@@ -116,6 +118,7 @@ export const sameNameTags = [
 
   "Maio Amarelo",
   "Maio Vermelho",
+  "Mexatchê",
   "Moinhos de Vento",
   "Morro Ricaldone",
   "Museu de Porto Alegre Joaquim Felizardo",
@@ -144,6 +147,7 @@ export const sameNameTags = [
   "Praça Darcy Azambuja",
   "Praça Doutor Lopes Trovão",
   "Praia de Belas",
+  "Prefeitos de Praça",
   "Prefeitura nos Bairros",
   "Procuradoria-Geral do Município de Porto Alegre",
   "Programa Municipal de Rastreamento de Câncer Colorretal",
@@ -157,6 +161,7 @@ export const sameNameTags = [
   "Rua José Pedro Boessio",
 
   "Sala Álvaro Moreyra",
+  "Sala Cecy Frank",
   "Sala da Fonte",
   "Sala P. F. Gastal",
   "Semana Cidade Limpa",
@@ -165,6 +170,7 @@ export const sameNameTags = [
   "Sociedade Libanesa de Porto Alegre",
   "Sport Club Internacional",
 
+  "Teatro Carlos Carvalho",
   "Teatro de Câmara Túlio Piva",
   "Teatro Renascença",
   "TelessaúdeRS",
