@@ -343,7 +343,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Lei") ||
     tags.includes("Alvará") ||
     tags.includes("Lei Orçamentária Anual (LOA)") ||
-    tags.includes("Lei de Diretrizes Orçamentárias (LDO)")
+    tags.includes("Lei de Diretrizes Orçamentárias (LDO)") ||
+    tags.includes("Termos de Permissão uso bares da Orla do Guaíba")
   ) {
     categories.push("Law of Porto Alegre");
   }
@@ -364,7 +365,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Agentes de Trânsito") ||
       tags.includes("Educação no Trânsito") ||
       tags.includes("Mobilidade") ||
-      tags.includes("Estação de Transbordo"))
+      tags.includes("Estação de Transbordo") ||
+      tags.includes("DIA SEM CARRO"))
   ) {
     categories.push("Transport in Porto Alegre");
   }
@@ -533,7 +535,7 @@ const getCategoriesFromTags = metadata => {
     !tags.includes("Programa de Trabalho Educativo (PTE)") &&
     (tags.includes("Educação") ||
       tags.includes("Aula aberta") ||
-      tags.includes("Oficina") ||
+      tags.includes("Cidades Educadoras") ||
       tags.includes("Educação no Trânsito") ||
       tags.includes("Educação Básica") ||
       tags.includes("Educação Especial") ||
@@ -544,7 +546,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Educação Permanente") ||
       tags.includes("Ensino") ||
       tags.includes("Formatura") ||
-      tags.includes("Cidades Educadoras") ||
+      tags.includes("Oficina") ||
+      tags.includes("Oficina de Dança") ||
       tags.includes("Volta às aulas"))
   ) {
     categories.push("Education in Porto Alegre");
@@ -606,7 +609,9 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Companhia Municipal de Dança") ||
       tags.includes("Grupo Experimental de Dança (GED)")
     ) &&
-    (tags.includes("Dança") || tags.includes("Maratona de Dança"))
+    (tags.includes("Dança") ||
+      tags.includes("Maratona de Dança") ||
+      tags.includes("Oficina de Dança"))
   ) {
     categories.push("Dance in Porto Alegre");
   }
@@ -707,7 +712,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Mulher") ||
     tags.includes("Comissão da Pessoa com Deficiência") ||
     tags.includes("Pessoa com Deficiência") ||
-    tags.includes("Trabalho e Emprego")
+    tags.includes("Trabalho e Emprego") ||
+    tags.includes("evento social")
   ) {
     categories.push("Society of Porto Alegre");
   }
@@ -748,7 +754,8 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Cachorro") ||
     tags.includes("Gato") ||
     tags.includes("Adoção de animais") ||
-    tags.includes("Escorpião Amarelo")
+    tags.includes("Escorpião Amarelo") ||
+    tags.includes("macacos-prego")
   ) {
     categories.push("Animals of Porto Alegre");
   }
@@ -820,45 +827,8 @@ const getCategoriesFromTags = metadata => {
     categories.push("Technology in Porto Alegre");
   }
 
-  if (tags.includes("Atendimento Improvisado")) {
-    categories.push("Emergency services in Porto Alegre");
-  }
-
-  if (tags.includes("Teledermatologia")) {
-    categories.push("Telemedicine");
-    categories.push("Dermatology");
-  }
-
-  if (tags.includes("Hospital de campanha")) {
-    categories.push("Field hospitals in Brazil");
-    categories.push("Hospitals in Porto Alegre");
-  }
-
   if (tags.includes("Encerramento")) {
     categories.push("Closing ceremonies");
-  }
-
-  if (
-    tags.includes("Primeiros Socorros") ||
-    tags.includes("Hospital de campanha") ||
-    tags.includes("Atendimento de Urgência") ||
-    tags.includes("Atenção Ambulatorial, Hospitalar e Urgências")
-  ) {
-    categories.push("Emergency medical services in Porto Alegre");
-  }
-
-  if (
-    !tags.includes("Força Nacional do SUS") &&
-    tags.includes("Sistema Único de Saúde (SUS)")
-  ) {
-    categories.push("Sistema Único de Saúde");
-  }
-
-  if (
-    !tags.includes("UPA Moacyr Scliar") &&
-    tags.includes("Unidade de Pronto Atendimento (UPA)")
-  ) {
-    categories.push("Unidade de Pronto Atendimento");
   }
 
   if (!tags.includes("Campanha do Agasalho") && tags.includes("Campanha")) {
@@ -880,6 +850,36 @@ const getCategoriesFromTags = metadata => {
     categories.push("Prisons in Porto Alegre");
   }
 
+  if (tags.includes("Atendimento Improvisado")) {
+    categories.push("Emergency services in Porto Alegre");
+  }
+
+  if (tags.includes("Teledermatologia")) {
+    categories.push("Telemedicine");
+    categories.push("Dermatology");
+  }
+
+  if (tags.includes("Hospital de campanha")) {
+    categories.push("Field hospitals in Brazil");
+    categories.push("Hospitals in Porto Alegre");
+  }
+
+  if (
+    tags.includes("Primeiros Socorros") ||
+    tags.includes("Hospital de campanha") ||
+    tags.includes("Atendimento de Urgência") ||
+    tags.includes("Atenção Ambulatorial, Hospitalar e Urgências")
+  ) {
+    categories.push("Emergency medical services in Porto Alegre");
+  }
+
+  if (
+    !tags.includes("Força Nacional do SUS") &&
+    tags.includes("Sistema Único de Saúde (SUS)")
+  ) {
+    categories.push("Sistema Único de Saúde");
+  }
+
   if (
     !(tags.includes("Dia D de Vacinação") || tags.includes("Gripe")) &&
     (tags.includes("Vacinação") ||
@@ -887,6 +887,20 @@ const getCategoriesFromTags = metadata => {
       tags.includes("multivacinação"))
   ) {
     categories.push("Vaccinations in Brazil");
+  }
+
+  if (
+    !tags.includes("UPA Moacyr Scliar") &&
+    tags.includes("Unidade de Pronto Atendimento (UPA)")
+  ) {
+    categories.push("Unidade de Pronto Atendimento");
+  }
+
+  if (
+    !tags.includes("Unidade de Saúde Ponta Grossa") &&
+    tags.includes("Unidade de Saúde")
+  ) {
+    categories.push("Unidades de Saúde in Porto Alegre");
   }
 
   if (tags.includes("Saúde do Idoso") || tags.includes("Idosos")) {
@@ -1034,7 +1048,15 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (tags.some(tag => ["Asfalto", "Pavimentação"].includes(tag))) {
-    categories.push("Asphalters", "Roadworks in Porto Alegre");
+    categories.push("Asphalters");
+  }
+
+  if (
+    tags.some(tag =>
+      ["Asfalto", "Pavimentação", "rolo compressor"].includes(tag)
+    )
+  ) {
+    categories.push("Roadworks in Porto Alegre");
   }
 
   if (tags.includes("Manutenção")) {
@@ -1118,10 +1140,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Acampamento Farroupilha") ||
-      tags.includes("Acampamento 2018")
-    ) &&
+    !tags.includes("Acampamento Farroupilha") &&
     tags.includes("Parque Maurício Sirotsky Sobrinho (Harmonia)")
   ) {
     categories.push("Parque Maurício Sirotski Sobrinho");
@@ -1132,7 +1151,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Orla Moacyr Scliar") ||
       tags.includes("Parque Urbano da Orla Moacyr Scliar")
     ) &&
-    tags.includes("Orla do Guaíba")
+    (tags.includes("Orla do Guaíba") ||
+      tags.includes("Termos de Permissão uso bares da Orla do Guaíba"))
   ) {
     categories.push("Parque da Orla do Guaíba");
   }
@@ -1153,14 +1173,14 @@ const getCategoriesFromTags = metadata => {
     categories.push("Road accidents in Porto Alegre");
   }
 
-  if (tags.includes("Adutora")) {
-    categories.push("Water pipelines in Brazil");
-    categories.push("Water supply infrastructure in Porto Alegre");
-  }
-
   if (tags.includes("Mortes no trânsito")) {
     categories.push("Death in Porto Alegre");
     categories.push("Road accidents with fatalities");
+  }
+
+  if (tags.includes("Adutora")) {
+    categories.push("Water pipelines in Brazil");
+    categories.push("Water supply infrastructure in Porto Alegre");
   }
 
   if (
@@ -1205,6 +1225,11 @@ const getCategoriesFromTags = metadata => {
     categories.push("Demolitions in Brazil");
   }
 
+  if (tags.includes("Início da Primavera 2018")) {
+    categories.push("Spring in Porto Alegre");
+    categories.push("Spring 2018 in Brazil");
+  }
+
   if (
     tags.includes("Obras") ||
     tags.includes("Pintura") ||
@@ -1239,48 +1264,10 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Acampamento Farroupilha") ||
-      tags.includes("Acampamento 2018")
-    ) &&
+    !tags.includes("Acampamento Farroupilha") &&
     tags.includes("Semana Farroupilha")
   ) {
     categories.push("Semana Farroupilha in Porto Alegre");
-  }
-
-  if (tags.includes("Semana de Porto Alegre")) {
-    categories.push(
-      `Semana de Porto Alegre ${getYear(metadata.humanReadableDate)}`
-    );
-  }
-
-  if (tags.includes("Festival do Japão")) {
-    categories.push(
-      `Festival do Japão RS ${getYear(metadata.humanReadableDate)}`
-    );
-  }
-
-  if (tags.includes("Dia da Independência")) {
-    categories.push(
-      `Independence Day ${getYear(metadata.humanReadableDate)} in Porto Alegre`
-    );
-  }
-
-  if (
-    tags.includes("Acampamento Farroupilha") ||
-    tags.includes("Acampamento 2018")
-  ) {
-    categories.push(
-      `Acampamento Farroupilha (Porto Alegre, ${getYear(
-        metadata.humanReadableDate
-      )})`
-    );
-  }
-
-  if (tags.includes("Natal")) {
-    categories.push(
-      `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`
-    );
   }
 
   if (
@@ -1333,7 +1320,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Material Escolar") ||
       tags.includes("Salão Internacional de Desenho para Imprensa (Sidi)") ||
       tags.includes("Semana de Porto Alegre") ||
-      tags.includes("Acampamento 2018") ||
+      tags.includes("Acampamento Farroupilha") ||
       tags.includes("Festival do Japão") ||
       tags.includes("Festa de Nossa Senhora dos Navegantes")
     ) &&
@@ -1354,10 +1341,13 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Concerto Musical") ||
       tags.includes("Convite") ||
       tags.includes("Curso") ||
+      tags.includes("Dança") ||
       tags.includes("Debate") ||
       tags.includes("Dia do Desafio") ||
+      tags.includes("DIA SEM CARRO") ||
       tags.includes("Encerramento") ||
       tags.includes("Espetáculo") ||
+      tags.includes("evento social") ||
       tags.includes("Executivo") ||
       tags.includes("Formação") ||
       tags.includes("Formatura") ||
@@ -1367,12 +1357,14 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Manifestação") ||
       tags.includes("Mutirão") ||
       tags.includes("Oficina") ||
+      tags.includes("Oficina de Dança") ||
       tags.includes("Outubro Rosa") ||
       tags.includes("Palestra") ||
       tags.includes("Passeio") ||
       tags.includes("Prefeitura nos Bairros") ||
       tags.includes("Prefeitura Nos Bairros") ||
       tags.includes("Procissão") ||
+      tags.includes("Programação Cultural") ||
       tags.includes("Programação do Reveillon") ||
       tags.includes("Semana Cidade Limpa") ||
       tags.includes("Seminário") ||
@@ -1411,7 +1403,6 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Festival de Inverno") ||
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha") ||
-      tags.includes("Acampamento 2018") ||
       tags.includes("Trabalho") ||
       tags.includes("Poa Em Cena") ||
       tags.includes("Festival do Japão")
@@ -1450,11 +1441,11 @@ const getCategoriesFromTags = metadata => {
       categories.includes("2024 Porto Alegre floods") ||
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha") ||
-      tags.includes("Acampamento 2018") ||
       tags.includes("Natal") ||
       tags.includes("Jogos dos Estudantes Surdos") ||
       tags.includes("Poa Em Cena") ||
-      tags.includes("Festa de Nossa Senhora dos Navegantes")
+      tags.includes("Festa de Nossa Senhora dos Navegantes") ||
+      tags.includes("48º Troféu Seival e 29ª Regata Farroupilha")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);

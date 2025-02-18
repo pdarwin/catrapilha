@@ -73,6 +73,7 @@ const sameNameKeywords = [
   "Eduardo Leite",
   "Erno Harzheim",
   "Fabiano Dallazen",
+  "Felipe Hirsch",
   "Fernando Ritter",
   "Gabriel Souza",
   "Germano Bremm",
@@ -86,10 +87,13 @@ const sameNameKeywords = [
   "Letícia Batistela",
   "Liliana Cardoso",
   "Liziane Bayer",
+  "Marcelo Soletti",
   "Maria Helena Sartori",
   "Mauro Pinheiro",
   "Michel Costa",
+  "Nelson Marchezan Júnior",
   "Nísia Trindade",
+  "Orly Portal",
   "Osmar Terra",
   "Paixão Côrtes",
   "Ramiro Rosário",
@@ -100,6 +104,7 @@ const sameNameKeywords = [
   "Valter Nagelstein",
   "Wambert Di Lorenzo",
   "Yossi Shelley",
+  "Zizi Possi",
 ];
 
 // Normalize position keys in positionYearMap
@@ -115,6 +120,9 @@ const positionYearMap = {
   governador: [
     { name: "José Ivo Sartori", years: { start: 2015, end: 2018 } },
     { name: "Eduardo Leite", years: { start: 2019, end: 2024 } },
+  ],
+  "diretor-presidente da eptc": [
+    { name: "Marcelo Soletti", years: { start: 2018, end: 2018 } },
   ],
   "desenvolvimento economico": [
     {

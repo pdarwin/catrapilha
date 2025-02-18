@@ -2,32 +2,15 @@ import { getYear } from "../../../Utils/DateUtils";
 
 // Define a mapping of tags to categories
 export const tagToCategoryMap = {
-  Segurança: "Secretaria Municipal de Segurança (Porto Alegre)",
-  Seguranç: "Secretaria Municipal de Segurança (Porto Alegre)",
-  Smseg: "Secretaria Municipal de Segurança (Porto Alegre)",
-  "Secretaria Municipal de Segurança (SMSEG)":
-    "Secretaria Municipal de Segurança (Porto Alegre)",
-  "SMSEG - Segurança": "Secretaria Municipal de Segurança (Porto Alegre)",
   Smds: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
-  "Secretaria Municipal de Desenvolvimento Social (SMDS)":
-    "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
-  "Desenvolvimento Social e Esporte":
-    "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
+  Smseg: "Secretaria Municipal de Segurança (Porto Alegre)",
   Smdse:
-    "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
-  Smdes:
-    "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
-  "Desenvolvimento Social":
     "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
   "Desenvolvimento Economico e Esporte":
     "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
-  "Meio Ambiente":
-    "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
-  "Meio Ambiente e Sustentabilidade":
-    "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
-  Smams:
+  SMAMS:
     "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
   "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (SMAMUS)":
     "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)",
@@ -47,10 +30,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Infraestrutura e Mobilidade (Porto Alegre)",
   "Infraestrutura e Mobilidade Urbana":
     "Secretaria Municipal de Infraestrutura e Mobilidade (Porto Alegre)",
-  "Secretaria Municipal de Mobilidade Urbana (SMMU)":
-    "Secretaria Municipal de Mobilidade Urbana (Porto Alegre)",
-  "Mobilidade Urbana":
-    "Secretaria Municipal de Mobilidade Urbana (Porto Alegre)",
   Smim: "Secretaria Municipal de Mobilidade Urbana (Porto Alegre)",
   "Secretaria Municipal de Obras e Infraestrutura (SMOI)":
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
@@ -277,6 +256,7 @@ export const tagToCategoryMap = {
   Estácio: "Faculdade Estácio",
   Ulbra: "Universidade Luterana do Brasil",
   "Emef Migrantes": "EMEF Migrantes",
+  "Emei Protásio Alves": "EMEI Protásio Alves",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -344,6 +324,7 @@ export const tagToCategoryMap = {
   Laçador: "Estátua do Laçador",
   "Cemitério da Santa Casa de Misericórdia":
     "Cemitério da Santa Casa de Misericórdia (Porto Alegre)",
+  BarraShoppingSul: "Barra Shopping Sul",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -415,7 +396,6 @@ export const tagToCategoryMap = {
   "Capital Gaúcha": "Porto Alegre",
 
   "Orla Moacyr Scliar": "Parque Moacyr Scliar",
-  "Parque Urbano da Orla Moacyr Scliar": "Parque Moacyr Scliar",
   "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
   "Parque Ararigbóia": "Parque Ararigboia",
 
@@ -461,12 +441,26 @@ export const tagToCategoryMap = {
   //Greve: "General strike in Brazil (2017-06-30)",
   "Dia do Desafio": "Challenge Day",
   "Semana do Japão": "Semana do Japão (Porto Alegre)",
+  "48º Troféu Seival e 29ª Regata Farroupilha":
+    "48º Troféu Seival e 29ª Regata Farroupilha (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
   Expointer: metadata => `Expointer (${getYear(metadata.humanReadableDate)})`,
   "Jogos dos Estudantes Surdos": metadata =>
     `Jogos dos Estudantes Surdos (${getYear(metadata.humanReadableDate)})`,
+  "Festival do Japão": metadata =>
+    `Festival do Japão RS ${getYear(metadata.humanReadableDate)}`,
+  "Semana de Porto Alegre": metadata =>
+    `Semana de Porto Alegre ${getYear(metadata.humanReadableDate)}`,
+  "Acampamento Farroupilha": metadata =>
+    `Acampamento Farroupilha (Porto Alegre, ${getYear(
+      metadata.humanReadableDate
+    )})`,
+  "Desfile Farroupilha 2018": metadata =>
+    `Desfile Farroupilha (Porto Alegre, ${getYear(
+      metadata.humanReadableDate
+    )})`,
 
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
   Trabalho: "Festa de Nossa Senhora do Trabalho",
@@ -556,9 +550,10 @@ export const tagToCategoryMap = {
   Ave: "Birds of Porto Alegre",
   Comunicação: "Communication in Porto Alegre",
   Flora: "Flora of Porto Alegre",
-  Tradicionalismo: "Traditions of Porto Alegre",
+  Tradição: "Traditions of Porto Alegre",
   Emprego: "Labour in Porto Alegre",
   Renda: "Labour in Porto Alegre",
+  pessoas: "People of Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -571,7 +566,6 @@ export const tagToCategoryMap = {
   "Ruas e avenidas": "Streets in Porto Alegre",
   "Artes Visuais": "Art of Porto Alegre",
   "Fios Soltos": "Overhead power lines in Porto Alegre",
-  "Unidade de Saúde": "Unidades de Saúde in Porto Alegre",
   "foco de lixo": "Waste management in Porto Alegre",
   "Terminais de ônibus": "Bus stations in Porto Alegre",
   "Sinalização de trânsito": "Road signs in Porto Alegre",
@@ -580,13 +574,21 @@ export const tagToCategoryMap = {
   "Cercamento Eletrônico": "Traffic cameras in Porto Alegre",
   "Totem iluminado": "Illuminated totems in Porto Alegre",
   "Feira Ecológica": "Ecological farmers' markets in Porto Alegre",
+  "Termos de Permissão uso bares da Orla do Guaíba": "Bars in Porto Alegre",
+  "Programação Cultural": "Culture of Porto Alegre",
+  "Fim de tarde": "Sunsets of Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
+  Natal: metadata =>
+    `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
+  "Dia da Independência": metadata =>
+    `Independence Day ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
 
   Nuvens: "Clouds in Rio Grande do Sul",
   Semáforos: "Traffic lights in Rio Grande do Sul",
   Futsal: "Futsal in Rio Grande do Sul",
+  "Indumentária Gaúcha": "Costumes in Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
   Dengue: "Dengue in Brazil",
@@ -660,6 +662,9 @@ export const tagToCategoryMap = {
   Fachada: "Facades in Brazil",
   Brinquedo: "Toys in Brazil",
   Revitalização: "Urban renewal in Brazil",
+  parquímetro: "Parking meters in Brazil",
+  operários: "Workers in Brazil",
+  Chimarrão: "Mate (beverage) in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -698,6 +703,11 @@ export const tagToCategoryMap = {
   "Horário estendido": "Timetables in Brazil",
   "Comércio Irregular": "Gray market in Brazil",
   "Futebol de Várzea": "Amateur association football in Brazil",
+  "Fake News": "Fake news in Brazil",
+  "rolo compressor": "Road rollers in Brazil",
+  "Zona Urbana": "Urban areas in Brazil",
+  "evento social": "Social events in Brazil",
+  "DIA SEM CARRO": "World Car Free Day in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -812,4 +822,6 @@ export const tagToCategoryMap = {
   "Saúde Prisional": "Prison healthcare",
   "Escorpião Amarelo": "Tityus serrulatus",
   "#proconpoaresponde": "Hashtags",
+  "Oficina de Dança": "Dance lessons",
+  "macacos-prego": "Sapajus",
 };
