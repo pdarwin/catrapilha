@@ -8,6 +8,8 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
   "Desenvolvimento Economico e Esporte":
     "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
+  "SMDE - Secretaria Municipal de Desenvolvimento Econômico":
+    "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   SMAMS:
@@ -58,12 +60,7 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Esporte, Lazer e Juventude (Porto Alegre)",
   "Esporte Lazer e Juventude":
     "Secretaria Municipal de Esporte, Lazer e Juventude (Porto Alegre)",
-  "Secretaria Municipal de Transparência e Controladoria (SMTC)":
-    "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
-  "Transparência e Controladoria Geral":
-    "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
-  "Transparência e Controladoria":
-    "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
+  Smtc: "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
   "Secretaria Municipal de Governança Local e Coordenação Política (SMGOV)":
     "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
   "Governança Local e Coordenação Política":
@@ -124,6 +121,8 @@ export const tagToCategoryMap = {
     "Equipe de Vigilância em Saúde Ambiental e Águas (Porto Alegre)",
   "Equipe de Vigilância de Alimentos da SMS":
     "Equipe de Vigilância de Alimentos (Porto Alegre)",
+  "Equipe de Vigilância Eventos Vitais (EVEV)":
+    "Equipe de Vigilância Eventos Vitais (Porto Alegre)",
   "Vigilância de Alimentos": "Equipe de Vigilância de Alimentos (Porto Alegre)",
   DMAP: "DMAP (Porto Alegre)",
   DMAE: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
@@ -219,6 +218,7 @@ export const tagToCategoryMap = {
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
   "Segurança do Paciente":
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
+  "Comitê do Projeto Vida no Trânsito": "Projeto Vida no Trânsito",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -230,11 +230,11 @@ export const tagToCategoryMap = {
   COMTU: "Conselho Municipal de Transportes Urbanos (Porto Alegre)",
   CMDUA:
     "Conselho Municipal de Desenvolvimento Urbano Ambiental (Porto Alegre)",
+  "Comissão de Saúde e Meio Ambiente da CMPA (Cosmam)":
+    "Comissão de Saúde e Meio Ambiente da CMPA",
   "Auditório da SMPG":
     "Auditório da Secretaria Municipal de Planejamento de Gestão",
-  Procuradoria: "Procuradoria-Geral do Município de Porto Alegre",
   PGM: "Procuradoria-Geral do Município de Porto Alegre",
-  "Procuradoria Geral": "Procuradoria-Geral do Município de Porto Alegre",
   Corregedoria: "Corregedoria-Geral do Município de Porto Alegre",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
@@ -255,8 +255,8 @@ export const tagToCategoryMap = {
   Uniritter: "Centro Universitário Ritter dos Reis",
   Estácio: "Faculdade Estácio",
   Ulbra: "Universidade Luterana do Brasil",
-  "Emef Migrantes": "EMEF Migrantes",
   "Emei Protásio Alves": "EMEI Protásio Alves",
+  "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -288,6 +288,8 @@ export const tagToCategoryMap = {
     "Hospital de Clínicas de Porto Alegre",
   "Grupo Hospitalar Conceição (GHC)": "Grupo Hospitalar Conceição",
   "Hospital da Restinga Extremo Sul (HRES)": "Hospital Restinga e Extremo-Sul",
+  "Pronto Atendimento de Traumatologia e Ortopedia no Hospital Restinga Extremo Sul":
+    "Emergency Trauma and Orthopedic Care at Hospital Restinga e Extremo-Sul",
 
   "Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
@@ -443,6 +445,8 @@ export const tagToCategoryMap = {
   "Semana do Japão": "Semana do Japão (Porto Alegre)",
   "48º Troféu Seival e 29ª Regata Farroupilha":
     "48º Troféu Seival e 29ª Regata Farroupilha (2018)",
+  "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança":
+    "1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -461,6 +465,8 @@ export const tagToCategoryMap = {
     `Desfile Farroupilha (Porto Alegre, ${getYear(
       metadata.humanReadableDate
     )})`,
+  "Top de Marketing ADVB/RS": metadata =>
+    `Top de Marketing ADVB/RS ${getYear(metadata.humanReadableDate)}`,
 
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
   Trabalho: "Festa de Nossa Senhora do Trabalho",
@@ -503,6 +509,8 @@ export const tagToCategoryMap = {
   "Reunião-almoço Tá Na Mesa": "Tá na Mesa",
   "Gre-nal de Todos": "Grenal",
   "Gre-Nal": "Grenal",
+  "SMTC - Marco Regulatório das Organizações da Sociedade Civil":
+    "Marco Regulatório das Organizações da Sociedade Civil",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -665,6 +673,7 @@ export const tagToCategoryMap = {
   parquímetro: "Parking meters in Brazil",
   operários: "Workers in Brazil",
   Chimarrão: "Mate (beverage) in Brazil",
+  Venezuelanos: "Venezuelan diaspora in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -824,4 +833,5 @@ export const tagToCategoryMap = {
   "#proconpoaresponde": "Hashtags",
   "Oficina de Dança": "Dance lessons",
   "macacos-prego": "Sapajus",
+  "Relatório de Gestão": "Reports",
 };

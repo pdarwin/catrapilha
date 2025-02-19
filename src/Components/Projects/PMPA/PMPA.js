@@ -236,8 +236,9 @@ const processDescription = description => {
 
   // Remove specific patterns and unwanted characters
   description = description
+    .replace(/\n/g, " ")
     .replace(
-      /Porto\s\s?Alegre(, RS)?,?\.?(\s*?Brasil)? -?\s?\d{1,2}\/\d{1,2}\/\d{4}:?\.?\s?-?\s?/,
+      /Porto\s\s?Alegre(,?\s?\/?RS)?,?\.?(\s*?Brasil)? -?\s?\d{1,2}[/.]\d{1,2}[/.]\d{4}:?\.?\s?-?\s?/,
       ""
     )
     .replace(/[/:]/g, "-")
@@ -459,8 +460,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Capacitação") ||
       tags.includes("Primeira Infância Melhor (PIM)")
     ) &&
-    (tags.includes("Secretaria Municipal de Educação (SMED)") ||
-      tags.includes("Secretária municipal da Educação (SMED)") ||
+    (tags.includes("Secretária municipal da Educação (SMED)") ||
       tags.includes("SMED") ||
       tags.includes("Secretário Municipal da Educação (SMED)"))
   ) {
@@ -502,7 +502,7 @@ const getCategoriesFromTags = metadata => {
     !(
       tags.includes("EMEF João Carlos D`Ávila Paixão Côrtes (Laçador)") ||
       tags.includes("EMEF Vereador Antônio Giúdice") ||
-      tags.includes("Emef Migrantes") ||
+      tags.includes("EMEF Migrantes") ||
       tags.includes("EMEF Deputado Marcírio Goulart Loureiro") ||
       tags.includes("EMEI Miguel Granato Velasquez") ||
       tags.includes("EMEI JP Patinho Feio") ||
@@ -597,9 +597,13 @@ const getCategoriesFromTags = metadata => {
       tags.includes(
         "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)"
       ) ||
-      tags.includes("Clássicos na Pinacoteca")
+      tags.includes("Clássicos na Pinacoteca") ||
+      tags.includes(
+        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
+      ) ||
+      tags.includes("Poa Em Cena")
     ) &&
-    tags.includes("Cultura")
+    (tags.includes("Cultura") || tags.includes("Smc"))
   ) {
     categories.push("Secretaria Municipal da Cultura (Porto Alegre)");
   }
@@ -981,8 +985,7 @@ const getCategoriesFromTags = metadata => {
       categories.includes("DMAE (Porto Alegre)") ||
       categories.includes("DMLU (Porto Alegre)")
     ) &&
-    (tags.includes("Serviços Urbanos") ||
-      tags.includes("Secretaria Municipal de Serviços Urbanos (SMSURB)"))
+    tags.includes("Smsurb")
   ) {
     categories.push("Secretaria Municipal de Serviços Urbanos (Porto Alegre)");
   }
@@ -1115,22 +1118,6 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
-  categories.push(...getPplCategories(metadata, tags));
-
-  if (
-    !(
-      tags.includes("Enchente Porto Alegre Maio de 2024") ||
-      tags.includes("Enchente Porto Alegre")
-    ) &&
-    (tags.includes("Enchente") || tags.includes("Alagamento"))
-  ) {
-    if (getYear(metadata.humanReadableDate) === 2024) {
-      categories.push("2024 Porto Alegre floods");
-    } else {
-      categories.push("Floods in Porto Alegre");
-    }
-  }
-
   if (!tags.includes("ETA São João") && tags.includes("ETA")) {
     categories.push("Water treatment plants in Porto Alegre");
   }
@@ -1190,6 +1177,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Music of Porto Alegre");
   }
 
+  if (!tags.includes("Top de Marketing ADVB/RS") && tags.includes("Casa NTX")) {
+    categories.push("Casa NTX");
+  }
+
   if (tags.includes("Ônibus") || tags.includes("BRT's")) {
     categories.push("Buses in Porto Alegre");
   }
@@ -1225,11 +1216,6 @@ const getCategoriesFromTags = metadata => {
     categories.push("Demolitions in Brazil");
   }
 
-  if (tags.includes("Início da Primavera 2018")) {
-    categories.push("Spring in Porto Alegre");
-    categories.push("Spring 2018 in Brazil");
-  }
-
   if (
     tags.includes("Obras") ||
     tags.includes("Pintura") ||
@@ -1240,6 +1226,40 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Transmissão de Cargo")) {
     categories.push("Politics of Porto Alegre");
+  }
+
+  categories.push(...getPplCategories(metadata, tags));
+
+  if (
+    tags.includes(
+      "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
+    )
+  ) {
+    ["Paixão Côrtes", "Auditório Araújo Vianna"].forEach(unwanted => {
+      const index = categories.indexOf(unwanted);
+      if (index !== -1) {
+        categories.splice(index, 1);
+      }
+    });
+  }
+
+  if (
+    !(
+      tags.includes("Enchente Porto Alegre Maio de 2024") ||
+      tags.includes("Enchente Porto Alegre")
+    ) &&
+    (tags.includes("Enchente") || tags.includes("Alagamento"))
+  ) {
+    if (getYear(metadata.humanReadableDate) === 2024) {
+      categories.push("2024 Porto Alegre floods");
+    } else {
+      categories.push("Floods in Porto Alegre");
+    }
+  }
+
+  if (tags.includes("Início da Primavera 2018")) {
+    categories.push("Spring in Porto Alegre");
+    categories.push("Spring 2018 in Brazil");
   }
 
   if (
@@ -1264,7 +1284,12 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Acampamento Farroupilha") &&
+    !(
+      tags.includes("Acampamento Farroupilha") ||
+      tags.includes(
+        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
+      )
+    ) &&
     tags.includes("Semana Farroupilha")
   ) {
     categories.push("Semana Farroupilha in Porto Alegre");
@@ -1322,7 +1347,8 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Semana de Porto Alegre") ||
       tags.includes("Acampamento Farroupilha") ||
       tags.includes("Festival do Japão") ||
-      tags.includes("Festa de Nossa Senhora dos Navegantes")
+      tags.includes("Festa de Nossa Senhora dos Navegantes") ||
+      tags.includes("Top de Marketing ADVB/RS")
     ) &&
     (tags.includes("Abertura") ||
       tags.includes("Ação Rua") ||
@@ -1349,6 +1375,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Espetáculo") ||
       tags.includes("evento social") ||
       tags.includes("Executivo") ||
+      tags.includes("exposição") ||
       tags.includes("Formação") ||
       tags.includes("Formatura") ||
       tags.includes("Homenagem") ||
@@ -1377,7 +1404,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Workshop") ||
       categories.includes("Ceremonies in Brazil") ||
       categories.includes("Conferences in Brazil") ||
-      categories.includes("Meetings in Brazil"))
+      categories.includes("Meetings in Porto Alegre"))
   ) {
     categories.push(
       `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
@@ -1405,7 +1432,10 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Acampamento Farroupilha") ||
       tags.includes("Trabalho") ||
       tags.includes("Poa Em Cena") ||
-      tags.includes("Festival do Japão")
+      tags.includes("Festival do Japão") ||
+      tags.includes(
+        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
+      )
     ) &&
     (tags.includes("Festejos") ||
       tags.includes("Festival") ||
@@ -1445,7 +1475,15 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Jogos dos Estudantes Surdos") ||
       tags.includes("Poa Em Cena") ||
       tags.includes("Festa de Nossa Senhora dos Navegantes") ||
-      tags.includes("48º Troféu Seival e 29ª Regata Farroupilha")
+      tags.includes("48º Troféu Seival e 29ª Regata Farroupilha") ||
+      tags.includes(
+        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
+      ) ||
+      tags.includes(
+        "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança"
+      ) ||
+      tags.includes("Feira do Livro") ||
+      tags.includes("Top de Marketing ADVB/RS")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
