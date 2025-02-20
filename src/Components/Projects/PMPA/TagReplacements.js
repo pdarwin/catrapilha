@@ -7,6 +7,13 @@ export const tagReplacements = {
   "relações Institucionais": "Relações Institucionais",
   "Acampamento 2018": "Acampamento Farroupilha",
   "Acampamento Farropilha": "Acampamento Farroupilha",
+
+  "Bairro Centro Histórico": "Centro Histórico",
+
+  "Departamento Municipal de Limpeza Urbana (DMLU)": "DMLU",
+  Dmlu: "DMLU",
+  "Limpeza Urbana": "DMLU",
+
   "Desenvolviment Econômico": "Desenvolvimento Econômico",
 
   "Desenvolvimento Social": "Smdse",
@@ -17,6 +24,12 @@ export const tagReplacements = {
   "Dia D": "Dia D de Vacinação",
 
   "Emef Migrantes": "EMEF Migrantes",
+
+  Fazenda: "SMF",
+  Finanças: "SMF",
+  "Finanças Públicas": "SMF",
+  "Secretário Municipal da Fazenda (SMF)": "SMF",
+  Smf: "SMF",
 
   "Meio Ambiente": "SMAMS",
   "Meio Ambiente e Sustentabilidade": "SMAMS",
@@ -52,8 +65,9 @@ export const tagReplacements = {
   "Smseg - Segurança": "Smseg",
   "SMSEG - Segurança": "Smseg",
 
-  "Secretaria Municipal de Serviços Urbanos (SMSURB)": "Smsurb",
-  "Serviços Urbanos": "Smsurb",
+  "Secretaria Municipal de Serviços Urbanos (SMSURB)": "SMSURB",
+  "Serviços Urbanos": "SMSURB",
+  Smsurb: "SMSURB",
 
   "Secretaria Municipal de Transparência e Controladoria (SMTC)": "Smtc",
   "Transparência e Controladoria": "Smtc",
@@ -62,4 +76,9 @@ export const tagReplacements = {
   "Smc -": "Smc",
 
   Tradicionalismo: "Tradição",
+
+  "Viagem à Brasília": "Visita",
+  "Viagem à Europa": "Visita",
+  "Visita de Cortesia": "Visita",
+  "visita institucional": "Visita",
 };

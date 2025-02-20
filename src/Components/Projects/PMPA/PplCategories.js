@@ -89,6 +89,7 @@ const sameNameKeywords = [
   "Liliana Cardoso",
   "Liziane Bayer",
   "Marcelo Soletti",
+  "Marcos Frota",
   "Maria Helena Sartori",
   "Mauro Pinheiro",
   "Michel Costa",

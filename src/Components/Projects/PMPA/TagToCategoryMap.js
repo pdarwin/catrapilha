@@ -3,9 +3,9 @@ import { getYear } from "../../../Utils/DateUtils";
 // Define a mapping of tags to categories
 export const tagToCategoryMap = {
   Smds: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
-  Smseg: "Secretaria Municipal de Segurança (Porto Alegre)",
   Smdse:
     "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
+  SMF: "Secretaria Municipal da Fazenda (Porto Alegre)",
   "Desenvolvimento Economico e Esporte":
     "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
   "SMDE - Secretaria Municipal de Desenvolvimento Econômico":
@@ -97,13 +97,8 @@ export const tagToCategoryMap = {
   Procempa: "Companhia de Processamento de Dados do Município de Porto Alegre",
   "Companhia de Processamento de Dados do Município (Procempa)":
     "Companhia de Processamento de Dados do Município de Porto Alegre",
-  DMLU: "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
-  Dmlu: "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
-  "Limpeza Urbana": "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
   "Departamento Municipal de Habitação (Demhab)":
     "Departamento Municipal de Habitação (Porto Alegre)",
-  "Departamento Municipal de Limpeza Urbana (DMLU)":
-    "Departamento Municipal de Limpeza Urbana (Porto Alegre)",
   "Centro Integrado de Comando":
     "Centro Integrado de Comando da Cidade de Porto Alegre",
   "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)":
@@ -133,6 +128,8 @@ export const tagToCategoryMap = {
   "Água e Esgoto": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Departamento Municipal de Água e Esgotos (DMAE)":
     "Departamento Municipal de Água e Esgotos (Porto Alegre)",
+  "Departamento de Arrecação e Cobrança (DAC)":
+    "Departamento de Arrecadação e Cobrança (Porto Alegre)",
   "Rede de abastecimento de água":
     "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "redes de água": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
@@ -159,12 +156,6 @@ export const tagToCategoryMap = {
     "Sala dos Embaixadores (Paço Municipal de Porto Alegre)",
   "Restaurante Popular": "Restaurantes Populares",
   Visita: "Official visits involving the Municipality of Porto Alegre",
-  "Visita de Cortesia":
-    "Official visits involving the Municipality of Porto Alegre",
-  "Viagem à Brasília":
-    "Official visits involving the Municipality of Porto Alegre",
-  "Viagem à Europa":
-    "Official visits involving the Municipality of Porto Alegre",
   "Coletiva de Imprensa":
     "Press conferences by the Municipality of Porto Alegre",
   "Entrevista Coletiva":
@@ -219,6 +210,8 @@ export const tagToCategoryMap = {
   "Segurança do Paciente":
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
   "Comitê do Projeto Vida no Trânsito": "Projeto Vida no Trânsito",
+  "Campanha do Brinquedo Solidário":
+    "Campanha do Brinquedo Solidário (Porto Alegre)",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -261,6 +254,8 @@ export const tagToCategoryMap = {
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
   Sindha: "Sindicato de Hospedagem e Alimentação de Porto Alegre e Região",
+  "Associação dos Transportadores de Caçamba Estacionárias (ATCE)":
+    "Associação dos Transportadores de Caçambas Estacionárias",
   "Banda Municipal": "Banda Municipal de Porto Alegre",
 
   "Igreja Nossa Senhora das Dores":
@@ -327,6 +322,7 @@ export const tagToCategoryMap = {
   "Cemitério da Santa Casa de Misericórdia":
     "Cemitério da Santa Casa de Misericórdia (Porto Alegre)",
   BarraShoppingSul: "Barra Shopping Sul",
+  "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -347,8 +343,6 @@ export const tagToCategoryMap = {
   Camaquã: "Camaquã (Porto Alegre)",
   "Bairro Campo Novo": "Campo Novo (Porto Alegre)",
   "Bairro Cavalhada": "Cavalhada (Porto Alegre)",
-  "Bairro Centro Histórico": "Centro (Porto Alegre)",
-  "Centro Histórico": "Centro (Porto Alegre)",
   "Bairro Chapéu do Sol": "Chapéu do Sol",
   "Bairro Cidade Baixa": "Cidade Baixa (Porto Alegre)",
   "Bairro Cristal": "Cristal (Porto Alegre)",
@@ -393,6 +387,7 @@ export const tagToCategoryMap = {
   "Bairro Vila Conceição": "Vila Conceição",
   "Bairro Vila Farrapos": "Vila Farrapos",
   Nonoai: "Nonoai (Porto Alegre)",
+  "Santa Maria Goretti": "Santa Maria Goretti (Porto Alegre)",
   "Vila Ipiranga": "Vila Ipiranga (Porto Alegre)",
   "Vila Nova": "Vila Nova (Porto Alegre)",
   "Capital Gaúcha": "Porto Alegre",
@@ -511,6 +506,7 @@ export const tagToCategoryMap = {
   "Gre-Nal": "Grenal",
   "SMTC - Marco Regulatório das Organizações da Sociedade Civil":
     "Marco Regulatório das Organizações da Sociedade Civil",
+  "Fraport Brasil S.A.": "Fraport Brasil",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -585,6 +581,9 @@ export const tagToCategoryMap = {
   "Termos de Permissão uso bares da Orla do Guaíba": "Bars in Porto Alegre",
   "Programação Cultural": "Culture of Porto Alegre",
   "Fim de tarde": "Sunsets of Porto Alegre",
+  "Bolsa Família": "Poverty in Porto Alegre",
+  "Transporte fluvial de passageiros": "Water transport in Porto Alegre",
+  "Plantio Sustentável do DMLU": "DMLU’s Sustainable Planting",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -668,7 +667,6 @@ export const tagToCategoryMap = {
   Urbanismo: "Urbanism in Brazil",
   Parklet: "Parklets in Brazi",
   Fachada: "Facades in Brazil",
-  Brinquedo: "Toys in Brazil",
   Revitalização: "Urban renewal in Brazil",
   parquímetro: "Parking meters in Brazil",
   operários: "Workers in Brazil",
@@ -797,7 +795,6 @@ export const tagToCategoryMap = {
   Vítimas: "Victims",
   "Exame médico": "Physical examinations",
   Aeronáutica: "Aeronautics",
-  Catamarã: "Catamarans",
   "Doença Respiratória": "Diseases and disorders of the respiratory system",
   Leishmaniose: "Leishmaniasis",
   "Coleta Seletiva": "Separate waste collection",

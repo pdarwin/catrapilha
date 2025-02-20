@@ -591,19 +591,18 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Companhia Municipal de Dança") ||
-      tags.includes("Grupo Experimental de Dança (GED)") ||
-      tags.includes(
-        "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)"
-      ) ||
-      tags.includes("Clássicos na Pinacoteca") ||
-      tags.includes(
-        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
-      ) ||
-      tags.includes("Poa Em Cena")
+    !tags.some(tag =>
+      [
+        "Companhia Municipal de Dança",
+        "Grupo Experimental de Dança (GED)",
+        "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)",
+        "Clássicos na Pinacoteca",
+        "Poa Em Cena",
+        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
+        "Viva o Centro a Pé",
+      ].includes(tag)
     ) &&
-    (tags.includes("Cultura") || tags.includes("Smc"))
+    tags.some(tag => ["Cultura", "Smc"].includes(tag))
   ) {
     categories.push("Secretaria Municipal da Cultura (Porto Alegre)");
   }
@@ -618,15 +617,6 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Oficina de Dança"))
   ) {
     categories.push("Dance in Porto Alegre");
-  }
-
-  if (
-    tags.includes("Fazenda") ||
-    tags.includes("Finanças") ||
-    tags.includes("Finanças Públicas") ||
-    tags.includes("Secretário Municipal da Fazenda (SMF)")
-  ) {
-    categories.push("Secretaria Municipal da Fazenda (Porto Alegre)");
   }
 
   if (tags.includes("Comércio") || tags.includes("Comércio Irregular")) {
@@ -982,12 +972,20 @@ const getCategoriesFromTags = metadata => {
   if (
     !(
       categories.includes("DMAP (Porto Alegre)") ||
-      categories.includes("DMAE (Porto Alegre)") ||
-      categories.includes("DMLU (Porto Alegre)")
+      tags.includes("DMAE") ||
+      tags.includes("DMLU")
     ) &&
-    tags.includes("Smsurb")
+    tags.includes("SMSURB")
   ) {
     categories.push("Secretaria Municipal de Serviços Urbanos (Porto Alegre)");
+  }
+
+  if (!tags.includes("Plantio Sustentável do DMLU") && tags.includes("DMLU")) {
+    categories.push("Departamento Municipal de Limpeza Urbana (Porto Alegre)");
+  }
+
+  if (!tags.includes("Operação Jaguar") && tags.includes("Smseg")) {
+    categories.push("Secretaria Municipal de Segurança (Porto Alegre)");
   }
 
   if (
@@ -1006,11 +1004,21 @@ const getCategoriesFromTags = metadata => {
     categories.push("Anniversaries in Brazil");
   }
 
+  if (
+    !tags.includes("Campanha do Brinquedo Solidário") &&
+    tags.includes("Brinquedo")
+  ) {
+    categories.push("Toys in Brazil");
+  }
+
   if (!tags.includes("Feira do Livro") && tags.includes("Livro e Literatura")) {
     categories.push("Literature of Porto Alegre");
   }
 
-  if (!tags.includes("ROMU") && tags.includes("Guarda Municipal")) {
+  if (
+    !tags.some(tag => ["ROMU", "Operação Jaguar"].includes(tag)) &&
+    tags.includes("Guarda Municipal")
+  ) {
     categories.push("Guarda Municipal (Porto Alegre)");
   }
 
@@ -1185,6 +1193,13 @@ const getCategoriesFromTags = metadata => {
     categories.push("Buses in Porto Alegre");
   }
 
+  if (
+    !tags.includes("Viva o Centro a Pé") &&
+    tags.includes("Centro Histórico")
+  ) {
+    categories.push("Centro Histórico (Porto Alegre");
+  }
+
   if (tags.includes("doações de cestas básicas")) {
     categories.push("Food relief in Brazil");
     categories.push("Humanitarian aid for the 2024 Rio Grande do Sul floods");
@@ -1193,7 +1208,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.includes("Assistência Social") ||
     tags.includes("Serviço Social") ||
-    tags.includes("Previdência")
+    tags.includes("Previdência") ||
+    tags.includes("Bolsa Família")
   ) {
     categories.push("Social services in Porto Alegre");
   }
@@ -1262,6 +1278,20 @@ const getCategoriesFromTags = metadata => {
     categories.push("Spring 2018 in Brazil");
   }
 
+  if (
+    tags.some(tag =>
+      ["Transporte fluvial de passageiros", "Catamarã"].includes(tag)
+    )
+  ) {
+    categories.push(
+      `${getYear(metadata.humanReadableDate)} in water transport`
+    );
+  }
+
+  if (tags.includes("Catamarã")) {
+    categories.push("Catamarans");
+    categories.push("Watercraft in Porto Alegre");
+  }
   if (
     tags.includes("Asfalto") ||
     tags.includes("Manutenção") ||
@@ -1360,6 +1390,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Aula Inaugural") ||
       tags.includes("Caminhada") ||
       tags.includes("Campanha do Agasalho") ||
+      tags.includes("Campanha do Brinquedo Solidário") ||
       tags.includes("Capacitação") ||
       tags.includes("Casamento") ||
       tags.includes("Clássicos na Pinacoteca") ||
@@ -1376,6 +1407,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("evento social") ||
       tags.includes("Executivo") ||
       tags.includes("exposição") ||
+      tags.includes("Feira de Oportunidades") ||
       tags.includes("Formação") ||
       tags.includes("Formatura") ||
       tags.includes("Homenagem") ||
@@ -1397,11 +1429,16 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Seminário") ||
       tags.includes("Simpósio") ||
       tags.includes("Tapa Buracos") ||
-      tags.includes("Vacinação") ||
-      tags.includes("Visita") ||
-      tags.includes("Vistoria") ||
-      tags.includes("Volta às aulas") ||
-      tags.includes("Workshop") ||
+      tags.some(tag =>
+        [
+          "Vacinação",
+          "Visita",
+          "Vistoria",
+          "Viva o Centro a Pé",
+          "Volta às aulas",
+          "Workshop",
+        ].includes(tag)
+      ) ||
       categories.includes("Ceremonies in Brazil") ||
       categories.includes("Conferences in Brazil") ||
       categories.includes("Meetings in Porto Alegre"))
@@ -1483,6 +1520,7 @@ const getCategoriesFromTags = metadata => {
         "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança"
       ) ||
       tags.includes("Feira do Livro") ||
+      tags.includes("Operação Jaguar") ||
       tags.includes("Top de Marketing ADVB/RS")
     )
   ) {

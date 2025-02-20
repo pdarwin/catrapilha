@@ -2,6 +2,7 @@
 export const sameNameTags = [
   "A Cara da Obra",
   "Abrigo de Animais da EPTC",
+  "Abrigo Residencial AR 7",
   "Ação Rua",
   "Adote um Escritor",
   "Albergue Felipe Diehl",
@@ -20,6 +21,7 @@ export const sameNameTags = [
   "Auditório do Global Tecnopuc",
   "Avenida Assis Brasil",
   "Avenida Coronel Marcos",
+  "Avenida Goethe",
   "Avenida Padre Cacique",
   "Avenida Sertório",
   "Avenida Severo Dullius",
@@ -28,6 +30,7 @@ export const sameNameTags = [
   "Banco de Talentos",
   "Biblioteca Ecológica Infantil Maria Dinorah",
   "Bikepoa",
+  "Bolsa Família",
   "Brechocão",
   "Brique da Redenção",
 
@@ -95,6 +98,7 @@ export const sameNameTags = [
 
   "Farmácia Distrital Modelo",
   "Farmácia Móvel",
+  "Feira de Oportunidades",
   "Fique Sabendo Jovem",
   "Fórum Social Mundial da População Idosa",
   "Fundação Iberê Camargo",
@@ -102,6 +106,7 @@ export const sameNameTags = [
   "Galpão da Hospitalidade",
   "GeraçãoPoa",
   "GeraEncontro",
+  "Ginásio do Colégio Protásio Alves",
   "Ginásio Lupi Martins",
   "Ginásio Tesourinha",
   "Grêmio Foot-Ball Porto Alegrense",
@@ -115,6 +120,8 @@ export const sameNameTags = [
   "Instituto Caldeira",
   "Instituto Ling",
   "Instituto Penal Feminino de Porto Alegre",
+
+  "Kombina",
 
   "Largo Glênio Peres",
   "Largo Zumbi dos Palmares",
@@ -134,6 +141,7 @@ export const sameNameTags = [
   "OdontoSesc",
   "Operação Bota-Fora",
   "Operação Inverno",
+  "Operação Jaguar",
   "Orçamento Participativo 2018",
   "Orla de Ipanema",
 
@@ -143,6 +151,7 @@ export const sameNameTags = [
   "Parque Marinha do Brasil",
   "Parque Natural Municipal Morro do Osso",
   "Pedestre Idoso",
+  "Pier do Barra Shopping Sul",
   "Pinacoteca Ruben Berta",
   "Plano de Superação da Situação de Rua",
   "Plataforma Reconstruir Porto Alegre",
@@ -165,6 +174,7 @@ export const sameNameTags = [
   "Rede Calabria",
   "Reserva Biológica do Lami José Lutzenberger",
   "Residencial São Guilherme",
+  "Rua Camoati",
   "Rua José Pedro Boessio",
 
   "Sala Álvaro Moreyra",
@@ -211,5 +221,7 @@ export const sameNameTags = [
   "Vila dos Ferroviários",
   "Vila Jardim",
   "Vila Minuano",
+  "Viva o Centro a Pé",
+
   "WhatsApp",
 ];
