@@ -72,6 +72,7 @@ const sameNameKeywords = [
   "Edson Leal Pujol",
   "Eduardo Leite",
   "Erno Harzheim",
+  "Erno Harzhein",
   "Fabiano Dallazen",
   "Felipe Hirsch",
   "Fernando Ritter",

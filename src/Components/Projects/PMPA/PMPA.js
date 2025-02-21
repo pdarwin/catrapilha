@@ -972,8 +972,11 @@ const getCategoriesFromTags = metadata => {
   if (
     !(
       categories.includes("DMAP (Porto Alegre)") ||
-      tags.includes("DMAE") ||
-      tags.includes("DMLU")
+      tags.some(tag =>
+        ["DMAE", "DMLU", "Departamento de Iluminação Pública (DIP)"].includes(
+          tag
+        )
+      )
     ) &&
     tags.includes("SMSURB")
   ) {
@@ -1197,7 +1200,7 @@ const getCategoriesFromTags = metadata => {
     !tags.includes("Viva o Centro a Pé") &&
     tags.includes("Centro Histórico")
   ) {
-    categories.push("Centro Histórico (Porto Alegre");
+    categories.push("Centro Histórico (Porto Alegre)");
   }
 
   if (tags.includes("doações de cestas básicas")) {
@@ -1242,6 +1245,10 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Transmissão de Cargo")) {
     categories.push("Politics of Porto Alegre");
+  }
+
+  if (tags.some(tag => ["operários", "porteiros"].includes(tag))) {
+    categories.push("Workers in Brazil");
   }
 
   categories.push(...getPplCategories(metadata, tags));
@@ -1425,12 +1432,13 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Procissão") ||
       tags.includes("Programação Cultural") ||
       tags.includes("Programação do Reveillon") ||
-      tags.includes("Semana Cidade Limpa") ||
-      tags.includes("Seminário") ||
-      tags.includes("Simpósio") ||
-      tags.includes("Tapa Buracos") ||
       tags.some(tag =>
         [
+          "Semana Cidade Limpa",
+          "Semana da Água",
+          "Seminário",
+          "Simpósio",
+          "Tapa Buracos",
           "Vacinação",
           "Visita",
           "Vistoria",
@@ -1521,7 +1529,10 @@ const getCategoriesFromTags = metadata => {
       ) ||
       tags.includes("Feira do Livro") ||
       tags.includes("Operação Jaguar") ||
-      tags.includes("Top de Marketing ADVB/RS")
+      tags.includes("Top de Marketing ADVB/RS") ||
+      tags.includes("3º Inclusão em Cena") ||
+      tags.includes("17ª Edição dos Jogos Municipais da Terceira Idade") ||
+      tags.includes("32º Festival de Arte da Cidade de Porto Alegre")
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);

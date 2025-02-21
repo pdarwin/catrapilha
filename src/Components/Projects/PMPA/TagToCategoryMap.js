@@ -6,10 +6,6 @@ export const tagToCategoryMap = {
   Smdse:
     "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
   SMF: "Secretaria Municipal da Fazenda (Porto Alegre)",
-  "Desenvolvimento Economico e Esporte":
-    "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
-  "SMDE - Secretaria Municipal de Desenvolvimento Econômico":
-    "Secretaria Municipal de Desenvolvimento Econômico (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   SMAMS:
@@ -130,6 +126,8 @@ export const tagToCategoryMap = {
     "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Departamento de Arrecação e Cobrança (DAC)":
     "Departamento de Arrecadação e Cobrança (Porto Alegre)",
+  "Departamento de Iluminação Pública (DIP)":
+    "Departamento de Iluminação Pública (Porto Alegre)",
   "Rede de abastecimento de água":
     "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "redes de água": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
@@ -168,6 +166,8 @@ export const tagToCategoryMap = {
   "Vigilância em Saúde": "Diretoria de Vigilância em Saúde de Porto Alegre",
   "Vigilância Em Saúde": "Diretoria de Vigilância em Saúde de Porto Alegre",
   "Vigilância Sanitária": "Diretoria de Vigilância em Saúde de Porto Alegre",
+  "Diretoria de Esporte, Recreação e Lazer (Diresp)":
+    "Diretoria de Esporte, Recreação e Lazer (Porto Alegre)",
   "Serviço de Atendimento Móvel de Urgência (SAMU)":
     "Serviço de Atendimento Móvel de Urgência",
   "Estação de Bombeamento de Águas Pluviais (Ebap)":
@@ -250,6 +250,8 @@ export const tagToCategoryMap = {
   Ulbra: "Universidade Luterana do Brasil",
   "Emei Protásio Alves": "EMEI Protásio Alves",
   "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
+  "Escola Mariano Beck": "EMEF José Mariano Beck",
+  "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -345,6 +347,7 @@ export const tagToCategoryMap = {
   "Bairro Cavalhada": "Cavalhada (Porto Alegre)",
   "Bairro Chapéu do Sol": "Chapéu do Sol",
   "Bairro Cidade Baixa": "Cidade Baixa (Porto Alegre)",
+  "Bairro Coronel Aparício Borges": "Coronel Aparício Borges",
   "Bairro Cristal": "Cristal (Porto Alegre)",
   "Bairro Cruzeiro": "Cruzeiro (Porto Alegre)",
   "Bairro Farrapos": "Farrapos (Porto Alegre)",
@@ -442,6 +445,12 @@ export const tagToCategoryMap = {
     "48º Troféu Seival e 29ª Regata Farroupilha (2018)",
   "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança":
     "1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
+  "32º Festival de Arte da Cidade de Porto Alegre":
+    "32º Festival de Arte da Cidade de Porto Alegre (2018)",
+  "3º Inclusão em Cena": "3º Inclusão em Cena (2018)",
+  "17ª Edição dos Jogos Municipais da Terceira Idade":
+    "17ª Edição dos Jogos Municipais da Terceira Idade (2018)",
+  "149 anos do Mercado Público": "149 anos do Mercado Público (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -516,7 +525,6 @@ export const tagToCategoryMap = {
   Ambulância: "Ambulances in Porto Alegre",
   Procissão: "Processions in Porto Alegre",
   Aéreas: "Aerial photographs of Porto Alegre",
-  "Imagem Aérea": "Aerial photographs of Porto Alegre",
   Táxi: "Taxis in Porto Alegre",
   Infraestrutura: "Infrastructure in Porto Alegre",
   Artesanato: "Handicrafts of Porto Alegre",
@@ -546,6 +554,7 @@ export const tagToCategoryMap = {
   Bicicleta: "Bicycles in Porto Alegre",
   Bocha: "Bocce in Porto Alegre",
   Memória: "History of Porto Alegre",
+  "Fotos Antigas": "History of Porto Alegre",
   Varejo: "Retail in Porto Alegre",
   Indústria: "Industry in Porto Alegre",
   Espetáculo: "Shows in Porto Alegre",
@@ -584,6 +593,8 @@ export const tagToCategoryMap = {
   "Bolsa Família": "Poverty in Porto Alegre",
   "Transporte fluvial de passageiros": "Water transport in Porto Alegre",
   "Plantio Sustentável do DMLU": "DMLU’s Sustainable Planting",
+  "Patrimônio Histórico e Cultural do município":
+    "Cultural heritage monuments in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -669,7 +680,6 @@ export const tagToCategoryMap = {
   Fachada: "Facades in Brazil",
   Revitalização: "Urban renewal in Brazil",
   parquímetro: "Parking meters in Brazil",
-  operários: "Workers in Brazil",
   Chimarrão: "Mate (beverage) in Brazil",
   Venezuelanos: "Venezuelan diaspora in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
@@ -831,4 +841,5 @@ export const tagToCategoryMap = {
   "Oficina de Dança": "Dance lessons",
   "macacos-prego": "Sapajus",
   "Relatório de Gestão": "Reports",
+  porteiros: "Doorkeepers",
 };

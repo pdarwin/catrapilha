@@ -15,11 +15,15 @@ export const tagReplacements = {
   "Limpeza Urbana": "DMLU",
 
   "Desenvolviment Econômico": "Desenvolvimento Econômico",
+  "Desenvolvimento Economico e Esporte": "Desenvolvimento Econômico",
+  "SMDE - Secretaria Municipal de Desenvolvimento Econômico":
+    "Desenvolvimento Econômico",
 
   "Desenvolvimento Social": "Smdse",
   "Desenvolvimento Social e Esporte": "Smdse",
   Smdes: "Smdse",
   "SMDSE - Desenvolvimento Social e Esporte": "Smdse",
+  "Secretaria Municipal de Desenvolvimento Social e Esporte (SMDSE)": "Smdse",
 
   "Dia D": "Dia D de Vacinação",
 
@@ -30,6 +34,9 @@ export const tagReplacements = {
   "Finanças Públicas": "SMF",
   "Secretário Municipal da Fazenda (SMF)": "SMF",
   Smf: "SMF",
+
+  "foto aérea": "Aéreas",
+  "Imagem Aérea": "Aéreas",
 
   "Meio Ambiente": "SMAMS",
   "Meio Ambiente e Sustentabilidade": "SMAMS",
@@ -51,6 +58,8 @@ export const tagReplacements = {
   "Procuradoria Geral": "PGM",
   "Procuradoria Geral do Município": "PGM",
   "Procuradoria-Geral do Município de Porto Alegre": "PGM",
+
+  "Projeto Inclusão em Cena 2018": "3º Inclusão em Cena",
 
   "Reunião sobre acolhida  ao grupo de venezuelanos": "Reunião",
 
