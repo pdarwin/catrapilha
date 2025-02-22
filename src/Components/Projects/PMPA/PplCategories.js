@@ -7,8 +7,6 @@ const keywordToCategoryMap = {
   "Prefeito de Porto Alegre, Sebastião Melo": "Sebastião Melo",
   "Ricardo Gomes": "Ricardo Gomes (politician)",
   "Peter Wilson": "Peter Wilson (diplomat)",
-  "vice-prefeito Ricardo Gomes": "Ricardo Gomes (politician)",
-  "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes (politician)",
   "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
     "Adão de Castro Júnior",
   "Secretário Municipal da Saúde (SMS), Fernando Ritter": "Fernando Ritter",
@@ -45,8 +43,6 @@ const keywordToCategoryMap = {
   "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
   "Secretária Municipal Cultura e Economia Criativa, Liliana Cardoso":
     "Liliana Cardoso",
-  "Secretário municipal de Administração e Patrimônio, André Barbosa":
-    "André Barbosa (politician)",
   "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
     "Cássio Trogildo",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
@@ -82,6 +78,7 @@ const sameNameKeywords = [
   "Hamilton Sossmeier",
   "Helder Barbalho",
   "Idenir Cecchim",
+  "Inacio Etges",
   "Isatir Antonio Bottin Filho",
   "Jaime Spengler",
   "João Fischer",
@@ -94,7 +91,6 @@ const sameNameKeywords = [
   "Maria Helena Sartori",
   "Mauro Pinheiro",
   "Michel Costa",
-  "Nelson Marchezan Júnior",
   "Nísia Trindade",
   "Orly Portal",
   "Osmar Terra",
@@ -230,6 +226,16 @@ const positionYearMap = {
     {
       name: "Festa de Nossa Senhora dos Navegantes (Porto Alegre, 2025)",
       years: { start: 2025, end: 2025 },
+    },
+  ],
+  "inclusao em cena": [
+    {
+      name: "3º Inclusão em Cena (2018)",
+      years: { start: 2018, end: 2018 },
+    },
+    {
+      name: "4º Inclusão em Cena (2019)",
+      years: { start: 2019, end: 2019 },
     },
   ],
 };

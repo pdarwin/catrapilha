@@ -35,8 +35,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Infraestrutura e Urbanismo":
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
-  "Relações Institucionais":
-    "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   Smri: "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   "Esportes, Recreação e Lazer":
     "Secretaria Municipal de Esportes, Recreação e Lazer",
@@ -182,11 +180,6 @@ export const tagToCategoryMap = {
   "Centro Humanístico Vida": "Vida Centro Humanístico",
   "Coordenação Municipal de Urgências (CMU)":
     "Coordenação Municipal de Urgências (Porto Alegre)",
-  "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
-  "Emeb Liberato Salzano Vieira da Cunha":
-    "EMEB Liberato Salzano Vieira da Cunha",
-  "Emeef Elyseu Paglioli": "EMEEF Elyseu Paglioli",
-  "Emei Ilha da Pintada": "EMEI Ilha da Pintada",
   "#eufaçopoa": "EuFaçoPOA",
   "Plano de ação Porto Alegre Forte": "Porto Alegre Forte",
   "Programa de Residência Técnico-Superior (PRTS)":
@@ -198,8 +191,6 @@ export const tagToCategoryMap = {
   Controladoria: "Controladoria-Geral do Município de Porto Alegre",
   Resiliência: "Plano de Resiliência (Porto Alegre)",
   "Diversidade sexual": "Coordenadoria de Diversidade Sexual",
-  "População Negra": "Saúde da População Negra",
-  "Povo Negro": "Saúde da População Negra",
   "Op 2017": "Orçamento Participativo 2017",
   "Lei Seca": "Lei Seca (Porto Alegre)",
   CRIPs: "Centros de Relação Institucional Participativa",
@@ -212,6 +203,8 @@ export const tagToCategoryMap = {
   "Comitê do Projeto Vida no Trânsito": "Projeto Vida no Trânsito",
   "Campanha do Brinquedo Solidário":
     "Campanha do Brinquedo Solidário (Porto Alegre)",
+  "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’":
+    "Rabiscando Ideias - Da cabeça para o papel",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -223,6 +216,8 @@ export const tagToCategoryMap = {
   COMTU: "Conselho Municipal de Transportes Urbanos (Porto Alegre)",
   CMDUA:
     "Conselho Municipal de Desenvolvimento Urbano Ambiental (Porto Alegre)",
+  Comui: "Conselho Municipal do Idoso (Porto Alegre)",
+
   "Comissão de Saúde e Meio Ambiente da CMPA (Cosmam)":
     "Comissão de Saúde e Meio Ambiente da CMPA",
   "Auditório da SMPG":
@@ -248,10 +243,19 @@ export const tagToCategoryMap = {
   Uniritter: "Centro Universitário Ritter dos Reis",
   Estácio: "Faculdade Estácio",
   Ulbra: "Universidade Luterana do Brasil",
-  "Emei Protásio Alves": "EMEI Protásio Alves",
   "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
+
+  "Emei Protásio Alves": "EMEI Protásio Alves",
   "Escola Mariano Beck": "EMEF José Mariano Beck",
   "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
+  "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
+  "Emeb Liberato Salzano Vieira da Cunha":
+    "EMEB Liberato Salzano Vieira da Cunha",
+  "Emeef Elyseu Paglioli": "EMEEF Elyseu Paglioli",
+  "Emei Ilha da Pintada": "EMEI Ilha da Pintada",
+  "Emef Vereador Carlos Pessoa de Brum": "EMEF Vereador Carlos Pessoa de Brum",
+  "Escola Estadual de Ensino Fundamental Duque de Caxias":
+    "EEEF Duque de Caxias",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -293,10 +297,13 @@ export const tagToCategoryMap = {
   "Sede do Tribunal de Contas do Estado (TCE)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
   "TJ-RS": "Tribunal de Justiça do Estado do Rio Grande do Sul",
+
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
+  "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
+  "Teatro do Sesi": "Teatro do Sesi (Porto Alegre)",
+
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
-  "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
   "Palácio do Comércio": "Palácio do Comércio (Porto Alegre)",
   "Estação Rodoviária de Porto Alegre": "Rodoviária (Trensurb)",
   "Grêmio Sargento Expedicionário Geraldo Santana": "Grêmio Geraldo Santana",
@@ -325,6 +332,7 @@ export const tagToCategoryMap = {
     "Cemitério da Santa Casa de Misericórdia (Porto Alegre)",
   BarraShoppingSul: "Barra Shopping Sul",
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
+  "Centro de Eventos da Amrigs": "Centro de Eventos da AMRIGS",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -371,12 +379,8 @@ export const tagToCategoryMap = {
   Navegantes: "Navegantes (Porto Alegre)",
   "Bairro Partenon": "Partenon (Porto Alegre)",
   Partenon: "Partenon (Porto Alegre)",
-  "Bairro Petrópolis": "Petrópolis (Porto Alegre)",
-  Petrópolis: "Petrópolis (Porto Alegre)",
   "Bairro Ponta Grossa": "Ponta Grossa (Porto Alegre)",
   "Bairro Praia de Belas": "Praia de Belas",
-  "bairro Restinga": "Restinga (Porto Alegre)",
-  "Bairro Restinga": "Restinga (Porto Alegre)",
   "Bairro Rubem Berta": "Rubem Berta (Porto Alegre)",
   "Bairro São Geraldo": "São Geraldo (Porto Alegre)",
   "Santa Cecília": "Santa Cecília (Porto Alegre)",
@@ -447,10 +451,11 @@ export const tagToCategoryMap = {
     "1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
   "32º Festival de Arte da Cidade de Porto Alegre":
     "32º Festival de Arte da Cidade de Porto Alegre (2018)",
-  "3º Inclusão em Cena": "3º Inclusão em Cena (2018)",
   "17ª Edição dos Jogos Municipais da Terceira Idade":
     "17ª Edição dos Jogos Municipais da Terceira Idade (2018)",
   "149 anos do Mercado Público": "149 anos do Mercado Público (2018)",
+  "8ª Semana Municipal da Água": "8ª Semana Municipal da Água (2018)",
+  "14ª Gincana Ambiental": "14ª Gincana Ambiental (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -516,6 +521,8 @@ export const tagToCategoryMap = {
   "SMTC - Marco Regulatório das Organizações da Sociedade Civil":
     "Marco Regulatório das Organizações da Sociedade Civil",
   "Fraport Brasil S.A.": "Fraport Brasil",
+  "Jornada Científica do HPS":
+    "Jornada Científica do Hospital de Pronto Socorro",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -725,6 +732,8 @@ export const tagToCategoryMap = {
   "Zona Urbana": "Urban areas in Brazil",
   "evento social": "Social events in Brazil",
   "DIA SEM CARRO": "World Car Free Day in Brazil",
+  "Sala de aula": "Classrooms in Brazil",
+  "Eleições 2018": "2018 Brazilian election (first round)",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(

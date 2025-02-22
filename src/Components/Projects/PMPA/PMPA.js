@@ -303,10 +303,8 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Conselho Municipal de Saúde") ||
-      tags.includes("CMDUA") ||
-      tags.includes("COMTU")
+    !tags.some(tag =>
+      ["Conselho Municipal de Saúde", "CMDUA", "COMTU", "Comui"].includes(tag)
     ) &&
     tags.includes("Conselhos Municipais")
   ) {
@@ -355,17 +353,9 @@ const getCategoriesFromTags = metadata => {
       tags.includes("EPTC") ||
       tags.includes("Empresa Pública de Transporte e Circulação (EPTC)")
     ) &&
-    (tags.includes("trânsito") ||
-      tags.includes("Transporte") ||
-      tags.includes("Transporte e Circulaçao") ||
-      tags.includes("Transporte e Circulação") ||
-      tags.includes("Trânsito e Circulação") ||
-      tags.includes("Transito e Transporte") ||
-      tags.includes("Circulação") ||
-      tags.includes("Circulação e Transporte") ||
+    (tags.includes("Transporte") ||
       tags.includes("Agentes de Trânsito") ||
       tags.includes("Educação no Trânsito") ||
-      tags.includes("Mobilidade") ||
       tags.includes("Estação de Transbordo") ||
       tags.includes("DIA SEM CARRO"))
   ) {
@@ -431,14 +421,17 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("CGVS") ||
-      tags.includes("Farmácia") ||
-      tags.includes("Conselho Municipal de Saúde")
+    !tags.some(tag =>
+      [
+        "CGVS",
+        "Farmácia",
+        "Conselho Municipal de Saúde",
+        "Saúde da População Negra",
+      ].includes(tag)
     ) &&
-    (tags.includes("Saúde") ||
-      tags.includes("Sms") ||
-      tags.includes("Secretaria Municipal de Saúde (SMS)"))
+    tags.some(tag =>
+      ["Saúde", "Sms", "Secretaria Municipal de Saúde (SMS)"].includes(tag)
+    )
   ) {
     categories.push("Secretaria Municipal de Saúde (Porto Alegre)");
   }
@@ -456,13 +449,20 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Capacitação") ||
-      tags.includes("Primeira Infância Melhor (PIM)")
+    !tags.some(tag =>
+      [
+        "Capacitação",
+        "Primeira Infância Melhor (PIM)",
+        "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’",
+      ].includes(tag)
     ) &&
-    (tags.includes("Secretária municipal da Educação (SMED)") ||
-      tags.includes("SMED") ||
-      tags.includes("Secretário Municipal da Educação (SMED)"))
+    tags.some(tag =>
+      [
+        "Secretária municipal da Educação (SMED)",
+        "SMED",
+        "Secretário Municipal da Educação (SMED)",
+      ].includes(tag)
+    )
   ) {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
   }
@@ -595,9 +595,10 @@ const getCategoriesFromTags = metadata => {
       [
         "Companhia Municipal de Dança",
         "Grupo Experimental de Dança (GED)",
-        "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)",
         "Clássicos na Pinacoteca",
+        "Inclusão Em Cena",
         "Poa Em Cena",
+        "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)",
         "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
         "Viva o Centro a Pé",
       ].includes(tag)
@@ -698,7 +699,7 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Social") ||
     tags.includes("LGBT") ||
     tags.includes("Transexualidade") ||
-    tags.includes("Idosos") ||
+    (!tags.includes("Comui") && tags.includes("Idosos")) ||
     tags.includes("Criança") ||
     tags.includes("Servidor") ||
     tags.includes("Cidadania") ||
@@ -712,11 +713,14 @@ const getCategoriesFromTags = metadata => {
     categories.push("Society of Porto Alegre");
   }
 
-  if (tags.includes("LGBT") || tags.includes("Transexualidade")) {
+  if (tags.some(tag => ["LGBT", "Transexualidade"].includes(tag))) {
     categories.push("LGBT in Rio Grande do Sul");
   }
 
-  if (!tags.includes("Poa Em Cena") && tags.includes("Teatro")) {
+  if (
+    !tags.some(tag => ["Inclusão Em Cena", "Poa Em Cena"].includes(tag)) &&
+    tags.includes("Teatro")
+  ) {
     categories.push("Theatre of Porto Alegre");
   }
 
@@ -897,7 +901,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Unidades de Saúde in Porto Alegre");
   }
 
-  if (tags.includes("Saúde do Idoso") || tags.includes("Idosos")) {
+  if (
+    !tags.includes("Comui") &&
+    tags.some(tag => ["Saúde do Idoso", "Idosos"].includes(tag))
+  ) {
     categories.push("Geriatrics in Brazil");
   }
 
@@ -1201,6 +1208,20 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Centro Histórico")
   ) {
     categories.push("Centro Histórico (Porto Alegre)");
+  }
+
+  if (
+    !tags.includes("Praça Mafalda Veríssimo") &&
+    tags.includes("Petrópolis")
+  ) {
+    categories.push("Petrópolis (Porto Alegre)");
+  }
+
+  if (
+    !tags.includes("Emef Vereador Carlos Pessoa de Brum") &&
+    tags.includes("Bairro Restinga")
+  ) {
+    categories.push("Restinga (Porto Alegre)");
   }
 
   if (tags.includes("doações de cestas básicas")) {
@@ -1514,25 +1535,28 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Fórum da Liberdade") ||
       tags.includes("Páscoa") ||
       categories.includes("2024 Porto Alegre floods") ||
-      tags.includes("Semana de Porto Alegre") ||
-      tags.includes("Acampamento Farroupilha") ||
-      tags.includes("Natal") ||
-      tags.includes("Jogos dos Estudantes Surdos") ||
-      tags.includes("Poa Em Cena") ||
-      tags.includes("Festa de Nossa Senhora dos Navegantes") ||
-      tags.includes("48º Troféu Seival e 29ª Regata Farroupilha") ||
-      tags.includes(
-        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
-      ) ||
-      tags.includes(
-        "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança"
-      ) ||
-      tags.includes("Feira do Livro") ||
-      tags.includes("Operação Jaguar") ||
-      tags.includes("Top de Marketing ADVB/RS") ||
-      tags.includes("3º Inclusão em Cena") ||
-      tags.includes("17ª Edição dos Jogos Municipais da Terceira Idade") ||
-      tags.includes("32º Festival de Arte da Cidade de Porto Alegre")
+      tags.some(tag =>
+        [
+          "14ª Gincana Ambiental",
+          "17ª Edição dos Jogos Municipais da Terceira Idade",
+          "32º Festival de Arte da Cidade de Porto Alegre",
+          "48º Troféu Seival e 29ª Regata Farroupilha",
+          "8ª Semana Municipal da Água",
+          "Acampamento Farroupilha",
+          "Feira do Livro",
+          "Festa de Nossa Senhora dos Navegantes",
+          "Inclusão Em Cena",
+          "Jogos dos Estudantes Surdos",
+          "Operação Jaguar",
+          "Natal",
+          "Poa Em Cena",
+          "Semana de Porto Alegre",
+          "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
+          "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
+          "Top de Marketing ADVB/RS",
+          "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’",
+        ].includes(tag)
+      )
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);

@@ -4,11 +4,29 @@ export const tagReplacements = {
   "POA Em Cena": "Poa Em Cena",
   "Smc - Poa Em Cena": "Poa Em Cena",
 
-  "relações Institucionais": "Relações Institucionais",
+  "3º Inclusão em Cena": "Inclusão Em Cena",
+  "Projeto Inclusão em Cena 2018": "Inclusão Em Cena",
+
+  "relações Institucionais": "Smri",
+  "Relações Institucionais": "Smri",
+  "Secretaria Municipal de Relações Institucionais (SMRI)": "Smri",
+
   "Acampamento 2018": "Acampamento Farroupilha",
   "Acampamento Farropilha": "Acampamento Farroupilha",
 
   "Bairro Centro Histórico": "Centro Histórico",
+  "Bairro Petrópolis": "Petrópolis",
+  "bairro Restinga": "Bairro Restinga",
+
+  Circulação: "Transporte",
+  "Circulação e Transporte": "Transporte",
+  Mobilidade: "Transporte",
+  trânsito: "Transporte",
+  "Trânsito e Circulação": "Transporte",
+  "Trânsito e Circulaçâo": "Transporte",
+  "Transito e Transporte": "Transporte",
+  "Transporte e Circulaçao": "Transporte",
+  "Transporte e Circulação": "Transporte",
 
   "Departamento Municipal de Limpeza Urbana (DMLU)": "DMLU",
   Dmlu: "DMLU",
@@ -28,6 +46,7 @@ export const tagReplacements = {
   "Dia D": "Dia D de Vacinação",
 
   "Emef Migrantes": "EMEF Migrantes",
+  "Emef Vila Montecristo": "EMEF Vila Monte Cristo",
 
   Fazenda: "SMF",
   Finanças: "SMF",
@@ -59,7 +78,11 @@ export const tagReplacements = {
   "Procuradoria Geral do Município": "PGM",
   "Procuradoria-Geral do Município de Porto Alegre": "PGM",
 
-  "Projeto Inclusão em Cena 2018": "3º Inclusão em Cena",
+  "População Negra": "Saúde da População Negra",
+  "Povo Negro": "Saúde da População Negra",
+  "Promotores da Saúde da População Negra": "Saúde da População Negra",
+
+  "Presidente das Mantenedoras Maristas do Sul": "Inacio Etges",
 
   "Reunião sobre acolhida  ao grupo de venezuelanos": "Reunião",
 
@@ -82,6 +105,9 @@ export const tagReplacements = {
   "Transparência e Controladoria": "Smtc",
   "Transparência e Controladoria Geral": "Smtc",
 
+  "Secretário municipal de Administração e Patrimônio, André Barbosa":
+    "André Barbosa",
+
   "Smc -": "Smc",
 
   Tradicionalismo: "Tradição",
@@ -90,4 +116,7 @@ export const tagReplacements = {
   "Viagem à Europa": "Visita",
   "Visita de Cortesia": "Visita",
   "visita institucional": "Visita",
+
+  "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes",
+  "vice-prefeito Ricardo Gomes": "Ricardo Gomes",
 };
