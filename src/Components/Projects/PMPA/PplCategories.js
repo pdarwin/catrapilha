@@ -2,6 +2,7 @@ const keywordToCategoryMap = {
   Marchezan: "Nelson Marchezan Júnior",
   Hamm: "Afonso Hamm",
   Lula: "Luiz Inácio Lula da Silva",
+  "Denise Ries Russo": "Denise Russo",
   "Jorge Benjor": "Jorge Ben Jor",
   "Roberto Freire": "Roberto Freire (politician)",
   "Prefeito de Porto Alegre, Sebastião Melo": "Sebastião Melo",
@@ -48,7 +49,6 @@ const keywordToCategoryMap = {
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
     "Germano Bremm",
   "Vice-governador Gabriel Souza": "Gabriel Souza",
-  "Vice-prefeita, Betina Worm": "Betina Worm",
   "Wambert Gomes Di Lorenzo": "Wambert Di Lorenzo",
   "Záchia Paludo": "Maria de Fátima Záchia Paludo",
 };
@@ -63,6 +63,7 @@ const sameNameKeywords = [
   "Bruno Vanuzzi",
   "Cássio Trogildo",
   "Cezar Schirmer",
+  "Denise Russo",
   "Dilan Camargo",
   "Dori Goren",
   "Edson Leal Pujol",
@@ -87,6 +88,7 @@ const sameNameKeywords = [
   "Liliana Cardoso",
   "Liziane Bayer",
   "Marcelo Soletti",
+  "Marcino Fernandes",
   "Marcos Frota",
   "Maria Helena Sartori",
   "Mauro Pinheiro",

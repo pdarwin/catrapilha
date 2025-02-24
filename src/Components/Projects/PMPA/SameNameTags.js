@@ -1,5 +1,7 @@
 // List of tags for which the category is the same
 export const sameNameTags = [
+  "1ª Expo-Feira Náutica Almirante Tamandaré 2019",
+
   "A Cara da Obra",
   "Abrigo de Animais da EPTC",
   "Abrigo Residencial AR 7",
@@ -22,6 +24,7 @@ export const sameNameTags = [
   "Avenida Assis Brasil",
   "Avenida Coronel Marcos",
   "Avenida Goethe",
+  "Avenida Nilo Peçanha",
   "Avenida Nonoai",
   "Avenida Padre Cacique",
   "Avenida Sertório",
@@ -124,6 +127,8 @@ export const sameNameTags = [
   "Instituto Ling",
   "Instituto Penal Feminino de Porto Alegre",
 
+  "Jardins do DMAE",
+
   "Kombina",
 
   "Largo Glênio Peres",
@@ -134,14 +139,19 @@ export const sameNameTags = [
 
   "Maio Amarelo",
   "Maio Vermelho",
+  "Meetings involving the Municipality of Porto Alegre",
+  "Memorial do Rio Grande do Sul",
+  "Mercado do Bom Fim",
   "Mês do Idoso",
   "Mexatchê",
-  "Mercado do Bom Fim",
+  "Missão Xangai 2018",
   "Moinhos de Vento",
   "Morro Ricaldone",
+  "Mostra Acústicos e Elétricos",
   "Museu de Porto Alegre Joaquim Felizardo",
 
   "Natal dos Encantos",
+  "Nova Ponte do Guaíba",
 
   "OdontoSesc",
   "Operação Bota-Fora",
@@ -157,7 +167,6 @@ export const sameNameTags = [
   "Parque Natural Municipal Morro do Osso",
   "Pedestre Idoso",
   "Pier do Barra Shopping Sul",
-  "Pinacoteca Ruben Berta",
   "Plano de Superação da Situação de Rua",
   "Plataforma Reconstruir Porto Alegre",
   "Plaza São Rafael",
@@ -171,6 +180,7 @@ export const sameNameTags = [
   "Praia de Belas",
   "Prefeitos de Praça",
   "Prefeitura nos Bairros",
+  "Prêmio MPT na Escola",
   "Programa Municipal de Rastreamento de Câncer Colorretal",
   "Projeto 100% Digital",
   "Projeto Jogo Limpo",
@@ -181,11 +191,14 @@ export const sameNameTags = [
   "Reserva Biológica do Lami José Lutzenberger",
   "Residencial São Guilherme",
   "Rua Camoati",
+  "Rua Cecília Meireles",
+  "Rua Francisco Petuco",
   "Rua José Pedro Boessio",
 
   "Sala Álvaro Moreyra",
   "Sala Cecy Frank",
   "Sala da Fonte",
+  "Sala de Treinamento da SMPG",
   "Sala P. F. Gastal",
   "Saúde da População Negra",
   "Semana Cidade Limpa",

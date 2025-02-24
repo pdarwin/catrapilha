@@ -3,8 +3,6 @@ import { getYear } from "../../../Utils/DateUtils";
 // Define a mapping of tags to categories
 export const tagToCategoryMap = {
   Smds: "Secretaria Municipal de Desenvolvimento Social (Porto Alegre)",
-  Smdse:
-    "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
   SMF: "Secretaria Municipal da Fazenda (Porto Alegre)",
   "Secretaria Municipal de Desenvolvimento Econômico e Turismo (SMDET)":
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
@@ -66,9 +64,9 @@ export const tagToCategoryMap = {
   "Habitação e Regularização Fundiária":
     "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
   Parcerias: "Secretaria Municipal de Parcerias (Porto Alegre)",
-  "Parcerias Estratégicas": "Secretaria Municipal de Parcerias (Porto Alegre)",
   "Secretaria Municipal de Parcerias (SMP)":
     "Secretaria Municipal de Parcerias (Porto Alegre)",
+  Smpe: "Secretaria Municipal de Parcerias Estratégicas (Porto Alegre)",
   "Secretaria Municipal de Administração e Patrimônio (SMAP)":
     "Secretaria Municipal de Administração e Patrimônio (Porto Alegre)",
   "Administração e Patrimônio":
@@ -93,12 +91,7 @@ export const tagToCategoryMap = {
     "Companhia de Processamento de Dados do Município de Porto Alegre",
   "Departamento Municipal de Habitação (Demhab)":
     "Departamento Municipal de Habitação (Porto Alegre)",
-  "Centro Integrado de Comando":
-    "Centro Integrado de Comando da Cidade de Porto Alegre",
-  "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)":
-    "Centro Integrado de Comando da Cidade de Porto Alegre",
-  CEIC: "Centro Integrado de Comando da Cidade de Porto Alegre",
-  Ceic: "Centro Integrado de Comando da Cidade de Porto Alegre",
+  CEIC: "Centro Integrado de Coordenação e Serviços da Cidade de Porto Alegre",
   "Comissão Permanente de Atuação em Emergências (Copae)":
     "Comissão Permanente de Atuação em Emergências",
   "Comissão de Saúde e Segurança no Trabalho":
@@ -132,10 +125,8 @@ export const tagToCategoryMap = {
   Adutora: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Sine Municipal": "Sine Municipal (Porto Alegre)",
   EPTC: "Empresa Pública de Transporte e Circulação de Porto Alegre",
-  "Empresa Pública de Transporte e Circulação (EPTC)":
-    "Empresa Pública de Transporte e Circulação de Porto Alegre",
-  "Coordenação de Operações Especiais (COE)":
-    "Empresa Pública de Transporte e Circulação de Porto Alegre",
+  "Sede da EPTC":
+    "Sede da Empresa Pública de Transporte e Circulação de Porto Alegre",
   Fasc: "Fundação de Assistência Social e Cidadania",
   "Fundação de Assistência Social e Cidadania – Fasc":
     "Fundação de Assistência Social e Cidadania",
@@ -150,7 +141,6 @@ export const tagToCategoryMap = {
     "Salão Nobre (Paço Municipal de Porto Alegre)",
   "Sala dos Embaixadores":
     "Sala dos Embaixadores (Paço Municipal de Porto Alegre)",
-  "Restaurante Popular": "Restaurantes Populares",
   Visita: "Official visits involving the Municipality of Porto Alegre",
   "Coletiva de Imprensa":
     "Press conferences by the Municipality of Porto Alegre",
@@ -217,38 +207,50 @@ export const tagToCategoryMap = {
   CMDUA:
     "Conselho Municipal de Desenvolvimento Urbano Ambiental (Porto Alegre)",
   Comui: "Conselho Municipal do Idoso (Porto Alegre)",
+  "Reunião Plenária do COMUI": "Conselho Municipal do Idoso (Porto Alegre)",
 
   "Comissão de Saúde e Meio Ambiente da CMPA (Cosmam)":
     "Comissão de Saúde e Meio Ambiente da CMPA",
-  "Auditório da SMPG":
-    "Auditório da Secretaria Municipal de Planejamento de Gestão",
   PGM: "Procuradoria-Geral do Município de Porto Alegre",
   Corregedoria: "Corregedoria-Geral do Município de Porto Alegre",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
   Famurs: "Federação das Associações de Municípios do Rio Grande do Sul",
+  "Federação de Entidades Empresariais do Rio Grande do Sul ( Federasul )":
+    "Federação de Entidades Empresariais do Rio Grande do Sul",
+  Fiergs: "Federação das Indústrias do Estado do Rio Grande do Sul",
+
   Granpal: "Associação dos Municípios da Região Metropolitana de Porto Alegre",
   "Associação dos Auditores Fiscais da Receita Municipal de Porto Alegre (Aiamu)":
     "Associação dos Auditores Fiscais da Receita Municipal de Porto Alegre",
+  "Associação do Corpo Consular RS": "Associação do Corpo Consular do RS",
   "CDL Porto Alegre": "Câmara de Dirigentes Lojistas de Porto Alegre",
+
+  "Restaurante Popular": "Restaurantes Populares",
+  "Restaurante Baumbach": "Ratskeller Baumbach",
+  "Vistoria Obras Restaurante Panorâmico": "360 POA",
 
   "Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA)":
     "Universidade Federal de Ciências da Saúde de Porto Alegre",
   "Universidade Federal do Rio Grande do Sul (UFRGS)":
     "Universidade Federal do Rio Grande do Sul",
+  "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
   PUCRS: "Pontifícia Universidade Católica do Rio Grande do Sul",
   "Pontifícia Universidade Católica do RS (PUCRS)":
     "Pontifícia Universidade Católica do Rio Grande do Sul",
+  "Café Coworking do Parque Científico e Tecnológico da PUCRS (TecnoPuc)":
+    "Café Coworking do TecnoPuc",
   "Escola de Gestão Pública (EGP)": "Escola de Gestão Pública (Porto Alegre)",
   Uniritter: "Centro Universitário Ritter dos Reis",
   Estácio: "Faculdade Estácio",
   Ulbra: "Universidade Luterana do Brasil",
-  "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
 
-  "Emei Protásio Alves": "EMEI Protásio Alves",
-  "Escola Mariano Beck": "EMEF José Mariano Beck",
-  "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
   "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
+  "Emei Protásio Alves": "EMEI Protásio Alves",
+  "Emef Anísio Teixeira": "EMEF Anísio Teixeira",
+  "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
+  "Emef Pepita de Leão": "EMEF Pepita de Leão",
+  "Escola Mariano Beck": "EMEF José Mariano Beck",
   "Emeb Liberato Salzano Vieira da Cunha":
     "EMEB Liberato Salzano Vieira da Cunha",
   "Emeef Elyseu Paglioli": "EMEEF Elyseu Paglioli",
@@ -256,6 +258,8 @@ export const tagToCategoryMap = {
   "Emef Vereador Carlos Pessoa de Brum": "EMEF Vereador Carlos Pessoa de Brum",
   "Escola Estadual de Ensino Fundamental Duque de Caxias":
     "EEEF Duque de Caxias",
+  "Escola Municipal de Ensino Fundamental José Loureiro da Silva":
+    "EMEF José Loureiro da Silva",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -301,6 +305,10 @@ export const tagToCategoryMap = {
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
   "Teatro do Sesi": "Teatro do Sesi (Porto Alegre)",
+  "Auditório da SMPG":
+    "Auditório da Secretaria Municipal de Planejamento de Gestão",
+  "Auditório do Ministério Público":
+    "Auditório do Ministério Público (Porto Alegre)",
 
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -333,6 +341,7 @@ export const tagToCategoryMap = {
   BarraShoppingSul: "Barra Shopping Sul",
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
   "Centro de Eventos da Amrigs": "Centro de Eventos da AMRIGS",
+  "Centro Social Marista - CESMAR": "Centro Social Marista",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -347,6 +356,7 @@ export const tagToCategoryMap = {
   "Bairro Azenha": "Azenha",
   "Bairro Bela Vista": "Bela Vista (Porto Alegre)",
   "Bairro Belém Novo": "Belém Novo",
+  "Bairro Boa Vista": "Boa Vista (Porto Alegre)",
   "Bairro Bom Fim": "Bom Fim",
   "Bairro Bom Jesus": "Bom Jesus (Porto Alegre)",
   "Bairro Camaquã": "Camaquã (Porto Alegre)",
@@ -404,16 +414,18 @@ export const tagToCategoryMap = {
   "Parque Ararigbóia": "Parque Ararigboia",
 
   "Avenida Ipiranga": "Avenida Ipiranga (Porto Alegre)",
+  "Avenida João Pessoa": "Avenida João Pessoa (Porto Alegre)",
   "Avenida Castello Branco": "Avenida Presidente Castello Branco",
   "Entrada da cidade": "Avenida Presidente Castello Branco",
   "Av. Mauá": "Avenida Mauá",
   "Av. Tronco": "Avenida Moab Caldas",
   "Moab Caldas": "Avenida Moab Caldas",
   "Avenida Voluntários da Pátria": "Rua Voluntários da Pátria (Porto Alegre)",
+  "Av. Wenceslau Escobar": "Avenida Wenceslau Escobar",
   "Praça Revolução Farroupilha (Trensurb)": "Praça Revolução Farroupilha",
   "Praça Montevideo": "Praça Montevidéu",
   "Praça Marechal Deodoro (Matriz)": "Praça da Matriz (Porto Alegre)",
-  "Terminal Parobé": "Praça Pereira Parobé",
+  "Praça Parobé": "Praça Pereira Parobé",
   "Viaduto Conceição": "Viaduto da Conceição",
   "Baronesa do Gravataí": "Rua Baronesa do Gravataí",
   "Trincheira da Ceará": "Trincheira da Avenida Ceará",
@@ -440,6 +452,8 @@ export const tagToCategoryMap = {
   "Centro de Informações Estratégicas em Vigilância em Saúde (Cievs)":
     "Centro de Informações Estratégicas em Vigilância em Saúde",
   Ideb: "Índice de Desenvolvimento da Educação Básica",
+  "Departamento Nacional de Infraestrutura de Transportes (Dnit)":
+    "Departamento Nacional de Infraestrutura de Transportes",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
@@ -456,6 +470,11 @@ export const tagToCategoryMap = {
   "149 anos do Mercado Público": "149 anos do Mercado Público (2018)",
   "8ª Semana Municipal da Água": "8ª Semana Municipal da Água (2018)",
   "14ª Gincana Ambiental": "14ª Gincana Ambiental (2018)",
+  "1º Festival de Arte e Cultura Senegalesa":
+    "1º Festival de Arte e Cultura Senegalesa (2018)",
+  "Dia da Criança": "Children's Day in Brazil",
+  "30 Anos da Defesa Civil": "30 Anos da Defesa Civil (2018)",
+  "Dia Mundial da Alimentação": "World Food Day",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -486,7 +505,6 @@ export const tagToCategoryMap = {
   "Cais do Porto": "Cais Mauá",
   Unesco: "UNESCO",
   "Fórum da Liberdade": "30º Fórum da Liberdade (2017)",
-  Fiergs: "Federação das Indústrias do Estado do Rio Grande do Sul",
   "Jogos Abertos": "Jogos Abertos de Porto Alegre",
   "Jockey Club": "Jockey Club do Rio Grande do Sul",
   "Nivel do Guaíba": "Water level recorders",
@@ -602,6 +620,9 @@ export const tagToCategoryMap = {
   "Plantio Sustentável do DMLU": "DMLU’s Sustainable Planting",
   "Patrimônio Histórico e Cultural do município":
     "Cultural heritage monuments in Porto Alegre",
+  "1ª Faixa Reversível semafórica de Porto Alegre":
+    "Road transport infrastructure in Porto Alegre",
+  "Radar de Trânsito": "Speed cameras in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -611,7 +632,6 @@ export const tagToCategoryMap = {
     `Independence Day ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
 
   Nuvens: "Clouds in Rio Grande do Sul",
-  Semáforos: "Traffic lights in Rio Grande do Sul",
   Futsal: "Futsal in Rio Grande do Sul",
   "Indumentária Gaúcha": "Costumes in Rio Grande do Sul",
 
@@ -734,6 +754,8 @@ export const tagToCategoryMap = {
   "DIA SEM CARRO": "World Car Free Day in Brazil",
   "Sala de aula": "Classrooms in Brazil",
   "Eleições 2018": "2018 Brazilian election (first round)",
+  "Mastectomia em animais": "Animal health in Brazil",
+  "Equipamentos Hospitalares": "Medical equipment in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -816,7 +838,6 @@ export const tagToCategoryMap = {
   Aeronáutica: "Aeronautics",
   "Doença Respiratória": "Diseases and disorders of the respiratory system",
   Leishmaniose: "Leishmaniasis",
-  "Coleta Seletiva": "Separate waste collection",
   Compostagem: "Composting",
   Prevenção: "Prevention",
   Ecobarreira: "Waste collection booms",
@@ -851,4 +872,6 @@ export const tagToCategoryMap = {
   "macacos-prego": "Sapajus",
   "Relatório de Gestão": "Reports",
   porteiros: "Doorkeepers",
+  "Licenciamento Ambiental": "Environmental law",
+  hipertenso: "Hypertension",
 };
