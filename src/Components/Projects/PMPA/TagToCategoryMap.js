@@ -98,6 +98,7 @@ export const tagToCategoryMap = {
     "Comissão de Saúde e Segurança no Trabalho (Porto Alegre)",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
   "Defesa Cívil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
+
   "Equipe de Manejo Arbóreo (EMA)": "Equipe de Manejo Arbóreo (Porto Alegre)",
   "Equipe de Vigilância em Saúde Ambiental e Águas (EVSAA)":
     "Equipe de Vigilância em Saúde Ambiental e Águas (Porto Alegre)",
@@ -106,6 +107,12 @@ export const tagToCategoryMap = {
   "Equipe de Vigilância Eventos Vitais (EVEV)":
     "Equipe de Vigilância Eventos Vitais (Porto Alegre)",
   "Vigilância de Alimentos": "Equipe de Vigilância de Alimentos (Porto Alegre)",
+  "Equipe de Veículos de Tração Animal (VTA)":
+    "Equipe de Veículos de Tração Animal (Porto Alegre)",
+
+  "Unidade de Vigilância Ambiental (UVA)":
+    "Unidade de Vigilância Ambiental (Porto Alegre)",
+
   DMAP: "DMAP (Porto Alegre)",
   DMAE: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   Dmae: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
@@ -195,6 +202,8 @@ export const tagToCategoryMap = {
     "Campanha do Brinquedo Solidário (Porto Alegre)",
   "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’":
     "Rabiscando Ideias - Da cabeça para o papel",
+  "Espetáculo O Rei da Vela": "O Rei da Vela",
+  "Projeto Kilombinho de Verão": "Kilombinho de Verão",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -235,6 +244,8 @@ export const tagToCategoryMap = {
   "Universidade Federal do Rio Grande do Sul (UFRGS)":
     "Universidade Federal do Rio Grande do Sul",
   "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
+  "Centro Cultural da Universidade Federal do Rio Grande do Sul (UFRGS)":
+    "Centro Cultural da Universidade Federal do Rio Grande do Sul",
   PUCRS: "Pontifícia Universidade Católica do Rio Grande do Sul",
   "Pontifícia Universidade Católica do RS (PUCRS)":
     "Pontifícia Universidade Católica do Rio Grande do Sul",
@@ -247,6 +258,7 @@ export const tagToCategoryMap = {
 
   "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
   "Emei Protásio Alves": "EMEI Protásio Alves",
+  "Emei Santo Expedito": "EMEI Santo Expedito",
   "Emef Anísio Teixeira": "EMEF Anísio Teixeira",
   "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
   "Emef Pepita de Leão": "EMEF Pepita de Leão",
@@ -260,6 +272,8 @@ export const tagToCategoryMap = {
     "EEEF Duque de Caxias",
   "Escola Municipal de Ensino Fundamental José Loureiro da Silva":
     "EMEF José Loureiro da Silva",
+  "Escola Municipal de Ensino Fundamental Nossa Senhora de Fátima":
+    "EMEF Nossa Senhora de Fátima",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -307,6 +321,7 @@ export const tagToCategoryMap = {
   "Teatro do Sesi": "Teatro do Sesi (Porto Alegre)",
   "Auditório da SMPG":
     "Auditório da Secretaria Municipal de Planejamento de Gestão",
+  "Auditório da SMED": "Auditório da Secretaria Municipal de Educação",
   "Auditório do Ministério Público":
     "Auditório do Ministério Público (Porto Alegre)",
 
@@ -318,6 +333,7 @@ export const tagToCategoryMap = {
   "Estádio Beira-rio": "Estádio Beira-Rio",
   "Complexo Cultural Porto Seco": "Complexo Cultural do Porto Seco",
   "comportas do Muro da Mauá": "Mauá Wall floodgates",
+  "Muro da Mauá": "Mauá Wall",
   "Aeroporto Internacional Salgado Filho":
     "Salgado Filho International Airport",
   "Aeroporto Salgado Filho": "Salgado Filho International Airport",
@@ -475,6 +491,8 @@ export const tagToCategoryMap = {
   "Dia da Criança": "Children's Day in Brazil",
   "30 Anos da Defesa Civil": "30 Anos da Defesa Civil (2018)",
   "Dia Mundial da Alimentação": "World Food Day",
+  "1º Fórum das Cidades Inteligentes, Humanizadas e Inovadoras - Smart Cities":
+    "1º Fórum das Cidades Inteligentes, Humanizadas e Inovadoras - Smart Cities (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -541,6 +559,7 @@ export const tagToCategoryMap = {
   "Fraport Brasil S.A.": "Fraport Brasil",
   "Jornada Científica do HPS":
     "Jornada Científica do Hospital de Pronto Socorro",
+  "Contrato com a Caixa Econômica Federal (CEF)": "Caixa Econômica Federal",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -574,7 +593,6 @@ export const tagToCategoryMap = {
   CÃES: "Dogs of Porto Alegre",
   Coronavírus: "COVID-19 pandemic in Porto Alegre",
   "Covid-19": "COVID-19 pandemic in Porto Alegre",
-  Mapa: "Maps of Porto Alegre",
   Quilombos: "Quilombos in Porto Alegre",
   Bicicleta: "Bicycles in Porto Alegre",
   Bocha: "Bocce in Porto Alegre",
@@ -623,6 +641,7 @@ export const tagToCategoryMap = {
   "1ª Faixa Reversível semafórica de Porto Alegre":
     "Road transport infrastructure in Porto Alegre",
   "Radar de Trânsito": "Speed cameras in Porto Alegre",
+  "Cabines Telefônicas": "Telephone booths in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -636,7 +655,6 @@ export const tagToCategoryMap = {
   "Indumentária Gaúcha": "Costumes in Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
-  Dengue: "Dengue in Brazil",
   Vôlei: "Volleyball in Brazil",
   Handebol: "Handball in Brazil",
   Campeonato: "Competitions in Brazil",
@@ -646,7 +664,6 @@ export const tagToCategoryMap = {
   Aluno: "Students in Brazil",
   Alunos: "Students in Brazil",
   Estudantes: "Students in Brazil",
-  Abertura: "Opening ceremonies in Brazil",
   Inauguração: "Inaugurations in Brazil",
   Licitações: "Auctions in Brazil",
   Transparência: "Open government in Brazil",
@@ -676,6 +693,7 @@ export const tagToCategoryMap = {
   Escolta: "Police escorts in Brazil",
   Tenda: "Tents in Brazil",
   Aids: "AIDS in Brazil",
+  "teste rápido sífilis, hiv e hepatite C": "AIDS in Brazil",
   Solidariedade: "Solidarity in Brazil",
   Restauração: "Restoration of buildings in Brazil",
   Maratona: "Marathons in Brazil",
@@ -709,6 +727,7 @@ export const tagToCategoryMap = {
   parquímetro: "Parking meters in Brazil",
   Chimarrão: "Mate (beverage) in Brazil",
   Venezuelanos: "Venezuelan diaspora in Brazil",
+  Debate: "Political debates in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -756,6 +775,7 @@ export const tagToCategoryMap = {
   "Eleições 2018": "2018 Brazilian election (first round)",
   "Mastectomia em animais": "Animal health in Brazil",
   "Equipamentos Hospitalares": "Medical equipment in Brazil",
+  "mapa de serviço de trânsito": "Road maps of Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -788,7 +808,6 @@ export const tagToCategoryMap = {
   "Educação Especial": "Special education",
   "Carnaval de Rua": "Street carnival",
   Cidadania: "Civil society",
-  Debate: "Debating",
   Interdição: "Forced business closures",
   "Inclusão Social": "Social inclusion",
   Mulher: "Gender equality",
@@ -874,4 +893,5 @@ export const tagToCategoryMap = {
   porteiros: "Doorkeepers",
   "Licenciamento Ambiental": "Environmental law",
   hipertenso: "Hypertension",
+  Formulário: "Webforms",
 };

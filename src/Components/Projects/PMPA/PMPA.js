@@ -628,6 +628,15 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    tags.includes("Abertura") ||
+    orTags.includes(
+      "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre"
+    )
+  ) {
+    categories.push("Opening ceremonies in Brazil");
+  }
+
+  if (
     !(
       tags.includes("Procon Municipal") ||
       tags.includes("Procon Móvel") ||
@@ -727,6 +736,17 @@ const getCategoriesFromTags = metadata => {
     (tags.includes("Aedes aegypti") || tags.includes("Mosquito Aedes Aegypti"))
   ) {
     categories.push("Aedes aegypti");
+  }
+
+  if (!tags.includes("Bloqueio químico") && tags.includes("Combate a Dengue")) {
+    categories.push("Dengue prevention in Brazil");
+  }
+
+  if (
+    !tags.some(tag => ["Bloqueio químico", "Combate a Dengue"].includes(tag)) &&
+    tags.includes("Dengue")
+  ) {
+    categories.push("Dengue in Brazil");
   }
 
   if (
@@ -897,21 +917,32 @@ const getCategoriesFromTags = metadata => {
     categories.push("Sports in Porto Alegre");
   }
 
-  if (tags.includes("Informatização") || tags.includes("Computador")) {
-    categories.push("Information technology in Brazil");
-    categories.push("Digital transformation");
-    categories.push("Computing in Brazil");
-    categories.push("E-Government in Brazil");
-    categories.push("Digital infrastructure");
+  if (
+    tags.some(tag =>
+      ["Computador", "Formulário", "Informatização"].includes(tag)
+    )
+  ) {
+    categories.push(
+      "Information technology in Brazil",
+      "Digital transformation",
+      "Computing in Brazil",
+      "E-Government in Brazil",
+      "Digital infrastructure"
+    );
   }
 
   if (
-    tags.includes("Informatização") ||
-    tags.includes("Tecnologia") ||
-    tags.includes("Cidades Inteligentes") ||
-    tags.includes("Computador") ||
-    tags.includes("Internet") ||
-    tags.includes("Robótica")
+    tags.some(tag =>
+      [
+        "Cidades Inteligentes",
+        "Computador",
+        "Formulário",
+        "Informatização",
+        "Internet",
+        "Robótica",
+        "Tecnologia",
+      ].includes(tag)
+    )
   ) {
     categories.push("Technology in Porto Alegre");
   }
@@ -1004,6 +1035,15 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Pessoa com mobilidade reduzida")
   ) {
     categories.push("Accessibility in Brazil");
+  }
+
+  if (tags.includes("teste rápido sífilis, hiv e hepatite C")) {
+    categories.push(
+      "Hepatitis C",
+      "HIV tests",
+      "Medical tests",
+      "Syphilis in Brazil"
+    );
   }
 
   if (
@@ -1235,7 +1275,15 @@ const getCategoriesFromTags = metadata => {
     categories.push("Urban planning in Brazil");
   }
 
-  if (tags.includes("Convênio") || tags.includes("Parceria Público-Privada")) {
+  if (
+    tags.some(tag =>
+      [
+        "Convênio",
+        "Parceria Público-Privada",
+        "Contrato com a Caixa Econômica Federal (CEF)",
+      ].includes(tag)
+    )
+  ) {
     categories.push("Partnerships involving the Municipality of Porto Alegre");
   }
 
@@ -1500,6 +1548,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Meetings in Porto Alegre");
   }
 
+  if (tags.some(tag => ["Mapa", "mapa de serviço de trânsito"].includes(tag))) {
+    categories.push("Maps of Porto Alegre");
+  }
+
   if (tags.includes("Manifestação")) {
     categories.push("Demonstrations and protests in Porto Alegre");
     categories.push(
@@ -1564,15 +1616,15 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Aula aberta") ||
       tags.includes("Aula Inaugural") ||
       tags.includes("Caminhada") ||
-      tags.includes("Campanha do Agasalho") ||
-      tags.includes("Campanha do Brinquedo Solidário") ||
-      tags.includes("Capacitação") ||
-      tags.includes("Casamento") ||
       tags.some(tag =>
         [
-          "Ação de Pulverização de Inseticida",
           "Ação Educativa",
           "Apreensão",
+          "Bloqueio químico",
+          "Campanha do Agasalho",
+          "Campanha do Brinquedo Solidário",
+          "Capacitação",
+          "Casamento",
           "Clássicos na Pinacoteca",
           "Coletiva de Imprensa",
           "Concerto Musical",
@@ -1586,6 +1638,7 @@ const getCategoriesFromTags = metadata => {
           "DIA SEM CARRO",
           "Encerramento",
           "Espetáculo",
+          "Espetáculo O Rei da Vela",
           "evento social",
           "Executivo",
           "exposição",
@@ -1611,12 +1664,15 @@ const getCategoriesFromTags = metadata => {
           "Procissão",
           "Programação Cultural",
           "Programação do Reveillon",
+          "Projeto Kilombinho de Verão",
           "Projeto Mais Comunidade",
           "Semana Cidade Limpa",
           "Semana da Água",
           "Seminário",
           "Simpósio",
           "Tapa Buracos",
+          "Testagem",
+          "teste rápido sífilis, hiv e hepatite C",
           "Vacinação",
           "Visita",
           "Vistoria",

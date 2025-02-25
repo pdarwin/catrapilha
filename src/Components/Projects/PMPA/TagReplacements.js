@@ -18,6 +18,10 @@ export const tagReplacements = {
 
   "Ação Conjunta de Fiscalização": "Fiscalização",
 
+  "Ação de Pulverização de Inseticida": "Bloqueio químico",
+
+  "Animal silvestre": "Fauna",
+
   "Bairro Centro Histórico": "Centro Histórico",
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
@@ -102,6 +106,13 @@ export const tagReplacements = {
 
   "hipertensão arterial": "hipertenso",
 
+  "IST Aids": "Aids",
+
+  "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre":
+    "Feira do Livro",
+  "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre":
+    "Feira do Livro",
+
   "LGBTQIA+": "LGBT",
 
   "Meio Ambiente": "SMAMS",
@@ -115,9 +126,6 @@ export const tagReplacements = {
 
   Orla: "Orla Moacyr Scliar",
   "Parque Urbano da Orla Moacyr Scliar": "Orla Moacyr Scliar",
-
-  "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre":
-    "Feira do Livro",
 
   "Parcerias Estratégicas": "Smpe",
 
@@ -167,6 +175,9 @@ export const tagReplacements = {
 
   "Secretário municipal de Administração e Patrimônio, André Barbosa":
     "André Barbosa",
+
+  "Secretário Municipal de Educação Adriano Naves de Brito":
+    "Adriano Naves de Brito",
 
   "Smc -": "Smc",
   "SMC - Programação Final de Outubro": "Smc",

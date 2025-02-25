@@ -212,6 +212,7 @@ export const sameNameTags = [
 
   "Teatro Carlos Carvalho",
   "Teatro de Câmara Túlio Piva",
+  "Teatro do CIEE",
   "Teatro Renascença",
   "TelessaúdeRS",
   "Terminal Triângulo",

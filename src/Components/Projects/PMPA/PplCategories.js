@@ -56,8 +56,10 @@ const keywordToCategoryMap = {
 const sameNameKeywords = [
   "Abena Busia",
   "Adão Cândido",
+  "Adriano Naves de Brito",
   "Ana Amélia Lemos",
   "Any Ortiz",
+  "Augusto Buchweitz",
   "Betina Worm",
   "Bruno Araújo",
   "Bruno Vanuzzi",
@@ -90,6 +92,7 @@ const sameNameKeywords = [
   "Marcelo Soletti",
   "Marcino Fernandes",
   "Marcos Frota",
+  "Maria Carpi",
   "Maria Helena Sartori",
   "Mauro Pinheiro",
   "Michel Costa",
