@@ -8,8 +8,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   SMAMS:
     "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
-  "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (SMAMUS)":
-    "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)",
   "Meio Ambiente, Urbanismo e Sustentabilidade":
     "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)",
   "Planejamento e Gestão":
@@ -191,6 +189,7 @@ export const tagToCategoryMap = {
   "Op 2017": "Orçamento Participativo 2017",
   "Lei Seca": "Lei Seca (Porto Alegre)",
   CRIPs: "Centros de Relação Institucional Participativa",
+  "Reunião com a CRIP Leste": "Centros de Relação Institucional Participativa",
   "Programa de Trabalho Educativo (PTE)": "Programa de Trabalho Educativo",
   "Projeto Mais Comunidade": "Mais Comunidade",
   "Núcleo Municipal de Segurança do Paciente":
@@ -204,6 +203,7 @@ export const tagToCategoryMap = {
     "Rabiscando Ideias - Da cabeça para o papel",
   "Espetáculo O Rei da Vela": "O Rei da Vela",
   "Projeto Kilombinho de Verão": "Kilombinho de Verão",
+  "Pacto Pela Inovação": "Pacto Alegre",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -237,7 +237,9 @@ export const tagToCategoryMap = {
 
   "Restaurante Popular": "Restaurantes Populares",
   "Restaurante Baumbach": "Ratskeller Baumbach",
+  "Restaurante Orla 360": "360 POA",
   "Vistoria Obras Restaurante Panorâmico": "360 POA",
+  "Inauguração Restaurante 360 POA GASTROBAR": "360 POA",
 
   "Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA)":
     "Universidade Federal de Ciências da Saúde de Porto Alegre",
@@ -246,9 +248,9 @@ export const tagToCategoryMap = {
   "Salão de Atos da UFRGS": "Salão de Atos (UFRGS)",
   "Centro Cultural da Universidade Federal do Rio Grande do Sul (UFRGS)":
     "Centro Cultural da Universidade Federal do Rio Grande do Sul",
+  "Semana Acadêmica da Escola de Engenharia":
+    "Semana Acadêmica da Escola de Engenharia da UFRGS",
   PUCRS: "Pontifícia Universidade Católica do Rio Grande do Sul",
-  "Pontifícia Universidade Católica do RS (PUCRS)":
-    "Pontifícia Universidade Católica do Rio Grande do Sul",
   "Café Coworking do Parque Científico e Tecnológico da PUCRS (TecnoPuc)":
     "Café Coworking do TecnoPuc",
   "Escola de Gestão Pública (EGP)": "Escola de Gestão Pública (Porto Alegre)",
@@ -261,6 +263,7 @@ export const tagToCategoryMap = {
   "Emei Santo Expedito": "EMEI Santo Expedito",
   "Emef Anísio Teixeira": "EMEF Anísio Teixeira",
   "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
+  "Emef Leocádia Felizardo Prestes": "EMEF Leocádia Felizardo Prestes",
   "Emef Pepita de Leão": "EMEF Pepita de Leão",
   "Escola Mariano Beck": "EMEF José Mariano Beck",
   "Emeb Liberato Salzano Vieira da Cunha":
@@ -274,6 +277,7 @@ export const tagToCategoryMap = {
     "EMEF José Loureiro da Silva",
   "Escola Municipal de Ensino Fundamental Nossa Senhora de Fátima":
     "EMEF Nossa Senhora de Fátima",
+  "Instituto São Francisco": "Instituto de Educação São Francisco",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -324,6 +328,7 @@ export const tagToCategoryMap = {
   "Auditório da SMED": "Auditório da Secretaria Municipal de Educação",
   "Auditório do Ministério Público":
     "Auditório do Ministério Público (Porto Alegre)",
+  "Auditório da Puc": "Auditório Prédio 11",
 
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -358,6 +363,9 @@ export const tagToCategoryMap = {
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
   "Centro de Eventos da Amrigs": "Centro de Eventos da AMRIGS",
   "Centro Social Marista - CESMAR": "Centro Social Marista",
+  "Sede do Detran -RS": "DetranRS",
+  "Departamento Estadual de Trânsito (Detran)": "DetranRS",
+  "Monumento à Elis Regina": "Monumento a Elis Regina",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -387,6 +395,7 @@ export const tagToCategoryMap = {
   "Bairro Farrapos": "Farrapos (Porto Alegre)",
   "Bairro Floresta": "Floresta (Porto Alegre)",
   "Bairro Glória": "Glória (Porto Alegre)",
+  "Bairro Guarujá": "Guarujá (Porto Alegre)",
   "Bairro Higienópolis": "Higienópolis (Porto Alegre)",
   "Bairro Hípica": "Hípica",
   "Bairro Humaitá": "Humaitá (Porto Alegre)",
@@ -419,6 +428,7 @@ export const tagToCategoryMap = {
   "Bairro Tristeza": "Tristeza",
   "Bairro Vila Conceição": "Vila Conceição",
   "Bairro Vila Farrapos": "Vila Farrapos",
+  "Morro Santana": "Morro Santana (Porto Alegre)",
   Nonoai: "Nonoai (Porto Alegre)",
   "Santa Maria Goretti": "Santa Maria Goretti (Porto Alegre)",
   "Vila Ipiranga": "Vila Ipiranga (Porto Alegre)",
@@ -470,6 +480,7 @@ export const tagToCategoryMap = {
   Ideb: "Índice de Desenvolvimento da Educação Básica",
   "Departamento Nacional de Infraestrutura de Transportes (Dnit)":
     "Departamento Nacional de Infraestrutura de Transportes",
+  "Programa Melhor em Casa": "Melhor em Casa",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
@@ -493,6 +504,10 @@ export const tagToCategoryMap = {
   "Dia Mundial da Alimentação": "World Food Day",
   "1º Fórum das Cidades Inteligentes, Humanizadas e Inovadoras - Smart Cities":
     "1º Fórum das Cidades Inteligentes, Humanizadas e Inovadoras - Smart Cities (2018)",
+  "3ª Edição da Mostra Cultural Eixo Baltazar":
+    "3ª Mostra Cultural Eixo Baltazar (2018)",
+  "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso":
+    "8º Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -560,6 +575,8 @@ export const tagToCategoryMap = {
   "Jornada Científica do HPS":
     "Jornada Científica do Hospital de Pronto Socorro",
   "Contrato com a Caixa Econômica Federal (CEF)": "Caixa Econômica Federal",
+  "Fundação de Atendimento Socioeducativo do Rio Grande do Sul (Fase)":
+    "Fundação de Atendimento Socioeducativo do Rio Grande do Sul",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -602,8 +619,6 @@ export const tagToCategoryMap = {
   Indústria: "Industry in Porto Alegre",
   Espetáculo: "Shows in Porto Alegre",
   Hipismo: "Equestrian sports in Porto Alegre",
-  Fauna: "Animals of Porto Alegre",
-  Ave: "Birds of Porto Alegre",
   Comunicação: "Communication in Porto Alegre",
   Flora: "Flora of Porto Alegre",
   Tradição: "Traditions of Porto Alegre",
@@ -642,6 +657,7 @@ export const tagToCategoryMap = {
     "Road transport infrastructure in Porto Alegre",
   "Radar de Trânsito": "Speed cameras in Porto Alegre",
   "Cabines Telefônicas": "Telephone booths in Porto Alegre",
+  "foto noturna": "Night in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -664,7 +680,6 @@ export const tagToCategoryMap = {
   Aluno: "Students in Brazil",
   Alunos: "Students in Brazil",
   Estudantes: "Students in Brazil",
-  Inauguração: "Inaugurations in Brazil",
   Licitações: "Auctions in Brazil",
   Transparência: "Open government in Brazil",
   Empreendedorismo: "Entrepreneurship in Brazil",
@@ -776,6 +791,9 @@ export const tagToCategoryMap = {
   "Mastectomia em animais": "Animal health in Brazil",
   "Equipamentos Hospitalares": "Medical equipment in Brazil",
   "mapa de serviço de trânsito": "Road maps of Brazil",
+  "Educação no Trânsito": "Road safety education in Brazil",
+  "Saúde da Criança e Adolescente": "Child health in Brazil",
+  "academias ao ar livre": "Outdoor gyms in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -795,7 +813,6 @@ export const tagToCategoryMap = {
   Consultório: "Medical offices",
   "Educação Infantil": "Educating children",
   "Doenças da Pele": "Dermatitis",
-  "Educação no Trânsito": "Road safety education",
   "Educação Fundamental": "Primary education",
   "Educação Básica": "Primary education",
   "Alteração de vias": "Road traffic management",
@@ -894,4 +911,5 @@ export const tagToCategoryMap = {
   "Licenciamento Ambiental": "Environmental law",
   hipertenso: "Hypertension",
   Formulário: "Webforms",
+  "Quero- Quero": "Vanellus chilensis",
 };

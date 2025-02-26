@@ -98,6 +98,7 @@ export const sameNameTags = [
   "Escola Especial para Surdos Frei Pacífico",
   "Esquina Democrática",
   "Estrada das Furnas",
+  "Estrada João de Oliveira Remião",
   "ETA Moinhos de Vento",
   "ETA São João",
   "Extremo Sul",
@@ -139,7 +140,6 @@ export const sameNameTags = [
 
   "Maio Amarelo",
   "Maio Vermelho",
-  "Meetings involving the Municipality of Porto Alegre",
   "Memorial do Rio Grande do Sul",
   "Mercado do Bom Fim",
   "Mês do Idoso",
@@ -224,8 +224,10 @@ export const sameNameTags = [
   "Tristeza",
   "Túnel da Conceição",
 
+  "Unidade de Saúde 1º de Maio",
   "Unidade de Saúde Alto Embratel",
   "Unidade de Saúde Diretor Pestana",
+  "Unidade de Saúde Fradique Vizeu",
   "Unidade de Saúde Orfanotrófio",
   "Unidade de Saúde Osmar Freitas",
   "Unidade de Saúde Ponta Grossa",

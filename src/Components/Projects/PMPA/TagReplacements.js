@@ -20,6 +20,9 @@ export const tagReplacements = {
 
   "Ação de Pulverização de Inseticida": "Bloqueio químico",
 
+  "Ação Mais Comunidade": "Projeto Mais Comunidade",
+  "Programa Mais Comunidade": "Projeto Mais Comunidade",
+
   "Animal silvestre": "Fauna",
 
   "Bairro Centro Histórico": "Centro Histórico",
@@ -120,6 +123,11 @@ export const tagReplacements = {
   "Meio Ambiente Sustentabilidade": "SMAMS",
   Smams: "SMAMS",
 
+  "Meio Ambiente Urbanismo e Sustentabilidade":
+    "Meio Ambiente, Urbanismo e Sustentabilidade",
+  "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (SMAMUS)":
+    "Meio Ambiente, Urbanismo e Sustentabilidade",
+
   "Mobilidade Urbana": "Smim",
   "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
   "SMIM - Infraestrutura e Mobilidade Urbana": "Smim",
@@ -134,10 +142,13 @@ export const tagReplacements = {
   "Permissionários do Serviço de Táxis": "Táxi",
   "Táxis Novos": "Táxi",
 
+  "Pontifícia Universidade Católica do RS (PUCRS)": "PUCRS",
+
   "População Negra": "Saúde da População Negra",
   "Povo Negro": "Saúde da População Negra",
   "Promotores da Saúde da População Negra": "Saúde da População Negra",
 
+  "Posse da Procuradora Municipal": "Posse",
   "Posse Novos Procuradores-Gerais do Município": "Posse",
   "Posse Novos Secretários Municipais": "Posse",
 
@@ -146,13 +157,7 @@ export const tagReplacements = {
   "Procissão de Nossa Senhora dos Navegantes":
     "Festa de Nossa Senhora dos Navegantes",
 
-  "Programa Mais Comunidade": "Projeto Mais Comunidade",
-
   "Projeto Clássicos na Pinacoteca": "Clássicos na Pinacoteca",
-
-  "Reunião com a BM Par": "Meetings involving the Municipality of Porto Alegre",
-  "Reunião sobre acolhida  ao grupo de venezuelanos":
-    "Meetings involving the Municipality of Porto Alegre",
 
   "Secretaria Municipal de Desenvolvimento Social (SMDS)": "Smds",
 
