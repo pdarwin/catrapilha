@@ -8,7 +8,6 @@ export const sameNameTags = [
   "Ação Rua",
   "Adote um Escritor",
   "Albergue Felipe Diehl",
-  "Aldeia Kaingang",
   "Anfiteatro Pôr do Sol",
   "Aplicativo 156+POA",
   "Área Azul",
@@ -95,6 +94,7 @@ export const sameNameTags = [
   "EMEI Miguel Granato Velasquez",
   "EMEI Tio Barnabé",
   "EMEI Vila Elizabeth",
+  "Equipe eMulti SUS",
   "Escola Especial para Surdos Frei Pacífico",
   "Esquina Democrática",
   "Estrada das Furnas",
@@ -128,6 +128,7 @@ export const sameNameTags = [
   "Instituto Ling",
   "Instituto Penal Feminino de Porto Alegre",
 
+  "Janeiro Branco",
   "Jardins do DMAE",
 
   "Kombina",
@@ -206,6 +207,7 @@ export const sameNameTags = [
   "Semanas Internacionais",
   "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
   "Shopping Total",
+  "Show de Talentos da FASC",
   "Sindilojas",
   "Sociedade Libanesa de Porto Alegre",
   "Sport Club Internacional",

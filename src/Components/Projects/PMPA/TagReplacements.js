@@ -29,6 +29,8 @@ export const tagReplacements = {
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
 
+  "Biblioteca do Parcão": "Biblioteca Ecológica Infantil Maria Dinorah",
+
   "Celebração do Dia da Criança": "Dia da Criança",
   "Dia das Crianças": "Dia da Criança",
 
@@ -59,6 +61,11 @@ export const tagReplacements = {
   "Procuradoria Geral": "PGM",
   "Procuradoria Geral do Município": "PGM",
   "Procuradoria-Geral do Município de Porto Alegre": "PGM",
+
+  "Consul Honorária dos Países Baixos em Porto Alegre": "Consulado",
+
+  "Cônsul-Geral dos Estados Unidos em Porto Alegre": "Jason Green",
+  "Cônsul-Geral dos Estados Unidos, Sr. Jason Green.": "Jason Green",
 
   "Coordenação de Operações Especiais (COE)": "EPTC",
   "Empresa Pública de Transporte e Circulação (EPTC)": "EPTC",
@@ -106,6 +113,8 @@ export const tagReplacements = {
 
   "foto aérea": "Aéreas",
   "Imagem Aérea": "Aéreas",
+
+  "Fundação de Assistência Social e Cidadania – Fasc": "Fasc",
 
   "hipertensão arterial": "hipertenso",
 
@@ -164,6 +173,9 @@ export const tagReplacements = {
   "Secretaria Municipal de Educação (SMED)": "SMED",
   Smed: "SMED",
 
+  "Secretaria Municipal de Saúde (SMS)": "SMS",
+  Sms: "SMS",
+
   "Secretaria Municipal de Segurança (SMSEG)": "Smseg",
   Seguranç: "Smseg",
   Segurança: "Smseg",
@@ -183,6 +195,9 @@ export const tagReplacements = {
 
   "Secretário Municipal de Educação Adriano Naves de Brito":
     "Adriano Naves de Brito",
+  "Secretário municipal de Educação, Leonardo Pascoal": "Leonardo Pascoal",
+
+  "sinalização semafórica": "Semáforos",
 
   "Smc -": "Smc",
   "SMC - Programação Final de Outubro": "Smc",

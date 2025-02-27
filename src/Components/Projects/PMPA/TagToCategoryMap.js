@@ -132,9 +132,7 @@ export const tagToCategoryMap = {
   EPTC: "Empresa Pública de Transporte e Circulação de Porto Alegre",
   "Sede da EPTC":
     "Sede da Empresa Pública de Transporte e Circulação de Porto Alegre",
-  Fasc: "Fundação de Assistência Social e Cidadania",
-  "Fundação de Assistência Social e Cidadania – Fasc":
-    "Fundação de Assistência Social e Cidadania",
+
   Previmpa:
     "Departamento Municipal de Previdência dos Servidores Públicos do Município de Porto Alegre",
   Pisa: "Programa Integrado Socioambiental",
@@ -204,6 +202,8 @@ export const tagToCategoryMap = {
   "Espetáculo O Rei da Vela": "O Rei da Vela",
   "Projeto Kilombinho de Verão": "Kilombinho de Verão",
   "Pacto Pela Inovação": "Pacto Alegre",
+  "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
+  "Grupo POA Solidárias": "POA Solidária",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -271,6 +271,10 @@ export const tagToCategoryMap = {
   "Emeef Elyseu Paglioli": "EMEEF Elyseu Paglioli",
   "Emei Ilha da Pintada": "EMEI Ilha da Pintada",
   "Emef Vereador Carlos Pessoa de Brum": "EMEF Vereador Carlos Pessoa de Brum",
+  "Escola Comunitária de Educação Infantil (Ecei) Madre Teresa":
+    "ECEI Madre Teresa",
+  "Escola Comunitária de Educação Infantil (Ecei) Tia Mariazinha":
+    "ECEI Tia Mariazinha",
   "Escola Estadual de Ensino Fundamental Duque de Caxias":
     "EEEF Duque de Caxias",
   "Escola Municipal de Ensino Fundamental José Loureiro da Silva":
@@ -366,6 +370,8 @@ export const tagToCategoryMap = {
   "Sede do Detran -RS": "DetranRS",
   "Departamento Estadual de Trânsito (Detran)": "DetranRS",
   "Monumento à Elis Regina": "Monumento a Elis Regina",
+  "Centro da Comunidade Parque Madepinho (Cecopam)":
+    "Centro da Comunidade Parque Madepinho",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -481,6 +487,7 @@ export const tagToCategoryMap = {
   "Departamento Nacional de Infraestrutura de Transportes (Dnit)":
     "Departamento Nacional de Infraestrutura de Transportes",
   "Programa Melhor em Casa": "Melhor em Casa",
+  "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
@@ -508,6 +515,7 @@ export const tagToCategoryMap = {
     "3ª Mostra Cultural Eixo Baltazar (2018)",
   "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso":
     "8º Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso (2018)",
+  "Aniversário de 6 Anos do CEIC": "6th Anniversary of CEIC (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -580,7 +588,6 @@ export const tagToCategoryMap = {
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
-  Árvore: "Trees in Porto Alegre",
   roubo: "Crime in Porto Alegre",
   Flagrante: "Crime in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
@@ -625,6 +632,7 @@ export const tagToCategoryMap = {
   Emprego: "Labour in Porto Alegre",
   Renda: "Labour in Porto Alegre",
   pessoas: "People of Porto Alegre",
+  Consulado: "Consulates in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -658,6 +666,7 @@ export const tagToCategoryMap = {
   "Radar de Trânsito": "Speed cameras in Porto Alegre",
   "Cabines Telefônicas": "Telephone booths in Porto Alegre",
   "foto noturna": "Night in Porto Alegre",
+  "Aldeia Kaingang": "Kaingang villages in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -687,9 +696,6 @@ export const tagToCategoryMap = {
   Poda: "Pruning in Brazil",
   Remanejo: "Pruning in Brazil",
   Embaixada: "Embassies in Brazil",
-  Consulado: "Diplomatic missions to Brazil",
-  "Consul Honorária dos Países Baixos em Porto Alegre":
-    "Diplomatic missions to Brazil",
   Juventude: "Youth in Brazil",
   Eclipse: "Solar eclipses in Brazil",
   Gato: "Cats of Brazil",
@@ -794,6 +800,8 @@ export const tagToCategoryMap = {
   "Educação no Trânsito": "Road safety education in Brazil",
   "Saúde da Criança e Adolescente": "Child health in Brazil",
   "academias ao ar livre": "Outdoor gyms in Brazil",
+  "moradias temporárias": "Temporary housing in Brazil",
+  "Plantio de Árvores": "Tree planting in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -912,4 +920,6 @@ export const tagToCategoryMap = {
   hipertenso: "Hypertension",
   Formulário: "Webforms",
   "Quero- Quero": "Vanellus chilensis",
+  "atividade física": "Physical activity",
+  Sarampo: "Measles vaccination",
 };
