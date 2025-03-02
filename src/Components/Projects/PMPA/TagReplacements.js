@@ -25,6 +25,9 @@ export const tagReplacements = {
 
   "Animal silvestre": "Fauna",
 
+  "Associação dos Municípios da Região Metropolitana de Porto Alegre (Granpal)":
+    "Granpal",
+
   "Bairro Centro Histórico": "Centro Histórico",
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
@@ -71,7 +74,8 @@ export const tagReplacements = {
   "Empresa Pública de Transporte e Circulação (EPTC)": "EPTC",
   Eptc: "EPTC",
 
-  "Secretária Denise Russo": "Denise Russo",
+  "Defesa Cívil": "Defesa Civil",
+  "Defesa Civil de Porto Alegre-RS": "Defesa Civil",
 
   "Departamento Municipal de Limpeza Urbana (DMLU)": "DMLU",
   Dmlu: "DMLU",
@@ -95,6 +99,11 @@ export const tagReplacements = {
 
   "Dia D": "Dia D de Vacinação",
 
+  Doações: "Doação",
+  "Doações de Materiais": "Doação",
+  Donativos: "Doação",
+  "Entrega de Doações": "Doação",
+
   "Emef Migrantes": "EMEF Migrantes",
   "Emef Vila Montecristo": "EMEF Vila Monte Cristo",
 
@@ -102,12 +111,15 @@ export const tagReplacements = {
     "Lei Orçamentária Anual (LOA)",
 
   "Escola Municipal de Educação infantil Humaitá": "EMEI Humaitá",
+  "Escola Municipal de Educação Infantil Jardim de Praça Pica-Pau Amarelo":
+    "EMEI JP Pica-Pau Amarelo",
 
   "Espaço Hortomercado Parobé": "Hortomercado Parobé",
 
   Fazenda: "SMF",
   Finanças: "SMF",
   "Finanças Públicas": "SMF",
+  "Secretaria Municipal da Fazenda (SMF)": "SMF",
   "Secretário Municipal da Fazenda (SMF)": "SMF",
   Smf: "SMF",
 
@@ -115,6 +127,10 @@ export const tagReplacements = {
   "Imagem Aérea": "Aéreas",
 
   "Fundação de Assistência Social e Cidadania – Fasc": "Fasc",
+
+  "Gabinete da Inovação": "Inovação",
+  "Gabinete de Inovação": "Inovação",
+  "Gabinete de Inovação (GI)": "Inovação",
 
   "hipertensão arterial": "hipertenso",
 
@@ -127,7 +143,6 @@ export const tagReplacements = {
 
   "LGBTQIA+": "LGBT",
 
-  "Meio Ambiente": "SMAMS",
   "Meio Ambiente e Sustentabilidade": "SMAMS",
   "Meio Ambiente Sustentabilidade": "SMAMS",
   Smams: "SMAMS",
@@ -136,6 +151,8 @@ export const tagReplacements = {
     "Meio Ambiente, Urbanismo e Sustentabilidade",
   "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (SMAMUS)":
     "Meio Ambiente, Urbanismo e Sustentabilidade",
+
+  "Executivo, Ministro da Saúde Gilberto Occhi": "Gilberto Occhi",
 
   "Mobilidade Urbana": "Smim",
   "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
@@ -157,16 +174,30 @@ export const tagReplacements = {
   "Povo Negro": "Saúde da População Negra",
   "Promotores da Saúde da População Negra": "Saúde da População Negra",
 
+  "Porto Alegre-RS": "Porto Alegre",
+
   "Posse da Procuradora Municipal": "Posse",
   "Posse Novos Procuradores-Gerais do Município": "Posse",
   "Posse Novos Secretários Municipais": "Posse",
+
+  "prefeito de Florianópolis, Topázio Neto": "Topázio Neto",
 
   "Presidente das Mantenedoras Maristas do Sul": "Inacio Etges",
 
   "Procissão de Nossa Senhora dos Navegantes":
     "Festa de Nossa Senhora dos Navegantes",
 
+  "Produtor Rural": "Zona Rural",
+  "Propriedades Rurais": "Zona Rural",
+
   "Projeto Clássicos na Pinacoteca": "Clássicos na Pinacoteca",
+
+  "Retratos Oficiais": "Retrato",
+
+  "Secretária Denise Russo": "Denise Russo",
+
+  "Secretária Municipal Cultura e Economia Criativa, Liliana Cardoso":
+    "Liliana Cardoso",
 
   "Secretaria Municipal de Desenvolvimento Social (SMDS)": "Smds",
 
@@ -197,6 +228,7 @@ export const tagReplacements = {
     "Adriano Naves de Brito",
   "Secretário municipal de Educação, Leonardo Pascoal": "Leonardo Pascoal",
 
+  "Sinalização de trânsito": "Sinalização viária",
   "sinalização semafórica": "Semáforos",
 
   "Smc -": "Smc",
@@ -206,6 +238,7 @@ export const tagReplacements = {
 
   Tradicionalismo: "Tradição",
 
+  viagem: "Visita",
   "Viagem à Brasília": "Visita",
   "Viagem à Europa": "Visita",
   "Visita de Cortesia": "Visita",

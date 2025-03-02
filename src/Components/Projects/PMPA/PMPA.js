@@ -281,6 +281,7 @@ const getCategoriesFromTags = metadata => {
     [
       "Reunião com a BM Par",
       "Reunião com a CRIP Leste",
+      "Reunião com Representantes do Banco Mundial",
       "Reunião Plenária do COMUI",
       "Reunião sobre acolhida  ao grupo de venezuelanos",
     ].includes(tag)
@@ -294,6 +295,7 @@ const getCategoriesFromTags = metadata => {
         "Gabinete",
         "Gabinete do Prefeito",
         "Gabinete Prefeito",
+        "Gestão 2025 - 2028",
         "Grupos de Trabalho",
         "Gp",
         "Gvp",
@@ -487,11 +489,19 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !tags.includes("Equipe de Vigilância de Antropozoonoses (Evantropo)") &&
+    tags.includes("Unidade de Vigilância Ambiental (UVA)")
+  ) {
+    categories.push("Unidade de Vigilância Ambiental (Porto Alegre)");
+  }
+
+  if (
     !tags.some(tag =>
       [
         "CGVS",
-        "Farmácia",
         "Conselho Municipal de Saúde",
+        "Equipe de Vigilância de Antropozoonoses (Evantropo)",
+        "Farmácia",
         "Saúde da População Negra",
       ].includes(tag)
     ) &&
@@ -507,6 +517,28 @@ const getCategoriesFromTags = metadata => {
     categories.push(
       "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)"
     );
+  }
+
+  if (
+    !tags.some(tag =>
+      ["Conferência Municipal do Meio Ambiente"].includes(tag)
+    ) &&
+    tags.some(tag =>
+      ["Meio Ambiente, Urbanismo e Sustentabilidade"].includes(tag)
+    )
+  ) {
+    categories.push(
+      "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)"
+    );
+  }
+
+  if (
+    !tags.some(tag =>
+      ["Conferência Municipal do Meio Ambiente"].includes(tag)
+    ) &&
+    tags.some(tag => ["Meio Ambiente"].includes(tag))
+  ) {
+    categories.push("Environment of Porto Alegre");
   }
 
   if (
@@ -912,10 +944,12 @@ const getCategoriesFromTags = metadata => {
     categories.push("Birds of Porto Alegre");
   }
 
+  if (tags.some(tag => ["Morcego"].includes(tag))) {
+    categories.push("Mammals of Porto Alegre", "Chiroptera of Brazil");
+  }
+
   if (
-    tags.includes("Guaíba") ||
-    tags.includes("Lago Guaíba") ||
-    tags.includes("Nivel do Guaíba")
+    tags.some(tag => ["Guaíba", "Lago Guaíba", "Nivel do Guaíba"].includes(tag))
   ) {
     categories.push("Rio Guaíba in Porto Alegre");
   }
@@ -1125,6 +1159,7 @@ const getCategoriesFromTags = metadata => {
         "Assistência Hospitalar",
         "Atenção Ambulatorial, Hospitalar e Urgências",
         "Atenção Básica",
+        "Atenção Especializada à Saúde",
         "Atenção Primária à Saúde (APS)",
         "Atendimento em Casa",
         "Equipamentos Hospitalares",
@@ -1271,13 +1306,6 @@ const getCategoriesFromTags = metadata => {
     categories.push("Athletics in Brazil");
   }
 
-  if (tags.includes("Previsão do Tempo") || tags.includes("Tempo")) {
-    categories.push("Weather and climate of Porto Alegre");
-    if (categories.length === 1) {
-      categories.push("Porto Alegre");
-    }
-  }
-
   if (tags.some(tag => ["Asfalto", "Pavimentação"].includes(tag))) {
     categories.push("Asphalters");
   }
@@ -1390,16 +1418,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Parque da Orla do Guaíba");
   }
 
-  if (
-    tags.some(tag =>
-      [
-        "Doação",
-        "doações de cestas básicas",
-        "Doações de Materiais",
-        "Entrega de Doações",
-      ].includes(tag)
-    )
-  ) {
+  if (tags.some(tag => ["Doação", "doações de cestas básicas"].includes(tag))) {
     categories.push("Donations in Brazil");
   }
 
@@ -1432,7 +1451,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Casa NTX");
   }
 
-  if (tags.includes("Ônibus") || tags.includes("BRT's")) {
+  if (tags.some(tag => ["Ônibus", "BRT's", "ônibus elétrico"].includes(tag))) {
     categories.push("Buses in Porto Alegre");
   }
 
@@ -1451,10 +1470,18 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Praça Mafalda Veríssimo") &&
-    tags.includes("Petrópolis")
+    !tags.includes("Emef Vereador Carlos Pessoa de Brum") &&
+    tags.includes("Bairro Restinga")
   ) {
-    categories.push("Petrópolis (Porto Alegre)");
+    categories.push("Restinga (Porto Alegre)");
+  }
+
+  if (
+    tags.some(tag =>
+      ["Consulado", "Cônsul do Japão em Porto Alegre"].includes(tag)
+    )
+  ) {
+    categories.push("Consulates in Porto Alegre");
   }
 
   if (tags.includes("doações de cestas básicas")) {
@@ -1610,6 +1637,21 @@ const getCategoriesFromTags = metadata => {
     categories.push("Maps of Porto Alegre");
   }
 
+  if (
+    tags.some(tag =>
+      ["clima", "Estiagem", "Previsão do Tempo", "Tempo"].includes(tag)
+    )
+  ) {
+    categories.push("Weather and climate of Porto Alegre");
+  }
+
+  if (tags.some(tag => ["Estiagem"].includes(tag))) {
+    categories.push(
+      "Drought in Brazil",
+      `${getYear(metadata.humanReadableDate)} droughts`
+    );
+  }
+
   if (tags.includes("Manifestação")) {
     categories.push("Demonstrations and protests in Porto Alegre");
     categories.push(
@@ -1659,19 +1701,24 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    (!tags.some(tag =>
-      [
-        "Acampamento Farroupilha",
-        "Feira do Livro",
-        "Festa de Nossa Senhora dos Navegantes",
-        "Festival do Japão",
-        "Fórum da Liberdade",
-        "Material Escolar",
-        "Missão Xangai 2018",
-        "Salão Internacional de Desenho para Imprensa (Sidi)",
-        "Semana de Porto Alegre",
-        "Top de Marketing ADVB/RS",
-      ].includes(tag)
+    (!(
+      categories.includes(
+        `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
+      ) ||
+      tags.some(tag =>
+        [
+          "Acampamento Farroupilha",
+          "Feira do Livro",
+          "Festa de Nossa Senhora dos Navegantes",
+          "Festival do Japão",
+          "Fórum da Liberdade",
+          "Material Escolar",
+          "Missão Xangai 2018",
+          "Salão Internacional de Desenho para Imprensa (Sidi)",
+          "Semana de Porto Alegre",
+          "Top de Marketing ADVB/RS",
+        ].includes(tag)
+      )
     ) &&
       tags.some(tag =>
         [
@@ -1696,6 +1743,7 @@ const getCategoriesFromTags = metadata => {
           "Clássicos na Pinacoteca",
           "Coletiva de Imprensa",
           "Concerto Musical",
+          "Conferência Municipal do Meio Ambiente",
           "Convite",
           "Curso",
           "Dança",
@@ -1704,15 +1752,18 @@ const getCategoriesFromTags = metadata => {
           "Dia do Desafio",
           "Dia Mundial da Alimentação",
           "DIA SEM CARRO",
+          "Educação no Trânsito",
           "Encerramento",
           "Espetáculo",
           "Espetáculo O Rei da Vela",
           "evento social",
+          "Eventos Climáticos",
           "Executivo",
           "exposição",
           "Feira de Oportunidades",
           "Fiscalização",
           "Formação",
+          "Formação de Multiplicadores",
           "Formatura",
           "Gvp",
           "Homenagem",
@@ -1735,6 +1786,7 @@ const getCategoriesFromTags = metadata => {
           "Programação do Reveillon",
           "Projeto Kilombinho de Verão",
           "Projeto Mais Comunidade",
+          "Sarau Café com Letras",
           "Semana Cidade Limpa",
           "Semana da Água",
           "Seminário",
@@ -1835,6 +1887,7 @@ const getCategoriesFromTags = metadata => {
           "1º Festival de Arte e Cultura Senegalesa",
           "14ª Gincana Ambiental",
           "17ª Edição dos Jogos Municipais da Terceira Idade",
+          "25 Anos do  FUMPROARTE",
           "30 Anos da Defesa Civil",
           "32º Festival de Arte da Cidade de Porto Alegre",
           "48º Troféu Seival e 29ª Regata Farroupilha",

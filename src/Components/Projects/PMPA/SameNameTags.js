@@ -18,6 +18,7 @@ export const sameNameTags = [
   "Associação Hospitalar Vila Nova",
   "Atelier Livre Xico Stockinger",
   "Asilo Padre Cacique",
+  "Atenção Especializada à Saúde",
   "Auditório Araújo Vianna",
   "Auditório do Global Tecnopuc",
   "Avenida Assis Brasil",
@@ -28,6 +29,7 @@ export const sameNameTags = [
   "Avenida Padre Cacique",
   "Avenida Sertório",
   "Avenida Severo Dullius",
+  "Avenida Venâncio Aires",
 
   "Balada Segura",
   "Banco de Talentos",
@@ -66,6 +68,7 @@ export const sameNameTags = [
   "Companhia Jovem de Dança",
   "Companhia Municipal de Dança",
   "Complexo Hospitalar Santa Casa",
+  "Conferência Municipal do Meio Ambiente",
   "Consultório na Rua",
   "Cootravipa",
 
@@ -107,6 +110,7 @@ export const sameNameTags = [
   "Farmácia Móvel",
   "Feira de Oportunidades",
   "Fique Sabendo Jovem",
+  "Formação de Multiplicadores",
   "Fórum Social Mundial da População Idosa",
   "Fundação Iberê Camargo",
 
@@ -178,6 +182,7 @@ export const sameNameTags = [
   "Praça Darcy Azambuja",
   "Praça Doutor Lopes Trovão",
   "Praça Mafalda Veríssimo",
+  "Praça Província de Shiga",
   "Praia de Belas",
   "Prefeitos de Praça",
   "Prefeitura nos Bairros",
@@ -201,6 +206,8 @@ export const sameNameTags = [
   "Sala da Fonte",
   "Sala de Treinamento da SMPG",
   "Sala P. F. Gastal",
+  "Santa Casa de Misericórdia de Porto Alegre",
+  "Sarau Café com Letras",
   "Saúde da População Negra",
   "Semana Cidade Limpa",
   "Semana da Água",

@@ -8,8 +8,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   SMAMS:
     "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
-  "Meio Ambiente, Urbanismo e Sustentabilidade":
-    "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)",
   "Planejamento e Gestão":
     "Secretaria Municipal de Planejamento e Gestão (Porto Alegre)",
   "Gestão e Planejamento":
@@ -74,7 +72,7 @@ export const tagToCategoryMap = {
   "Secretário Municipal de Administração e Patrimônio (SMAP)":
     "Secretaria Municipal de Administração e Patrimônio (Porto Alegre)",
   Smic: "Secretaria Municipal da Produção, Indústria e Comércio (Porto Alegre)",
-  "Gabinete de Inovação (GI)": "Gabinete da Inovação (Porto Alegre)",
+  Inovação: "Gabinete da Inovação (Porto Alegre)",
   "Comunicação Social": "Gabinete de Comunicação Social (Porto Alegre)",
   "Gabinete da Causa Animal (GCA)": "Gabinete da Causa Animal (Porto Alegre)",
   "Causa Animal": "Gabinete da Causa Animal (Porto Alegre)",
@@ -95,7 +93,6 @@ export const tagToCategoryMap = {
   "Comissão de Saúde e Segurança no Trabalho":
     "Comissão de Saúde e Segurança no Trabalho (Porto Alegre)",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
-  "Defesa Cívil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
 
   "Equipe de Manejo Arbóreo (EMA)": "Equipe de Manejo Arbóreo (Porto Alegre)",
   "Equipe de Vigilância em Saúde Ambiental e Águas (EVSAA)":
@@ -107,9 +104,8 @@ export const tagToCategoryMap = {
   "Vigilância de Alimentos": "Equipe de Vigilância de Alimentos (Porto Alegre)",
   "Equipe de Veículos de Tração Animal (VTA)":
     "Equipe de Veículos de Tração Animal (Porto Alegre)",
-
-  "Unidade de Vigilância Ambiental (UVA)":
-    "Unidade de Vigilância Ambiental (Porto Alegre)",
+  "Equipe de Vigilância de Antropozoonoses (Evantropo)":
+    "Equipe de Vigilância de Antropozoonoses (Porto Alegre)",
 
   DMAP: "DMAP (Porto Alegre)",
   DMAE: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
@@ -216,6 +212,7 @@ export const tagToCategoryMap = {
   CMDUA:
     "Conselho Municipal de Desenvolvimento Urbano Ambiental (Porto Alegre)",
   Comui: "Conselho Municipal do Idoso (Porto Alegre)",
+  Comcet: "Conselho Municipal de Ciência e Tecnologia",
   "Reunião Plenária do COMUI": "Conselho Municipal do Idoso (Porto Alegre)",
 
   "Comissão de Saúde e Meio Ambiente da CMPA (Cosmam)":
@@ -327,12 +324,14 @@ export const tagToCategoryMap = {
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
   "Teatro do Sesi": "Teatro do Sesi (Porto Alegre)",
+
   "Auditório da SMPG":
     "Auditório da Secretaria Municipal de Planejamento de Gestão",
   "Auditório da SMED": "Auditório da Secretaria Municipal de Educação",
   "Auditório do Ministério Público":
     "Auditório do Ministério Público (Porto Alegre)",
   "Auditório da Puc": "Auditório Prédio 11",
+  "Auditório da FAMURS": "Auditório Alceu Collares",
 
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -441,6 +440,8 @@ export const tagToCategoryMap = {
   "Vila Nova": "Vila Nova (Porto Alegre)",
   "Capital Gaúcha": "Porto Alegre",
 
+  "Florianópolis-SC": "Florianópolis",
+
   "Orla Moacyr Scliar": "Parque Moacyr Scliar",
   "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
   "Parque Ararigbóia": "Parque Ararigboia",
@@ -488,6 +489,7 @@ export const tagToCategoryMap = {
     "Departamento Nacional de Infraestrutura de Transportes",
   "Programa Melhor em Casa": "Melhor em Casa",
   "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
+  "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
@@ -516,6 +518,7 @@ export const tagToCategoryMap = {
   "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso":
     "8º Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso (2018)",
   "Aniversário de 6 Anos do CEIC": "6th Anniversary of CEIC (2018)",
+  "25 Anos do  FUMPROARTE": "25 Anos do FUMPROARTE (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -632,7 +635,6 @@ export const tagToCategoryMap = {
   Emprego: "Labour in Porto Alegre",
   Renda: "Labour in Porto Alegre",
   pessoas: "People of Porto Alegre",
-  Consulado: "Consulates in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -647,7 +649,7 @@ export const tagToCategoryMap = {
   "Fios Soltos": "Overhead power lines in Porto Alegre",
   "foco de lixo": "Waste management in Porto Alegre",
   "Terminais de ônibus": "Bus stations in Porto Alegre",
-  "Sinalização de trânsito": "Road signs in Porto Alegre",
+  "Sinalização viária": "Road signs in Porto Alegre",
   "Arte Urbana": "Street art in Porto Alegre",
   "Iluminação Pública": "Street lights in Porto Alegre",
   "Cercamento Eletrônico": "Traffic cameras in Porto Alegre",
@@ -667,6 +669,7 @@ export const tagToCategoryMap = {
   "Cabines Telefônicas": "Telephone booths in Porto Alegre",
   "foto noturna": "Night in Porto Alegre",
   "Aldeia Kaingang": "Kaingang villages in Porto Alegre",
+  "Zona Rural": "Countryside in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -749,6 +752,8 @@ export const tagToCategoryMap = {
   Chimarrão: "Mate (beverage) in Brazil",
   Venezuelanos: "Venezuelan diaspora in Brazil",
   Debate: "Political debates in Brazil",
+  óculos: "Glasses in Brazil",
+  oftalmologista: "Ophthalmologists from Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -802,6 +807,8 @@ export const tagToCategoryMap = {
   "academias ao ar livre": "Outdoor gyms in Brazil",
   "moradias temporárias": "Temporary housing in Brazil",
   "Plantio de Árvores": "Tree planting in Brazil",
+  "Eventos Climáticos": "Weather phenomena in Brazil",
+  "ônibus elétrico": "Electrically-powered buses in Brazil",
 
   "Dia da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -922,4 +929,5 @@ export const tagToCategoryMap = {
   "Quero- Quero": "Vanellus chilensis",
   "atividade física": "Physical activity",
   Sarampo: "Measles vaccination",
+  "Reunião com Representantes do Banco Mundial": "World Bank",
 };

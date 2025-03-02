@@ -1,7 +1,7 @@
 const keywordToCategoryMap = {
   Marchezan: "Nelson Marchezan Júnior",
   Hamm: "Afonso Hamm",
-  Lula: "Luiz Inácio Lula da Silva",
+  " Lula": "Luiz Inácio Lula da Silva",
   "Denise Ries Russo": "Denise Russo",
   "Jorge Benjor": "Jorge Ben Jor",
   "Roberto Freire": "Roberto Freire (politician)",
@@ -37,13 +37,12 @@ const keywordToCategoryMap = {
   "Almir Junior": "Almir Júnior",
   "André Barbosa": "André Barbosa (politician)",
   "Aparecido Donizete": "Aparecido Donizete de Souza",
+  "Cássia Carpes": "Cassiá",
   "Diretor-geral do DMAE": "Bruno Vanuzzi",
   "Monica Leal": "Mônica Leal",
   "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
     "Idenir Cecchim",
   "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
-  "Secretária Municipal Cultura e Economia Criativa, Liliana Cardoso":
-    "Liliana Cardoso",
   "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
     "Cássio Trogildo",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
@@ -56,6 +55,7 @@ const keywordToCategoryMap = {
 const sameNameKeywords = [
   "Abena Busia",
   "Adão Cândido",
+  "André Coronel",
   "Adriano Naves de Brito",
   "Ana Amélia Lemos",
   "Any Ortiz",
@@ -77,6 +77,7 @@ const sameNameKeywords = [
   "Fernando Ritter",
   "Gabriel Souza",
   "Germano Bremm",
+  "Gilberto Occhi",
   "Gustavo Paim",
   "Hamilton Sossmeier",
   "Helder Barbalho",
@@ -107,6 +108,7 @@ const sameNameKeywords = [
   "Ramiro Rosário",
   "Ronaldo Nogueira",
   "Skank",
+  "Topázio Neto",
   "Valdir Bonatto",
   "Valéria Leopoldino",
   "Valter Nagelstein",
