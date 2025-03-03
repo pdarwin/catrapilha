@@ -34,17 +34,16 @@ const keywordToCategoryMap = {
   "Secretário municipal da Fazenda, Rodrigo Fantinel": "Rodrigo Fantinel",
   "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
     "Cezar Schirmer",
+  "Alexandre Augusto Aragon": "Alexandre Aragon",
   "Almir Junior": "Almir Júnior",
   "André Barbosa": "André Barbosa (politician)",
+  "Andrii Melnyk": "Andrii Melnyk (diplomat)",
   "Aparecido Donizete": "Aparecido Donizete de Souza",
   "Cássia Carpes": "Cassiá",
   "Diretor-geral do DMAE": "Bruno Vanuzzi",
   "Monica Leal": "Mônica Leal",
   "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
     "Idenir Cecchim",
-  "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
-  "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
-    "Cássio Trogildo",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
     "Germano Bremm",
   "Vice-governador Gabriel Souza": "Gabriel Souza",
@@ -55,9 +54,10 @@ const keywordToCategoryMap = {
 const sameNameKeywords = [
   "Abena Busia",
   "Adão Cândido",
-  "André Coronel",
   "Adriano Naves de Brito",
+  "Alexandre Aragon",
   "Ana Amélia Lemos",
+  "André Coronel",
   "Any Ortiz",
   "Augusto Buchweitz",
   "Betina Worm",
@@ -106,6 +106,7 @@ const sameNameKeywords = [
   "Osmar Terra",
   "Paixão Côrtes",
   "Ramiro Rosário",
+  "Riberto Barbanera",
   "Ronaldo Nogueira",
   "Skank",
   "Topázio Neto",
@@ -143,6 +144,16 @@ const positionYearMap = {
     {
       name: "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
       years: { start: 2021, end: 2025 },
+    },
+  ],
+  smgov: [
+    {
+      name: "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
+      years: { start: 2017, end: 2024 },
+    },
+    {
+      name: "Secretaria Municipal de Governança Cidadã e Desenvolvimento Rural (Porto Alegre)",
+      years: { start: 2025, end: 2025 },
     },
   ],
   "feira do livro": [

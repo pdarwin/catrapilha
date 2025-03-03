@@ -23,6 +23,7 @@ export const sameNameTags = [
   "Auditório do Global Tecnopuc",
   "Avenida Assis Brasil",
   "Avenida Coronel Marcos",
+  "Avenida Eduardo Prado",
   "Avenida Goethe",
   "Avenida Nilo Peçanha",
   "Avenida Nonoai",
@@ -72,6 +73,7 @@ export const sameNameTags = [
   "Consultório na Rua",
   "Cootravipa",
 
+  "Descida da Borges",
   "DermatoNet",
   "Dia D de Vacinação",
   "Dia do Gari",
@@ -255,6 +257,7 @@ export const sameNameTags = [
   "Vila dos Sargentos",
   "Vila Jardim",
   "Vila Minuano",
+  "Vila Monte Cristo",
   "Viva o Centro a Pé",
 
   "WhatsApp",

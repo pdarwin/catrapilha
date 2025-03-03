@@ -34,9 +34,7 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Esportes, Recreação e Lazer",
   "Esportes e Lazer": "Secretaria Municipal de Esportes, Recreação e Lazer",
   Seda: "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
-  "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)":
-    "Secretaria Municipal de Cultura e Economia Criativa (Porto Alegre)",
-  "Cultura e Economia Criativa":
+  "Cultura Economia Criativa":
     "Secretaria Municipal de Cultura e Economia Criativa (Porto Alegre)",
   "Direitos dos Animais":
     "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
@@ -49,8 +47,6 @@ export const tagToCategoryMap = {
   "Esporte Lazer e Juventude":
     "Secretaria Municipal de Esporte, Lazer e Juventude (Porto Alegre)",
   Smtc: "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
-  "Secretaria Municipal de Governança Local e Coordenação Política (SMGOV)":
-    "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
   "Governança Local e Coordenação Política":
     "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
   "Secretaria Municipal de Habitação e Regularização Fundiária (SMHARF)":
@@ -85,8 +81,7 @@ export const tagToCategoryMap = {
   Procempa: "Companhia de Processamento de Dados do Município de Porto Alegre",
   "Companhia de Processamento de Dados do Município (Procempa)":
     "Companhia de Processamento de Dados do Município de Porto Alegre",
-  "Departamento Municipal de Habitação (Demhab)":
-    "Departamento Municipal de Habitação (Porto Alegre)",
+  Demhab: "Departamento Municipal de Habitação (Porto Alegre)",
   CEIC: "Centro Integrado de Coordenação e Serviços da Cidade de Porto Alegre",
   "Comissão Permanente de Atuação em Emergências (Copae)":
     "Comissão Permanente de Atuação em Emergências",
@@ -332,6 +327,8 @@ export const tagToCategoryMap = {
     "Auditório do Ministério Público (Porto Alegre)",
   "Auditório da Puc": "Auditório Prédio 11",
   "Auditório da FAMURS": "Auditório Alceu Collares",
+  "Auditório do Departamento Municipal de Habitação (Demhab)":
+    "Auditório do Departamento Municipal de Habitação",
 
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -408,6 +405,7 @@ export const tagToCategoryMap = {
   "Bairro Ipanema": "Ipanema (Porto Alegre)",
   "Bairro Jardim Carvalho": "Jardim Carvalho",
   "Bairro Jardim Itu-Sabará": "Jardim Itu-Sabará",
+  "Bairro Jardim Planalto": "Jardim Planalto (Porto Alegre)",
   "Bairro Lami": "Lami (Porto Alegre)",
   "Bairro Lomba do Pinheiro": "Lomba do Pinheiro",
   "Bairro Mário Quintana": "Mário Quintana (Porto Alegre)",
@@ -489,7 +487,11 @@ export const tagToCategoryMap = {
     "Departamento Nacional de Infraestrutura de Transportes",
   "Programa Melhor em Casa": "Melhor em Casa",
   "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
+  "Centro de Integração Empresa Escola do Rio Grande do Sul (CIEE-RS)":
+    "Centro de Integração Empresa-Escola do Rio Grande do Sul",
+
   "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
+  "Cônsul da Ucrânia no Brasil": "Relations of Brazil and Ukraine",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
@@ -588,6 +590,8 @@ export const tagToCategoryMap = {
   "Contrato com a Caixa Econômica Federal (CEF)": "Caixa Econômica Federal",
   "Fundação de Atendimento Socioeducativo do Rio Grande do Sul (Fase)":
     "Fundação de Atendimento Socioeducativo do Rio Grande do Sul",
+  "Agência Estadual de Regulação dos Serviços Públicos Delegados do Rio Grande do Sul (AGERGS)":
+    "Agência Estadual de Regulação dos Serviços Públicos Delegados do Rio Grande do Sul",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -754,6 +758,7 @@ export const tagToCategoryMap = {
   Debate: "Political debates in Brazil",
   óculos: "Glasses in Brazil",
   oftalmologista: "Ophthalmologists from Brazil",
+  Verão: "Summer in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -930,4 +935,5 @@ export const tagToCategoryMap = {
   "atividade física": "Physical activity",
   Sarampo: "Measles vaccination",
   "Reunião com Representantes do Banco Mundial": "World Bank",
+  Calor: "Heat",
 };

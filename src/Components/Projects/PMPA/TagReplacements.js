@@ -31,8 +31,12 @@ export const tagReplacements = {
   "Bairro Centro Histórico": "Centro Histórico",
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
+  "Bairro Vila Ipiranga": "Vila Ipiranga",
 
   "Biblioteca do Parcão": "Biblioteca Ecológica Infantil Maria Dinorah",
+
+  "Carnaval 2017": "Carnaval",
+  "Carnaval Porto Alegre 2025": "Carnaval",
 
   "Celebração do Dia da Criança": "Dia da Criança",
   "Dia das Crianças": "Dia da Criança",
@@ -74,8 +78,15 @@ export const tagReplacements = {
   "Empresa Pública de Transporte e Circulação (EPTC)": "EPTC",
   Eptc: "EPTC",
 
+  "Cultura e Economia Criativa": "Cultura Economia Criativa",
+  "Secretaria Municipal de Cultura (SMC)": "Cultura Economia Criativa",
+  "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)":
+    "Cultura Economia Criativa",
+
   "Defesa Cívil": "Defesa Civil",
   "Defesa Civil de Porto Alegre-RS": "Defesa Civil",
+
+  "Departamento Municipal de Habitação (Demhab)": "Demhab",
 
   "Departamento Municipal de Limpeza Urbana (DMLU)": "DMLU",
   Dmlu: "DMLU",
@@ -132,6 +143,12 @@ export const tagReplacements = {
   "Gabinete de Inovação": "Inovação",
   "Gabinete de Inovação (GI)": "Inovação",
 
+  "Gabinete da Primeira-Dama": "Valéria Leopoldino",
+  "Primeira-dama": "Valéria Leopoldino",
+  "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
+
+  "Grupo de Combate ao Tabagismo": "Tabagismo",
+
   "hipertensão arterial": "hipertenso",
 
   "IST Aids": "Aids",
@@ -158,6 +175,8 @@ export const tagReplacements = {
   "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
   "SMIM - Infraestrutura e Mobilidade Urbana": "Smim",
 
+  "Museu Joaquim Felizardo": "Museu de Porto Alegre Joaquim Felizardo",
+
   Orla: "Orla Moacyr Scliar",
   "Parque Urbano da Orla Moacyr Scliar": "Orla Moacyr Scliar",
 
@@ -182,6 +201,7 @@ export const tagReplacements = {
 
   "prefeito de Florianópolis, Topázio Neto": "Topázio Neto",
 
+  "presidente CEEE Equatorial, Riberto Barbarena": "Riberto Barbanera",
   "Presidente das Mantenedoras Maristas do Sul": "Inacio Etges",
 
   "Procissão de Nossa Senhora dos Navegantes":
@@ -204,6 +224,11 @@ export const tagReplacements = {
   "Secretaria Municipal de Educação (SMED)": "SMED",
   Smed: "SMED",
 
+  "Secretaria Municipal de Governança Cidadã e Desenvolvimento Rural (Smgov)":
+    "Smgov",
+  "Secretaria Municipal de Governança Local e Coordenação Política (SMGOV)":
+    "Smgov",
+
   "Secretaria Municipal de Saúde (SMS)": "SMS",
   Sms: "SMS",
 
@@ -221,8 +246,16 @@ export const tagReplacements = {
   "Transparência e Controladoria": "Smtc",
   "Transparência e Controladoria Geral": "Smtc",
 
+  "Secretário municipal da Segurança, Alexandre Augusto Aragon":
+    "Alexandre Aragon",
+
   "Secretário municipal de Administração e Patrimônio, André Barbosa":
     "André Barbosa",
+
+  "secretário municipal de Governança Cidadã e Desenvolvimento Rural (Smgov), Cássio Trogildo.":
+    "Cássio Trogildo",
+  "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
+    "Cássio Trogildo",
 
   "Secretário Municipal de Educação Adriano Naves de Brito":
     "Adriano Naves de Brito",
