@@ -8,12 +8,11 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Desenvolvimento Econômico e Turismo (Porto Alegre)",
   SMAMS:
     "Secretaria Municipal do Meio Ambiente e Sustentabilidade (Porto Alegre)",
-  "Planejamento e Gestão":
+  "Secretário-adjunto de Planejamento e Gestão":
     "Secretaria Municipal de Planejamento e Gestão (Porto Alegre)",
-  "Gestão e Planejamento":
+  "Secretária de Planejamento e Gestão":
     "Secretaria Municipal de Planejamento e Gestão (Porto Alegre)",
   Smpg: "Secretaria Municipal de Planejamento e Gestão (Porto Alegre)",
-  Planejamento: "Secretaria Municipal de Planejamento e Gestão (Porto Alegre)",
   "Secretaria Municipal de Planejamento e Assuntos Estratégicos (SMPAE)":
     "Secretaria Municipal de Planejamento e Assuntos Estratégicos (Porto Alegre)",
   "Planejamento e Assuntos Estratégicos":
@@ -29,7 +28,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   "Infraestrutura e Urbanismo":
     "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
-  Smri: "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
   "Esportes, Recreação e Lazer":
     "Secretaria Municipal de Esportes, Recreação e Lazer",
   "Esportes e Lazer": "Secretaria Municipal de Esportes, Recreação e Lazer",
@@ -85,8 +83,6 @@ export const tagToCategoryMap = {
   CEIC: "Centro Integrado de Coordenação e Serviços da Cidade de Porto Alegre",
   "Comissão Permanente de Atuação em Emergências (Copae)":
     "Comissão Permanente de Atuação em Emergências",
-  "Comissão de Saúde e Segurança no Trabalho":
-    "Comissão de Saúde e Segurança no Trabalho (Porto Alegre)",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
 
   "Equipe de Manejo Arbóreo (EMA)": "Equipe de Manejo Arbóreo (Porto Alegre)",
@@ -103,14 +99,6 @@ export const tagToCategoryMap = {
     "Equipe de Vigilância de Antropozoonoses (Porto Alegre)",
 
   DMAP: "DMAP (Porto Alegre)",
-  DMAE: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
-  Dmae: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
-  Água: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
-  Esgoto: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
-  "Água e Esgotos": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
-  "Água e Esgoto": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
-  "Departamento Municipal de Água e Esgotos (DMAE)":
-    "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Departamento de Arrecação e Cobrança (DAC)":
     "Departamento de Arrecadação e Cobrança (Porto Alegre)",
   "Departamento de Iluminação Pública (DIP)":
@@ -169,6 +157,7 @@ export const tagToCategoryMap = {
   "Programa de Residência Técnico-Superior (PRTS)":
     "Programa de Residência Técnico-Superior",
   "Lei Orçamentária Anual (LOA)": "Lei Orçamentária Anual",
+  "Proposta orçamentária 2019": "Proposta orçamentária 2019 (Porto Alegre)",
   "Tapa Buracos": "Operação Tapa-Buracos",
   "Prefeitura Nos Bairros": "Prefeitura nos Bairros",
   ROMU: "Ronda Ostensiva Municipal in Porto Alegre",
@@ -177,8 +166,6 @@ export const tagToCategoryMap = {
   "Diversidade sexual": "Coordenadoria de Diversidade Sexual",
   "Op 2017": "Orçamento Participativo 2017",
   "Lei Seca": "Lei Seca (Porto Alegre)",
-  CRIPs: "Centros de Relação Institucional Participativa",
-  "Reunião com a CRIP Leste": "Centros de Relação Institucional Participativa",
   "Programa de Trabalho Educativo (PTE)": "Programa de Trabalho Educativo",
   "Projeto Mais Comunidade": "Mais Comunidade",
   "Núcleo Municipal de Segurança do Paciente":
@@ -195,6 +182,8 @@ export const tagToCategoryMap = {
   "Pacto Pela Inovação": "Pacto Alegre",
   "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
   "Grupo POA Solidárias": "POA Solidária",
+  "Moradores do Alameda Partenon": "Alameda Partenon",
+  "Núcleo de Ações Preventivas (NAP)": "Núcleo de Ações Preventivas",
 
   Legislativo: "Câmara Municipal de Porto Alegre",
   "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
@@ -257,6 +246,7 @@ export const tagToCategoryMap = {
   "Emef Ildo Meneguetti": "EMEF Ildo Meneguetti",
   "Emef Leocádia Felizardo Prestes": "EMEF Leocádia Felizardo Prestes",
   "Emef Pepita de Leão": "EMEF Pepita de Leão",
+  "Emef Presidente Vargas": "EMEF Presidente Vargas",
   "Escola Mariano Beck": "EMEF José Mariano Beck",
   "Emeb Liberato Salzano Vieira da Cunha":
     "EMEB Liberato Salzano Vieira da Cunha",
@@ -368,6 +358,10 @@ export const tagToCategoryMap = {
   "Monumento à Elis Regina": "Monumento a Elis Regina",
   "Centro da Comunidade Parque Madepinho (Cecopam)":
     "Centro da Comunidade Parque Madepinho",
+  "Conserto Didático da Banda Municipal de Porto Alegre":
+    "Banda Municipal de Porto Alegre",
+  "Centro de Artes e Esporte da Restinga (CEU)":
+    "Centro de Artes e Esporte da Restinga",
 
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "4º Distrito": "4º Distrito (Porto Alegre)",
@@ -437,6 +431,7 @@ export const tagToCategoryMap = {
   "Vila Ipiranga": "Vila Ipiranga (Porto Alegre)",
   "Vila Nova": "Vila Nova (Porto Alegre)",
   "Capital Gaúcha": "Porto Alegre",
+  "Aldeia do Morro do Osso": "Ymã Tupen Pãn",
 
   "Florianópolis-SC": "Florianópolis",
 
@@ -460,6 +455,7 @@ export const tagToCategoryMap = {
   "Viaduto Conceição": "Viaduto da Conceição",
   "Baronesa do Gravataí": "Rua Baronesa do Gravataí",
   "Trincheira da Ceará": "Trincheira da Avenida Ceará",
+  "Rua Olavo Bilac": "Rua Olavo Bilac (Porto Alegre)",
 
   "Exército Brasileiro": "Army of Brazil",
   "Forças Armadas": "Army of Brazil",
@@ -489,6 +485,10 @@ export const tagToCategoryMap = {
   "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
   "Centro de Integração Empresa Escola do Rio Grande do Sul (CIEE-RS)":
     "Centro de Integração Empresa-Escola do Rio Grande do Sul",
+  "Fórum de Justiça e Segurança do Centro":
+    "Fórum de Justiça e Segurança (Porto Alegre)",
+  "Professora Finalista do Prêmio RBS de Educação 2018":
+    "Prêmio RBS de Educação 2018",
 
   "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
   "Cônsul da Ucrânia no Brasil": "Relations of Brazil and Ukraine",
@@ -512,6 +512,7 @@ export const tagToCategoryMap = {
     "1º Festival de Arte e Cultura Senegalesa (2018)",
   "Dia da Criança": "Children's Day in Brazil",
   "30 Anos da Defesa Civil": "30 Anos da Defesa Civil (2018)",
+  "30 Anos da Kinder": "30 Anos da Kinder (2018)",
   "Dia Mundial da Alimentação": "World Food Day",
   "1º Fórum das Cidades Inteligentes, Humanizadas e Inovadoras - Smart Cities":
     "1º Fórum das Cidades Inteligentes, Humanizadas e Inovadoras - Smart Cities (2018)",
@@ -521,6 +522,18 @@ export const tagToCategoryMap = {
     "8º Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso (2018)",
   "Aniversário de 6 Anos do CEIC": "6th Anniversary of CEIC (2018)",
   "25 Anos do  FUMPROARTE": "25 Anos do FUMPROARTE (2018)",
+  "Dia do Livro": "Dia Nacional do Livro",
+  "Lançamento do Lance de Craque 2018": "Lance de Craque 2018",
+  "59º Festival Hípico Noturno em Porto Alegre":
+    "59º Festival Hípico Noturno de Porto Alegre (2018)",
+  "20 Anos da Mostra dos Servidores do DMAE":
+    "20 Anos da Mostra dos Servidores do DMAE (2018)",
+  "126 Anos da Guarda Municipal de Porto Alegre":
+    "126 Anos da Guarda Municipal de Porto Alegre (2018)",
+  "Sétimo encontro de Medicina Tradicional Kaingang":
+    "7º Encontro de Medicina Tradicional Kaingang (2018)",
+  "XI Prêmio EPTC de Educação para o Trânsito":
+    "XI Prêmio EPTC de Educação para o Trânsito (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -588,6 +601,8 @@ export const tagToCategoryMap = {
   "Jornada Científica do HPS":
     "Jornada Científica do Hospital de Pronto Socorro",
   "Contrato com a Caixa Econômica Federal (CEF)": "Caixa Econômica Federal",
+  "Reunião com o Diretor regional da Caixa Econômica Federal":
+    "Caixa Econômica Federal",
   "Fundação de Atendimento Socioeducativo do Rio Grande do Sul (Fase)":
     "Fundação de Atendimento Socioeducativo do Rio Grande do Sul",
   "Agência Estadual de Regulação dos Serviços Públicos Delegados do Rio Grande do Sul (AGERGS)":
@@ -639,6 +654,9 @@ export const tagToCategoryMap = {
   Emprego: "Labour in Porto Alegre",
   Renda: "Labour in Porto Alegre",
   pessoas: "People of Porto Alegre",
+  Seminário: "Seminars in Porto Alegre",
+  "Seminário de Capacitação dos gestores dos CRIPS para o 156":
+    "Seminars in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -648,6 +666,7 @@ export const tagToCategoryMap = {
   "População de Rua": "Homelessness in Porto Alegre",
   "Situação de rua": "Homelessness in Porto Alegre",
   "População em Situação de Rua": "Homelessness in Porto Alegre",
+  "“Tamo Junto na Rua”": "Homelessness in Porto Alegre",
   "Ruas e avenidas": "Streets in Porto Alegre",
   "Artes Visuais": "Art of Porto Alegre",
   "Fios Soltos": "Overhead power lines in Porto Alegre",
@@ -738,7 +757,6 @@ export const tagToCategoryMap = {
   Simpósio: "Symposia in Brazil",
   Palestra: "Presentations in Brazil",
   Apresentação: "Presentations in Brazil",
-  Seminário: "Seminars in Brazil",
   Audiência: "Audiences (meeting) in Brazil",
   Hanseníase: "Leprosy in Brazil",
   Retrato: "Portrait photographs of politicians of Brazil",
@@ -803,7 +821,7 @@ export const tagToCategoryMap = {
   "evento social": "Social events in Brazil",
   "DIA SEM CARRO": "World Car Free Day in Brazil",
   "Sala de aula": "Classrooms in Brazil",
-  "Eleições 2018": "2018 Brazilian election (first round)",
+  "Eleições 2018": "2018 Brazilian election (second round)",
   "Mastectomia em animais": "Animal health in Brazil",
   "Equipamentos Hospitalares": "Medical equipment in Brazil",
   "mapa de serviço de trânsito": "Road maps of Brazil",
@@ -936,4 +954,5 @@ export const tagToCategoryMap = {
   Sarampo: "Measles vaccination",
   "Reunião com Representantes do Banco Mundial": "World Bank",
   Calor: "Heat",
+  "Trade Commissioner": "Trade commissioners",
 };

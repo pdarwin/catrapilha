@@ -7,6 +7,12 @@ export const tagReplacements = {
   "3º Inclusão em Cena": "Inclusão Em Cena",
   "Projeto Inclusão em Cena 2018": "Inclusão Em Cena",
 
+  "64ª Edição da Feira do Livro de Porto Alegre": "Feira do Livro",
+  "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre":
+    "Feira do Livro",
+  "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre":
+    "Feira do Livro",
+
   "90 Anos da Cinemateca Capitólio": "Cinemateca Capitólio",
 
   "relações Institucionais": "Smri",
@@ -23,6 +29,13 @@ export const tagReplacements = {
   "Ação Mais Comunidade": "Projeto Mais Comunidade",
   "Programa Mais Comunidade": "Projeto Mais Comunidade",
 
+  Água: "DMAE",
+  Dmae: "DMAE",
+  Esgoto: "DMAE",
+  "Água e Esgotos": "DMAE",
+  "Água e Esgoto": "DMAE",
+  "Departamento Municipal de Água e Esgotos (DMAE)": "DMAE",
+
   "Animal silvestre": "Fauna",
 
   "Associação dos Municípios da Região Metropolitana de Porto Alegre (Granpal)":
@@ -32,6 +45,13 @@ export const tagReplacements = {
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
   "Bairro Vila Ipiranga": "Vila Ipiranga",
+
+  "Benchmarking do Governo do Rio Grande do Norte": "Visita",
+  viagem: "Visita",
+  "Viagem à Brasília": "Visita",
+  "Viagem à Europa": "Visita",
+  "Visita de Cortesia": "Visita",
+  "visita institucional": "Visita",
 
   "Biblioteca do Parcão": "Biblioteca Ecológica Infantil Maria Dinorah",
 
@@ -147,18 +167,21 @@ export const tagReplacements = {
   "Primeira-dama": "Valéria Leopoldino",
   "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
 
+  "Gestão e Planejamento": "Smpg",
+  Planejamento: "Smpg",
+  "Planejamento e Gestão": "Smpg",
+  "Secretaria Municipal de Planejamento e Gestão (SMPG)": "Smpg",
+
   "Grupo de Combate ao Tabagismo": "Tabagismo",
 
   "hipertensão arterial": "hipertenso",
 
   "IST Aids": "Aids",
 
-  "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre":
-    "Feira do Livro",
-  "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre":
-    "Feira do Livro",
-
   "LGBTQIA+": "LGBT",
+
+  "Livro e Literatura": "Literatura",
+  Livros: "Literatura",
 
   "Meio Ambiente e Sustentabilidade": "SMAMS",
   "Meio Ambiente Sustentabilidade": "SMAMS",
@@ -195,6 +218,10 @@ export const tagReplacements = {
 
   "Porto Alegre-RS": "Porto Alegre",
 
+  "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM":
+    "Posse",
+  "Posse da  Comissão de Saúde e Segurança da Fasc": "Posse",
+  "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI": "Posse",
   "Posse da Procuradora Municipal": "Posse",
   "Posse Novos Procuradores-Gerais do Município": "Posse",
   "Posse Novos Secretários Municipais": "Posse",
@@ -265,17 +292,12 @@ export const tagReplacements = {
   "sinalização semafórica": "Semáforos",
 
   "Smc -": "Smc",
+  "SMC - FUMPROARTE comemora 25 anos": "25 Anos do  FUMPROARTE",
   "SMC - Programação Final de Outubro": "Smc",
 
   "Terminal Parobé": "Praça Parobé",
 
   Tradicionalismo: "Tradição",
-
-  viagem: "Visita",
-  "Viagem à Brasília": "Visita",
-  "Viagem à Europa": "Visita",
-  "Visita de Cortesia": "Visita",
-  "visita institucional": "Visita",
 
   "Vice-prefeita, Betina Worm": "Betina Worm",
   "Vice-prefeita de Porto Alegre, Betina Worm": "Betina Worm",
