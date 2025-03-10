@@ -12,6 +12,7 @@ export const tagReplacements = {
     "Feira do Livro",
   "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre":
     "Feira do Livro",
+  "Totem de atendimento 156": "Feira do Livro",
 
   "90 Anos da Cinemateca Capitólio": "Cinemateca Capitólio",
 
@@ -38,8 +39,17 @@ export const tagReplacements = {
 
   "Animal silvestre": "Fauna",
 
+  "Assistencia Social": "Serviço Social",
+  "Assistência Social": "Serviço Social",
+
   "Associação dos Municípios da Região Metropolitana de Porto Alegre (Granpal)":
     "Granpal",
+
+  "Atividade Alusiva ao Combate à Violência no Trânsito":
+    "Educação no Trânsito",
+
+  "Ato de Apresentação do Programa Família Acolhedora":
+    "Programa Família Acolhedora",
 
   "Bairro Centro Histórico": "Centro Histórico",
   "Bairro Petrópolis": "Petrópolis",
@@ -52,8 +62,12 @@ export const tagReplacements = {
   "Viagem à Europa": "Visita",
   "Visita de Cortesia": "Visita",
   "visita institucional": "Visita",
+  "Visita Técnica": "Visita",
 
   "Biblioteca do Parcão": "Biblioteca Ecológica Infantil Maria Dinorah",
+
+  "Capacitação e Gerenciamento de Projetos Prioritários de Governo":
+    "Capacitação",
 
   "Carnaval 2017": "Carnaval",
   "Carnaval Porto Alegre 2025": "Carnaval",
@@ -69,10 +83,21 @@ export const tagReplacements = {
 
   "Centro Municipal de Cultura": "Centro de Cultura Lupicínio Rodrigues",
 
+  "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM":
+    "Posse",
+  "Posse da  Comissão de Saúde e Segurança da Fasc": "Posse",
+  "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI": "Posse",
+  "Posse da Procuradora Municipal": "Posse",
+  "Posse Novos Procuradores-Gerais do Município": "Posse",
+  "Posse Novos Secretários Municipais": "Posse",
+
   "Cerimônia de posse gestão 2025/2028": "Posse",
+
+  "Ciclo de Palestras da Transparência": "Palestra",
 
   Circulação: "Transporte",
   "Circulação e Transporte": "Transporte",
+  "Integração Metropolitana de Transporte": "Transporte",
   Mobilidade: "Transporte",
   trânsito: "Transporte",
   "Trânsito e Circulação": "Transporte",
@@ -80,6 +105,7 @@ export const tagReplacements = {
   "Transito e Transporte": "Transporte",
   "Transporte e Circulaçao": "Transporte",
   "Transporte e Circulação": "Transporte",
+  "Transporte Metropolitano": "Transporte",
 
   "Conselho Superior da PGM": "PGM",
   "Gabinete da Procuradoria": "PGM",
@@ -97,6 +123,7 @@ export const tagReplacements = {
   "Coordenação de Operações Especiais (COE)": "EPTC",
   "Empresa Pública de Transporte e Circulação (EPTC)": "EPTC",
   Eptc: "EPTC",
+  "Eptc -": "EPTC",
 
   "Cultura e Economia Criativa": "Cultura Economia Criativa",
   "Secretaria Municipal de Cultura (SMC)": "Cultura Economia Criativa",
@@ -134,6 +161,7 @@ export const tagReplacements = {
   "Doações de Materiais": "Doação",
   Donativos: "Doação",
   "Entrega de Doações": "Doação",
+  "Entrega de kits de brinquedos doados pela Fundação Abrinq": "Doação",
 
   "Emef Migrantes": "EMEF Migrantes",
   "Emef Vila Montecristo": "EMEF Vila Monte Cristo",
@@ -144,8 +172,14 @@ export const tagReplacements = {
   "Escola Municipal de Educação infantil Humaitá": "EMEI Humaitá",
   "Escola Municipal de Educação Infantil Jardim de Praça Pica-Pau Amarelo":
     "EMEI JP Pica-Pau Amarelo",
+  "Escola Municipal Especial de Ensino Fundamental Eliseu Paglioli":
+    "Emeef Elyseu Paglioli",
 
   "Espaço Hortomercado Parobé": "Hortomercado Parobé",
+
+  "Espaço Infantil": "Criança",
+
+  "Executivo, Ministro da Saúde Gilberto Occhi": "Gilberto Occhi",
 
   Fazenda: "SMF",
   Finanças: "SMF",
@@ -154,8 +188,15 @@ export const tagReplacements = {
   "Secretário Municipal da Fazenda (SMF)": "SMF",
   Smf: "SMF",
 
+  "Federação das Associações de Municípios do Rio Grande do Sul (FAMURS)":
+    "Famurs",
+
+  'Formação "O trabalho em Direitos Humanos na Educação Infantil"': "Formação",
+
   "foto aérea": "Aéreas",
   "Imagem Aérea": "Aéreas",
+
+  "Frente Nacional dos Prefeitos (FNP)": "FNP",
 
   "Fundação de Assistência Social e Cidadania – Fasc": "Fasc",
 
@@ -176,6 +217,12 @@ export const tagReplacements = {
 
   "hipertensão arterial": "hipertenso",
 
+  "Infraestrutura e Mobilidade": "Smim",
+  "Infraestrutura e Mobilidade Urbana": "Smim",
+  "Mobilidade Urbana": "Smim",
+  "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
+  "SMIM - Infraestrutura e Mobilidade Urbana": "Smim",
+
   "IST Aids": "Aids",
 
   "LGBTQIA+": "LGBT",
@@ -187,18 +234,17 @@ export const tagReplacements = {
   "Meio Ambiente Sustentabilidade": "SMAMS",
   Smams: "SMAMS",
 
-  "Meio Ambiente Urbanismo e Sustentabilidade":
-    "Meio Ambiente, Urbanismo e Sustentabilidade",
+  "Meio Ambiente Urbanismo e Sustentabilidade": "Smamus",
+  "Meio Ambiente, Urbanismo e Sustentabilidade": "Smamus",
   "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (SMAMUS)":
-    "Meio Ambiente, Urbanismo e Sustentabilidade",
-
-  "Executivo, Ministro da Saúde Gilberto Occhi": "Gilberto Occhi",
-
-  "Mobilidade Urbana": "Smim",
-  "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
-  "SMIM - Infraestrutura e Mobilidade Urbana": "Smim",
+    "Smamus",
 
   "Museu Joaquim Felizardo": "Museu de Porto Alegre Joaquim Felizardo",
+
+  "Novo Líder de Governo na Câmara de Vereadores de Porto Alegre":
+    "Mauro Pinheiro",
+
+  "Obras de implantação da adutora da Estrada Antonio Borges": "Obras",
 
   Orla: "Orla Moacyr Scliar",
   "Parque Urbano da Orla Moacyr Scliar": "Orla Moacyr Scliar",
@@ -206,9 +252,12 @@ export const tagReplacements = {
   "Parcerias Estratégicas": "Smpe",
 
   "Parque Harmonia": "Parque Maurício Sirotsky Sobrinho (Harmonia)",
+  "Parque Mascarenhas de Moraes": "Parque Marechal Mascarenhas de Moraes",
 
   "Permissionários do Serviço de Táxis": "Táxi",
   "Táxis Novos": "Táxi",
+
+  "Plantio Urbano Sustentável": "Plantio Sustentável do DMLU",
 
   "Pontifícia Universidade Católica do RS (PUCRS)": "PUCRS",
 
@@ -218,17 +267,16 @@ export const tagReplacements = {
 
   "Porto Alegre-RS": "Porto Alegre",
 
-  "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM":
-    "Posse",
-  "Posse da  Comissão de Saúde e Segurança da Fasc": "Posse",
-  "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI": "Posse",
-  "Posse da Procuradora Municipal": "Posse",
-  "Posse Novos Procuradores-Gerais do Município": "Posse",
-  "Posse Novos Secretários Municipais": "Posse",
+  "Praça Marechal Deodoro (Matriz)": "Praça da Matriz",
+
+  "prefeita em exercício, Betina Worm": "Betina Worm",
+  "Vice-prefeita, Betina Worm": "Betina Worm",
+  "Vice-prefeita de Porto Alegre, Betina Worm": "Betina Worm",
 
   "prefeito de Florianópolis, Topázio Neto": "Topázio Neto",
 
   "presidente CEEE Equatorial, Riberto Barbarena": "Riberto Barbanera",
+  "Presidente da República Luiz Inácio Lula da Silva": " Lula",
   "Presidente das Mantenedoras Maristas do Sul": "Inacio Etges",
 
   "Procissão de Nossa Senhora dos Navegantes":
@@ -238,6 +286,8 @@ export const tagReplacements = {
   "Propriedades Rurais": "Zona Rural",
 
   "Projeto Clássicos na Pinacoteca": "Clássicos na Pinacoteca",
+
+  "Projeto Feira Fora da Feira": "Feira Fora da Feira",
 
   "Retratos Oficiais": "Retrato",
 
@@ -272,6 +322,10 @@ export const tagReplacements = {
   "Secretaria Municipal de Transparência e Controladoria (SMTC)": "Smtc",
   "Transparência e Controladoria": "Smtc",
   "Transparência e Controladoria Geral": "Smtc",
+  "Secretária Municipal de Transparência e Controladoria (SMTC), Mônica Leal":
+    "Mônica Leal",
+
+  "Secretário Eduardo Cidade": "Eduardo Cidade",
 
   "Secretário municipal da Segurança, Alexandre Augusto Aragon":
     "Alexandre Aragon",
@@ -293,14 +347,11 @@ export const tagReplacements = {
 
   "Smc -": "Smc",
   "SMC - FUMPROARTE comemora 25 anos": "25 Anos do  FUMPROARTE",
-  "SMC - Programação Final de Outubro": "Smc",
+  "Programação de Novembro": "Programação Cultural",
 
   "Terminal Parobé": "Praça Parobé",
 
   Tradicionalismo: "Tradição",
-
-  "Vice-prefeita, Betina Worm": "Betina Worm",
-  "Vice-prefeita de Porto Alegre, Betina Worm": "Betina Worm",
 
   "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes",
   "vice-prefeito Ricardo Gomes": "Ricardo Gomes",

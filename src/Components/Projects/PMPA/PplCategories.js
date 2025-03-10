@@ -46,6 +46,8 @@ const keywordToCategoryMap = {
     "Idenir Cecchim",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
     "Germano Bremm",
+  "Sessão Solene de outorga de Título de Cidadão de Porto Alegre ao Presidente Estadual da Assembleia de Deus Pastor Adalberto Santos Dutra":
+    "Adalberto dos Santos Dutra",
   "Vice-governador Gabriel Souza": "Gabriel Souza",
   "Wambert Gomes Di Lorenzo": "Wambert Di Lorenzo",
   "Záchia Paludo": "Maria de Fátima Záchia Paludo",
@@ -65,10 +67,12 @@ const sameNameKeywords = [
   "Bruno Vanuzzi",
   "Cássio Trogildo",
   "Cezar Schirmer",
+  "Comandante Nádia",
   "Denise Russo",
   "Dilan Camargo",
   "Dori Goren",
   "Edson Leal Pujol",
+  "Eduardo Cidade",
   "Eduardo Leite",
   "Erno Harzheim",
   "Erno Harzhein",
@@ -101,6 +105,7 @@ const sameNameKeywords = [
   "Maria Helena Sartori",
   "Mauro Pinheiro",
   "Michel Costa",
+  "Mônica Leal",
   "Nísia Trindade",
   "Orly Portal",
   "Osmar Terra",
@@ -135,6 +140,9 @@ const positionYearMap = {
   ],
   "diretor-presidente da eptc": [
     { name: "Marcelo Soletti", years: { start: 2018, end: 2018 } },
+  ],
+  "presidente da camara de vereadores": [
+    { name: "Comandante Nádia", years: { start: 2025, end: 2025 } },
   ],
   "desenvolvimento economico": [
     {
