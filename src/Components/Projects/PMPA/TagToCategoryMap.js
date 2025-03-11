@@ -190,9 +190,7 @@ export const tagToCategoryMap = {
   "Programa Teste e Trate": "Teste e Trate",
   cachorródromo: "Cachorródromo",
 
-  Legislativo: "Câmara Municipal de Porto Alegre",
-  "Câmara Municipal de Porto Alegre (CMPA)": "Câmara Municipal de Porto Alegre",
-  "Câmara de Vereadores": "Câmara Municipal de Porto Alegre",
+  "Plenário Ana Terra - CMPA": "Plenário Ana Terra",
   vereador: "City councillors of Porto Alegre",
   Vereadores: "City councillors of Porto Alegre",
   "Conselho Municipal de Assistência Social (CMAS)":
@@ -232,6 +230,7 @@ export const tagToCategoryMap = {
   "Vistoria Obras Restaurante Panorâmico": "360 POA",
   "Inauguração Restaurante 360 POA GASTROBAR": "360 POA",
 
+  //Universidades
   "Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA)":
     "Universidade Federal de Ciências da Saúde de Porto Alegre",
   "Universidade Federal do Rio Grande do Sul (UFRGS)":
@@ -253,6 +252,7 @@ export const tagToCategoryMap = {
 
   //Escolas
   "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
+  "(Emei) Florência Vurlod Socias": "EMEI Florência Vurlod Socias",
   "Emei Protásio Alves": "EMEI Protásio Alves",
   "Emei Santo Expedito": "EMEI Santo Expedito",
   "Emef Anísio Teixeira": "EMEF Anísio Teixeira",
@@ -282,6 +282,8 @@ export const tagToCategoryMap = {
   "Emef Nossa Senhora do Carmo": "EMEF Nossa Senhora do Carmo",
   "Biblioteca da Escola de Educação Infantil Paulo Freire":
     "Biblioteca da EMEI Paulo Freire",
+  "Escola Municipal de Ensino Fundamental Deputado Victor Issler":
+    "EMEF Deputado Victor Issler",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -516,6 +518,9 @@ export const tagToCategoryMap = {
     "Prêmio RBS de Educação 2018",
   "Programa Família Acolhedora": "Família Acolhedora",
   "Romaria de Santa Maria": "Romaria da Medianeira",
+  'programa "Lean nas Emergências"': "Lean nas Emergências",
+  "Programa Nacional de Gestão de Custos (PNGC)":
+    "Programa Nacional de Gestão de Custos",
 
   "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
   "Cônsul da Ucrânia no Brasil": "Relations of Brazil and Ukraine",

@@ -61,16 +61,23 @@ export const tagReplacements = {
   "Viagem à Brasília": "Visita",
   "Viagem à Europa": "Visita",
   "Visita de Cortesia": "Visita",
+  "Visita dos Alunos do IFRS da Restinga ao Poa.Hub": "Visita",
   "visita institucional": "Visita",
   "Visita Técnica": "Visita",
 
   "Biblioteca do Parcão": "Biblioteca Ecológica Infantil Maria Dinorah",
+
+  "Câmara Municipal de Porto Alegre (CMPA)": "Legislativo",
+  "Câmara de Vereadores": "Legislativo",
 
   "Capacitação e Gerenciamento de Projetos Prioritários de Governo":
     "Capacitação",
 
   "Carnaval 2017": "Carnaval",
   "Carnaval Porto Alegre 2025": "Carnaval",
+
+  "Cássia Carpes": "Cassiá",
+  "vereador Cassiá Carpes": "Cassiá",
 
   "Celebração do Dia da Criança": "Dia da Criança",
   "Dia das Crianças": "Dia da Criança",
@@ -213,6 +220,8 @@ export const tagReplacements = {
   "Planejamento e Gestão": "Smpg",
   "Secretaria Municipal de Planejamento e Gestão (SMPG)": "Smpg",
 
+  "Vereador Giovane Byl": "Giovane Byl",
+
   "Grupo de Combate ao Tabagismo": "Tabagismo",
 
   "hipertensão arterial": "hipertenso",
@@ -290,6 +299,8 @@ export const tagReplacements = {
   "Projeto Feira Fora da Feira": "Feira Fora da Feira",
 
   "Retratos Oficiais": "Retrato",
+
+  Sáude: "Saúde",
 
   "Secretária Denise Russo": "Denise Russo",
 

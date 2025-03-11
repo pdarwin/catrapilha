@@ -286,9 +286,11 @@ const getCategoriesFromTags = metadata => {
       "Reunião com a CRIP Leste",
       "Reunião com a EPTC e Sindicatos",
       "Reunião com o Diretor regional da Caixa Econômica Federal",
+      "Reunião com o Presidente da Câmara de Vereadores de Porto Alegre",
       "Reunião com Representantes do Banco Mundial",
       "Reunião Plenária do COMUI",
       "Reunião sobre acolhida  ao grupo de venezuelanos",
+      "Reunião Sobre Sistemas Informatizados",
     ].includes(tag)
   );
 
@@ -726,6 +728,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Universities and colleges in Porto Alegre");
   }
 
+  if (orTags.includes("Visita dos Alunos do IFRS da Restinga ao Poa.Hub")) {
+    categories.push("Instituto Federal do Rio Grande do Sul - Campus Restinga");
+  }
+
   if (tags.includes("Educação Técnica") || tags.includes("Curso de Mecânica")) {
     categories.push("Career and technical education");
   }
@@ -1142,6 +1148,7 @@ const getCategoriesFromTags = metadata => {
         "Formulário",
         "Informatização",
         "Internet",
+        "Reunião Sobre Sistemas Informatizados",
         "Robótica",
         "Tecnologia",
       ].includes(tag)
@@ -1489,6 +1496,13 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Praça da Alfândega")
   ) {
     categories.push("Praça da Alfândega (Porto Alegre)");
+  }
+
+  if (
+    !tags.some(tag => ["Plenário Ana Terra - CMPA"].includes(tag)) &&
+    tags.includes("Legislativo")
+  ) {
+    categories.push("Câmara Municipal de Porto Alegre");
   }
 
   if (!tags.includes("Maratona") && tags.includes("Corrida")) {
@@ -2064,6 +2078,7 @@ const getCategoriesFromTags = metadata => {
           "Formação",
           "Formação de Multiplicadores",
           "Formatura",
+          "Frente Parlamentar de Segurança",
           "Galera Curtição",
           "Gvp",
           "Homenagem",
@@ -2093,6 +2108,7 @@ const getCategoriesFromTags = metadata => {
           "Sarau Café com Letras",
           "Semana Cidade Limpa",
           "Semana da Água",
+          "Semana da Consciência Negra",
           "Seminário",
           "Sessão de julgamento da 1ª Câmara do TART",
           "Show de Talentos da FASC",

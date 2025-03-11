@@ -125,6 +125,7 @@ export const sameNameTags = [
   "Fique Sabendo Jovem",
   "Formação de Multiplicadores",
   "Fórum Social Mundial da População Idosa",
+  "Frente Parlamentar de Segurança",
   "Fundação Iberê Camargo",
 
   "Gabinete da SMDSE",
@@ -239,6 +240,7 @@ export const sameNameTags = [
   "Seletiva no Contêiner",
   "Semana Cidade Limpa",
   "Semana da Água",
+  "Semana da Consciência Negra",
   "Semanas Internacionais",
   "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
   "Seminário Povos Indígenas e Saúde: Um Corpo São",
