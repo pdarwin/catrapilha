@@ -1,4 +1,8 @@
 export const tagReplacements = {
+  "“Tamo Junto na Rua”": "Situação de rua",
+  "População de Rua": "Situação de rua",
+  "População em Situação de Rua": "Situação de rua",
+
   "25º POA Em Cena": "Poa Em Cena",
   "Em Cena": "Poa Em Cena",
   "POA Em Cena": "Poa Em Cena",
@@ -37,6 +41,8 @@ export const tagReplacements = {
   "Água e Esgoto": "DMAE",
   "Departamento Municipal de Água e Esgotos (DMAE)": "DMAE",
 
+  "Análises clínicas": "Laboratórios Municipais",
+
   "Animal silvestre": "Fauna",
 
   "Assistencia Social": "Serviço Social",
@@ -50,6 +56,8 @@ export const tagReplacements = {
 
   "Ato de Apresentação do Programa Família Acolhedora":
     "Programa Família Acolhedora",
+
+  "Auditório Marcelo Dario Kifne - MP-RS": "Auditório do Ministério Público",
 
   "Bairro Centro Histórico": "Centro Histórico",
   "Bairro Petrópolis": "Petrópolis",
@@ -70,6 +78,10 @@ export const tagReplacements = {
   "Câmara Municipal de Porto Alegre (CMPA)": "Legislativo",
   "Câmara de Vereadores": "Legislativo",
 
+  "Campus da Unisinos Porto Alegre": "Unisinos",
+
+  "Capacitação - Controle Social e Educação: Projeto-Piloto de capacitação de conselheiros escolares":
+    "Capacitação",
   "Capacitação e Gerenciamento de Projetos Prioritários de Governo":
     "Capacitação",
 
@@ -171,6 +183,7 @@ export const tagReplacements = {
   "Entrega de kits de brinquedos doados pela Fundação Abrinq": "Doação",
 
   "Emef Migrantes": "EMEF Migrantes",
+  "Emef Vereador Antonio Giúdice": "EMEF Vereador Antônio Giúdice",
   "Emef Vila Montecristo": "EMEF Vila Monte Cristo",
 
   "Entrega da Lei Orçamentária Anual (LOA) 2019":
@@ -220,17 +233,22 @@ export const tagReplacements = {
   "Planejamento e Gestão": "Smpg",
   "Secretaria Municipal de Planejamento e Gestão (SMPG)": "Smpg",
 
-  "Vereador Giovane Byl": "Giovane Byl",
+  "Gestores dos CRIPs": "CRIPs",
 
   "Grupo de Combate ao Tabagismo": "Tabagismo",
 
   "hipertensão arterial": "hipertenso",
+
+  "Inauguração do Hospital Santa Ana": "Hospital Santa Ana",
 
   "Infraestrutura e Mobilidade": "Smim",
   "Infraestrutura e Mobilidade Urbana": "Smim",
   "Mobilidade Urbana": "Smim",
   "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
   "SMIM - Infraestrutura e Mobilidade Urbana": "Smim",
+
+  "Início da operação da primeira faixa reversível semaforizada da Capital":
+    "1ª Faixa Reversível semafórica de Porto Alegre",
 
   "IST Aids": "Aids",
 
@@ -262,9 +280,13 @@ export const tagReplacements = {
 
   "Parque Harmonia": "Parque Maurício Sirotsky Sobrinho (Harmonia)",
   "Parque Mascarenhas de Moraes": "Parque Marechal Mascarenhas de Moraes",
+  "Parque Moinhos de Vento (Parcão)": "Parcão",
 
   "Permissionários do Serviço de Táxis": "Táxi",
   "Táxis Novos": "Táxi",
+
+  "Plano Municipal de Superação da Situação de Rua":
+    "Plano de Superação da Situação de Rua",
 
   "Plantio Urbano Sustentável": "Plantio Sustentável do DMLU",
 
@@ -290,6 +312,8 @@ export const tagReplacements = {
 
   "Procissão de Nossa Senhora dos Navegantes":
     "Festa de Nossa Senhora dos Navegantes",
+
+  "Procuradora-geral do município Eunice Nequete": "Eunice Nequete",
 
   "Produtor Rural": "Zona Rural",
   "Propriedades Rurais": "Zona Rural",
@@ -331,6 +355,7 @@ export const tagReplacements = {
   Smsurb: "SMSURB",
 
   "Secretaria Municipal de Transparência e Controladoria (SMTC)": "Smtc",
+  "SMTC - Transparência e Controladoria Geral": "Smtc",
   "Transparência e Controladoria": "Smtc",
   "Transparência e Controladoria Geral": "Smtc",
   "Secretária Municipal de Transparência e Controladoria (SMTC), Mônica Leal":
@@ -363,6 +388,8 @@ export const tagReplacements = {
   "Terminal Parobé": "Praça Parobé",
 
   Tradicionalismo: "Tradição",
+
+  "Vereador Giovane Byl": "Giovane Byl",
 
   "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes",
   "vice-prefeito Ricardo Gomes": "Ricardo Gomes",

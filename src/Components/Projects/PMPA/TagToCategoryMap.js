@@ -104,7 +104,6 @@ export const tagToCategoryMap = {
   "redes de água": "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   Adutora: "Departamento Municipal de Água e Esgotos (Porto Alegre)",
   "Sine Municipal": "Sine Municipal (Porto Alegre)",
-  EPTC: "Empresa Pública de Transporte e Circulação de Porto Alegre",
   "Reunião com a EPTC e Sindicatos":
     "Empresa Pública de Transporte e Circulação de Porto Alegre",
   "Sede da EPTC":
@@ -178,6 +177,7 @@ export const tagToCategoryMap = {
   "Espetáculo O Rei da Vela": "O Rei da Vela",
   "Projeto Kilombinho de Verão": "Kilombinho de Verão",
   "Pacto Pela Inovação": "Pacto Alegre",
+  "Lançamento do Pacto Pela Inovação - Pacto Alegre": "Pacto Alegre",
   "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
   "Grupo POA Solidárias": "POA Solidária",
   "Moradores do Alameda Partenon": "Alameda Partenon",
@@ -189,6 +189,9 @@ export const tagToCategoryMap = {
   "Portal da Transparência": "Portal da Transparência EPTC",
   "Programa Teste e Trate": "Teste e Trate",
   cachorródromo: "Cachorródromo",
+  "Plano de Mobilidade de Porto Alegre (MobiliPOA)": "MobiliPOA",
+  "Encontro com as Associação das Empresas dos Bairros Humaitá e Navegantes":
+    "Associação das Empresas dos Bairros Humaitá e Navegantes",
 
   "Plenário Ana Terra - CMPA": "Plenário Ana Terra",
   vereador: "City councillors of Porto Alegre",
@@ -301,6 +304,8 @@ export const tagToCategoryMap = {
   "Ministério da Saúde": "Ministry of Health of Brazil",
   "Força Nacional do SUS": "Força Nacional do Sistema Único de Saúde",
   HMIPV: "Hospital Materno-Infantil Presidente Vargas",
+  "Laboratório do HMIPV":
+    "Laboratório Municipal do Hospital Materno Infantil Presidente Vargas",
   "Hospital de Pronto Socorro (HPS)":
     "Hospital de Pronto Socorro (Porto Alegre)",
   "Unidade de Coleta e Transfusão (UCT) do HPS":
@@ -336,7 +341,6 @@ export const tagToCategoryMap = {
   "Auditório do Ministério Público":
     "Auditório do Ministério Público (Porto Alegre)",
   "Auditório da Puc": "Auditório Prédio 11",
-  "Auditório da FAMURS": "Auditório Alceu Collares",
   "Auditório do Departamento Municipal de Habitação (Demhab)":
     "Auditório do Departamento Municipal de Habitação",
 
@@ -411,10 +415,8 @@ export const tagToCategoryMap = {
   "Bairro Chapéu do Sol": "Chapéu do Sol",
   "Bairro Cidade Baixa": "Cidade Baixa (Porto Alegre)",
   "Bairro Coronel Aparício Borges": "Coronel Aparício Borges",
-  "Bairro Cristal": "Cristal (Porto Alegre)",
   "Bairro Cruzeiro": "Cruzeiro (Porto Alegre)",
   "Bairro Farrapos": "Farrapos (Porto Alegre)",
-  "Bairro Floresta": "Floresta (Porto Alegre)",
   "Bairro Glória": "Glória (Porto Alegre)",
   "Bairro Guarujá": "Guarujá (Porto Alegre)",
   "Bairro Higienópolis": "Higienópolis (Porto Alegre)",
@@ -508,19 +510,25 @@ export const tagToCategoryMap = {
   Ideb: "Índice de Desenvolvimento da Educação Básica",
   "Departamento Nacional de Infraestrutura de Transportes (Dnit)":
     "Departamento Nacional de Infraestrutura de Transportes",
-  "Programa Melhor em Casa": "Melhor em Casa",
-  "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
   "Centro de Integração Empresa Escola do Rio Grande do Sul (CIEE-RS)":
     "Centro de Integração Empresa-Escola do Rio Grande do Sul",
   "Fórum de Justiça e Segurança do Centro":
     "Fórum de Justiça e Segurança (Porto Alegre)",
   "Professora Finalista do Prêmio RBS de Educação 2018":
     "Prêmio RBS de Educação 2018",
-  "Programa Família Acolhedora": "Família Acolhedora",
   "Romaria de Santa Maria": "Romaria da Medianeira",
+  "Associação Internacional de Parques Científicos e Áreas de Inovação (IASP)":
+    "International Association of Science Parks and Areas of Innovation",
+  "Olimpíada Brasileira de Matemática - OBMEP":
+    "Olimpíada Brasileira de Matemática das Escolas Públicas",
+
+  "Programa Família Acolhedora": "Família Acolhedora",
+  "Programa Melhor em Casa": "Melhor em Casa",
+  "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
   'programa "Lean nas Emergências"': "Lean nas Emergências",
   "Programa Nacional de Gestão de Custos (PNGC)":
     "Programa Nacional de Gestão de Custos",
+  "Programa Jovem Aprendiz": "Jovem Aprendiz",
 
   "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
   "Cônsul da Ucrânia no Brasil": "Relations of Brazil and Ukraine",
@@ -571,6 +579,11 @@ export const tagToCategoryMap = {
   "34ª Festa do Pêssego Municipal":
     "34ª Festa do Pêssego de Porto Alegre (2018)",
   "Lançamento oficial da Expodireto Cotrijal 2025": "Expodireto Cotrijal 2025",
+  "14ª edição do Campeonato Porto Alegre de Handebol 2018":
+    "14º Campeonato Porto Alegre de Handebol (2018)",
+  "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre":
+    "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre (2017)",
+  "25ª Corrida pela Vida": "25ª Corrida pela Vida (2018)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -597,7 +610,7 @@ export const tagToCategoryMap = {
   Metas: "Prometas",
   Unisinos: "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)",
   "Caminhos Rurais": "Caminhos Rurais de Porto Alegre",
-  "Parque Moinhos de Vento (Parcão)": "Parque Moinhos de Vento",
+  Parcão: "Parque Moinhos de Vento",
   "Aniversário do Parque Moinhos de Vento": "Parque Moinhos de Vento",
   "Cais do Porto": "Cais Mauá",
   Unesco: "UNESCO",
@@ -648,6 +661,7 @@ export const tagToCategoryMap = {
     "Agência Estadual de Regulação dos Serviços Públicos Delegados do Rio Grande do Sul",
   FNP: "Frente Nacional de Prefeitas e Prefeitos",
   "Sala de monitoramento do Aedes da SES/RS": "Government of Rio Grande do Sul",
+  "Plataforma Google for Education": "Google for Education",
 
   Santander: "Banco Santander (Brasil)",
   "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)":
@@ -703,18 +717,12 @@ export const tagToCategoryMap = {
   Seminário: "Seminars in Porto Alegre",
   Palestra: "Presentations in Porto Alegre",
   Apresentação: "Presentations in Porto Alegre",
-  "Seminário de Capacitação dos gestores dos CRIPS para o 156":
-    "Seminars in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
   "Artes Cênicas": "Performing arts in Porto Alegre",
   "Transporte Público": "Public transport in Porto Alegre",
   "Transporte Coletivo": "Public transport in Porto Alegre",
-  "População de Rua": "Homelessness in Porto Alegre",
-  "Situação de rua": "Homelessness in Porto Alegre",
-  "População em Situação de Rua": "Homelessness in Porto Alegre",
-  "“Tamo Junto na Rua”": "Homelessness in Porto Alegre",
   "Ruas e avenidas": "Streets in Porto Alegre",
   "Artes Visuais": "Art of Porto Alegre",
   "Fios Soltos": "Overhead power lines in Porto Alegre",
@@ -810,6 +818,9 @@ export const tagToCategoryMap = {
   Casamento: "Collective weddings in Brazil",
   Oficina: "Workshops (meetings) in Brazil",
   Workshop: "Workshops (meetings) in Brazil",
+  "Aula aberta": "Workshops (meetings) in Brazil",
+  "Workshop Gestão da Inovação na Administração Pública":
+    "Workshops (meetings) in Brazil",
   Robótica: "Robotics in Brazil",
   Urbanização: "Urbanization in Brazil",
   Urbanismo: "Urbanism in Brazil",
@@ -898,7 +909,6 @@ export const tagToCategoryMap = {
 
   Transexualidade: "Transgender in South America",
 
-  "Aula aberta": "Workshops (meetings)",
   "síndrome de down": "Down syndrome",
   Investigação: "Inquiry",
   Microcefalia: "Microcephaly",
@@ -1011,4 +1021,6 @@ export const tagToCategoryMap = {
   "Serviços Ortopédicos": "Orthopedic treatments",
   Alerta: "Warning systems",
   Epidemiologia: "Epidemiology",
+  "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga":
+    "Essenfelder pianos",
 };

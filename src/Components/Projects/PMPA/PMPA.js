@@ -238,7 +238,7 @@ const processDescription = description => {
   description = description
     .replace(/\n/g, " ")
     .replace(
-      /P[oO][rR][tT][oO]\s\s?A[lL][eE][gG][rR][eE](,?\s?\/?RS)?,?\.?(\s*?Brasil)? -?\s*?\d{1,2}°?[/.-]?\d{1,2}[/.-]?\d{4}:?\.?\s?-?\s?/,
+      /P[oO][rR][tT][oO]\s\s?A[lL][eE][gG][rR][eE](,?\s?\/?RS)?,?\.?(\s*?Brasil)? -?\s*?\d{1,2}[°º]?[/.-]?\d{1,2}[/.-]?\d{4}:?\.?\s?-?\s?/,
       ""
     )
     .replace(/[/:]/g, "-")
@@ -279,6 +279,7 @@ const getCategoriesFromTags = metadata => {
 
   const isSpecificMeetingTag = tags.some(tag =>
     [
+      "Encontro com as Associação das Empresas dos Bairros Humaitá e Navegantes",
       "Fórum de Justiça e Segurança do Centro",
       "Reunião com  a ASCONTEC",
       "Reunião com a Associação Dos Procuradores Do Município De Porto Alegre (APMPA)",
@@ -287,6 +288,7 @@ const getCategoriesFromTags = metadata => {
       "Reunião com a EPTC e Sindicatos",
       "Reunião com o Diretor regional da Caixa Econômica Federal",
       "Reunião com o Presidente da Câmara de Vereadores de Porto Alegre",
+      "Reunião com representantes das entidades e das associações de praças e parques",
       "Reunião com Representantes do Banco Mundial",
       "Reunião Plenária do COMUI",
       "Reunião sobre acolhida  ao grupo de venezuelanos",
@@ -368,10 +370,7 @@ const getCategoriesFromTags = metadata => {
       ["Benchmarking do Governo do Rio Grande do Norte"].includes(tag)
     )
   ) {
-    categories.push(
-      "Government of Rio Grande do Norte",
-      "Public administration in Brazil"
-    );
+    categories.push("Government of Rio Grande do Norte");
   }
 
   if (
@@ -520,7 +519,9 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Parque Marechal Mascarenhas de Moraes") &&
+    !tags.some(tag =>
+      ["Parcão", "Parque Marechal Mascarenhas de Moraes"].includes(tag)
+    ) &&
     tags.includes("Praças e Parques")
   ) {
     categories.push("Parks in Porto Alegre");
@@ -540,6 +541,7 @@ const getCategoriesFromTags = metadata => {
         "Conselho Municipal de Saúde",
         "Equipe de Vigilância de Antropozoonoses (Evantropo)",
         "Farmácia",
+        "Plano de Superação da Situação de Rua",
         "Programa Teste e Trate",
         "Saúde da População Negra",
         "Sétimo encontro de Medicina Tradicional Kaingang",
@@ -573,7 +575,13 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.some(tag => ["Reunião Plenária do COMUI", "Comui"].includes(tag)) &&
+    !tags.some(tag =>
+      [
+        "14ª edição do Campeonato Porto Alegre de Handebol 2018",
+        "Reunião Plenária do COMUI",
+        "Comui",
+      ].includes(tag)
+    ) &&
     tags.some(tag => ["Smdse"].includes(tag))
   ) {
     categories.push(
@@ -791,6 +799,7 @@ const getCategoriesFromTags = metadata => {
     ) ||
     orTags.some(tag =>
       [
+        "Lançamento do Pacto Pela Inovação - Pacto Alegre",
         "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre",
         "Lançamento oficial da Expodireto Cotrijal 2025",
       ].includes(tag)
@@ -826,6 +835,7 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.some(tag =>
       [
+        "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre",
         "Clássicos na Pinacoteca",
         "Companhia Municipal de Dança",
         "Feira do Livro",
@@ -1082,6 +1092,26 @@ const getCategoriesFromTags = metadata => {
     tags.includes("Arquivo")
   ) {
     categories.push("Archives in Porto Alegre");
+  }
+
+  if (
+    !tags.includes(
+      "Seminário Boas Práticas na Gestão de Trânsito dos Municípios"
+    ) &&
+    tags.includes("Auditório da FAMURS")
+  ) {
+    categories.push("Auditório Alceu Collares");
+  }
+
+  if (
+    !tags.includes(
+      "Seminário Boas Práticas na Gestão de Trânsito dos Municípios"
+    ) &&
+    tags.includes("EPTC")
+  ) {
+    categories.push(
+      "Empresa Pública de Transporte e Circulação de Porto Alegre"
+    );
   }
 
   if (
@@ -1365,11 +1395,25 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !tags.includes("Plano de Superação da Situação de Rua") &&
+    tags.includes("Situação de rua")
+  ) {
+    categories.push("Homelessness in Porto Alegre");
+  }
+
+  if (
     orTags.includes(
       "Capacitação e Gerenciamento de Projetos Prioritários de Governo"
     ) ||
     tags.some(tag =>
-      ["Consulta Pública", "Administração", "Governança", "PPA"].includes(tag)
+      [
+        "Administração",
+        "Benchmarking do Governo do Rio Grande do Norte",
+        "Consulta Pública",
+        "Governança",
+        "PPA",
+        "Workshop Gestão da Inovação na Administração Pública",
+      ].includes(tag)
     )
   ) {
     categories.push("Public administration in Rio Grande do Sul");
@@ -1517,6 +1561,10 @@ const getCategoriesFromTags = metadata => {
     categories.push("Asphalters");
   }
 
+  if (tags.some(tag => ["Serviços de Roçada e Capina"].includes(tag))) {
+    categories.push("Weed control", "String trimmers");
+  }
+
   if (
     tags.some(tag =>
       ["Asfalto", "Pavimentação", "rolo compressor"].includes(tag)
@@ -1630,7 +1678,15 @@ const getCategoriesFromTags = metadata => {
     categories.push("Parque da Orla do Guaíba");
   }
 
-  if (tags.some(tag => ["Doação", "doações de cestas básicas"].includes(tag))) {
+  if (
+    tags.some(tag =>
+      [
+        "Doação",
+        "doações de cestas básicas",
+        "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
+      ].includes(tag)
+    )
+  ) {
     categories.push("Donations in Brazil");
   }
 
@@ -1659,6 +1715,7 @@ const getCategoriesFromTags = metadata => {
         "Música",
         "Concerto Musical",
         "Conserto Didático da Banda Municipal de Porto Alegre",
+        "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
       ].includes(tag)
     )
   ) {
@@ -1694,7 +1751,35 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Emef Vereador Carlos Pessoa de Brum") &&
+    !tags.includes(
+      "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre"
+    ) &&
+    tags.includes("Bairro Floresta")
+  ) {
+    categories.push("Floresta (Porto Alegre)");
+  }
+
+  if (
+    !tags.includes("25ª Corrida pela Vida") &&
+    tags.includes("Bairro Cristal")
+  ) {
+    categories.push("Cristal (Porto Alegre)");
+  }
+
+  if (
+    !tags.includes("Laboratório do HMIPV") &&
+    tags.includes("Laboratórios Municipais")
+  ) {
+    categories.push("Laboratórios Municipais (Porto Alegre)");
+  }
+
+  if (
+    !tags.some(tag =>
+      [
+        "Centro Cultural Multimeios Restinga",
+        "Emef Vereador Carlos Pessoa de Brum",
+      ].includes(tag)
+    ) &&
     tags.some(tag => ["Bairro Restinga", "Obras Restinga 2018"].includes(tag))
   ) {
     categories.push("Restinga (Porto Alegre)");
@@ -1936,6 +2021,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    orTags.includes("Inauguração do Hospital Santa Ana") ||
     tags.some(tag =>
       ["Inauguração", "Inauguração Restaurante 360 POA GASTROBAR"].includes(tag)
     )
@@ -1947,7 +2033,6 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag =>
       [
         "CRIPs",
-        "Reunião com a CRIP Leste",
         "Seminário de Capacitação dos gestores dos CRIPS para o 156",
       ].includes(tag)
     )
@@ -1968,6 +2053,7 @@ const getCategoriesFromTags = metadata => {
         "Concerto Musical",
         "Clássicos na Pinacoteca",
         "Conserto Didático da Banda Municipal de Porto Alegre",
+        "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
       ].includes(tag)
     )
   ) {
@@ -2036,7 +2122,6 @@ const getCategoriesFromTags = metadata => {
           "Asfalto",
           "Ato de Entrega da Obras de Melhoria da Praça Argentina, e da Assinatura do Termo de Adoção da praça pela Santa Casa de Misericórdia de Porto Alegre",
           "Audiência",
-          "Aula aberta",
           "Aula Inaugural",
           "Blitz",
           "Bloqueio químico",
@@ -2085,8 +2170,8 @@ const getCategoriesFromTags = metadata => {
           "Janeiro Branco",
           "Lançamento",
           "Manifestação",
-          "Oficina",
           "Oficina de Dança",
+          "Olimpíada Brasileira de Matemática - OBMEP",
           "Operação de Segurança",
           "Outubro Rosa",
           "Painel",
@@ -2094,6 +2179,7 @@ const getCategoriesFromTags = metadata => {
           "Passeio",
           "Plantio",
           "Plantio de Árvores",
+          "Plataforma Google for Education",
           "Posse",
           "Prefeitura nos Bairros",
           "Prefeitura Nos Bairros",
@@ -2105,6 +2191,7 @@ const getCategoriesFromTags = metadata => {
           "Projeto Kilombinho de Verão",
           "Projeto Mais Comunidade",
           "Proposta orçamentária 2019",
+          "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
           "Sarau Café com Letras",
           "Semana Cidade Limpa",
           "Semana da Água",
@@ -2124,7 +2211,6 @@ const getCategoriesFromTags = metadata => {
           "Viva o Centro a Pé",
           "Volta às aulas",
           "votação",
-          "Workshop",
         ].includes(tag)
       )) ||
     orTags.includes("Entrega da Lei Orçamentária Anual (LOA) 2019") ||
@@ -2139,6 +2225,7 @@ const getCategoriesFromTags = metadata => {
         "Opening ceremonies in Brazil",
         "Task forces in Brazil",
         "Trainings by the Municipality of Porto Alegre",
+        "Workshops (meetings) in Brazil",
       ].includes(tag)
     )
   ) {
@@ -2216,10 +2303,13 @@ const getCategoriesFromTags = metadata => {
         [
           "1º Festival de Arte e Cultura Senegalesa",
           "126 Anos da Guarda Municipal de Porto Alegre",
+          "14ª edição do Campeonato Porto Alegre de Handebol 2018",
           "14ª Gincana Ambiental",
+          "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre",
           "17ª Edição dos Jogos Municipais da Terceira Idade",
           "20 Anos da Mostra dos Servidores do DMAE",
           "25 Anos do  FUMPROARTE",
+          "25ª Corrida pela Vida",
           "30 Anos da Defesa Civil",
           "32º Festival de Arte da Cidade de Porto Alegre",
           "34ª Festa do Pêssego Municipal",
@@ -2244,7 +2334,7 @@ const getCategoriesFromTags = metadata => {
           "Páscoa",
           "Poa Em Cena",
           "Semana de Porto Alegre",
-          "Seminário de Capacitação dos gestores dos CRIPS para o 156",
+          "Seminário Boas Práticas na Gestão de Trânsito dos Municípios",
           "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
           "Seminário Povos Indígenas e Saúde: Um Corpo São",
           "Sétimo encontro de Medicina Tradicional Kaingang",
