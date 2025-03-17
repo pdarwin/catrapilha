@@ -23,6 +23,8 @@ export const tagReplacements = {
   "relações Institucionais": "Smri",
   "Relações Institucionais": "Smri",
   "Secretaria Municipal de Relações Institucionais (SMRI)": "Smri",
+  "Secretaria Municipal de Relações Institucionais e Articulação Política (SMRI)":
+    "Smri",
 
   "Acampamento 2018": "Acampamento Farroupilha",
   "Acampamento Farropilha": "Acampamento Farroupilha",
@@ -45,8 +47,13 @@ export const tagReplacements = {
 
   "Animal silvestre": "Fauna",
 
+  "Assembléia Legislativa": "Assembleia Legislativa",
+
   "Assistencia Social": "Serviço Social",
   "Assistência Social": "Serviço Social",
+
+  "Associaçao Comercial de Porto Alegre (ACPA)":
+    "Associação Comercial de Porto Alegre (ACPA)",
 
   "Associação dos Municípios da Região Metropolitana de Porto Alegre (Granpal)":
     "Granpal",
@@ -67,7 +74,6 @@ export const tagReplacements = {
   "Benchmarking do Governo do Rio Grande do Norte": "Visita",
   viagem: "Visita",
   "Viagem à Brasília": "Visita",
-  "Viagem à Europa": "Visita",
   "Visita de Cortesia": "Visita",
   "Visita dos Alunos do IFRS da Restinga ao Poa.Hub": "Visita",
   "visita institucional": "Visita",
@@ -114,6 +120,8 @@ export const tagReplacements = {
 
   "Ciclo de Palestras da Transparência": "Palestra",
 
+  "Circuito Urbano": "Circuito Urbano EPTC",
+
   Circulação: "Transporte",
   "Circulação e Transporte": "Transporte",
   "Integração Metropolitana de Transporte": "Transporte",
@@ -149,6 +157,8 @@ export const tagReplacements = {
   "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)":
     "Cultura Economia Criativa",
 
+  "Curso de Formação de Diretores da SMED": "Curso de Formação",
+
   "Defesa Cívil": "Defesa Civil",
   "Defesa Civil de Porto Alegre-RS": "Defesa Civil",
 
@@ -160,13 +170,11 @@ export const tagReplacements = {
 
   "Deputado Estadual Fixinha": "João Fischer",
 
-  "Desenvolviment Econômico": "Desenvolvimento Econômico",
-  "Desenvolvimento Economico e Esporte": "Desenvolvimento Econômico",
-  "Secretaria Municipal de Desenvolvimento Econômico (SMDE)":
-    "Desenvolvimento Econômico",
-  Smde: "Desenvolvimento Econômico",
-  "SMDE - Secretaria Municipal de Desenvolvimento Econômico":
-    "Desenvolvimento Econômico",
+  "Desenvolviment Econômico": "Smde",
+  "Desenvolvimento Econômico": "Smde",
+  "Desenvolvimento Economico e Esporte": "Smde",
+  "Secretaria Municipal de Desenvolvimento Econômico (SMDE)": "Smde",
+  "SMDE - Secretaria Municipal de Desenvolvimento Econômico": "Smde",
 
   "Desenvolvimento Social": "Smdse",
   "Desenvolvimento Social e Esporte": "Smdse",
@@ -176,11 +184,16 @@ export const tagReplacements = {
 
   "Dia D": "Dia D de Vacinação",
 
+  "Diretor-presidente da Empresa Pública de Transporte e Circulação(EPTC), Pedro Bisch Neto":
+    "Pedro Bisch Neto",
+
   Doações: "Doação",
   "Doações de Materiais": "Doação",
   Donativos: "Doação",
   "Entrega de Doações": "Doação",
   "Entrega de kits de brinquedos doados pela Fundação Abrinq": "Doação",
+
+  "Embaixador de Luxemburgo no Brasil": "Carlo Krieger",
 
   "Emef Migrantes": "EMEF Migrantes",
   "Emef Vereador Antonio Giúdice": "EMEF Vereador Antônio Giúdice",
@@ -198,6 +211,13 @@ export const tagReplacements = {
   "Espaço Hortomercado Parobé": "Hortomercado Parobé",
 
   "Espaço Infantil": "Criança",
+
+  "Esporte Lazer e Juventude": "Esporte e Lazer",
+  "Esporte, Lazer e Juventude": "Esporte e Lazer",
+  "Esportes e Lazer": "Esporte e Lazer",
+  "Esportes, Recreação e Lazer": "Esporte e Lazer",
+  "Secretaria Municipal de Esporte, Lazer e Juventude (SMELJ)":
+    "Esporte e Lazer",
 
   "Executivo, Ministro da Saúde Gilberto Occhi": "Gilberto Occhi",
 
@@ -228,6 +248,8 @@ export const tagReplacements = {
   "Primeira-dama": "Valéria Leopoldino",
   "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
 
+  "general Hertz Pires do Nascimento": "Hertz Pires do Nascimento",
+
   "Gestão e Planejamento": "Smpg",
   Planejamento: "Smpg",
   "Planejamento e Gestão": "Smpg",
@@ -236,6 +258,8 @@ export const tagReplacements = {
   "Gestores dos CRIPs": "CRIPs",
 
   "Grupo de Combate ao Tabagismo": "Tabagismo",
+
+  "Guias de Pagamento de Tributos": "IPTU",
 
   "hipertensão arterial": "hipertenso",
 
@@ -246,6 +270,10 @@ export const tagReplacements = {
   "Mobilidade Urbana": "Smim",
   "Secretaria Municipal de Mobilidade Urbana (SMMU)": "Smim",
   "SMIM - Infraestrutura e Mobilidade Urbana": "Smim",
+
+  "Infraestrutura e Urbanismo": "Smoi",
+  "Obras e Infraestrutura": "Smoi",
+  "Secretaria Municipal de Obras e Infraestrutura (SMOI)": "Smoi",
 
   "Início da operação da primeira faixa reversível semaforizada da Capital":
     "1ª Faixa Reversível semafórica de Porto Alegre",
@@ -265,6 +293,8 @@ export const tagReplacements = {
   "Meio Ambiente, Urbanismo e Sustentabilidade": "Smamus",
   "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (SMAMUS)":
     "Smamus",
+
+  "Mercado Público Central": "Mercado Público",
 
   "Museu Joaquim Felizardo": "Museu de Porto Alegre Joaquim Felizardo",
 
@@ -328,8 +358,15 @@ export const tagReplacements = {
 
   "Secretária Denise Russo": "Denise Russo",
 
+  "secretária Juliana Castro": "Juliana Castro",
+
   "Secretária Municipal Cultura e Economia Criativa, Liliana Cardoso":
     "Liliana Cardoso",
+
+  "secretária municipal da Fazenda (SMF), Ana Pellini": "Ana Pellini",
+
+  "secretária municipal de Desenvolvimento Econômico, Turismo e Eventos (SMDETE), Rosani Alves Pereira":
+    "Rosani Alves Pereira",
 
   "Secretaria Municipal de Desenvolvimento Social (SMDS)": "Smds",
 
@@ -340,6 +377,9 @@ export const tagReplacements = {
     "Smgov",
   "Secretaria Municipal de Governança Local e Coordenação Política (SMGOV)":
     "Smgov",
+
+  "Secretaria Municipal de Inclusão e Desenvovimento Humano": "Smidh",
+  "secretaria municipal de Inlcusão e Desenvolvimento Humano (SMIDH)": "Smidh",
 
   "Secretaria Municipal de Saúde (SMS)": "SMS",
   Sms: "SMS",
@@ -378,6 +418,12 @@ export const tagReplacements = {
     "Adriano Naves de Brito",
   "Secretário municipal de Educação, Leonardo Pascoal": "Leonardo Pascoal",
 
+  "secretário municipal de Inlcusão e Desenvolvimento Humano (SMIDH), Juliano Passini":
+    "Juliano Passini",
+
+  "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
+    "Adão de Castro Júnior",
+
   "Sinalização de trânsito": "Sinalização viária",
   "sinalização semafórica": "Semáforos",
 
@@ -387,9 +433,16 @@ export const tagReplacements = {
 
   "Terminal Parobé": "Praça Parobé",
 
+  "Termos para criação de mais dois CAPs":
+    "Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)",
+
   Tradicionalismo: "Tradição",
 
   "Vereador Giovane Byl": "Giovane Byl",
+
+  vereadora: "vereador",
+
+  "Viagem à Europa": "Missão Internacional",
 
   "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes",
   "vice-prefeito Ricardo Gomes": "Ricardo Gomes",
