@@ -258,6 +258,7 @@ export const tagToCategoryMap = {
   Ulbra: "Universidade Luterana do Brasil",
   "Escola Superior de Direito Municipal - ESDM":
     "Escola Superior de Direito Municipal",
+  Unisinos: "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)",
 
   //Escolas
   "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
@@ -396,6 +397,9 @@ export const tagToCategoryMap = {
   "Instituto Cultural Floresta (ICF)": "Instituto Cultural Floresta",
   "Museu de Arte do Paço (MAPA)": "Museu de Arte do Paço",
 
+  "Bloco da Sustentabilidade (DMLU)": "Bloco da Sustentabilidade",
+  "Grêmio Recreativo Escola de Samba Filhos de Maria": "GRES Filhos de Maria",
+
   // Bairros
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "região oeste": "Região Oeste (Porto Alegre)",
@@ -470,7 +474,6 @@ export const tagToCategoryMap = {
   "Florianópolis-SC": "Florianópolis",
 
   // Esporte
-
   "Centro de Artes e Esporte da Restinga (CEU)":
     "Centro de Artes e Esporte da Restinga",
   "Centro Esportivo da Vila Ingá (Cevi)": "Centro Esportivo da Vila Ingá",
@@ -494,6 +497,7 @@ export const tagToCategoryMap = {
   "Praça da Matriz": "Praça da Matriz (Porto Alegre)",
   "Praça Parobé": "Praça Pereira Parobé",
   "Praça Revolução Farroupilha (Trensurb)": "Praça Revolução Farroupilha",
+  "Praça XV de Novembro": "Praça XV de Novembro (Porto Alegre)",
 
   "Viaduto Conceição": "Viaduto da Conceição",
   "Baronesa do Gravataí": "Rua Baronesa do Gravataí",
@@ -537,6 +541,7 @@ export const tagToCategoryMap = {
   "Olimpíada Brasileira de Matemática - OBMEP":
     "Olimpíada Brasileira de Matemática das Escolas Públicas",
   "Felicity/GIZ": "FELICITY",
+  "projeto Cidade Cardioprotegida": "Cidade Cardio-Protegida",
 
   "Programa Família Acolhedora": "Família Acolhedora",
   "Programa Melhor em Casa": "Melhor em Casa",
@@ -633,9 +638,11 @@ export const tagToCategoryMap = {
   Haia: metadata => `${getYear(metadata.humanReadableDate)} in The Hague`,
 
   "Brigada Militar": "Brigada Militar do Rio Grande do Sul",
+  "Secretaria Estadual de Saúde do RS (SES RS)":
+    "Secretaria Estadual de Saúde do Rio Grande do Sul",
+
   Trabalho: "Festa de Nossa Senhora do Trabalho",
   Metas: "Prometas",
-  Unisinos: "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)",
   "Caminhos Rurais": "Caminhos Rurais de Porto Alegre",
   Parcão: "Parque Moinhos de Vento",
   "Aniversário do Parque Moinhos de Vento": "Parque Moinhos de Vento",
@@ -699,6 +706,7 @@ export const tagToCategoryMap = {
   "Escritório da Rede 100 Cidades Resilientes - 100RC": "100 Resilient Cities",
   "Minha Casa Minha Vida": "Minha Casa, Minha Vida",
   Farsul: "Federação da Agricultura do Estado do Rio Grande do Sul",
+  PPCIs: "Planos de Prevenção e Proteção Contra Incêndios",
 
   Santander: "Banco Santander (Brasil)",
   "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)":

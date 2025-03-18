@@ -299,6 +299,7 @@ export const sameNameTags = [
   "Unidade de Saúde Fradique Vizeu",
   "Unidade de Saúde Orfanotrófio",
   "Unidade de Saúde Osmar Freitas",
+  "Unidade de Saúde Panorama",
   "Unidade de Saúde Ponta Grossa",
   "Unidade de Saúde Santo Alfredo",
   "Unidade de Saúde São Carlos",

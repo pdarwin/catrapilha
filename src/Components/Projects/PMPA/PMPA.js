@@ -288,6 +288,7 @@ const getCategoriesFromTags = metadata => {
       "Reunião com a BM Par",
       "Reunião com a CRIP Leste",
       "Reunião com a EPTC e Sindicatos",
+      "Reunião com o Conselho do Orçamento Participativo",
       "Reunião com o Diretor regional da Caixa Econômica Federal",
       "Reunião com o Presidente da Câmara de Vereadores de Porto Alegre",
       "Reunião com representantes das entidades e das associações de praças e parques",
@@ -330,6 +331,7 @@ const getCategoriesFromTags = metadata => {
       tags.some(tag =>
         [
           "Comitê Municipal de Transmissão Vertical do HIV e Sífilis Congênita",
+          "Demhab",
           "Saúde",
           "Secretaria Municipal de Cultura (SMC)",
           "Smpg",
@@ -1306,11 +1308,21 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !(tags.includes("Dia D de Vacinação") || tags.includes("Gripe")) &&
-    (tags.includes("Vacinação") ||
-      tags.includes("Vacina") ||
-      tags.includes("multivacinação"))
+    tags.some(tag =>
+      ["multivacinação", "Vacinação", "vacina em animais", "Vacina"].includes(
+        tag
+      )
+    )
   ) {
     categories.push("Vaccinations in Brazil");
+  }
+
+  if (tags.includes("raiva") && tags.includes("vacina em animais")) {
+    categories.push("Rabies vaccination");
+  } else if (tags.includes("raiva")) {
+    categories.push("Rabies");
+  } else if (tags.includes("vacina em animais")) {
+    categories.push("Veterinary vaccinations");
   }
 
   if (
@@ -1714,12 +1726,17 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Orçamento Participativo 2018") || tags.includes("Op 2017")
+    !tags.some(tag =>
+      ["Orçamento Participativo 2018", "Op 2017"].includes(tag)
     ) &&
-    (tags.includes("Orçamento Participativo") ||
-      tags.includes("OP") ||
-      tags.includes("Conselho do OP"))
+    tags.some(tag =>
+      [
+        "Conselho do OP",
+        "Orçamento Participativo",
+        "OP",
+        "Reunião com o Conselho do Orçamento Participativo",
+      ].includes(tag)
+    )
   ) {
     categories.push(
       "Participatory budgeting in the Municipality of Porto Alegre"
@@ -2353,6 +2370,7 @@ const getCategoriesFromTags = metadata => {
           "Testagem",
           "teste rápido sífilis, hiv e hepatite C",
           "Todos Somos Porto Alegre",
+          "vacina em animais",
           "Vacinação",
           "Visita",
           "Vistoria",

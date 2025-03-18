@@ -352,6 +352,8 @@ export const tagReplacements = {
 
   "Projeto Feira Fora da Feira": "Feira Fora da Feira",
 
+  reforma: "Revitalização",
+
   "Retratos Oficiais": "Retrato",
 
   Sáude: "Saúde",
@@ -365,6 +367,8 @@ export const tagReplacements = {
 
   "secretária municipal da Fazenda (SMF), Ana Pellini": "Ana Pellini",
 
+  "Secretaria municipal de Desenvolvimento Econômico, Turismo e Eventos (SMDETE)":
+    "Smdete",
   "secretária municipal de Desenvolvimento Econômico, Turismo e Eventos (SMDETE), Rosani Alves Pereira":
     "Rosani Alves Pereira",
 
@@ -380,6 +384,11 @@ export const tagReplacements = {
 
   "Secretaria Municipal de Inclusão e Desenvovimento Humano": "Smidh",
   "secretaria municipal de Inlcusão e Desenvolvimento Humano (SMIDH)": "Smidh",
+
+  "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
+    "Cezar Schirmer",
+  "Secretário municipal de Planejamento e Gestão, Cezar Schirmer (SMPG)":
+    "Cezar Schirmer",
 
   "Secretaria Municipal de Saúde (SMS)": "SMS",
   Sms: "SMS",

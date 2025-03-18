@@ -30,8 +30,6 @@ const keywordToCategoryMap = {
   "Secretária municipal de Habitação e Regularização Fundiária, Simone Somensi":
     "Simone Somensi",
   "Secretário municipal da Fazenda, Rodrigo Fantinel": "Rodrigo Fantinel",
-  "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
-    "Cezar Schirmer",
   "Alexandre Augusto Aragon": "Alexandre Aragon",
   "Almir Junior": "Almir Júnior",
   "André Barbosa": "André Barbosa (politician)",
