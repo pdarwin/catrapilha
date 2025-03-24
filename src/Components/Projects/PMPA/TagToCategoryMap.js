@@ -33,12 +33,6 @@ export const tagToCategoryMap = {
   Smtc: "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
   "Governança Local e Coordenação Política":
     "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
-  "Secretaria Municipal de Habitação e Regularização Fundiária (SMHARF)":
-    "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
-  "Habitação Regularização Fundiária":
-    "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
-  "Habitação e Regularização Fundiária":
-    "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
   Parcerias: "Secretaria Municipal de Parcerias (Porto Alegre)",
   "Secretaria Municipal de Parcerias (SMP)":
     "Secretaria Municipal de Parcerias (Porto Alegre)",
@@ -54,7 +48,6 @@ export const tagToCategoryMap = {
   Smic: "Secretaria Municipal da Produção, Indústria e Comércio (Porto Alegre)",
   Inovação: "Gabinete da Inovação (Porto Alegre)",
   "Comunicação Social": "Gabinete de Comunicação Social (Porto Alegre)",
-  "Gabinete da Causa Animal (GCA)": "Gabinete da Causa Animal (Porto Alegre)",
   "Causa Animal": "Gabinete da Causa Animal (Porto Alegre)",
   Secretariado: "Municipal secretariats of Porto Alegre",
   "Secretaria Extraordinária do Trabalho e da Qualificação Profissional (SMTQ)":
@@ -67,8 +60,6 @@ export const tagToCategoryMap = {
     "Companhia de Processamento de Dados do Município de Porto Alegre",
   Demhab: "Departamento Municipal de Habitação (Porto Alegre)",
   CEIC: "Centro Integrado de Coordenação e Serviços da Cidade de Porto Alegre",
-  "Comissão Permanente de Atuação em Emergências (Copae)":
-    "Comissão Permanente de Atuação em Emergências",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
 
   "Equipe de Manejo Arbóreo (EMA)": "Equipe de Manejo Arbóreo (Porto Alegre)",
@@ -163,14 +154,10 @@ export const tagToCategoryMap = {
   "Segurança do Paciente":
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
   "Comitê do Projeto Vida no Trânsito": "Projeto Vida no Trânsito",
-  "Campanha do Brinquedo Solidário":
-    "Campanha do Brinquedo Solidário (Porto Alegre)",
   "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’":
     "Rabiscando Ideias - Da cabeça para o papel",
   "Espetáculo O Rei da Vela": "O Rei da Vela",
   "Projeto Kilombinho de Verão": "Kilombinho de Verão",
-  "Pacto Pela Inovação": "Pacto Alegre",
-  "Lançamento do Pacto Pela Inovação - Pacto Alegre": "Pacto Alegre",
   "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
   "Grupo POA Solidárias": "POA Solidária",
   "Moradores do Alameda Partenon": "Alameda Partenon",
@@ -194,6 +181,13 @@ export const tagToCategoryMap = {
     "CAPS AD IV - Centro Céu Aberto",
   "Viveiro municipal de Porto Alegre": "Viveiro Municipal de Porto Alegre",
 
+  "Campanha do Brinquedo Solidário":
+    "Campanha do Brinquedo Solidário (Porto Alegre)",
+  "Campanha Troco Amigo": "Troco Amigo",
+
+  PGM: "Procuradoria-Geral do Município de Porto Alegre",
+  Corregedoria: "Corregedoria-Geral do Município de Porto Alegre",
+
   "Plenário Ana Terra - CMPA": "Plenário Ana Terra",
   vereador: "City councillors of Porto Alegre",
   Vereadores: "City councillors of Porto Alegre",
@@ -207,11 +201,12 @@ export const tagToCategoryMap = {
   Comui: "Conselho Municipal do Idoso (Porto Alegre)",
   Comcet: "Conselho Municipal de Ciência e Tecnologia",
   "Reunião Plenária do COMUI": "Conselho Municipal do Idoso (Porto Alegre)",
-
+  "Comissão Permanente de Atuação em Emergências (Copae)":
+    "Comissão Permanente de Atuação em Emergências",
   "Comissão de Saúde e Meio Ambiente da CMPA (Cosmam)":
     "Comissão de Saúde e Meio Ambiente da CMPA",
-  PGM: "Procuradoria-Geral do Município de Porto Alegre",
-  Corregedoria: "Corregedoria-Geral do Município de Porto Alegre",
+  "Comissão de Economia, Finanças, Orçamento e do Mercosul (Cefor)":
+    "Comissão de Economia, Finanças, Orçamento e do Mercosul da CMPA",
 
   Senac: "Serviço Nacional de Aprendizagem Comercial",
   "Federação de Entidades Empresariais do Rio Grande do Sul ( Federasul )":
@@ -252,6 +247,7 @@ export const tagToCategoryMap = {
     "Café Coworking do TecnoPuc",
   "Reitoria da Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)":
     "Reitoria da Pontifícia Universidade Católica do Rio Grande do Sul",
+  "Centro de Eventos da PUC": "Centro de Eventos da PUCRS",
   "Escola de Gestão Pública (EGP)": "Escola de Gestão Pública (Porto Alegre)",
   Uniritter: "Centro Universitário Ritter dos Reis",
   Estácio: "Faculdade Estácio",
@@ -295,6 +291,7 @@ export const tagToCategoryMap = {
     "Biblioteca da EMEI Paulo Freire",
   "Escola Municipal de Ensino Fundamental Deputado Victor Issler":
     "EMEF Deputado Victor Issler",
+  "Emef Saint Hilaire": "EMEF Saint Hilaire",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -332,12 +329,14 @@ export const tagToCategoryMap = {
   "Hospital da Restinga Extremo Sul (HRES)": "Hospital Restinga e Extremo-Sul",
   "Pronto Atendimento de Traumatologia e Ortopedia no Hospital Restinga Extremo Sul":
     "Emergency Trauma and Orthopedic Care at Hospital Restinga e Extremo-Sul",
+  "Hospital São Lucas PUCRS": "Hospital São Lucas da PUCRS",
 
   "Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
   "Sede do Tribunal de Contas do Estado (TCE)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
   "TJ-RS": "Tribunal de Justiça do Estado do Rio Grande do Sul",
+  "Tribunal Regional Eleitoral (TRE)": "Tribunal Regional Eleitoral RS",
 
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
@@ -353,6 +352,8 @@ export const tagToCategoryMap = {
     "Auditório do Departamento Municipal de Habitação",
   "Auditório da Caixa Econômica Federal":
     "Auditório da Caixa Econômica Federal (Porto Alegre)",
+  "Auditório do Tribunal Regional Eleitoral (TRE)":
+    "Auditório do Tribunal Regional Eleitoral",
 
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -378,16 +379,15 @@ export const tagToCategoryMap = {
   "Chalé da Praça XV de Novembro": "Chalé da Praça XV",
   "Theatro São Pedro": "Theatro São Pedro (Porto Alegre)",
   "Sala Aldo Locatelli": "Pinacoteca Aldo Locatelli",
-  Laçador: "Estátua do Laçador",
   "Cemitério da Santa Casa de Misericórdia":
     "Cemitério da Santa Casa de Misericórdia (Porto Alegre)",
   BarraShoppingSul: "Barra Shopping Sul",
-  "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
+  "Centro de Eventos do Barrashoppingsul":
+    "Centro de Eventos do Barra Shopping Sul",
   "Centro de Eventos da Amrigs": "Centro de Eventos da AMRIGS",
   "Centro Social Marista - CESMAR": "Centro Social Marista",
   "Sede do Detran -RS": "DetranRS",
   "Departamento Estadual de Trânsito (Detran)": "DetranRS",
-  "Monumento à Elis Regina": "Monumento a Elis Regina",
   "Centro da Comunidade Parque Madepinho (Cecopam)":
     "Centro da Comunidade Parque Madepinho",
   "Conserto Didático da Banda Municipal de Porto Alegre":
@@ -396,9 +396,48 @@ export const tagToCategoryMap = {
   "Hotel Deville": "Hotel Deville Prime Porto Alegre",
   "Instituto Cultural Floresta (ICF)": "Instituto Cultural Floresta",
   "Museu de Arte do Paço (MAPA)": "Museu de Arte do Paço",
+  "Patrulha da Mulher (PATAM)": "Patrulha da Mulher",
+  "Festa de Oxum": "Festa de Oxum (Porto Alegre)",
+  "Quartel do Comando-Geral do Corpo de Bombeiros Militar (CBMRS)":
+    "Quartel do Comando-Geral do Corpo de Bombeiros Militar do Rio Grande do Sul",
+
+  "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
+  "monumento em homenagem aos voluntários da enchente": "Heróis Voluntários",
+  "Monumento à Elis Regina": "Monumento a Elis Regina",
+  Laçador: "Estátua do Laçador",
 
   "Bloco da Sustentabilidade (DMLU)": "Bloco da Sustentabilidade",
   "Grêmio Recreativo Escola de Samba Filhos de Maria": "GRES Filhos de Maria",
+  "Sociedade Beneficente Cultural e Filantrópica Protegidos da Princesa Isabel":
+    "SBCF Protegidos da Princesa Isabel",
+  "Sociedade Beneficente Cultural Realeza": "SBC Realeza",
+  "Sociedade Beneficente Cultural e Recreativa Fidalgos e Aristocratas":
+    "SBCR Fidalgos e Aristocratas",
+  "Sociedade Cultural e Beneficiente Acadêmicos de Gravataí":
+    "SCB Acadêmicos de Gravataí",
+  "S.B.C.R. Associação Comunitária Copacabana":
+    "SBCR Associação Comunitária Copacabana",
+  "Sociedade Beneficente Recreativa Imperadores do Samba":
+    "SBR Imperadores do Samba",
+  "Associação Recreativa Cultural União da Vila do Iapi":
+    "União da Vila do Iapi",
+  "Sociedade Recreativa Beneficente Tribo Carnavalesca Os Comanches":
+    "SRBTC Os Comanches",
+  "Academia de Samba Praiana": "SRBC Academia de Samba Praiana",
+  "Sociedade Beneficente Recreativa e Cultural Academia de Samba Unidos da Vila Mapa":
+    "Unidos da Vila Mapa",
+  "Escola de Samba Império da Zona Norte": "Império da Zona Norte",
+  "Sociedade Recreativa Beneficente Carnavalesca Academia de Samba União da Tinga":
+    "União da Tinga",
+  "Sociedade Recreativa Cultural e Carnavalesca Academia de Samba Unidos de Vila Isabel":
+    "Unidos de Vila Isabel",
+  "Sociedade Recreativa e Beneficente Estado Maior da Restinga":
+    "Estado Maior da Restinga",
+  "Sociedade Beneficente Cultural Bambas da Orgia": "Bambas da Orgia",
+  "Sociedade Beneficente Cultural e Recreativa Imperatriz Dona Leopoldina":
+    "SBCR Imperatriz Dona Leopoldina",
+  "Sociedade Cultural Beneficente e Carnavalesca Império do Sol":
+    "Império do Sol",
 
   // Bairros
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
@@ -453,6 +492,7 @@ export const tagToCategoryMap = {
   "Bairro Ponta Grossa": "Ponta Grossa (Porto Alegre)",
   "Bairro Praia de Belas": "Praia de Belas",
   "Bairro Rubem Berta": "Rubem Berta (Porto Alegre)",
+  "Bairro Santana": "Santana (Porto Alegre)",
   "Bairro São Geraldo": "São Geraldo (Porto Alegre)",
   "Santa Cecília": "Santa Cecília (Porto Alegre)",
   "Bairro Santa Tereza": "Santa Tereza (Porto Alegre)",
@@ -464,6 +504,7 @@ export const tagToCategoryMap = {
   "Bairro Tristeza": "Tristeza",
   "Bairro Vila Conceição": "Vila Conceição",
   "Bairro Vila Farrapos": "Vila Farrapos",
+  "Morro da Cruz": "Morro da Cruz (Porto Alegre)",
   "Morro Santana": "Morro Santana (Porto Alegre)",
   "Santa Maria Goretti": "Santa Maria Goretti (Porto Alegre)",
   "Vila Ipiranga": "Vila Ipiranga (Porto Alegre)",
@@ -491,6 +532,7 @@ export const tagToCategoryMap = {
   "Moab Caldas": "Avenida Moab Caldas",
   "Avenida Voluntários da Pátria": "Rua Voluntários da Pátria (Porto Alegre)",
   "Av. Wenceslau Escobar": "Avenida Wenceslau Escobar",
+  "Av. Soledade": "Avenida Soledade",
 
   "Praça Garibaldi": "Praça Garibaldi (Porto Alegre)",
   "Praça Montevideo": "Praça Montevidéu",
@@ -504,6 +546,7 @@ export const tagToCategoryMap = {
   "Trincheira da Ceará": "Trincheira da Avenida Ceará",
   "Rua Olavo Bilac": "Rua Olavo Bilac (Porto Alegre)",
   "calçadão de Ipanema": "Calçadão de Ipanema (Porto Alegre)",
+  "Rua dos Andradas": "Rua dos Andradas (Porto Alegre)",
 
   "Exército Brasileiro": "Army of Brazil",
   "Forças Armadas": "Army of Brazil",
@@ -529,12 +572,10 @@ export const tagToCategoryMap = {
   Ideb: "Índice de Desenvolvimento da Educação Básica",
   "Departamento Nacional de Infraestrutura de Transportes (Dnit)":
     "Departamento Nacional de Infraestrutura de Transportes",
-  "Centro de Integração Empresa Escola do Rio Grande do Sul (CIEE-RS)":
+  "Centro de Integração Empresa-Escola – CIEE":
     "Centro de Integração Empresa-Escola do Rio Grande do Sul",
   "Fórum de Justiça e Segurança do Centro":
     "Fórum de Justiça e Segurança (Porto Alegre)",
-  "Professora Finalista do Prêmio RBS de Educação 2018":
-    "Prêmio RBS de Educação 2018",
   "Romaria de Santa Maria": "Romaria da Medianeira",
   "Associação Internacional de Parques Científicos e Áreas de Inovação (IASP)":
     "International Association of Science Parks and Areas of Innovation",
@@ -542,6 +583,12 @@ export const tagToCategoryMap = {
     "Olimpíada Brasileira de Matemática das Escolas Públicas",
   "Felicity/GIZ": "FELICITY",
   "projeto Cidade Cardioprotegida": "Cidade Cardio-Protegida",
+  "Comitê Paralímpico Brasileiro (CPB)": "Comitê Paralímpico Brasileiro",
+  "Companhia de Saneamento Básico do Estado de São Paulo (Sabesp)": "Sabesp",
+
+  "Professora Finalista do Prêmio RBS de Educação 2018":
+    "Prêmio RBS de Educação 2018",
+  "Prêmio Inovação": "Prêmio Inovação Porto Alegre",
 
   "Programa Família Acolhedora": "Família Acolhedora",
   "Programa Melhor em Casa": "Melhor em Casa",
@@ -611,6 +658,8 @@ export const tagToCategoryMap = {
     "XXVIII Colônia de Férias para Idosos (2018)",
   "245ª Feira do Peixe de Porto Alegre":
     "245ª Feira do Peixe de Porto Alegre (2025)",
+  "Mostra Porto-alegrense da Atenção Primária à Saúde":
+    "3ª Mostra Porto-Alegrense da Atenção Primária à Saúde (2024)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -631,6 +680,8 @@ export const tagToCategoryMap = {
     )})`,
   "Top de Marketing ADVB/RS": metadata =>
     `Top de Marketing ADVB/RS ${getYear(metadata.humanReadableDate)}`,
+  "Prêmio Açorianos": metadata =>
+    `Prêmio Açorianos ${getYear(metadata.humanReadableDate)}`,
 
   "Viagem à Holanda": metadata =>
     `Missão Países Baixos ${getYear(metadata.humanReadableDate)}`,
@@ -722,6 +773,7 @@ export const tagToCategoryMap = {
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
   roubo: "Crime in Porto Alegre",
+  "Roubos de fios": "Crime in Porto Alegre",
   Flagrante: "Crime in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
   Procissão: "Processions in Porto Alegre",
@@ -779,6 +831,7 @@ export const tagToCategoryMap = {
   "Fios Soltos": "Overhead power lines in Porto Alegre",
   "foco de lixo": "Waste management in Porto Alegre",
   "Terminais de ônibus": "Bus stations in Porto Alegre",
+  "parada de ônibus": "Bus stops in Porto Alegre",
   "Sinalização viária": "Road signs in Porto Alegre",
   "Arte Urbana": "Street art in Porto Alegre",
   "Iluminação Pública": "Street lights in Porto Alegre",
@@ -802,6 +855,8 @@ export const tagToCategoryMap = {
   "foto noturna": "Night in Porto Alegre",
   "Aldeia Kaingang": "Kaingang villages in Porto Alegre",
   "Zona Rural": "Countryside in Porto Alegre",
+  "entidades carnavalescas": "Samba schools of Porto Alegre",
+  "corredor de ônibus": "Bus lanes in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -886,6 +941,7 @@ export const tagToCategoryMap = {
   Verão: "Summer in Brazil",
   Talude: "Embankments in Brazil",
   votação: "Voting in Brazil",
+  churrasqueiras: "Outdoor barbecues in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Comissão da Pessoa com Deficiência": "Disability in Brazil",
@@ -897,6 +953,7 @@ export const tagToCategoryMap = {
   "Medicina Veterinária": "Veterinary medicine in Brazil",
   "vacina contra a Dengue": "Dengue vaccine in Brazil",
   "troféu Prefeito Inovador": "Awards of Brazil",
+  "apuração do Carnaval": "Awards of Brazil",
   "Profissionais de Saúde": "People of Brazil in health professions",
   "Saúde Mental": "Mental health in Brazil",
   "Placa de veículos": "License plates of Brazil",
@@ -947,6 +1004,10 @@ export const tagToCategoryMap = {
   "Abandono de Veículos": "Abandoned vehicles in Brazil",
   "Estação Radio Base (ERBs)": "Mobile phone base stations in Brazil",
   "teatro de rua": "Street theatre in Brazil",
+  "Qualidade do Ar": "Air quality monitoring in Brazil",
+  "Noite dos Museus": "Night of Museums in Brazil",
+  "Banheiros Públicos": "Public toilets in Brazil",
+  "Espaços Públicos": "Public places in Brazil",
 
   "Dia internacional da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -993,7 +1054,6 @@ export const tagToCategoryMap = {
   Flashmob: "Flash mobs",
   "Centro de triagem": "Screening centers",
   Monitoramento: "Monitoring",
-  Premiação: "Prizes",
   "Cidades Inteligentes": "Smart cities",
   "Câncer Bucal": "Oral cancer",
   Nutrição: "Nutrition",
@@ -1075,4 +1135,10 @@ export const tagToCategoryMap = {
     "Essenfelder pianos",
   "banho assistido": "Assisted bathing",
   cadastramento: "Registration",
+  Financiamento: "Funding bodies",
+  Autuação: "Fine (penalty)",
+  Diplomação: "Certification",
+  "Bônus-Moradia": "Affordable housing",
+  Patrulhamento: "Patrolling",
+  "Iluminação Cênica": "Architectural lighting",
 };

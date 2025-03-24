@@ -12,6 +12,7 @@ export const tagReplacements = {
   "Projeto Inclusão em Cena 2018": "Inclusão Em Cena",
 
   "64ª Edição da Feira do Livro de Porto Alegre": "Feira do Livro",
+  "70ª Feira do Livro de Porto Alegre": "Feira do Livro",
   "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre":
     "Feira do Livro",
   "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre":
@@ -64,12 +65,17 @@ export const tagReplacements = {
   "Ato de Apresentação do Programa Família Acolhedora":
     "Programa Família Acolhedora",
 
+  Asfaltamento: "Pavimentação",
+  Asfalto: "Pavimentação",
+  "Repavimentação asfáltica": "Pavimentação",
+
   "Auditório Marcelo Dario Kifne - MP-RS": "Auditório do Ministério Público",
 
   "Bairro Centro Histórico": "Centro Histórico",
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
   "Bairro Vila Ipiranga": "Vila Ipiranga",
+  "Bairro Vila Nova": "Vila Nova",
 
   "Benchmarking do Governo do Rio Grande do Norte": "Visita",
   viagem: "Visita",
@@ -91,9 +97,6 @@ export const tagReplacements = {
   "Capacitação e Gerenciamento de Projetos Prioritários de Governo":
     "Capacitação",
 
-  "Carnaval 2017": "Carnaval",
-  "Carnaval Porto Alegre 2025": "Carnaval",
-
   "Cássia Carpes": "Cassiá",
   "vereador Cassiá Carpes": "Cassiá",
 
@@ -106,6 +109,9 @@ export const tagReplacements = {
   "Centro Integrado de Comando": "CEIC",
   "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)": "CEIC",
 
+  "Centro de Integração Empresa Escola do Rio Grande do Sul (CIEE-RS)":
+    "Centro de Integração Empresa-Escola – CIEE",
+
   "Centro Municipal de Cultura": "Centro de Cultura Lupicínio Rodrigues",
 
   "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM":
@@ -117,6 +123,8 @@ export const tagReplacements = {
   "Posse Novos Secretários Municipais": "Posse",
 
   "Cerimônia de posse gestão 2025/2028": "Posse",
+
+  "Chefe de Gabinete": "André Coronel",
 
   "Ciclo de Palestras da Transparência": "Palestra",
 
@@ -152,6 +160,9 @@ export const tagReplacements = {
   Eptc: "EPTC",
   "Eptc -": "EPTC",
 
+  "corpo de bombeiros": "Bombeiros",
+
+  Cultur: "Cultura",
   "Cultura e Economia Criativa": "Cultura Economia Criativa",
   "Secretaria Municipal de Cultura (SMC)": "Cultura Economia Criativa",
   "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)":
@@ -162,6 +173,7 @@ export const tagReplacements = {
   "Defesa Cívil": "Defesa Civil",
   "Defesa Civil de Porto Alegre-RS": "Defesa Civil",
 
+  "Departamento Municipal de Habitação ( Demhab)": "Demhab",
   "Departamento Municipal de Habitação (Demhab)": "Demhab",
 
   "Departamento Municipal de Limpeza Urbana (DMLU)": "DMLU",
@@ -173,6 +185,7 @@ export const tagReplacements = {
   "Desenvolviment Econômico": "Smde",
   "Desenvolvimento Econômico": "Smde",
   "Desenvolvimento Economico e Esporte": "Smde",
+  "Desenvolvimento Econômico e Turismo": "Smde",
   "Secretaria Municipal de Desenvolvimento Econômico (SMDE)": "Smde",
   "SMDE - Secretaria Municipal de Desenvolvimento Econômico": "Smde",
 
@@ -240,6 +253,9 @@ export const tagReplacements = {
 
   "Fundação de Assistência Social e Cidadania – Fasc": "Fasc",
 
+  "Gabinete da Causa Animal": "Causa Animal",
+  "Gabinete da Causa Animal (GCA)": "Causa Animal",
+
   "Gabinete da Inovação": "Inovação",
   "Gabinete de Inovação": "Inovação",
   "Gabinete de Inovação (GI)": "Inovação",
@@ -261,7 +277,14 @@ export const tagReplacements = {
 
   "Guias de Pagamento de Tributos": "IPTU",
 
+  "Habitação Regularização Fundiária": "SMHARF",
+  "Habitação e Regularização Fundiária": "SMHARF",
+  "Secretaria Municipal de Habitação e Regularização Fundiária (SMHARF)":
+    "SMHARF",
+
   "hipertensão arterial": "hipertenso",
+
+  "Hortas Comunitárias": "horta",
 
   "Inauguração do Hospital Santa Ana": "Hospital Santa Ana",
 
@@ -279,6 +302,9 @@ export const tagReplacements = {
     "1ª Faixa Reversível semafórica de Porto Alegre",
 
   "IST Aids": "Aids",
+
+  "Lançamento do Pacto Pela Inovação - Pacto Alegre": "Pacto Alegre",
+  "Pacto Pela Inovação": "Pacto Alegre",
 
   "LGBTQIA+": "LGBT",
 
@@ -354,9 +380,16 @@ export const tagReplacements = {
 
   reforma: "Revitalização",
 
+  Resíduos: "Resíduos Sólidos",
+
   "Retratos Oficiais": "Retrato",
 
+  "Réveillon Porto Alegre": "Programação do Reveillon",
+
   Sáude: "Saúde",
+
+  "Secretária de Desenvolvimento Econômico e Turismo (SMDET), Júlia Evangelista Tavares.":
+    "Júlia Evangelista Tavares",
 
   "Secretária Denise Russo": "Denise Russo",
 
@@ -376,6 +409,9 @@ export const tagReplacements = {
 
   "Secretaria Municipal de Educação (SMED)": "SMED",
   Smed: "SMED",
+
+  "Secretária municipal de Esporte, Lazer e Juventude (SMELJ), Débora Garcia":
+    "Débora Garcia",
 
   "Secretaria Municipal de Governança Cidadã e Desenvolvimento Rural (Smgov)":
     "Smgov",
@@ -426,12 +462,18 @@ export const tagReplacements = {
   "Secretário Municipal de Educação Adriano Naves de Brito":
     "Adriano Naves de Brito",
   "Secretário municipal de Educação, Leonardo Pascoal": "Leonardo Pascoal",
+  "Secretário Municipal da Educação (SMED), Maurício Cunha": "Maurício Cunha",
+
+  "secretário municipal de Esporte e Lazer, Professor Tovi": "Professor Tovi",
 
   "secretário municipal de Inlcusão e Desenvolvimento Humano (SMIDH), Juliano Passini":
     "Juliano Passini",
 
   "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
     "Adão de Castro Júnior",
+
+  "Secretário municipal de Transparência e Controladoria, Gustavo Ferenci":
+    "Gustavo Ferenci",
 
   "Sinalização de trânsito": "Sinalização viária",
   "sinalização semafórica": "Semáforos",

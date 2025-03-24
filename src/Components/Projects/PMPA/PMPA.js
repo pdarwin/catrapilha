@@ -347,10 +347,15 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    tags.includes("Atendimento") ||
-    tags.includes("Arrecadação Fiscal") ||
-    tags.includes("Agentes de Trânsito") ||
-    tags.includes("Coordenação de Operações Especiais (COE)")
+    tags.some(tag =>
+      [
+        "Atendimento",
+        "Arrecadação Fiscal",
+        "Agentes de Trânsito",
+        "Coordenação de Operações Especiais (COE)",
+        "Prestação de serviços",
+      ].includes(tag)
+    )
   ) {
     categories.push("Municipal services in Porto Alegre");
   }
@@ -496,6 +501,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(
       tag =>
         [
+          "Galeria dos Secretários",
           "Secretária de Planejamento e Gestão",
           "Secretário Municipal da Fazenda (SMF)",
           "Secretário Municipal da Saúde (SMS)",
@@ -552,6 +558,7 @@ const getCategoriesFromTags = metadata => {
         "Conselho Municipal de Saúde",
         "Equipe de Vigilância de Antropozoonoses (Evantropo)",
         "Farmácia",
+        "Mostra Porto-alegrense da Atenção Primária à Saúde",
         "Plano de Superação da Situação de Rua",
         "Programa Teste e Trate",
         "Saúde da População Negra",
@@ -927,7 +934,9 @@ const getCategoriesFromTags = metadata => {
         "Ação Integrada",
         "Agentes de Fiscalização",
         "Apreensão",
+        "Autuação",
         "Blitz",
+        "Entrega de matrículas",
         "Entrega de Matrículas de Regularização para Moradores da Zona Sul",
         "Fiscalização",
         "Flagrante",
@@ -1027,7 +1036,7 @@ const getCategoriesFromTags = metadata => {
         "Comissão da Pessoa com Deficiência",
         "Criança",
         "evento social",
-        "Hortas Comunitárias",
+        "horta",
         "Inclusão Social",
         "Mulher",
         "Pessoa com Deficiência",
@@ -1178,6 +1187,21 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
+  if (!tags.includes("STU Pro-Tur 2025") && tags.includes("Skate")) {
+    categories.push("Skateboarding in Porto Alegre");
+  }
+
+  if (!tags.includes("STU Pro-Tur 2025") && tags.includes("Orla Skate Park")) {
+    categories.push("Orla Skate Park");
+  }
+
+  if (
+    !tags.includes("Orla Skate Park") &&
+    tags.includes("Trecho 3 da Orla do Guaíba")
+  ) {
+    categories.push("Trecho 3 da Orla do Guaíba");
+  }
+
   if (
     !(tags.includes("Gre-nal de Todos") || tags.includes("Gre-Nal")) &&
     (tags.includes("Futebol") || tags.includes("Futebol de Várzea"))
@@ -1191,10 +1215,13 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Futebol de Várzea") ||
-      tags.includes("Jogos dos Estudantes Surdos") ||
-      tags.includes("Mexatchê")
+    !tags.some(tag =>
+      [
+        "Futebol de Várzea",
+        "Jogos dos Estudantes Surdos",
+        "Mexatchê",
+        "STU Pro-Tur 2025",
+      ].includes(tag)
     ) &&
     tags.some(tag =>
       [
@@ -1546,9 +1573,11 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Operação Jaguar", "Fórum de Justiça e Segurança do Centro"].includes(
-        tag
-      )
+      [
+        "Operação Ferro-Velho",
+        "Operação Jaguar",
+        "Fórum de Justiça e Segurança do Centro",
+      ].includes(tag)
     ) &&
     tags.includes("Smseg")
   ) {
@@ -1629,7 +1658,12 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.some(tag => ["Plenário Ana Terra - CMPA"].includes(tag)) &&
+    !tags.some(tag =>
+      [
+        "Comissão de Economia, Finanças, Orçamento e do Mercosul (Cefor)",
+        "Plenário Ana Terra - CMPA",
+      ].includes(tag)
+    ) &&
     tags.includes("Legislativo")
   ) {
     categories.push("Câmara Municipal de Porto Alegre");
@@ -1643,7 +1677,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Athletics in Brazil");
   }
 
-  if (tags.some(tag => ["Asfalto", "Pavimentação"].includes(tag))) {
+  if (tags.some(tag => ["Pavimentação"].includes(tag))) {
     categories.push("Asphalters");
   }
 
@@ -1651,11 +1685,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Weed control", "String trimmers");
   }
 
-  if (
-    tags.some(tag =>
-      ["Asfalto", "Pavimentação", "rolo compressor"].includes(tag)
-    )
-  ) {
+  if (tags.some(tag => ["Pavimentação", "rolo compressor"].includes(tag))) {
     categories.push("Roadworks in Porto Alegre");
   }
 
@@ -1759,10 +1789,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Orla Moacyr Scliar") ||
-      tags.includes("Parque Urbano da Orla Moacyr Scliar")
-    ) &&
+    !tags.includes("Orla Moacyr Scliar") &&
     (tags.includes("Orla do Guaíba") ||
       tags.includes("Termos de Permissão uso bares da Orla do Guaíba"))
   ) {
@@ -1826,7 +1853,9 @@ const getCategoriesFromTags = metadata => {
       [
         "Associação Comercial de Porto Alegre (ACPA)",
         "Auditório do Instituto Cultural",
+        "Centro de Integração Empresa-Escola – CIEE",
         "Mercado Público",
+        "Praça da Alfândega",
         "Quadrilátero Central",
         "Viva o Centro a Pé",
       ].includes(tag)
@@ -1865,7 +1894,11 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Casa de Festas Brincalhão", "Praça Garibaldi"].includes(tag)
+      [
+        "Casa de Festas Brincalhão",
+        "Largo David Coimbra",
+        "Praça Garibaldi",
+      ].includes(tag)
     ) &&
     tags.some(tag => ["Bairro Menino Deus", "Menino Deus"].includes(tag))
   ) {
@@ -1902,9 +1935,18 @@ const getCategoriesFromTags = metadata => {
     categories.push("Laboratórios Municipais (Porto Alegre)");
   }
 
+  if (!tags.includes("Prêmio Açorianos") && tags.includes("Premiação")) {
+    categories.push("Prizes");
+  }
+
   if (
-    !tags.includes("Casa da Estrela") &&
-    tags.includes("Patrimônio Histórico e Cultural do município")
+    !tags.some(tag => ["Casa da Estrela", "Confeitaria Rocco"].includes(tag)) &&
+    tags.some(tag =>
+      [
+        "Patrimônio Histórico e Cultural do município",
+        "Prédios Históricos",
+      ].includes(tag)
+    )
   ) {
     categories.push("Cultural heritage monuments in Porto Alegre");
   }
@@ -1978,6 +2020,12 @@ const getCategoriesFromTags = metadata => {
     );
   }
 
+  if (!tags.includes("Demhab") && tags.some(tag => ["SMHARF"].includes(tag))) {
+    categories.push(
+      "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)"
+    );
+  }
+
   if (
     tags.some(tag =>
       ["Habitação", "Loteamento", "moradias temporárias"].includes(tag)
@@ -1986,7 +2034,7 @@ const getCategoriesFromTags = metadata => {
     categories.push("Housing in Porto Alegre");
   }
 
-  if (tags.some(tag => ["Hortas Comunitárias"].includes(tag))) {
+  if (tags.some(tag => ["horta"].includes(tag))) {
     categories.push(
       "Community gardens in Brazil",
       "Agriculture in Porto Alegre"
@@ -2087,7 +2135,6 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.some(tag =>
       [
-        "Asfalto",
         "Entrega de Obras",
         "Licitação para Manutenção Elevadores e Escadas Rolantes",
         "Manutenção",
@@ -2255,7 +2302,9 @@ const getCategoriesFromTags = metadata => {
           "Fórum da Liberdade",
           "Material Escolar",
           "Missão Xangai 2018",
+          "Natal",
           "Nós na Praça",
+          "Prêmio Açorianos",
           "Salão Internacional de Desenho para Imprensa (Sidi)",
           "Semana de Porto Alegre",
           "Seminário POA 2020",
@@ -2273,12 +2322,14 @@ const getCategoriesFromTags = metadata => {
           "Ação Rua",
           "Apreensão",
           "Apresentação",
-          "Asfalto",
           "Ato de Entrega da Obras de Melhoria da Praça Argentina, e da Assinatura do Termo de Adoção da praça pela Santa Casa de Misericórdia de Porto Alegre",
           "Audiência",
+          "Auditório da FAMURS",
           "Aula Inaugural",
           "Blitz",
           "Bloqueio químico",
+          "Bolsa Atleta Municipal",
+          "Bônus-Moradia",
           "cadastramento",
           "Cadastro Único",
           "Caminhada",
@@ -2304,8 +2355,10 @@ const getCategoriesFromTags = metadata => {
           "Dia internacional da Mulher",
           "Dia Mundial da Alimentação",
           "DIA SEM CARRO",
+          "Diplomação",
           "Educação no Trânsito",
           "Encerramento",
+          "Entrega de matrículas",
           "Entrega de Matrículas de Regularização para Moradores da Zona Sul",
           "Entrega de Obras",
           "Espetáculo",
@@ -2329,21 +2382,27 @@ const getCategoriesFromTags = metadata => {
           "Homenagem",
           "Janeiro Branco",
           "Lançamento",
+          "Legislativo",
           "Manifestação",
           "Montagem de estruturas",
           "Negociação de Precatórios",
+          "Noite dos Museus",
           "Oficina de Dança",
           "Olimpíada Brasileira de Matemática - OBMEP",
           "Operação de Segurança",
+          "Operação Ferro-Velho",
           "Outubro Rosa",
           "Painel",
           "Palestra",
+          "Parcerias",
           "Passeio",
+          "Pavimentação",
           "Plantio",
           "Plataforma Google for Education",
           "Posse",
           "Prefeitura nos Bairros",
           "Prefeitura Nos Bairros",
+          "Prêmio Inovação",
           "Procissão",
           "Programa Saúde na Escola (PSE)",
           "Programa Teste e Trate",
@@ -2436,6 +2495,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag =>
       [
         "Feira Temática",
+        "Festa de Oxum",
         "Festa na Rua",
         "Festejos",
         "Festival",
@@ -2505,9 +2565,11 @@ const getCategoriesFromTags = metadata => {
           "Nós na Praça",
           "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’",
           "Operação Jaguar",
+          "Mostra Porto-alegrense da Atenção Primária à Saúde",
           "Natal",
           "Páscoa",
           "Poa Em Cena",
+          "Prêmio Açorianos",
           "Semana de Porto Alegre",
           "Seminário Boas Práticas na Gestão de Trânsito dos Municípios",
           "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
@@ -2515,6 +2577,7 @@ const getCategoriesFromTags = metadata => {
           "Seminário Povos Indígenas e Saúde: Um Corpo São",
           "Sétimo encontro de Medicina Tradicional Kaingang",
           "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
+          "STU Pro-Tur 2025",
           "Top de Marketing ADVB/RS",
           "Viagem à Holanda",
           "VIII Seminário de Saúde e Segurança no Trabalho",
