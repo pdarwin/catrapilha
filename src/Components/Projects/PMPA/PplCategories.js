@@ -39,6 +39,7 @@ const keywordToCategoryMap = {
   "Erno Harzhein": "Erno Harzheim",
   "Juliana Castro": "Juliana Castro (politician)",
   "Monica Leal": "Mônica Leal",
+  "Orestes de Andrade": "Orestes de Andrade Júnior",
   "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
     "Idenir Cecchim",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
@@ -71,6 +72,7 @@ const sameNameKeywords = [
   "Cássio Trogildo",
   "Centro Cultural Multimeios Restinga",
   "Cezar Schirmer",
+  "Claudio Bier",
   "Comandante Nádia",
   "Daniel Rigon",
   "Débora Garcia",
@@ -140,6 +142,7 @@ const sameNameKeywords = [
   "Valtuir Pereira Nunes",
   "Vera Armando",
   "Wambert Di Lorenzo",
+  "Yasuhiro Mitsu",
   "Yossi Shelley",
   "Zizi Possi",
 ];

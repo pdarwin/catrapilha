@@ -31,6 +31,7 @@ export const tagReplacements = {
   "Acampamento Farropilha": "Acampamento Farroupilha",
 
   "Ação Conjunta de Fiscalização": "Fiscalização",
+  "Fiscalização do Transporte Resíduos da Construção Civil": "Fiscalização",
 
   "Ação de Pulverização de Inseticida": "Bloqueio químico",
 
@@ -142,6 +143,8 @@ export const tagReplacements = {
   "Transporte e Circulação": "Transporte",
   "Transporte Metropolitano": "Transporte",
 
+  "Companhia Carris Porto Alegrense": "Carris",
+
   "Conselho Superior da PGM": "PGM",
   "Gabinete da Procuradoria": "PGM",
   Pgm: "PGM",
@@ -152,6 +155,7 @@ export const tagReplacements = {
 
   "Consul Honorária dos Países Baixos em Porto Alegre": "Consulado",
 
+  "Cônsul-Geral do Japão em Curitiba, Sr. Yasuhiro Mitsu.": "Yasuhiro Mitsu",
   "Cônsul-Geral dos Estados Unidos em Porto Alegre": "Jason Green",
   "Cônsul-Geral dos Estados Unidos, Sr. Jason Green.": "Jason Green",
 
@@ -200,6 +204,8 @@ export const tagReplacements = {
   "Diretor-presidente da Empresa Pública de Transporte e Circulação(EPTC), Pedro Bisch Neto":
     "Pedro Bisch Neto",
 
+  "Diretor Regional do SESC": "Sesc",
+
   Doações: "Doação",
   "Doações de Materiais": "Doação",
   Donativos: "Doação",
@@ -243,6 +249,7 @@ export const tagReplacements = {
 
   "Federação das Associações de Municípios do Rio Grande do Sul (FAMURS)":
     "Famurs",
+  "Federação das Indústrias do Estado do Rio Grande do Sul (Fiergs)": "Fiergs",
 
   'Formação "O trabalho em Direitos Humanos na Educação Infantil"': "Formação",
 
@@ -374,6 +381,8 @@ export const tagReplacements = {
   "Produtor Rural": "Zona Rural",
   "Propriedades Rurais": "Zona Rural",
 
+  "Projeto Adote um Escritor": "Adote um Escritor",
+
   "Projeto Clássicos na Pinacoteca": "Clássicos na Pinacoteca",
 
   "Projeto Feira Fora da Feira": "Feira Fora da Feira",
@@ -454,6 +463,9 @@ export const tagReplacements = {
   "Secretário municipal de Administração e Patrimônio, André Barbosa":
     "André Barbosa",
 
+  "Secretário Municipal de Comunicação Orestes de Andrade Jr.":
+    "Orestes de Andrade",
+
   "secretário municipal de Governança Cidadã e Desenvolvimento Rural (Smgov), Cássio Trogildo.":
     "Cássio Trogildo",
   "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
@@ -494,6 +506,7 @@ export const tagReplacements = {
   vereadora: "vereador",
 
   "Viagem à Europa": "Missão Internacional",
+  "viagem internacional": "Missão Internacional",
 
   "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes",
   "vice-prefeito Ricardo Gomes": "Ricardo Gomes",

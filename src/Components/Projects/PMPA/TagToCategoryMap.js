@@ -21,7 +21,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal de Planejamento e Assuntos Estratégicos (Porto Alegre)",
   Smidh:
     "Secretaria Municipal de Inclusão e Desenvolvimento Humano (Porto Alegre)",
-  Smim: "Secretaria Municipal de Infraestrutura e Mobilidade (Porto Alegre)",
   Smoi: "Secretaria Municipal de Obras e Infraestrutura (Porto Alegre)",
   Seda: "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
   "Cultura Economia Criativa":
@@ -92,7 +91,6 @@ export const tagToCategoryMap = {
 
   Previmpa:
     "Departamento Municipal de Previdência dos Servidores Públicos do Município de Porto Alegre",
-  Pisa: "Programa Integrado Socioambiental",
   Socioambiental: "Programa Integrado Socioambiental",
   "Primeira Infância Melhor no Contexto Prisional (Pim Prisional)":
     "Primeira Infância Melhor no Contexto Prisional",
@@ -126,8 +124,6 @@ export const tagToCategoryMap = {
   "Estações de Bombeamento de Águas Pluviais (Ebaps)":
     "Estações de Bombeamento de Águas Pluviais",
   "(EBAB) Moinhos de Vento": "EBAB Moinhos de Vento",
-  Carris: "Companhia Carris Porto-Alegrense",
-  "Companhia Carris Porto Alegrense": "Companhia Carris Porto-Alegrense",
   "Assistência Farmacêutica": "Assistência Farmacêutica (Porto Alegre)",
   "Centro Humanístico Vida": "Vida Centro Humanístico",
   "Coordenação Municipal de Urgências (CMU)":
@@ -160,6 +156,7 @@ export const tagToCategoryMap = {
   "Projeto Kilombinho de Verão": "Kilombinho de Verão",
   "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
   "Grupo POA Solidárias": "POA Solidária",
+  "Representantes do POA Solidária": "POA Solidária",
   "Moradores do Alameda Partenon": "Alameda Partenon",
   "Núcleo de Ações Preventivas (NAP)": "Núcleo de Ações Preventivas",
   "Incluir + POA": "Incluir+POA",
@@ -180,6 +177,9 @@ export const tagToCategoryMap = {
   "Centro de Atenção Psicossocial Álcool e Drogas 4 – Céu Aberto":
     "CAPS AD IV - Centro Céu Aberto",
   "Viveiro municipal de Porto Alegre": "Viveiro Municipal de Porto Alegre",
+  "UM DIA DE AGENTE DA EPTC": "Um Dia de Agente da EPTC",
+  "Projeto Sistema de Gestão de Parcerias com as Entidades Sociais":
+    "Sistema de Gestão de Parcerias",
 
   "Campanha do Brinquedo Solidário":
     "Campanha do Brinquedo Solidário (Porto Alegre)",
@@ -225,6 +225,8 @@ export const tagToCategoryMap = {
   "Encontro com as Associação das Empresas dos Bairros Humaitá e Navegantes":
     "Associação das Empresas dos Bairros Humaitá e Navegantes",
   "ASSAC - Associação Amigos do Cristal": "Associação Amigos do Cristal",
+  "Associação Brasileira de Shopping Centers (ABRASCE)":
+    "Associação Brasileira de Shopping Centers",
 
   "Restaurante Popular": "Restaurantes Populares",
   "Restaurante Baumbach": "Ratskeller Baumbach",
@@ -258,6 +260,7 @@ export const tagToCategoryMap = {
 
   //Escolas
   "(Emei JP) Cantinho Amigo": "EMEI JP Cantinho Amigo",
+  "(Emei JP) Meu Amiguinho": "EMEI JP Meu Amiguinho",
   "(Emei) Florência Vurlod Socias": "EMEI Florência Vurlod Socias",
   "Emei Protásio Alves": "EMEI Protásio Alves",
   "Emei Santo Expedito": "EMEI Santo Expedito",
@@ -345,8 +348,6 @@ export const tagToCategoryMap = {
   "Auditório da SMPG":
     "Auditório da Secretaria Municipal de Planejamento de Gestão",
   "Auditório da SMED": "Auditório da Secretaria Municipal de Educação",
-  "Auditório do Ministério Público":
-    "Auditório do Ministério Público (Porto Alegre)",
   "Auditório da Puc": "Auditório Prédio 11",
   "Auditório do Departamento Municipal de Habitação (Demhab)":
     "Auditório do Departamento Municipal de Habitação",
@@ -400,6 +401,7 @@ export const tagToCategoryMap = {
   "Festa de Oxum": "Festa de Oxum (Porto Alegre)",
   "Quartel do Comando-Geral do Corpo de Bombeiros Militar (CBMRS)":
     "Quartel do Comando-Geral do Corpo de Bombeiros Militar do Rio Grande do Sul",
+  "Sítio do Mato": "Sítio do Mato (Porto Alegre)",
 
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
   "monumento em homenagem aos voluntários da enchente": "Heróis Voluntários",
@@ -513,11 +515,14 @@ export const tagToCategoryMap = {
   "Aldeia do Morro do Osso": "Ymã Tupen Pãn",
 
   "Florianópolis-SC": "Florianópolis",
+  "Diretoria de Governança e Gestão da Prefeitura de Esteio": "Esteio",
 
   // Esporte
   "Centro de Artes e Esporte da Restinga (CEU)":
     "Centro de Artes e Esporte da Restinga",
   "Centro Esportivo da Vila Ingá (Cevi)": "Centro Esportivo da Vila Ingá",
+  "Sociedade Esportiva, Recreativa, Cultural e Comunitária Ervino de Assis - SER ASSIS":
+    "Sociedade Esportiva, Recreativa, Cultural e Comunitária Ervino de Assis",
 
   "Orla Moacyr Scliar": "Parque Moacyr Scliar",
   "Pontal do Estaleiro": "Parque Pontal do Estaleiro",
@@ -590,6 +595,7 @@ export const tagToCategoryMap = {
     "Prêmio RBS de Educação 2018",
   "Prêmio Inovação": "Prêmio Inovação Porto Alegre",
 
+  Pisa: "Programa Integrado Socioambiental",
   "Programa Família Acolhedora": "Família Acolhedora",
   "Programa Melhor em Casa": "Melhor em Casa",
   "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
@@ -597,9 +603,11 @@ export const tagToCategoryMap = {
   "Programa Nacional de Gestão de Custos (PNGC)":
     "Programa Nacional de Gestão de Custos",
   "Programa Jovem Aprendiz": "Jovem Aprendiz",
+  "Encerramento do Programa Compartilhar": "Compartilhar",
 
   "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
   "Cônsul da Ucrânia no Brasil": "Relations of Brazil and Ukraine",
+  "Comitiva portuguesa": "Relations of Brazil and Portugal",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
   //Greve: "General strike in Brazil (2017-06-30)",
@@ -660,6 +668,11 @@ export const tagToCategoryMap = {
     "245ª Feira do Peixe de Porto Alegre (2025)",
   "Mostra Porto-alegrense da Atenção Primária à Saúde":
     "3ª Mostra Porto-Alegrense da Atenção Primária à Saúde (2024)",
+  "86 anos do Viaduto Otávio Rocha": "86 anos do Viaduto Otávio Rocha (2018)",
+  "2° Fórum de Logística Sustentável":
+    "2° Fórum de Logística Sustentável (2024)",
+  "Conferência das Nações Unidas sobre as Mudanças Climáticas (COP29)":
+    "2024 United Nations Climate Change Conference",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -682,6 +695,8 @@ export const tagToCategoryMap = {
     `Top de Marketing ADVB/RS ${getYear(metadata.humanReadableDate)}`,
   "Prêmio Açorianos": metadata =>
     `Prêmio Açorianos ${getYear(metadata.humanReadableDate)}`,
+  "Dia Internacional da Pessoa com Deficiência": metadata =>
+    `UNIDPD in Brazil ${getYear(metadata.humanReadableDate)}`,
 
   "Viagem à Holanda": metadata =>
     `Missão Países Baixos ${getYear(metadata.humanReadableDate)}`,
@@ -758,6 +773,9 @@ export const tagToCategoryMap = {
   "Minha Casa Minha Vida": "Minha Casa, Minha Vida",
   Farsul: "Federação da Agricultura do Estado do Rio Grande do Sul",
   PPCIs: "Planos de Prevenção e Proteção Contra Incêndios",
+  "Conselheiros Tutelares": "Conselho Tutelar",
+  "Escritório das Nações Unidas (UNOPS)":
+    "United Nations Office for Project Services",
 
   Santander: "Banco Santander (Brasil)",
   "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)":
@@ -774,6 +792,7 @@ export const tagToCategoryMap = {
   Farmácia: "Farmácias Distritais (Porto Alegre)",
   roubo: "Crime in Porto Alegre",
   "Roubos de fios": "Crime in Porto Alegre",
+  "Veículo Roubado": "Crime in Porto Alegre",
   Flagrante: "Crime in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
   Procissão: "Processions in Porto Alegre",
@@ -942,10 +961,9 @@ export const tagToCategoryMap = {
   Talude: "Embankments in Brazil",
   votação: "Voting in Brazil",
   churrasqueiras: "Outdoor barbecues in Brazil",
+  Gestante: "Pregnant women in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
-  "Comissão da Pessoa com Deficiência": "Disability in Brazil",
-  "Pessoa com Deficiência": "Disability in Brazil",
   "Artes Plásticas": "Visual arts of Brazil",
   "Educação Ambiental": "Environmental education in Brazil",
   "Ação Social": "Social work in Brazil",
@@ -1008,6 +1026,8 @@ export const tagToCategoryMap = {
   "Noite dos Museus": "Night of Museums in Brazil",
   "Banheiros Públicos": "Public toilets in Brazil",
   "Espaços Públicos": "Public places in Brazil",
+  "oficinas artísticas": "Art workshops in Brazil",
+  "Propaganda Irregular": "Advertising in Brazil",
 
   "Dia internacional da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -1043,7 +1063,6 @@ export const tagToCategoryMap = {
   Medicamentos: "Pharmaceutical drugs",
   Sangue: "Blood collection",
   Caminhada: "Walks (event)",
-  "Resíduos Sólidos": "Solid waste management",
   "Bloqueio no trânsito": "Closed roads",
   Apreensão: "Confiscation",
   "Ação Integrada": "Community-driven programs",
@@ -1054,6 +1073,8 @@ export const tagToCategoryMap = {
   Flashmob: "Flash mobs",
   "Centro de triagem": "Screening centers",
   Monitoramento: "Monitoring",
+  "Sistema de Monitoramento de Tráfego Eletrônico":
+    "Traffic monitoring systems",
   "Cidades Inteligentes": "Smart cities",
   "Câncer Bucal": "Oral cancer",
   Nutrição: "Nutrition",
