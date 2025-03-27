@@ -49,6 +49,9 @@ export const tagReplacements = {
 
   "Animal silvestre": "Fauna",
 
+  "Apresentação Calendário Pagamento IPTU 2019": "IPTU",
+  "Guias de Pagamento de Tributos": "IPTU",
+
   "Assembléia Legislativa": "Assembleia Legislativa",
 
   "Assistencia Social": "Serviço Social",
@@ -73,6 +76,7 @@ export const tagReplacements = {
   "Auditório Marcelo Dario Kifne - MP-RS": "Auditório do Ministério Público",
 
   "Bairro Centro Histórico": "Centro Histórico",
+  "Bairro Coronel Aparício Borges": "Bairro Cel. Aparício Borges",
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
   "Bairro Vila Ipiranga": "Vila Ipiranga",
@@ -114,6 +118,8 @@ export const tagReplacements = {
     "Centro de Integração Empresa-Escola – CIEE",
 
   "Centro Municipal de Cultura": "Centro de Cultura Lupicínio Rodrigues",
+  "Centro Municipal de Cultura Lupicínio Rodrigues":
+    "Centro de Cultura Lupicínio Rodrigues",
 
   "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM":
     "Posse",
@@ -214,6 +220,8 @@ export const tagReplacements = {
 
   "Embaixador de Luxemburgo no Brasil": "Carlo Krieger",
 
+  "Emef Dep. Marcírio Goulart Loureiro":
+    "EMEF Deputado Marcírio Goulart Loureiro",
   "Emef Migrantes": "EMEF Migrantes",
   "Emef Vereador Antonio Giúdice": "EMEF Vereador Antônio Giúdice",
   "Emef Vila Montecristo": "EMEF Vila Monte Cristo",
@@ -243,6 +251,7 @@ export const tagReplacements = {
   Fazenda: "SMF",
   Finanças: "SMF",
   "Finanças Públicas": "SMF",
+  "Gabinete da SMF": "SMF",
   "Secretaria Municipal da Fazenda (SMF)": "SMF",
   "Secretário Municipal da Fazenda (SMF)": "SMF",
   Smf: "SMF",
@@ -280,9 +289,9 @@ export const tagReplacements = {
 
   "Gestores dos CRIPs": "CRIPs",
 
-  "Grupo de Combate ao Tabagismo": "Tabagismo",
+  "Governador José Ivo Sartori": "José Ivo Sartori",
 
-  "Guias de Pagamento de Tributos": "IPTU",
+  "Grupo de Combate ao Tabagismo": "Tabagismo",
 
   "Habitação Regularização Fundiária": "SMHARF",
   "Habitação e Regularização Fundiária": "SMHARF",
@@ -394,6 +403,7 @@ export const tagReplacements = {
   "Retratos Oficiais": "Retrato",
 
   "Réveillon Porto Alegre": "Programação do Reveillon",
+  "Réveillon 2025": "Programação do Reveillon",
 
   Sáude: "Saúde",
 
@@ -507,6 +517,9 @@ export const tagReplacements = {
 
   "Viagem à Europa": "Missão Internacional",
   "viagem internacional": "Missão Internacional",
+
+  "Vice-Governador José Paulo Dornelles Cairoli":
+    "José Paulo Dornelles Cairoli",
 
   "Vice-prefeito de Porto Alegre, Ricardo Gomes": "Ricardo Gomes",
   "vice-prefeito Ricardo Gomes": "Ricardo Gomes",

@@ -91,9 +91,6 @@ export const tagToCategoryMap = {
 
   Previmpa:
     "Departamento Municipal de Previdência dos Servidores Públicos do Município de Porto Alegre",
-  Socioambiental: "Programa Integrado Socioambiental",
-  "Primeira Infância Melhor no Contexto Prisional (Pim Prisional)":
-    "Primeira Infância Melhor no Contexto Prisional",
   "Salão Nobre": "Salão Nobre (Paço Municipal de Porto Alegre)",
   "Salão Nobre do Paço Municipal":
     "Salão Nobre (Paço Municipal de Porto Alegre)",
@@ -128,10 +125,7 @@ export const tagToCategoryMap = {
   "Centro Humanístico Vida": "Vida Centro Humanístico",
   "Coordenação Municipal de Urgências (CMU)":
     "Coordenação Municipal de Urgências (Porto Alegre)",
-  "#eufaçopoa": "EuFaçoPOA",
   "Plano de ação Porto Alegre Forte": "Porto Alegre Forte",
-  "Programa de Residência Técnico-Superior (PRTS)":
-    "Programa de Residência Técnico-Superior",
   "Lei Orçamentária Anual (LOA)": "Lei Orçamentária Anual",
   "Proposta orçamentária 2019": "Proposta orçamentária 2019 (Porto Alegre)",
   "Tapa Buracos": "Operação Tapa-Buracos",
@@ -142,18 +136,13 @@ export const tagToCategoryMap = {
   "Diversidade sexual": "Coordenadoria de Diversidade Sexual",
   "Op 2017": "Orçamento Participativo 2017",
   "Lei Seca": "Lei Seca (Porto Alegre)",
-  "Programa de Trabalho Educativo (PTE)": "Programa de Trabalho Educativo",
-  "Programa Poa + Social": "Poa+Social",
-  "Projeto Mais Comunidade": "Mais Comunidade",
   "Núcleo Municipal de Segurança do Paciente":
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
   "Segurança do Paciente":
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
-  "Comitê do Projeto Vida no Trânsito": "Projeto Vida no Trânsito",
   "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’":
     "Rabiscando Ideias - Da cabeça para o papel",
   "Espetáculo O Rei da Vela": "O Rei da Vela",
-  "Projeto Kilombinho de Verão": "Kilombinho de Verão",
   "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
   "Grupo POA Solidárias": "POA Solidária",
   "Representantes do POA Solidária": "POA Solidária",
@@ -164,7 +153,6 @@ export const tagToCategoryMap = {
   "Cerimônia de Apresentação de PLs de Concessão e Adoção":
     "Adoção de Verde Complementar",
   "Portal da Transparência": "Portal da Transparência EPTC",
-  "Programa Teste e Trate": "Teste e Trate",
   cachorródromo: "Cachorródromo",
   "Plano de Mobilidade de Porto Alegre (MobiliPOA)": "MobiliPOA",
   "Oficinas Regionais sobre o Plano de Mobilidade Urbana (PMU)": "MobiliPOA",
@@ -178,12 +166,38 @@ export const tagToCategoryMap = {
     "CAPS AD IV - Centro Céu Aberto",
   "Viveiro municipal de Porto Alegre": "Viveiro Municipal de Porto Alegre",
   "UM DIA DE AGENTE DA EPTC": "Um Dia de Agente da EPTC",
+
   "Projeto Sistema de Gestão de Parcerias com as Entidades Sociais":
     "Sistema de Gestão de Parcerias",
+  "Projeto Mais Comunidade": "Mais Comunidade",
+  "Primeira Edição do Projeto Porto dos Natais": "Porto dos Natais",
+  "Projeto Kilombinho de Verão": "Kilombinho de Verão",
+  "Comitê do Projeto Vida no Trânsito": "Projeto Vida no Trânsito",
+  "projeto Cidade Cardioprotegida": "Cidade Cardio-Protegida",
 
   "Campanha do Brinquedo Solidário":
     "Campanha do Brinquedo Solidário (Porto Alegre)",
   "Campanha Troco Amigo": "Troco Amigo",
+
+  Pisa: "Programa Integrado Socioambiental",
+  "Programa Família Acolhedora": "Família Acolhedora",
+  "Programa Melhor em Casa": "Melhor em Casa",
+  "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
+  'programa "Lean nas Emergências"': "Lean nas Emergências",
+  "Programa Nacional de Gestão de Custos (PNGC)":
+    "Programa Nacional de Gestão de Custos",
+  "Programa Jovem Aprendiz": "Jovem Aprendiz",
+  "Encerramento do Programa Compartilhar": "Compartilhar",
+  "Programa Teste e Trate": "Teste e Trate",
+  "Programa de Trabalho Educativo (PTE)": "Programa de Trabalho Educativo",
+  "Programa Poa + Social": "Poa+Social",
+  "#eufaçopoa": "EuFaçoPOA",
+  "Programa de Residência Técnico-Superior (PRTS)":
+    "Programa de Residência Técnico-Superior",
+  Socioambiental: "Programa Integrado Socioambiental",
+  "Primeira Infância Melhor no Contexto Prisional (Pim Prisional)":
+    "Primeira Infância Melhor no Contexto Prisional",
+  "Programa Start.edu": "Start.edu",
 
   PGM: "Procuradoria-Geral do Município de Porto Alegre",
   Corregedoria: "Corregedoria-Geral do Município de Porto Alegre",
@@ -227,6 +241,10 @@ export const tagToCategoryMap = {
   "ASSAC - Associação Amigos do Cristal": "Associação Amigos do Cristal",
   "Associação Brasileira de Shopping Centers (ABRASCE)":
     "Associação Brasileira de Shopping Centers",
+  "Associação de Dirigentes Cristãos de Empresa de Porto Alegre (ADCE)":
+    "Associação de Dirigentes Cristãos de Empresa de Porto Alegre",
+  "Presidente eleita da Associação do Ministério Público do RS":
+    "Associação do Ministério Público do RS",
 
   "Restaurante Popular": "Restaurantes Populares",
   "Restaurante Baumbach": "Ratskeller Baumbach",
@@ -301,7 +319,9 @@ export const tagToCategoryMap = {
   Sindha: "Sindicato de Hospedagem e Alimentação de Porto Alegre e Região",
   "Associação dos Transportadores de Caçamba Estacionárias (ATCE)":
     "Associação dos Transportadores de Caçambas Estacionárias",
+
   "Banda Municipal": "Banda Municipal de Porto Alegre",
+  "Orquestra Vila Lobos": "Orquestra Villa-Lobos",
 
   "Igreja Nossa Senhora das Dores":
     "Igreja Nossa Senhora das Dores (Porto Alegre)",
@@ -344,6 +364,7 @@ export const tagToCategoryMap = {
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
   "Teatro do Sesi": "Teatro do Sesi (Porto Alegre)",
+  "Auditório Dante Barone da Assembleia Legislativa": "Teatro Dante Barone",
 
   "Auditório da SMPG":
     "Auditório da Secretaria Municipal de Planejamento de Gestão",
@@ -402,6 +423,7 @@ export const tagToCategoryMap = {
   "Quartel do Comando-Geral do Corpo de Bombeiros Militar (CBMRS)":
     "Quartel do Comando-Geral do Corpo de Bombeiros Militar do Rio Grande do Sul",
   "Sítio do Mato": "Sítio do Mato (Porto Alegre)",
+  "Concessionária GAM3 Parks": "GAM3 Parks",
 
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
   "monumento em homenagem aos voluntários da enchente": "Heróis Voluntários",
@@ -467,7 +489,6 @@ export const tagToCategoryMap = {
   "Bairro Campo Novo": "Campo Novo (Porto Alegre)",
   "Bairro Cavalhada": "Cavalhada (Porto Alegre)",
   "Bairro Chapéu do Sol": "Chapéu do Sol",
-  "Bairro Coronel Aparício Borges": "Coronel Aparício Borges",
   "Bairro Cruzeiro": "Cruzeiro (Porto Alegre)",
   "Bairro Farrapos": "Farrapos (Porto Alegre)",
   "Bairro Glória": "Glória (Porto Alegre)",
@@ -513,6 +534,7 @@ export const tagToCategoryMap = {
   "Vila Nova": "Vila Nova (Porto Alegre)",
   "Capital Gaúcha": "Porto Alegre",
   "Aldeia do Morro do Osso": "Ymã Tupen Pãn",
+  "Entrega de Matrículas de Imóveis da Vila Canadá": "Vila Canadá",
 
   "Florianópolis-SC": "Florianópolis",
   "Diretoria de Governança e Gestão da Prefeitura de Esteio": "Esteio",
@@ -538,6 +560,7 @@ export const tagToCategoryMap = {
   "Avenida Voluntários da Pátria": "Rua Voluntários da Pátria (Porto Alegre)",
   "Av. Wenceslau Escobar": "Avenida Wenceslau Escobar",
   "Av. Soledade": "Avenida Soledade",
+  "Avenida Cel Aparício Borges": "Avenida Coronel Aparício Borges",
 
   "Praça Garibaldi": "Praça Garibaldi (Porto Alegre)",
   "Praça Montevideo": "Praça Montevidéu",
@@ -587,23 +610,14 @@ export const tagToCategoryMap = {
   "Olimpíada Brasileira de Matemática - OBMEP":
     "Olimpíada Brasileira de Matemática das Escolas Públicas",
   "Felicity/GIZ": "FELICITY",
-  "projeto Cidade Cardioprotegida": "Cidade Cardio-Protegida",
   "Comitê Paralímpico Brasileiro (CPB)": "Comitê Paralímpico Brasileiro",
   "Companhia de Saneamento Básico do Estado de São Paulo (Sabesp)": "Sabesp",
+  "Instituições de Longa Permanência para Idosos (ILPI)":
+    "Instituições de Longa Permanência para Idosos",
 
   "Professora Finalista do Prêmio RBS de Educação 2018":
     "Prêmio RBS de Educação 2018",
   "Prêmio Inovação": "Prêmio Inovação Porto Alegre",
-
-  Pisa: "Programa Integrado Socioambiental",
-  "Programa Família Acolhedora": "Família Acolhedora",
-  "Programa Melhor em Casa": "Melhor em Casa",
-  "Programa Saúde na Escola (PSE)": "Programa Saúde na Escola",
-  'programa "Lean nas Emergências"': "Lean nas Emergências",
-  "Programa Nacional de Gestão de Custos (PNGC)":
-    "Programa Nacional de Gestão de Custos",
-  "Programa Jovem Aprendiz": "Jovem Aprendiz",
-  "Encerramento do Programa Compartilhar": "Compartilhar",
 
   "Cônsul do Japão em Porto Alegre": "Relations of Brazil and Japan",
   "Cônsul da Ucrânia no Brasil": "Relations of Brazil and Ukraine",
@@ -673,6 +687,16 @@ export const tagToCategoryMap = {
     "2° Fórum de Logística Sustentável (2024)",
   "Conferência das Nações Unidas sobre as Mudanças Climáticas (COP29)":
     "2024 United Nations Climate Change Conference",
+  "V Conferência Municipal dos Direitos da Pessoa Idosa":
+    "V Conferência Municipal dos Direitos da Pessoa Idosa (2018)",
+  "34ª edição da entrega da Láurea Engenheiro do ano da Sociedade de Engenharia do Rio Grande do Sul":
+    "34ª Entrega da Láurea Engenheiro do Ano da SERGS (2018)",
+  "1ª Feira da Agricultura Familiar - Agrifam":
+    "1ª Feira da Agricultura Familiar (2018)",
+  "IV Mostra de Atividades do Projovem Adolescente":
+    "IV Mostra de Atividades do Projovem Adolescente (2018)",
+  "Jogos Escolares da Cidade de Porto Alegre (Jespoa)":
+    "Jogos Escolares da Cidade de Porto Alegre",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -827,7 +851,6 @@ export const tagToCategoryMap = {
   "Fotos Antigas": "History of Porto Alegre",
   Varejo: "Retail in Porto Alegre",
   Indústria: "Industry in Porto Alegre",
-  Espetáculo: "Shows in Porto Alegre",
   Hipismo: "Equestrian sports in Porto Alegre",
   Flora: "Flora of Porto Alegre",
   Tradição: "Traditions of Porto Alegre",
@@ -835,8 +858,6 @@ export const tagToCategoryMap = {
   Renda: "Labour in Porto Alegre",
   pessoas: "People of Porto Alegre",
   Seminário: "Seminars in Porto Alegre",
-  Palestra: "Presentations in Porto Alegre",
-  Apresentação: "Presentations in Porto Alegre",
   Telefonia: "Telecommunications in Porto Alegre",
   Professor: "Educators from Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
@@ -876,11 +897,10 @@ export const tagToCategoryMap = {
   "Zona Rural": "Countryside in Porto Alegre",
   "entidades carnavalescas": "Samba schools of Porto Alegre",
   "corredor de ônibus": "Bus lanes in Porto Alegre",
+  "Dia de Passe Livre": "Free fare days in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
-  Natal: metadata =>
-    `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
   "Dia da Independência": metadata =>
     `Independence Day ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
 
@@ -1028,6 +1048,9 @@ export const tagToCategoryMap = {
   "Espaços Públicos": "Public places in Brazil",
   "oficinas artísticas": "Art workshops in Brazil",
   "Propaganda Irregular": "Advertising in Brazil",
+  "Árvore de Natal": "Christmas trees in Brazil",
+  "Estúdio de Rádio": "Radio studios in Brazil",
+  "Entrevista ao Programa Timeline": "Interviews in Brazil",
 
   "Dia internacional da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -1036,7 +1059,7 @@ export const tagToCategoryMap = {
   Criança: metadata =>
     `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
   "Programação do Reveillon": metadata =>
-    `New Year ${getYear(metadata.humanReadableDate)} in Brazil`,
+    `New Year ${getYear(metadata.humanReadableDate) + 1} in Brazil`,
 
   Transexualidade: "Transgender in South America",
 
@@ -1159,7 +1182,11 @@ export const tagToCategoryMap = {
   Financiamento: "Funding bodies",
   Autuação: "Fine (penalty)",
   Diplomação: "Certification",
+  "Entrega dos Certificados aos Gestores dos CRIP's": "Certification",
   "Bônus-Moradia": "Affordable housing",
   Patrulhamento: "Patrolling",
   "Iluminação Cênica": "Architectural lighting",
+  "Show de Talentos": "Talent shows",
+  "Acervo de fotos": "Photograph collections",
+  "Saúde LGBTQIAP+": "LGBT health",
 };

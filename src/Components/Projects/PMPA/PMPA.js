@@ -333,7 +333,9 @@ const getCategoriesFromTags = metadata => {
       tags.some(tag =>
         [
           "Comitê Municipal de Transmissão Vertical do HIV e Sífilis Congênita",
+          "Cultura",
           "Demhab",
+          "DMLU",
           "Saúde",
           "Secretaria Municipal de Cultura (SMC)",
           "Smpg",
@@ -430,6 +432,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag =>
       [
         "Alvará",
+        "Decreto que Regulamenta a Lei Anticorrupção",
         "Cerimônia de Apresentação de PLs de Concessão e Adoção",
         "Lançamento do Projeto de Lei para PPP de Iluminação Pública",
         "Lei",
@@ -453,6 +456,19 @@ const getCategoriesFromTags = metadata => {
       "Tribunal Administrativo de Recursos Tributários",
       "Legal procedure"
     );
+  }
+
+  if (
+    orTags.some(tag =>
+      ["Apresentação Calendário Pagamento IPTU 2019"].includes(tag)
+    ) ||
+    tags.some(tag => ["Apresentação", "Palestra"].includes(tag))
+  ) {
+    categories.push("Presentations in Porto Alegre");
+  }
+
+  if (tags.includes("Decreto que Regulamenta a Lei Anticorrupção")) {
+    categories.push("Corruption in Brazil", "Anti-corruption measures");
   }
 
   if (
@@ -651,6 +667,7 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.some(tag =>
       [
+        "Ação Rua Calábria",
         "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
         "Show de Talentos da FASC",
         "XXVIII Colônia de Férias para Idosos",
@@ -955,8 +972,6 @@ const getCategoriesFromTags = metadata => {
         "Apreensão",
         "Autuação",
         "Blitz",
-        "Entrega de matrículas",
-        "Entrega de Matrículas de Regularização para Moradores da Zona Sul",
         "Fiscalização",
         "Flagrante",
         "Interdição",
@@ -1432,7 +1447,7 @@ const getCategoriesFromTags = metadata => {
       ].includes(tag)
     )
   ) {
-    categories.push("Geriatrics in Brazil");
+    categories.push("Geriatrics in Rio Grande do Sul");
   }
 
   if (
@@ -1503,6 +1518,7 @@ const getCategoriesFromTags = metadata => {
         "Outubro Rosa",
         "Saúde da Criança e Adolescente",
         "Saúde do Trabalhador",
+        "Saúde LGBTQIAP+",
         "Saúde Mental",
         "Saúde Nutricional e Amamentação",
       ].includes(tag)
@@ -1514,6 +1530,7 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.some(tag =>
       [
+        "Ambulatório Odontológico",
         "Assistência Hospitalar",
         "Atenção Ambulatorial, Hospitalar e Urgências",
         "Atenção Básica",
@@ -1521,6 +1538,7 @@ const getCategoriesFromTags = metadata => {
         "Atenção Primária à Saúde (APS)",
         "Atendimento em Casa",
         "Clínica da Família",
+        "doação e transplante de órgãos",
         "Equipamentos Hospitalares",
         "Exame médico",
         "Medicina",
@@ -1530,8 +1548,6 @@ const getCategoriesFromTags = metadata => {
         "Visita domiciliar",
       ].includes(tag)
     ) ||
-    tags.includes("Ambulatório Odontológico") ||
-    tags.includes("doação e transplante de órgãos") ||
     tags.includes("Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)") ||
     tags.includes("Mutirão de cirurgias")
   ) {
@@ -1704,6 +1720,15 @@ const getCategoriesFromTags = metadata => {
 
   if (tags.includes("Obra de arte") || tags.includes("Arte Cemiterial")) {
     categories.push("Art of Porto Alegre");
+  }
+
+  if (
+    !tags.some(tag =>
+      ["1ª Feira da Agricultura Familiar - Agrifam"].includes(tag)
+    ) &&
+    tags.includes("Largo Glênio Peres")
+  ) {
+    categories.push("Largo Glênio Peres");
   }
 
   if (
@@ -1940,6 +1965,13 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !tags.includes("EMEF Deputado Marcírio Goulart Loureiro") &&
+    tags.includes("Bairro Cel. Aparício Borges")
+  ) {
+    categories.push("Coronel Aparício Borges");
+  }
+
+  if (
     !tags.includes("25ª Corrida pela Vida") &&
     tags.includes("Bairro Cristal")
   ) {
@@ -2094,7 +2126,14 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Habitação", "Loteamento", "moradias temporárias"].includes(tag)
+      [
+        "Entrega de matrículas",
+        "Entrega de Matrículas de Imóveis da Vila Canadá",
+        "Entrega de Matrículas de Regularização para Moradores da Zona Sul",
+        "Habitação",
+        "Loteamento",
+        "moradias temporárias",
+      ].includes(tag)
     )
   ) {
     categories.push("Housing in Porto Alegre");
@@ -2212,6 +2251,14 @@ const getCategoriesFromTags = metadata => {
     categories.push("Catamarans", "Watercraft in Porto Alegre");
   }
 
+  if (tags.includes("Decoração de Natal Sustentável")) {
+    categories.push("Christmas decorations in Brazil", "Sustainable design");
+  }
+
+  if (tags.some(tag => ["Espetáculo", "Show de Talentos"].includes(tag))) {
+    categories.push("Shows in Porto Alegre");
+  }
+
   if (
     tags.some(tag =>
       [
@@ -2239,12 +2286,31 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !tags.includes("Carnaval de Blocos 2019") &&
     tags.some(tag =>
       ["Carnaval", "Carnaval de Rua", "Descida da Borges"].includes(tag)
     )
   ) {
     categories.push(
       `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
+    );
+  } else if (tags.includes("Carnaval de Blocos 2019")) {
+    categories.push(`Carnival of Porto Alegre 2019`);
+  }
+
+  if (
+    tags.some(tag =>
+      [
+        "Árvore de Natal",
+        "Decoração de Natal Sustentável",
+        "Festa de Natal dos Acolhidos de Porto Alegre",
+        "Natal",
+        "Primeira Edição do Projeto Porto dos Natais",
+      ].includes(tag)
+    )
+  ) {
+    categories.push(
+      `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`
     );
   }
 
@@ -2289,7 +2355,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (!tags.includes("Fórum da Liberdade") && tags.includes("Conferência")) {
-    categories.push("Conferences in Rio Grande do Sul");
+    categories.push("Conferences in Porto Alegre");
   }
 
   if (
@@ -2305,6 +2371,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag =>
       [
         "CRIPs",
+        "Entrega dos Certificados aos Gestores dos CRIP's",
         "Seminário de Capacitação dos gestores dos CRIPS para o 156",
       ].includes(tag)
     )
@@ -2370,38 +2437,42 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    (!(
-      categories.includes(
-        `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
-      ) ||
-      tags.some(tag =>
+    (!categories.some(
+      tag =>
         [
-          "126 Anos da Guarda Municipal de Porto Alegre",
-          "2° Fórum de Logística Sustentável",
-          "86 anos do Viaduto Otávio Rocha",
-          "Acampamento Farroupilha",
-          "Assembleia de Verão da Famurs 2025",
-          "Exposição de Gravuras Portuguesas",
-          "Feira do Livro",
-          "Festa de Nossa Senhora dos Navegantes",
-          "Festival do Japão",
-          "Fórum da Liberdade",
-          "Fórum Desenvolvimento Sustentável no Sul",
-          "Material Escolar",
-          "Missão Xangai 2018",
-          "Natal",
-          "Nós na Praça",
-          "Prêmio Açorianos",
-          "Salão Internacional de Desenho para Imprensa (Sidi)",
-          "Semana de Porto Alegre",
-          "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
-          "Seminário POA 2020",
-          "Top de Marketing ADVB/RS",
-          "Viagem à Holanda",
-          "XI Prêmio EPTC de Educação para o Trânsito",
-          "XXVIII Colônia de Férias para Idosos",
-        ].includes(tag)
-      )
+          `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`,
+          `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
+        ].includes(tag) ||
+        tags.some(tag =>
+          [
+            "1ª Feira da Agricultura Familiar - Agrifam",
+            "126 Anos da Guarda Municipal de Porto Alegre",
+            "2° Fórum de Logística Sustentável",
+            "34ª edição da entrega da Láurea Engenheiro do ano da Sociedade de Engenharia do Rio Grande do Sul",
+            "86 anos do Viaduto Otávio Rocha",
+            "Acampamento Farroupilha",
+            "Assembleia de Verão da Famurs 2025",
+            "Exposição de Gravuras Portuguesas",
+            "Feira do Livro",
+            "Festa de Nossa Senhora dos Navegantes",
+            "Festival do Japão",
+            "Fórum da Liberdade",
+            "Fórum Desenvolvimento Sustentável no Sul",
+            "Material Escolar",
+            "Missão Xangai 2018",
+            "Natal",
+            "Nós na Praça",
+            "Prêmio Açorianos",
+            "Salão Internacional de Desenho para Imprensa (Sidi)",
+            "Semana de Porto Alegre",
+            "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
+            "Seminário POA 2020",
+            "Top de Marketing ADVB/RS",
+            "Viagem à Holanda",
+            "XI Prêmio EPTC de Educação para o Trânsito",
+            "XXVIII Colônia de Férias para Idosos",
+          ].includes(tag)
+        )
     ) &&
       tags.some(tag =>
         [
@@ -2439,6 +2510,7 @@ const getCategoriesFromTags = metadata => {
           "Debate",
           "Dia da Criança",
           "Dia de Finados",
+          "Dia de Passe Livre",
           "Dia do Desafio",
           "Dia do Livro",
           "Dia internacional da Mulher",
@@ -2450,14 +2522,16 @@ const getCategoriesFromTags = metadata => {
           "Encerramento",
           "Encerramento do Programa Compartilhar",
           "Entrega de matrículas",
+          "Entrega de Matrículas de Imóveis da Vila Canadá",
           "Entrega de Matrículas de Regularização para Moradores da Zona Sul",
           "Entrega de Obras",
-          "Espetáculo",
+          "Entrega dos Certificados aos Gestores dos CRIP's",
+          "Entrevista ao Programa Timeline",
+          "Entrevista Coletiva",
           "Espetáculo O Rei da Vela",
           "evento social",
           "evento turístico internacional",
           "Eventos Climáticos",
-          "Executivo",
           "exposição",
           "Exposição Fotográfica",
           "Fasc",
@@ -2469,9 +2543,9 @@ const getCategoriesFromTags = metadata => {
           "Formatura",
           "Frente Parlamentar de Segurança",
           "Galera Curtição",
-          "Gvp",
           "Homenagem",
           "Janeiro Branco",
+          "Jogos Escolares da Cidade de Porto Alegre (Jespoa)",
           "Lançamento",
           "Legislativo",
           "Manifestação",
@@ -2483,6 +2557,7 @@ const getCategoriesFromTags = metadata => {
           "Olimpíada Brasileira de Matemática - OBMEP",
           "Operação de Segurança",
           "Operação Ferro-Velho",
+          "Orquestra Vila Lobos",
           "Outubro Rosa",
           "Painel",
           "Palestra",
@@ -2535,14 +2610,16 @@ const getCategoriesFromTags = metadata => {
     orTags.includes("Entrega da Lei Orçamentária Anual (LOA) 2019") ||
     categories.some(tag =>
       [
-        "Meetings in Porto Alegre",
-        "Conferences in Rio Grande do Sul",
         "Anniversaries in Rio Grande do Sul",
         "Auctions in Brazil",
         "Ceremonies in Porto Alegre",
+        "Conferences in Porto Alegre",
+        "Executive office of the Porto Alegre municipal government",
         "Inaugurations in Brazil",
+        "Meetings in Porto Alegre",
         "Meetings involving the Municipality of Porto Alegre",
         "Opening ceremonies in Brazil",
+        "Shows in Porto Alegre",
         "Task forces in Brazil",
         "Training courses by the Municipality of Porto Alegre",
         "Trainings by the Municipality of Porto Alegre",
@@ -2608,82 +2685,83 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      categories.includes(
-        `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
-      ) ||
-      categories.includes(
-        `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
-      ) ||
-      categories.includes(
-        `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`
-      ) ||
-      categories.includes(
-        `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
-      ) ||
-      categories.includes("2024 Porto Alegre floods") ||
-      tags.some(tag =>
+    !categories.some(
+      tag =>
         [
-          "1º Festival de Arte e Cultura Senegalesa",
-          "11ª Conferência Municipal dos Direitos da Criança e do Adolescente",
-          "126 Anos da Guarda Municipal de Porto Alegre",
-          "14ª edição do Campeonato Porto Alegre de Handebol 2018",
-          "14ª Gincana Ambiental",
-          "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre",
-          "17ª Edição dos Jogos Municipais da Terceira Idade",
-          "2° Fórum de Logística Sustentável",
-          "20 Anos da Mostra dos Servidores do DMAE",
-          "25 Anos do  FUMPROARTE",
-          "25ª Corrida pela Vida",
-          "30 Anos da Defesa Civil",
-          "32º Festival de Arte da Cidade de Porto Alegre",
-          "34ª Festa do Pêssego Municipal",
-          "48º Troféu Seival e 29ª Regata Farroupilha",
-          "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso",
-          "8ª Semana Municipal da Água",
-          "86 anos do Viaduto Otávio Rocha",
-          "Acampamento Farroupilha",
-          "Aniversário de 6 Anos do CEIC",
-          "Assembleia de Verão da Famurs 2025",
-          "Circuito Urbano EPTC",
-          "Exposição de Gravuras Portuguesas",
-          "Feira do Livro",
-          "Festa de Nossa Senhora dos Navegantes",
-          "Festa Jovem do Programa de Trabalho Educativo (PTE)",
-          "Festuris 2018",
-          "Fórum da Liberdade",
-          "Fórum Desenvolvimento Sustentável no Sul",
-          "Heineken F1 Experience",
-          "Inclusão Em Cena",
-          "Jogos dos Estudantes Surdos",
-          "Missão Xangai 2018",
-          "Mostra Acústicos e Elétricos",
-          "Nós na Praça",
-          "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’",
-          "Ônibus de Natal da Carris 2018",
-          "Ópera-rock Revolução Farroupilha",
-          "Operação Jaguar",
-          "Mostra Porto-alegrense da Atenção Primária à Saúde",
-          "Natal",
-          "Páscoa",
-          "Poa Em Cena",
-          "Prêmio Açorianos",
-          "Semana de Porto Alegre",
-          "Seminário Boas Práticas na Gestão de Trânsito dos Municípios",
-          "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
-          "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
-          "Seminário POA 2020",
-          "Seminário Povos Indígenas e Saúde: Um Corpo São",
-          "Sétimo encontro de Medicina Tradicional Kaingang",
-          "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
-          "STU Pro-Tur 2025",
-          "Top de Marketing ADVB/RS",
-          "Viagem à Holanda",
-          "VIII Seminário de Saúde e Segurança no Trabalho",
-          "XI Prêmio EPTC de Educação para o Trânsito",
-          "XXVIII Colônia de Férias para Idosos",
-        ].includes(tag)
-      )
+          `${getYear(metadata.humanReadableDate)} events in Porto Alegre`,
+          `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`,
+          `${getYear(
+            metadata.humanReadableDate
+          )} sports events in Porto Alegre`,
+          `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`,
+          `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
+          "2024 Porto Alegre floods",
+        ].includes(tag) ||
+        tags.some(tag =>
+          [
+            "1ª Feira da Agricultura Familiar - Agrifam",
+            "1º Festival de Arte e Cultura Senegalesa",
+            "11ª Conferência Municipal dos Direitos da Criança e do Adolescente",
+            "126 Anos da Guarda Municipal de Porto Alegre",
+            "14ª edição do Campeonato Porto Alegre de Handebol 2018",
+            "14ª Gincana Ambiental",
+            "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre",
+            "17ª Edição dos Jogos Municipais da Terceira Idade",
+            "2° Fórum de Logística Sustentável",
+            "20 Anos da Mostra dos Servidores do DMAE",
+            "25 Anos do  FUMPROARTE",
+            "25ª Corrida pela Vida",
+            "30 Anos da Defesa Civil",
+            "32º Festival de Arte da Cidade de Porto Alegre",
+            "34ª edição da entrega da Láurea Engenheiro do ano da Sociedade de Engenharia do Rio Grande do Sul",
+            "34ª Festa do Pêssego Municipal",
+            "48º Troféu Seival e 29ª Regata Farroupilha",
+            "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso",
+            "8ª Semana Municipal da Água",
+            "86 anos do Viaduto Otávio Rocha",
+            "Acampamento Farroupilha",
+            "Aniversário de 6 Anos do CEIC",
+            "Assembleia de Verão da Famurs 2025",
+            "Circuito Urbano EPTC",
+            "Exposição de Gravuras Portuguesas",
+            "Feira do Livro",
+            "Festa de Nossa Senhora dos Navegantes",
+            "Festa Jovem do Programa de Trabalho Educativo (PTE)",
+            "Festuris 2018",
+            "Fórum da Liberdade",
+            "Fórum Desenvolvimento Sustentável no Sul",
+            "Heineken F1 Experience",
+            "Inclusão Em Cena",
+            "Jogos dos Estudantes Surdos",
+            "Missão Xangai 2018",
+            "Mostra Acústicos e Elétricos",
+            "Nós na Praça",
+            "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’",
+            "Ônibus de Natal da Carris 2018",
+            "Ópera-rock Revolução Farroupilha",
+            "Operação Jaguar",
+            "Mostra Porto-alegrense da Atenção Primária à Saúde",
+            "Natal",
+            "Páscoa",
+            "Poa Em Cena",
+            "Prêmio Açorianos",
+            "Semana de Porto Alegre",
+            "Seminário Boas Práticas na Gestão de Trânsito dos Municípios",
+            "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
+            "Seminário Nacional de Trânsito - Mobilidade Sustentável, Educação, e Segurança",
+            "Seminário POA 2020",
+            "Seminário Povos Indígenas e Saúde: Um Corpo São",
+            "Sétimo encontro de Medicina Tradicional Kaingang",
+            "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
+            "STU Pro-Tur 2025",
+            "Top de Marketing ADVB/RS",
+            "V Conferência Municipal dos Direitos da Pessoa Idosa",
+            "Viagem à Holanda",
+            "VIII Seminário de Saúde e Segurança no Trabalho",
+            "XI Prêmio EPTC de Educação para o Trânsito",
+            "XXVIII Colônia de Férias para Idosos",
+          ].includes(tag)
+        )
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
