@@ -47,15 +47,24 @@ export const tagReplacements = {
 
   "Análises clínicas": "Laboratórios Municipais",
 
+  "Anfiteatro Moacyr Scliar": "Teatro Moacyr Scliar",
+  "Auditório do prédio II da UFCSPA": "Teatro Moacyr Scliar",
+  "Teatro Moacyr Scliar da Universidade de Ciências da Saúde de Porto Alegre":
+    "Teatro Moacyr Scliar",
+
   "Animal silvestre": "Fauna",
 
   "Apresentação Calendário Pagamento IPTU 2019": "IPTU",
   "Guias de Pagamento de Tributos": "IPTU",
+  Iptu: "IPTU",
 
   "Assembléia Legislativa": "Assembleia Legislativa",
 
   "Assistencia Social": "Serviço Social",
   "Assistência Social": "Serviço Social",
+
+  "Assistência Social e Cidadania": "Fasc",
+  "Fundação de Assistência Social e Cidadania – Fasc": "Fasc",
 
   "Associaçao Comercial de Porto Alegre (ACPA)":
     "Associação Comercial de Porto Alegre (ACPA)",
@@ -79,6 +88,7 @@ export const tagReplacements = {
   "Bairro Coronel Aparício Borges": "Bairro Cel. Aparício Borges",
   "Bairro Petrópolis": "Petrópolis",
   "bairro Restinga": "Bairro Restinga",
+  "Bairro Santa Teresa": "Bairro Santa Tereza",
   "Bairro Vila Ipiranga": "Vila Ipiranga",
   "Bairro Vila Nova": "Vila Nova",
 
@@ -142,6 +152,7 @@ export const tagReplacements = {
   "Integração Metropolitana de Transporte": "Transporte",
   Mobilidade: "Transporte",
   trânsito: "Transporte",
+  Trânsito: "Transporte",
   "Trânsito e Circulação": "Transporte",
   "Trânsito e Circulaçâo": "Transporte",
   "Transito e Transporte": "Transporte",
@@ -178,6 +189,8 @@ export const tagReplacements = {
   "Secretaria Municipal de Cultura e Economia Criativa (SMCEC)":
     "Cultura Economia Criativa",
 
+  "Curso de Aperfeiçoamento em Legislação de Trânsito e Transporte na EPTC":
+    "Curso",
   "Curso de Formação de Diretores da SMED": "Curso de Formação",
 
   "Defesa Cívil": "Defesa Civil",
@@ -226,6 +239,9 @@ export const tagReplacements = {
   "Emef Vereador Antonio Giúdice": "EMEF Vereador Antônio Giúdice",
   "Emef Vila Montecristo": "EMEF Vila Monte Cristo",
 
+  "Encerramento da Missão Técnica do BNDES":
+    "Missão Técnica com representantes do BNDES",
+
   "Entrega da Lei Orçamentária Anual (LOA) 2019":
     "Lei Orçamentária Anual (LOA)",
 
@@ -239,6 +255,9 @@ export const tagReplacements = {
 
   "Espaço Infantil": "Criança",
 
+  "Espetáculo Revolução Farroupilha: um História de Sangue e Metal":
+    "Ópera-rock Revolução Farroupilha",
+
   "Esporte Lazer e Juventude": "Esporte e Lazer",
   "Esporte, Lazer e Juventude": "Esporte e Lazer",
   "Esportes e Lazer": "Esporte e Lazer",
@@ -247,6 +266,8 @@ export const tagReplacements = {
     "Esporte e Lazer",
 
   "Executivo, Ministro da Saúde Gilberto Occhi": "Gilberto Occhi",
+
+  "Expo Favela": "Expo Favela RS 2024",
 
   Fazenda: "SMF",
   Finanças: "SMF",
@@ -260,14 +281,18 @@ export const tagReplacements = {
     "Famurs",
   "Federação das Indústrias do Estado do Rio Grande do Sul (Fiergs)": "Fiergs",
 
+  "Festa da Virada": "Ano Novo",
+  "Programação do Reveillon": "Ano Novo",
+  "Réveillon Porto Alegre": "Ano Novo",
+  "Reveillon 2019": "Ano Novo",
+  "Réveillon 2025": "Ano Novo",
+
   'Formação "O trabalho em Direitos Humanos na Educação Infantil"': "Formação",
 
   "foto aérea": "Aéreas",
   "Imagem Aérea": "Aéreas",
 
   "Frente Nacional dos Prefeitos (FNP)": "FNP",
-
-  "Fundação de Assistência Social e Cidadania – Fasc": "Fasc",
 
   "Gabinete da Causa Animal": "Causa Animal",
   "Gabinete da Causa Animal (GCA)": "Causa Animal",
@@ -292,6 +317,14 @@ export const tagReplacements = {
   "Governador José Ivo Sartori": "José Ivo Sartori",
 
   "Grupo de Combate ao Tabagismo": "Tabagismo",
+
+  "Grupo de Trabalho da Orla Moacyr Scliar": "Orla Moacyr Scliar",
+  Orla: "Orla Moacyr Scliar",
+  "Parque Urbano da Orla Moacyr Scliar": "Orla Moacyr Scliar",
+
+  "Grupo POA Solidárias": "POA Solidária",
+  "Representantes do POA Solidária": "POA Solidária",
+  "Projeto Poa Solidária": "POA Solidária",
 
   "Habitação Regularização Fundiária": "SMHARF",
   "Habitação e Regularização Fundiária": "SMHARF",
@@ -338,15 +371,13 @@ export const tagReplacements = {
 
   "Mercado Público Central": "Mercado Público",
 
+  "Museu Iberê Camargo": "Fundação Iberê Camargo",
   "Museu Joaquim Felizardo": "Museu de Porto Alegre Joaquim Felizardo",
 
   "Novo Líder de Governo na Câmara de Vereadores de Porto Alegre":
     "Mauro Pinheiro",
 
   "Obras de implantação da adutora da Estrada Antonio Borges": "Obras",
-
-  Orla: "Orla Moacyr Scliar",
-  "Parque Urbano da Orla Moacyr Scliar": "Orla Moacyr Scliar",
 
   "Parcerias Estratégicas": "Smpe",
 
@@ -370,6 +401,8 @@ export const tagReplacements = {
 
   "Porto Alegre-RS": "Porto Alegre",
 
+  "Porto Verão Alegre 2019": "Porto Verão Alegre",
+
   "Praça Marechal Deodoro (Matriz)": "Praça da Matriz",
 
   "prefeita em exercício, Betina Worm": "Betina Worm",
@@ -390,6 +423,7 @@ export const tagReplacements = {
   "Produtor Rural": "Zona Rural",
   "Propriedades Rurais": "Zona Rural",
 
+  "Programa Adote um Escritor": "Adote um Escritor",
   "Projeto Adote um Escritor": "Adote um Escritor",
 
   "Projeto Clássicos na Pinacoteca": "Clássicos na Pinacoteca",
@@ -401,9 +435,6 @@ export const tagReplacements = {
   Resíduos: "Resíduos Sólidos",
 
   "Retratos Oficiais": "Retrato",
-
-  "Réveillon Porto Alegre": "Programação do Reveillon",
-  "Réveillon 2025": "Programação do Reveillon",
 
   Sáude: "Saúde",
 
@@ -440,11 +471,6 @@ export const tagReplacements = {
   "Secretaria Municipal de Inclusão e Desenvovimento Humano": "Smidh",
   "secretaria municipal de Inlcusão e Desenvolvimento Humano (SMIDH)": "Smidh",
 
-  "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
-    "Cezar Schirmer",
-  "Secretário municipal de Planejamento e Gestão, Cezar Schirmer (SMPG)":
-    "Cezar Schirmer",
-
   "Secretaria Municipal de Saúde (SMS)": "SMS",
   Sms: "SMS",
 
@@ -455,6 +481,7 @@ export const tagReplacements = {
   "SMSEG - Segurança": "Smseg",
 
   "Secretaria Municipal de Serviços Urbanos (SMSURB)": "SMSURB",
+  "Secretário Municipal de Serviços Urbanos (SMSUrb)": "SMSURB",
   "Serviços Urbanos": "SMSURB",
   Smsurb: "SMSURB",
 
@@ -476,10 +503,8 @@ export const tagReplacements = {
   "Secretário Municipal de Comunicação Orestes de Andrade Jr.":
     "Orestes de Andrade",
 
-  "secretário municipal de Governança Cidadã e Desenvolvimento Rural (Smgov), Cássio Trogildo.":
-    "Cássio Trogildo",
-  "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
-    "Cássio Trogildo",
+  "Secretário Municipal de Desenvolvimento Social (SMDS), Jorge Brasil":
+    "Jorge Brasil",
 
   "Secretário Municipal de Educação Adriano Naves de Brito":
     "Adriano Naves de Brito",
@@ -488,11 +513,21 @@ export const tagReplacements = {
 
   "secretário municipal de Esporte e Lazer, Professor Tovi": "Professor Tovi",
 
+  "secretário municipal de Governança Cidadã e Desenvolvimento Rural (Smgov), Cássio Trogildo.":
+    "Cássio Trogildo",
+  "Secretário municipal de Governança Local e Coordenação Política, Cássio Trogildo":
+    "Cássio Trogildo",
+
   "secretário municipal de Inlcusão e Desenvolvimento Humano (SMIDH), Juliano Passini":
     "Juliano Passini",
 
   "Secretário municipal de Mobilidade Urbana, Adão de Castro Júnior":
     "Adão de Castro Júnior",
+
+  "Secretário municipal de Planejamento e Assuntos Estratégicos, Cezar Schirmer":
+    "Cezar Schirmer",
+  "Secretário municipal de Planejamento e Gestão, Cezar Schirmer (SMPG)":
+    "Cezar Schirmer",
 
   "Secretário municipal de Transparência e Controladoria, Gustavo Ferenci":
     "Gustavo Ferenci",
@@ -504,9 +539,13 @@ export const tagReplacements = {
   "SMC - FUMPROARTE comemora 25 anos": "25 Anos do  FUMPROARTE",
   "Programação de Novembro": "Programação Cultural",
 
+  "Teatro da AMRIGS": "Centro de Eventos da Amrigs",
+
   "Terminal Parobé": "Praça Parobé",
 
   "Termos para criação de mais dois CAPs":
+    "Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)",
+  "Centro de Atenção Psicossocial Álcool e Drogas do Tipo IV":
     "Centro de Atenção Psicossocial Álcool e Drogas (CAPS AD)",
 
   Tradicionalismo: "Tradição",

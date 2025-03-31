@@ -1,3 +1,5 @@
+import { getYear } from "../../../Utils/DateUtils";
+
 const keywordToCategoryMap = {
   Marchezan: "Nelson Marchezan Júnior",
   Hamm: "Afonso Hamm",
@@ -37,10 +39,13 @@ const keywordToCategoryMap = {
   "Aparecido Donizete": "Aparecido Donizete de Souza",
   "Diretor-geral do DMAE": "Bruno Vanuzzi",
   "Erno Harzhein": "Erno Harzheim",
+  "Jorge Gerdau Johannpeter": "Jorge Gerdau",
   "José Paulo Dornelles Cairoli": "José Paulo Cairoli",
   "Juliana Castro": "Juliana Castro (politician)",
   "Monica Leal": "Mônica Leal",
   "Orestes de Andrade": "Orestes de Andrade Júnior",
+  "Porto Verão Alegre": metadata =>
+    `Porto Verão Alegre ${getYear(metadata.humanReadableDate) + 1}`,
   "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
     "Idenir Cecchim",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
@@ -105,12 +110,15 @@ const sameNameKeywords = [
   "Jaime Spengler",
   "Jason Green",
   "João Fischer",
+  "Jorge Brasil",
+  "Jorge Gerdau",
   "José Ivo Sartori",
   "José Luiz Stédile",
   "José Paulo Cairoli",
   "Josep Piqué",
   "Júlia Evangelista Tavares",
   "Juliano Passini",
+  "Kelly Matos",
   "Leonardo Busatto",
   "Leonardo Pascoal",
   "Letícia Batistela",
@@ -352,7 +360,9 @@ export const getPplCategories = (metadata, tags) => {
       tags.includes(normalizedKeyword) ||
       description.includes(normalizedKeyword)
     ) {
-      uniqueCategories.add(category);
+      const value =
+        typeof category === "function" ? category(metadata) : category;
+      uniqueCategories.add(value);
     }
   });
 
