@@ -43,9 +43,13 @@ const keywordToCategoryMap = {
   "José Paulo Dornelles Cairoli": "José Paulo Cairoli",
   "Juliana Castro": "Juliana Castro (politician)",
   "Monica Leal": "Mônica Leal",
+  "Nádia Gerhard": "Comandante Nádia",
+  "Nádia Rodrigues Silveira Gerhard": "Comandante Nádia",
   "Orestes de Andrade": "Orestes de Andrade Júnior",
   "Porto Verão Alegre": metadata =>
     `Porto Verão Alegre ${getYear(metadata.humanReadableDate) + 1}`,
+  "Posse da Delegada Andine Anflor como chefe da Polícia Civil do RS":
+    "Nadine Anflor",
   "Presidente da Câmara Municipal de Vereadores,  Idenir Cecchim":
     "Idenir Cecchim",
   "Secretário municipal do Meio Ambiente, Urbanismo e Sustentabilidade, Germano Bremm":
@@ -124,6 +128,7 @@ const sameNameKeywords = [
   "Letícia Batistela",
   "Liliana Cardoso",
   "Liziane Bayer",
+  "Luciano Alabarse",
   "Luiz Henrique Viana",
   "Marcelo Soletti",
   "Marcino Fernandes",
@@ -133,7 +138,9 @@ const sameNameKeywords = [
   "Maurício Cunha",
   "Mauro Pinheiro",
   "Michel Costa",
+  "Moisés Barboza",
   "Mônica Leal",
+  "Nadine Anflor",
   "Nísia Trindade",
   "Orly Portal",
   "Osmar Terra",
@@ -162,15 +169,15 @@ const sameNameKeywords = [
 const positionYearMap = {
   prefeito: [
     { name: "Nelson Marchezan Júnior", years: { start: 2017, end: 2020 } },
-    { name: "Sebastião Melo", years: { start: 2021, end: 2024 } },
+    { name: "Sebastião Melo", years: { start: 2021, end: 2025 } },
   ],
   "vice-prefeito": [
     { name: "Gustavo Paim", years: { start: 2017, end: 2020 } },
-    { name: "Ricardo Gomes", years: { start: 2021, end: 2024 } },
+    { name: "Ricardo Gomes", years: { start: 2021, end: 2025 } },
   ],
   governador: [
     { name: "José Ivo Sartori", years: { start: 2015, end: 2018 } },
-    { name: "Eduardo Leite", years: { start: 2019, end: 2024 } },
+    { name: "Eduardo Leite", years: { start: 2019, end: 2025 } },
   ],
   "diretor-presidente da eptc": [
     { name: "Marcelo Soletti", years: { start: 2018, end: 2018 } },
@@ -366,12 +373,19 @@ export const getPplCategories = (metadata, tags) => {
     }
   });
 
-  // Add categories where the name is the same
   sameNameKeywords.forEach(keyword => {
     const normalizedKeyword = normalizeString(keyword);
+
+    const shouldExclude =
+      keyword === "Eduardo Leite" &&
+      tags.some(tag =>
+        normalizeString(tag).includes("posse do governador eduardo leite")
+      );
+
     if (
-      tags.includes(normalizedKeyword) ||
-      description.includes(normalizedKeyword)
+      !shouldExclude &&
+      (tags.includes(normalizedKeyword) ||
+        description.includes(normalizedKeyword))
     ) {
       uniqueCategories.add(keyword);
     }

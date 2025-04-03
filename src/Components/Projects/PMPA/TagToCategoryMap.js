@@ -58,8 +58,6 @@ export const tagToCategoryMap = {
     "Gabinete de Gestão Integrada Municipal (Porto Alegre)",
 
   Procempa: "Companhia de Processamento de Dados do Município de Porto Alegre",
-  "Companhia de Processamento de Dados do Município (Procempa)":
-    "Companhia de Processamento de Dados do Município de Porto Alegre",
   Demhab: "Departamento Municipal de Habitação (Porto Alegre)",
   CEIC: "Centro Integrado de Coordenação e Serviços da Cidade de Porto Alegre",
   "Defesa Civil": "Diretoria-Geral de Defesa Civil de Porto Alegre",
@@ -94,9 +92,6 @@ export const tagToCategoryMap = {
 
   Previmpa:
     "Departamento Municipal de Previdência dos Servidores Públicos do Município de Porto Alegre",
-  "Salão Nobre": "Salão Nobre (Paço Municipal de Porto Alegre)",
-  "Salão Nobre do Paço Municipal":
-    "Salão Nobre (Paço Municipal de Porto Alegre)",
   "Sala dos Embaixadores":
     "Sala dos Embaixadores (Paço Municipal de Porto Alegre)",
   Visita: "Official visits involving the Municipality of Porto Alegre",
@@ -131,8 +126,6 @@ export const tagToCategoryMap = {
   "Plano de ação Porto Alegre Forte": "Porto Alegre Forte",
   "Lei Orçamentária Anual (LOA)": "Lei Orçamentária Anual",
   "Proposta orçamentária 2019": "Proposta orçamentária 2019 (Porto Alegre)",
-  "Tapa Buracos": "Operação Tapa-Buracos",
-  "Prefeitura Nos Bairros": "Prefeitura nos Bairros",
   ROMU: "Ronda Ostensiva Municipal in Porto Alegre",
   Controladoria: "Controladoria-Geral do Município de Porto Alegre",
   Resiliência: "Plano de Resiliência (Porto Alegre)",
@@ -147,6 +140,8 @@ export const tagToCategoryMap = {
     "Rabiscando Ideias - Da cabeça para o papel",
   "Espetáculo O Rei da Vela": "O Rei da Vela",
   "Reurbanização da Vila Tronco": "Vila Tronco Urban Renewal",
+  "Contrato para Obras de Reassentamento da Vila Tronco":
+    "Vila Tronco Urban Renewal",
   "Moradores do Alameda Partenon": "Alameda Partenon",
   "Núcleo de Ações Preventivas (NAP)": "Núcleo de Ações Preventivas",
   "Incluir + POA": "Incluir+POA",
@@ -173,7 +168,12 @@ export const tagToCategoryMap = {
     "Centro Dia do Idoso Nascer do Sol",
   "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)":
     "CRAS Ilhas",
+  "Coordenação-Geral dos Direitos Animais (CGDA)":
+    "Coordenação-Geral dos Direitos Animais",
 
+  "Tapa Buracos": "Operação Tapa-Buracos",
+
+  "Prefeitura Nos Bairros": "Prefeitura nos Bairros",
   "Projeto Sistema de Gestão de Parcerias com as Entidades Sociais":
     "Sistema de Gestão de Parcerias",
   "Projeto Mais Comunidade": "Mais Comunidade",
@@ -188,6 +188,8 @@ export const tagToCategoryMap = {
     "Campanha do Brinquedo Solidário (Porto Alegre)",
   "Campanha Troco Amigo": "Troco Amigo",
   'Campanha " Aluguel Solidário - A Vida de Casa Nova"':
+    "Aluguel Solidário - A Vida de Casa Nova",
+  'Ônibus da Carris adesivado para  campanha "Aluguel Solidário"':
     "Aluguel Solidário - A Vida de Casa Nova",
 
   Pisa: "Programa Integrado Socioambiental",
@@ -283,6 +285,7 @@ export const tagToCategoryMap = {
     "Centro Cultural da Universidade Federal do Rio Grande do Sul",
   "Semana Acadêmica da Escola de Engenharia":
     "Semana Acadêmica da Escola de Engenharia da UFRGS",
+  "Campus do Vale - UFRGS": "Campus do Vale",
   PUCRS: "Pontifícia Universidade Católica do Rio Grande do Sul",
   "Café Coworking do Parque Científico e Tecnológico da PUCRS (TecnoPuc)":
     "Café Coworking do TecnoPuc",
@@ -337,6 +340,7 @@ export const tagToCategoryMap = {
   "Escola Estadual Piauí": "EEEF Piauí",
   "Reunião com Supervisores das EMEFS":
     "Municipal elementary schools in Porto Alegre",
+  "Escolas Preparatórias de Dança (EPDs)": "Escolas Preparatórias de Dança",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -351,7 +355,6 @@ export const tagToCategoryMap = {
 
   "Igreja Nossa Senhora das Dores":
     "Igreja Nossa Senhora das Dores (Porto Alegre)",
-  "Assembleia Legislativa": "Legislative Assembly of Rio Grande do Sul",
   "Santuário de Nossa Senhora do Rosário":
     "Igreja Nossa Senhora do Rosário (Porto Alegre)",
 
@@ -439,6 +442,8 @@ export const tagToCategoryMap = {
   "Departamento Estadual de Trânsito (Detran)": "DetranRS",
   "Centro da Comunidade Parque Madepinho (Cecopam)":
     "Centro da Comunidade Parque Madepinho",
+  "Temporada das Piscinas Comunitárias de Porto Alegre":
+    "Centro da Comunidade Parque Madepinho",
   "Conserto Didático da Banda Municipal de Porto Alegre":
     "Banda Municipal de Porto Alegre",
   "Observatório de Porto Alegre": "ObservaPOA",
@@ -455,6 +460,7 @@ export const tagToCategoryMap = {
 
   "Estúdios da Rádio Guaíba": "Rádio Guaíba",
   "Programa Esfera Pública": "Esfera Pública",
+  "Programa Jornal do Almoço": "Jornal do Almoço",
   "Jornal Correio do Povo": "Correio do Povo",
 
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
@@ -567,6 +573,7 @@ export const tagToCategoryMap = {
   "Capital Gaúcha": "Porto Alegre",
   "Aldeia do Morro do Osso": "Ymã Tupen Pãn",
   "Entrega de Matrículas de Imóveis da Vila Canadá": "Vila Canadá",
+  "Aldeia Infantil SOS": "Aldeias Infantis SOS Brasil",
 
   "Florianópolis-SC": "Florianópolis",
   "Diretoria de Governança e Gestão da Prefeitura de Esteio": "Esteio",
@@ -595,6 +602,7 @@ export const tagToCategoryMap = {
   "Avenida Cel Aparício Borges": "Avenida Coronel Aparício Borges",
   "Obra na Alça de Acesso da Cristóvão Colombo":
     "Avenida Cristóvão Colombo (Porto Alegre)",
+  "Retomada das Obras da Rua Ernesto Neugebauer": "Rua Ernesto Neugebauer",
 
   "Praça Garibaldi": "Praça Garibaldi (Porto Alegre)",
   "Praça Montevideo": "Praça Montevidéu",
@@ -737,6 +745,9 @@ export const tagToCategoryMap = {
   "Troféu “Atitudes que dão show”": "Troféu Atitudes que dão show",
   "Primeira edição do Natal Tri Demais": "Natal Tri Demais",
   "34ª Feira de Natal do Bom Fim": "34ª Feira de Natal do Bom Fim (2018)",
+  "Posse do Governador Eduardo Leite":
+    "Posse do Governador Eduardo Leite (2019)",
+  "Festa da Uva e da Ameixa": "Festa da Uva e da Ameixa de Porto Alegre",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -905,6 +916,9 @@ export const tagToCategoryMap = {
   Telefonia: "Telecommunications in Porto Alegre",
   Professor: "Educators from Porto Alegre",
   "Contratação emergencial de professores": "Educators from Porto Alegre",
+  Barcos: "Boats in Porto Alegre",
+  Gasolina: "Gas stations in Porto Alegre",
+  "Posto de Gasolina": "Gas stations in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -945,6 +959,7 @@ export const tagToCategoryMap = {
   "Dia de Passe Livre": "Free fare days in Porto Alegre",
   "Programa de escuta da comunidade": "Municipal projects in Porto Alegre",
   "Sanção da Lei das Antenas": "Antenna towers and masts in Porto Alegre",
+  "pôr-do-sol": "Sunsets of Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -1006,7 +1021,6 @@ export const tagToCategoryMap = {
   Imigrantes: "Immigration in Brazil",
   Basquete: "Basketball in Brazil",
   Simpósio: "Symposia in Brazil",
-  Audiência: "Audiences (meeting) in Brazil",
   Hanseníase: "Leprosy in Brazil",
   Retrato: "Portrait photographs of politicians of Brazil",
   Formatura: "Graduation ceremonies in Brazil",
@@ -1032,6 +1046,9 @@ export const tagToCategoryMap = {
   Gestante: "Pregnant women in Brazil",
   entrevista: "Interviews in Brazil",
   "Entrevista ao Programa Timeline": "Interviews in Brazil",
+  Refugiados: "Refugees in Brazil",
+  Assinatura: "Signing ceremonies in Brazil",
+  Colheita: "Harvest in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Artes Plásticas": "Visual arts of Brazil",
@@ -1079,6 +1096,8 @@ export const tagToCategoryMap = {
   "Equipamentos Hospitalares": "Medical equipment in Brazil",
   "mapa de serviço de trânsito": "Road maps of Brazil",
   "Educação no Trânsito": "Road safety education in Brazil",
+  "Gráfico Década de Ação pela Segurança no Trânsito da ONU":
+    "Road safety education in Brazil",
   "Saúde da Criança e Adolescente": "Child health in Brazil",
   "academias ao ar livre": "Outdoor gyms in Brazil",
   "moradias temporárias": "Temporary housing in Brazil",
@@ -1097,13 +1116,15 @@ export const tagToCategoryMap = {
   "Banheiros Públicos": "Public toilets in Brazil",
   "Espaços Públicos": "Public places in Brazil",
   "oficinas artísticas": "Art workshops in Brazil",
-  "Propaganda Irregular": "Advertising in Brazil",
   "Árvore de Natal": "Christmas trees in Brazil",
   "Regularização de Escolas Comunitárias": "Community schools in Brazil",
   "Laboratório de Informática do Prédio da Prefeitura de Porto Alegre":
     "Computer labs in Brazil",
   "micro-ônibus": "Microbuses in Brazil",
   "Proteção Animal": "Animal rights in Brazil",
+  "Festa de Natal": "Christmas parties in Brazil",
+  "fogos de artifício": "Fireworks in Brazil",
+  "Carnaval de Rua": "Street carnival in Brazil",
 
   "Dia internacional da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -1129,7 +1150,6 @@ export const tagToCategoryMap = {
   Roçada: "String trimmers",
   "Adoção de animais": "Animal adoption",
   "Educação Especial": "Special education",
-  "Carnaval de Rua": "Street carnival",
   Cidadania: "Civil society",
   Interdição: "Forced business closures",
   "Inclusão Social": "Social inclusion",
@@ -1163,13 +1183,12 @@ export const tagToCategoryMap = {
   "Banco de Sangue": "Blood banks",
   "Declaração de Edimburgo": "Collective agreements",
   "Novo Marco Global": "Biodiversity",
-  Assinatura: "Signing ceremonies",
   Certificado: "School certificates",
   Homenagem: "Homages to people",
   "doação e transplante de órgãos": "Organ donation",
   "Inspeção veicular": "Vehicle inspection",
   "Educação Permanente": "Professional development and training",
-  "Agentes de Fiscalização": "Inspectors",
+  "Agentes de Fiscalização": "Inspectors at work",
   Conscientização: "Awareness activism",
   Computador: "Computers",
   "Saúde do Trabalhador": "Occupational safety and health",

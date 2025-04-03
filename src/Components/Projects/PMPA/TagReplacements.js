@@ -133,13 +133,13 @@ export const tagReplacements = {
 
   "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM":
     "Posse",
+  "Cerimônia de posse gestão 2025/2028": "Posse",
   "Posse da  Comissão de Saúde e Segurança da Fasc": "Posse",
   "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI": "Posse",
   "Posse da Procuradora Municipal": "Posse",
   "Posse Novos Procuradores-Gerais do Município": "Posse",
   "Posse Novos Secretários Municipais": "Posse",
-
-  "Cerimônia de posse gestão 2025/2028": "Posse",
+  "Sessão especial de posse da Mesa Diretora de 2019": "Posse",
 
   "Chefe de Gabinete": "André Coronel",
 
@@ -161,6 +161,9 @@ export const tagReplacements = {
   "Transporte Metropolitano": "Transporte",
 
   "Companhia Carris Porto Alegrense": "Carris",
+
+  "Companhia de Processamento de Dados do Município (Procempa)": "Procempa",
+  "Conselho da Procempa": "Procempa",
 
   "Conselho Superior da PGM": "PGM",
   "Gabinete da Procuradoria": "PGM",
@@ -225,11 +228,14 @@ export const tagReplacements = {
 
   "Diretor Regional do SESC": "Sesc",
 
+  "Doação de Equipamentos": "Doação",
   Doações: "Doação",
   "Doações de Materiais": "Doação",
   Donativos: "Doação",
   "Entrega de Doações": "Doação",
   "Entrega de kits de brinquedos doados pela Fundação Abrinq": "Doação",
+
+  "Editais para Realização do Carnaval de Rua/POA 2019": "Carnaval de Rua",
 
   "Embaixador de Luxemburgo no Brasil": "Carlo Krieger",
 
@@ -283,9 +289,10 @@ export const tagReplacements = {
 
   "Festa da Virada": "Ano Novo",
   "Programação do Reveillon": "Ano Novo",
-  "Réveillon Porto Alegre": "Ano Novo",
   "Reveillon 2019": "Ano Novo",
   "Réveillon 2025": "Ano Novo",
+  "Réveillon de Porto Alegre - Pro Ano Nascer Feliz": "Ano Novo",
+  "Réveillon Porto Alegre": "Ano Novo",
 
   'Formação "O trabalho em Direitos Humanos na Educação Infantil"': "Formação",
 
@@ -305,6 +312,7 @@ export const tagReplacements = {
   "Primeira-dama": "Valéria Leopoldino",
   "Primeira-dama de Porto Alegre, Valéria Leopoldino": "Valéria Leopoldino",
 
+  "General Edson Leal Pujol": "Edson Leal Pujol",
   "general Hertz Pires do Nascimento": "Hertz Pires do Nascimento",
 
   "Gestão e Planejamento": "Smpg",
@@ -551,11 +559,14 @@ export const tagReplacements = {
   Tradicionalismo: "Tradição",
 
   "Vereador Giovane Byl": "Giovane Byl",
+  "Vereador Moisés Barboza": "Moisés Barboza",
 
   vereadora: "vereador",
 
   "Viagem à Europa": "Missão Internacional",
   "viagem internacional": "Missão Internacional",
+
+  "Viagem Segura EPTC": "Operação Viagem Segura",
 
   "Vice-Governador José Paulo Dornelles Cairoli":
     "José Paulo Dornelles Cairoli",
