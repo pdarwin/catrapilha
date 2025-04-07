@@ -29,7 +29,6 @@ export const tagToCategoryMap = {
     "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
   "Direitos Animais":
     "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
-  Smtc: "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
   "Governança Local e Coordenação Política":
     "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
   Parcerias: "Secretaria Municipal de Parcerias (Porto Alegre)",
@@ -53,6 +52,7 @@ export const tagToCategoryMap = {
 
   Inovação: "Gabinete da Inovação (Porto Alegre)",
   "Comunicação Social": "Gabinete de Comunicação Social (Porto Alegre)",
+  "Gabinete de Comunicação": "Gabinete de Comunicação Social (Porto Alegre)",
   "Causa Animal": "Gabinete da Causa Animal (Porto Alegre)",
   "Gabinete de Gestão Integrada Municipal (GGIM)":
     "Gabinete de Gestão Integrada Municipal (Porto Alegre)",
@@ -130,7 +130,6 @@ export const tagToCategoryMap = {
   Controladoria: "Controladoria-Geral do Município de Porto Alegre",
   Resiliência: "Plano de Resiliência (Porto Alegre)",
   "Diversidade sexual": "Coordenadoria de Diversidade Sexual",
-  "Op 2017": "Orçamento Participativo 2017",
   "Lei Seca": "Lei Seca (Porto Alegre)",
   "Núcleo Municipal de Segurança do Paciente":
     "Núcleo Municipal de Segurança do Paciente de Porto Alegre",
@@ -164,6 +163,8 @@ export const tagToCategoryMap = {
     "CAPS AD IV - Centro Céu Aberto (Farroupilha)",
   "Viveiro municipal de Porto Alegre": "Viveiro Municipal de Porto Alegre",
   "UM DIA DE AGENTE DA EPTC": "Um Dia de Agente da EPTC",
+  "Centro Dia do Idoso (CDI) Nascer do Sol":
+    "Centro Dia do Idoso Nascer do Sol",
   "Centro Dia do Idoso Zona Norte - Nascer do Sol":
     "Centro Dia do Idoso Nascer do Sol",
   "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)":
@@ -229,6 +230,8 @@ export const tagToCategoryMap = {
   Comui: "Conselho Municipal do Idoso (Porto Alegre)",
   Comcet: "Conselho Municipal de Ciência e Tecnologia",
   "Reunião Plenária do COMUI": "Conselho Municipal do Idoso (Porto Alegre)",
+  "Conselho Municipal dos Direitos das Pessoas com Deficiência ( Comdepa)":
+    "Conselho Municipal dos Direitos das Pessoas com Deficiência (Porto Alegre)",
   "Comissão Permanente de Atuação em Emergências (Copae)":
     "Comissão Permanente de Atuação em Emergências",
   "Comissão de Saúde e Meio Ambiente da CMPA (Cosmam)":
@@ -388,6 +391,8 @@ export const tagToCategoryMap = {
     "Tribunal de Contas do Estado do Rio Grande do Sul",
   "Sede do Tribunal de Contas do Estado (TCE)":
     "Tribunal de Contas do Estado do Rio Grande do Sul",
+  "Presidente do Tribunal de Contas do Estado (TCE)":
+    "Tribunal de Contas do Estado do Rio Grande do Sul",
   "TJ-RS": "Tribunal de Justiça do Estado do Rio Grande do Sul",
   "Tribunal Regional Eleitoral (TRE)": "Tribunal Regional Eleitoral RS",
 
@@ -395,6 +400,7 @@ export const tagToCategoryMap = {
   "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
   "Teatro do Sesi": "Teatro do Sesi (Porto Alegre)",
   "Auditório Dante Barone da Assembleia Legislativa": "Teatro Dante Barone",
+  "Teatro Dante Barone da Assembleia Legislativa": "Teatro Dante Barone",
 
   "Auditório da SMPG":
     "Auditório da Secretaria Municipal de Planejamento de Gestão",
@@ -457,6 +463,9 @@ export const tagToCategoryMap = {
   "Sítio do Mato": "Sítio do Mato (Porto Alegre)",
   "Concessionária GAM3 Parks": "GAM3 Parks",
   "LIDE RIO GRANDE DO SUL": "LIDE Rio Grande do Sul",
+  "Cerimônia de Passagem de Comando na Capitania Fluvial de Porto Alegre":
+    "Capitania Fluvial de Porto Alegre",
+  "Casa Menino Jesus de Praga": "Casa de Saúde Menino Jesus de Praga",
 
   "Estúdios da Rádio Guaíba": "Rádio Guaíba",
   "Programa Esfera Pública": "Esfera Pública",
@@ -466,7 +475,6 @@ export const tagToCategoryMap = {
   "Monumento ao Expedicionário": "Monumento ao Expedicionário (Porto Alegre)",
   "monumento em homenagem aos voluntários da enchente": "Heróis Voluntários",
   "Monumento à Elis Regina": "Monumento a Elis Regina",
-  Laçador: "Estátua do Laçador",
 
   "Bloco da Sustentabilidade (DMLU)": "Bloco da Sustentabilidade",
   "Grêmio Recreativo Escola de Samba Filhos de Maria": "GRES Filhos de Maria",
@@ -505,7 +513,6 @@ export const tagToCategoryMap = {
   "Região Metropolitana": "Região Metropolitana de Porto Alegre",
   "região oeste": "Região Oeste (Porto Alegre)",
   "4º Distrito": "4º Distrito (Porto Alegre)",
-  "Quarto Distrito": "4º Distrito (Porto Alegre)",
   "Zona Norte": "Zona Norte (Porto Alegre)",
   "Zona Sul": "Zona Sul (Porto Alegre)",
   "Entrega de Matrículas de Regularização para Moradores da Zona Sul":
@@ -519,7 +526,6 @@ export const tagToCategoryMap = {
   "Bairro Bela Vista": "Bela Vista (Porto Alegre)",
   "Bairro Belém Novo": "Belém Novo",
   "Bairro Belém Velho": "Belém Velho",
-  "Bairro Boa Vista": "Boa Vista (Porto Alegre)",
   "Bairro Bom Jesus": "Bom Jesus (Porto Alegre)",
   "Bairro Camaquã": "Camaquã (Porto Alegre)",
   Camaquã: "Camaquã (Porto Alegre)",
@@ -535,7 +541,6 @@ export const tagToCategoryMap = {
   "Bairro Humaitá": "Humaitá (Porto Alegre)",
   "Bairro IAPI": "Vila do IAPI",
   "Bairro Ipanema": "Ipanema (Porto Alegre)",
-  "Bairro Jardim Botânico": "Jardim Botânico (Porto Alegre neighborhood)",
   "Bairro Jardim Carvalho": "Jardim Carvalho",
   "Bairro Jardim Itu-Sabará": "Jardim Itu-Sabará",
   "Bairro Jardim Planalto": "Jardim Planalto (Porto Alegre)",
@@ -543,7 +548,6 @@ export const tagToCategoryMap = {
   "Bairro Lomba do Pinheiro": "Lomba do Pinheiro",
   "Bairro Mário Quintana": "Mário Quintana (Porto Alegre)",
   "Bairro Medianeira": "Medianeira (Porto Alegre)",
-  "Bairro Moinhos de Vento": "Moinhos de Vento",
   "Bairro Navegantes": "Navegantes (Porto Alegre)",
   Navegantes: "Navegantes (Porto Alegre)",
   "Bairro Nonoai": "Nonoai (Porto Alegre)",
@@ -558,7 +562,6 @@ export const tagToCategoryMap = {
   "Santa Cecília": "Santa Cecília (Porto Alegre)",
   "Bairro Santa Tereza": "Santa Tereza (Porto Alegre)",
   "Bairro Santo Antônio": "Santo Antônio (Porto Alegre)",
-  "Bairro São João": "São João (Porto Alegre)",
   "Bairro São José": "São José (Porto Alegre)",
   "Bairro Sarandi": "Sarandi (Porto Alegre)",
   "Bairro Teresópolis": "Teresópolis (Porto Alegre)",
@@ -603,6 +606,8 @@ export const tagToCategoryMap = {
   "Obra na Alça de Acesso da Cristóvão Colombo":
     "Avenida Cristóvão Colombo (Porto Alegre)",
   "Retomada das Obras da Rua Ernesto Neugebauer": "Rua Ernesto Neugebauer",
+  "Contrato de concessão da Rodovia Integração Sul (RIS)":
+    "Rodovia de Integração do Sul",
 
   "Praça Garibaldi": "Praça Garibaldi (Porto Alegre)",
   "Praça Montevideo": "Praça Montevidéu",
@@ -612,7 +617,10 @@ export const tagToCategoryMap = {
   "Praça XV de Novembro": "Praça XV de Novembro (Porto Alegre)",
 
   "Viaduto Conceição": "Viaduto da Conceição",
+  "Viaduto Utzig": "Viaduto José Eduardo Utzig",
   "Baronesa do Gravataí": "Rua Baronesa do Gravataí",
+  "Trincheira da Av. Cristóvão Colombo":
+    "Trincheira da Avenida Cristóvão Colombo",
   "Trincheira da Ceará": "Trincheira da Avenida Ceará",
   "Rua Olavo Bilac": "Rua Olavo Bilac (Porto Alegre)",
   "calçadão de Ipanema": "Calçadão de Ipanema (Porto Alegre)",
@@ -633,8 +641,9 @@ export const tagToCategoryMap = {
   Conaf: "Conselho Nacional de Controle Interno",
   Sebrae: "SEBRAE Rio Grande do Sul",
   "OAB-RS": "Ordem dos Advogados do Brasil - Rio Grande do Sul",
+  "Sessão Solene de Posse da OAB/RS Triênio 2019/2021":
+    "Ordem dos Advogados do Brasil - Rio Grande do Sul",
   "Fundação O Pão dos Pobres": "Fundação Pão dos Pobres",
-  "Obras da Copa de 2014": "2014 FIFA World Cup Construction Projects",
   IPTU: "Imposto sobre a Propriedade Predial e Territorial Urbana",
   "Centro de Informações Estratégicas em Vigilância em Saúde (Cievs)":
     "Centro de Informações Estratégicas em Vigilância em Saúde",
@@ -681,6 +690,7 @@ export const tagToCategoryMap = {
   "1º Festival de Arte e Cultura Senegalesa":
     "1º Festival de Arte e Cultura Senegalesa (2018)",
   "Dia da Criança": "Children's Day in Brazil",
+  "Dia da Visibilidade Trans": "Dia Nacional da Visibilidade Trans",
   "30 Anos da Defesa Civil": "30 Anos da Defesa Civil (2018)",
   "30 Anos da Kinder": "30 Anos da Kinder (2018)",
   "Dia Mundial da Alimentação": "World Food Day",
@@ -748,6 +758,8 @@ export const tagToCategoryMap = {
   "Posse do Governador Eduardo Leite":
     "Posse do Governador Eduardo Leite (2019)",
   "Festa da Uva e da Ameixa": "Festa da Uva e da Ameixa de Porto Alegre",
+  IberCup: "IberCup 2019",
+  "Pokémon GO": "Pokémon GO Safari Zone 2019 in Porto Alegre",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -774,6 +786,10 @@ export const tagToCategoryMap = {
     `UNIDPD in Brazil ${getYear(metadata.humanReadableDate)}`,
   "Projeto Esporte Verão": metadata =>
     `POA Esporte Verão ${getYear(metadata.humanReadableDate) + 1}`,
+  "Festa de Nossa Senhora dos Navegantes": metadata =>
+    `Festa de Nossa Senhora dos Navegantes (Porto Alegre, ${getYear(
+      metadata.humanReadableDate
+    )})`,
 
   "Viagem à Holanda": metadata =>
     `Missão Países Baixos ${getYear(metadata.humanReadableDate)}`,
@@ -853,6 +869,7 @@ export const tagToCategoryMap = {
   "Desafio do City Cancer Challenge": "City Cancer Challenge",
   "Sociedade de Engenharia do Rio Grande do Sul (Sergs)":
     "Sociedade de Engenharia do Rio Grande do Sul",
+  "Início das Atividades do Regula+Brasil na Capital Gaúcha": "Regula+Brasil",
 
   Santander: "Banco Santander (Brasil)",
   "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)":
@@ -874,7 +891,6 @@ export const tagToCategoryMap = {
   "Veículo Roubado": "Crime in Porto Alegre",
   Flagrante: "Crime in Porto Alegre",
   Ambulância: "Ambulances in Porto Alegre",
-  Procissão: "Processions in Porto Alegre",
   Aéreas: "Aerial photographs of Porto Alegre",
   Táxi: "Taxis in Porto Alegre",
   Infraestrutura: "Infrastructure in Porto Alegre",
@@ -956,10 +972,13 @@ export const tagToCategoryMap = {
   "Zona Rural": "Countryside in Porto Alegre",
   "entidades carnavalescas": "Samba schools of Porto Alegre",
   "corredor de ônibus": "Bus lanes in Porto Alegre",
+  "Faixa Preferencial Deslocamento de Ônibus": "Bus lanes in Porto Alegre",
   "Dia de Passe Livre": "Free fare days in Porto Alegre",
   "Programa de escuta da comunidade": "Municipal projects in Porto Alegre",
   "Sanção da Lei das Antenas": "Antenna towers and masts in Porto Alegre",
   "pôr-do-sol": "Sunsets of Porto Alegre",
+  "Obras da Copa de 2014":
+    "2014 FIFA World Cup Construction Projects in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -970,13 +989,11 @@ export const tagToCategoryMap = {
   Futsal: "Futsal in Rio Grande do Sul",
   "Indumentária Gaúcha": "Costumes in Rio Grande do Sul",
   "Circuito Urbano": "Racing circuits in Rio Grande do Sul",
+  "Posse Deputados Estaduais": "State deputies of Rio Grande do Sul",
 
   Infográfico: "Information graphics of Brazil",
   Vôlei: "Volleyball in Brazil",
   Handebol: "Handball in Brazil",
-  Campeonato: "Competitions in Brazil",
-  Concurso: "Competitions in Brazil",
-  Posse: "Oaths of office in Brazil",
   Servidor: "Civil servants of Brazil",
   Aluno: "Students in Brazil",
   Alunos: "Students in Brazil",
@@ -1049,6 +1066,10 @@ export const tagToCategoryMap = {
   Refugiados: "Refugees in Brazil",
   Assinatura: "Signing ceremonies in Brazil",
   Colheita: "Harvest in Brazil",
+  Caminhão: "Waste collection trucks in Brazil",
+  cozinheiras: "Cooks from Brazil",
+  Nutrição: "Nutrition in Brazil",
+  "Coordenação de Nutrição": "Nutrition in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
   "Artes Plásticas": "Visual arts of Brazil",
@@ -1125,6 +1146,8 @@ export const tagToCategoryMap = {
   "Festa de Natal": "Christmas parties in Brazil",
   "fogos de artifício": "Fireworks in Brazil",
   "Carnaval de Rua": "Street carnival in Brazil",
+  "Atendimento Infanto-Juvenil": "Child health in Brazil",
+  "Doação de Guarda-Sóis": "Parasols in Brazil",
 
   "Dia internacional da Mulher": metadata =>
     `International Women's Day in ${getYear(
@@ -1132,8 +1155,6 @@ export const tagToCategoryMap = {
     )} in Brazil`,
   Criança: metadata =>
     `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
-
-  Transexualidade: "Transgender in South America",
 
   "síndrome de down": "Down syndrome",
   Investigação: "Inquiry",
@@ -1171,7 +1192,6 @@ export const tagToCategoryMap = {
     "Traffic monitoring systems",
   "Cidades Inteligentes": "Smart cities",
   "Câncer Bucal": "Oral cancer",
-  Nutrição: "Nutrition",
   "Saúde Nutricional e Amamentação": "Breastfeeding",
   Live: "Video streaming",
   Mãe: "Maternal health",
@@ -1264,4 +1284,5 @@ export const tagToCategoryMap = {
   "Transporte Irregular de Produtos Perigosos":
     "Transportation of hazardous materials",
   Videomonitoramento: "Video surveillance",
+  abordagem: "Outreach",
 };
