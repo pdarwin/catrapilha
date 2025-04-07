@@ -184,6 +184,7 @@ export const tagToCategoryMap = {
   "projeto Cidade Cardioprotegida": "Cidade Cardio-Protegida",
   "Projeto Idoso no Trânsito": "Idoso no Trânsito",
   "Passeio cliclistico De Bike para o Trabalho": "De Bike para o Trabalho",
+  "Projeto Salseando e Bachateando": "Salseando e Bachateando",
 
   "Campanha do Brinquedo Solidário":
     "Campanha do Brinquedo Solidário (Porto Alegre)",
@@ -412,6 +413,8 @@ export const tagToCategoryMap = {
     "Auditório da Caixa Econômica Federal (Porto Alegre)",
   "Auditório do Tribunal Regional Eleitoral (TRE)":
     "Auditório do Tribunal Regional Eleitoral",
+  "Auditório do Conselho Regional de Medicina do Rio Grande do Sul (Cremers)":
+    "Auditório do Conselho Regional de Medicina do Rio Grande do Sul",
 
   "Catedral Metropolitana de Porto Alegre (Matriz)":
     "Catedral Metropolitana de Porto Alegre",
@@ -429,7 +432,6 @@ export const tagToCategoryMap = {
   "Biblioteca Pública Josué Guimarães":
     "Biblioteca Pública Municipal Josué Guimarães",
   "CEEE Equatorial": "CEEE Grupo Equatorial",
-  "Fonte Talavera": "Fonte Talavera de La Reina",
   Brechó: "Brechocão",
   "Arquivo Histórico Moysés Vellinho":
     "Arquivo Histórico de Porto Alegre Moysés Vellinho",
@@ -439,10 +441,6 @@ export const tagToCategoryMap = {
   "Sala Aldo Locatelli": "Pinacoteca Aldo Locatelli",
   "Cemitério da Santa Casa de Misericórdia":
     "Cemitério da Santa Casa de Misericórdia (Porto Alegre)",
-  BarraShoppingSul: "Barra Shopping Sul",
-  "Centro de Eventos do Barrashoppingsul":
-    "Centro de Eventos do Barra Shopping Sul",
-  "Centro de Eventos da Amrigs": "Centro de Eventos AMRIGS",
   "Centro Social Marista - CESMAR": "Centro Social Marista",
   "Sede do Detran -RS": "DetranRS",
   "Departamento Estadual de Trânsito (Detran)": "DetranRS",
@@ -466,6 +464,15 @@ export const tagToCategoryMap = {
   "Cerimônia de Passagem de Comando na Capitania Fluvial de Porto Alegre":
     "Capitania Fluvial de Porto Alegre",
   "Casa Menino Jesus de Praga": "Casa de Saúde Menino Jesus de Praga",
+
+  "Fonte Talavera": "Fonte Talavera de La Reina",
+  "Chafariz Imperial": "Fonte Francesa",
+
+  BarraShoppingSul: "Barra Shopping Sul",
+  "Centro de Eventos do Barrashoppingsul":
+    "Centro de Eventos do Barra Shopping Sul",
+  "Centro de Eventos da Amrigs": "Centro de Eventos AMRIGS",
+  "Centro de Eventos": "Centro de Eventos de Porto Alegre",
 
   "Estúdios da Rádio Guaíba": "Rádio Guaíba",
   "Programa Esfera Pública": "Esfera Pública",
@@ -541,7 +548,6 @@ export const tagToCategoryMap = {
   "Bairro Humaitá": "Humaitá (Porto Alegre)",
   "Bairro IAPI": "Vila do IAPI",
   "Bairro Ipanema": "Ipanema (Porto Alegre)",
-  "Bairro Jardim Carvalho": "Jardim Carvalho",
   "Bairro Jardim Itu-Sabará": "Jardim Itu-Sabará",
   "Bairro Jardim Planalto": "Jardim Planalto (Porto Alegre)",
   "Bairro Lami": "Lami (Porto Alegre)",
@@ -673,13 +679,10 @@ export const tagToCategoryMap = {
   "Comitiva portuguesa": "Relations of Brazil and Portugal",
 
   "Festival de Inverno": "Festival de Inverno (Porto Alegre)",
-  //Greve: "General strike in Brazil (2017-06-30)",
   "Dia do Desafio": "Challenge Day",
   "Semana do Japão": "Semana do Japão (Porto Alegre)",
   "48º Troféu Seival e 29ª Regata Farroupilha":
     "48º Troféu Seival e 29ª Regata Farroupilha (2018)",
-  "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança":
-    "1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
   "32º Festival de Arte da Cidade de Porto Alegre":
     "32º Festival de Arte da Cidade de Porto Alegre (2018)",
   "17ª Edição dos Jogos Municipais da Terceira Idade":
@@ -748,8 +751,6 @@ export const tagToCategoryMap = {
   "Jogos Escolares da Cidade de Porto Alegre (Jespoa)":
     "Jogos Escolares da Cidade de Porto Alegre",
   "Fórum da Liberdade": "30º Fórum da Liberdade (2017)",
-  "XVº Congresso Internacional de Cidades Educadoras":
-    "XV Congresso Internacional de Cidades Educadoras (2018)",
   "2º Seminário de Comunicação da Prefeitura de Porto Alegre":
     "2º Seminário de Comunicação da Prefeitura de Porto Alegre (2018)",
   "Troféu “Atitudes que dão show”": "Troféu Atitudes que dão show",
@@ -760,6 +761,7 @@ export const tagToCategoryMap = {
   "Festa da Uva e da Ameixa": "Festa da Uva e da Ameixa de Porto Alegre",
   IberCup: "IberCup 2019",
   "Pokémon GO": "Pokémon GO Safari Zone 2019 in Porto Alegre",
+  "Copa América de Futebol 2019": "Copa América 2019",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -788,6 +790,10 @@ export const tagToCategoryMap = {
     `POA Esporte Verão ${getYear(metadata.humanReadableDate) + 1}`,
   "Festa de Nossa Senhora dos Navegantes": metadata =>
     `Festa de Nossa Senhora dos Navegantes (Porto Alegre, ${getYear(
+      metadata.humanReadableDate
+    )})`,
+  "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço": metadata =>
+    `Lavagem das escadarias do Paço Municipal do Porto Alegre (${getYear(
       metadata.humanReadableDate
     )})`,
 
@@ -835,7 +841,6 @@ export const tagToCategoryMap = {
   "Treinamento da Cruz Vermelha": "Brazilian Red Cross",
   "Grupo Experimental de Dança (GED)":
     "Grupo Experimental de Dança de Porto Alegre",
-  "Reunião-Almoço Menupoa": "MenuPOA",
   "Reunião-almoço Tá Na Mesa": "Tá na Mesa",
   "Gre-nal de Todos": "Grenal",
   "Gre-Nal": "Grenal",
@@ -969,6 +974,7 @@ export const tagToCategoryMap = {
   "Cabines Telefônicas": "Telephone booths in Porto Alegre",
   "foto noturna": "Night in Porto Alegre",
   "Aldeia Kaingang": "Kaingang villages in Porto Alegre",
+  "Aldeia Mbyá-Guarani": "Mbya Guarani villages in Porto Alegre",
   "Zona Rural": "Countryside in Porto Alegre",
   "entidades carnavalescas": "Samba schools of Porto Alegre",
   "corredor de ônibus": "Bus lanes in Porto Alegre",
@@ -1069,6 +1075,8 @@ export const tagToCategoryMap = {
   Caminhão: "Waste collection trucks in Brazil",
   cozinheiras: "Cooks from Brazil",
   Nutrição: "Nutrition in Brazil",
+  Uniformes: "Uniforms of Brazil",
+  serpentes: "Snakes of Brazil",
   "Coordenação de Nutrição": "Nutrition in Brazil",
   "Bloqueio químico": "Fogging against Aedes aegypti in Brazil",
   "febre amarela": "Yellow fever in Brazil",
@@ -1183,7 +1191,6 @@ export const tagToCategoryMap = {
   "Ação Integrada": "Community-driven programs",
   "Saúde Bucal": "Oral health",
   Convite: "Invitations",
-  Lançamento: "Product launches",
   Pavimentação: "Road paving",
   Flashmob: "Flash mobs",
   "Centro de triagem": "Screening centers",
@@ -1285,4 +1292,5 @@ export const tagToCategoryMap = {
     "Transportation of hazardous materials",
   Videomonitoramento: "Video surveillance",
   abordagem: "Outreach",
+  "Adoção de Monumentos": "Adoption",
 };

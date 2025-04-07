@@ -271,6 +271,7 @@ const getCategoriesFromTags = metadata => {
 
   // Paço check
   const paçoExclude = [
+    "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
     "Exposição de Gravuras Portuguesas",
     "Pinacoteca Aldo Locatelli",
     "Salão Nobre",
@@ -294,7 +295,7 @@ const getCategoriesFromTags = metadata => {
   const meetingTags = [
     "Fórum",
     "Reunião",
-    "Reunião-Almoço Menupoa",
+    "MenuPOA",
     "Reunião-almoço Tá Na Mesa",
     "Videoconferência",
   ];
@@ -348,6 +349,7 @@ const getCategoriesFromTags = metadata => {
     "Saúde",
     "Secretaria Municipal de Cultura (SMC)",
     "SMAMS",
+    "Smdse",
     "Smpg",
     "Smri",
     "Smseg",
@@ -392,6 +394,7 @@ const getCategoriesFromTags = metadata => {
     "Cerimônia",
     "Cerimônia de Apresentação de PLs de Concessão e Adoção",
     "Cerimônia de Passagem de Comando na Capitania Fluvial de Porto Alegre",
+    "Lançamento",
     "Sessão Solene de outorga de Título de Cidadão de Porto Alegre ao Presidente Estadual da Assembleia de Deus Pastor Adalberto Santos Dutra",
     "Sessão Solene de Posse da OAB/RS Triênio 2019/2021",
     "Solenidade de transmissão do Cargo do Procurador-Geral do Estado",
@@ -412,7 +415,10 @@ const getCategoriesFromTags = metadata => {
   const isMeetingTag =
     !tags.includes("Fórum da Liberdade") && anyTagIncludes(meetingTags);
   const isSpecificMeetingTag = anyTagIncludes(specificMeetingTags);
-  const isExecutiveTag = anyTagIncludes(executiveTags);
+  const isExecutiveTag =
+    !tags.includes(
+      "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço"
+    ) && anyTagIncludes(executiveTags);
   const isInternalMeeting = anyTagIncludes(internalMeetingTags);
   const isVisit = tags.includes("Visita");
   const isAudience = tags.includes("Audiência");
@@ -855,6 +861,7 @@ const getCategoriesFromTags = metadata => {
     !tags.some(tag =>
       [
         "14ª edição do Campeonato Porto Alegre de Handebol 2018",
+        "Campanha do Cabide Solidário",
         "Festa dos Idosos da Fasc",
         "Reunião Plenária do COMUI",
         "Comui",
@@ -1117,7 +1124,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Brique da Redenção") &&
+    !tags.includes("Brique da Redenção", "Recanto Europeu") &&
     tags.includes("Parque Farroupilha (Redenção)")
   ) {
     categories.push("Parque da Redenção");
@@ -1140,7 +1147,6 @@ const getCategoriesFromTags = metadata => {
         "Mostra Acústicos e Elétricos",
         "Poa Em Cena",
         "Cultura Economia Criativa",
-        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
         "Viva o Centro a Pé",
       ].includes(tag)
     ) &&
@@ -1473,6 +1479,7 @@ const getCategoriesFromTags = metadata => {
         "Gato",
         "macacos-prego",
         "Proteção Animal",
+        "serpentes",
       ].includes(tag)
     )
   ) {
@@ -2386,6 +2393,13 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
+    !tags.includes("ECEI Eni Medeiros") &&
+    tags.includes("Bairro Jardim Carvalho")
+  ) {
+    categories.push("Jardim Carvalho");
+  }
+
+  if (
     !tags.includes(
       "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)"
     ) &&
@@ -2459,6 +2473,7 @@ const getCategoriesFromTags = metadata => {
     !tags.some(tag => ["Casa da Estrela", "Confeitaria Rocco"].includes(tag)) &&
     tags.some(tag =>
       [
+        "Adoção de Monumentos",
         "Patrimônio Histórico e Cultural do município",
         "Prédios Históricos",
       ].includes(tag)
@@ -2640,19 +2655,6 @@ const getCategoriesFromTags = metadata => {
   categories.push(...getPplCategories(metadata, tags));
 
   if (
-    tags.includes(
-      "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
-    )
-  ) {
-    ["Paixão Côrtes", "Auditório Araújo Vianna"].forEach(unwanted => {
-      const index = categories.indexOf(unwanted);
-      if (index !== -1) {
-        categories.splice(index, 1);
-      }
-    });
-  }
-
-  if (
     !(
       tags.includes("Enchente Porto Alegre Maio de 2024") ||
       tags.includes("Enchente Porto Alegre")
@@ -2721,12 +2723,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !(
-      tags.includes("Acampamento Farroupilha") ||
-      tags.includes(
-        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
-      )
-    ) &&
+    !tags.includes("Acampamento Farroupilha") &&
     tags.includes("Semana Farroupilha")
   ) {
     categories.push("Semana Farroupilha in Porto Alegre");
@@ -2897,10 +2894,7 @@ const getCategoriesFromTags = metadata => {
       tags.includes("Acampamento Farroupilha") ||
       tags.includes("Trabalho") ||
       tags.includes("Poa Em Cena") ||
-      tags.includes("Festival do Japão") ||
-      tags.includes(
-        "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança"
-      )
+      tags.includes("Festival do Japão")
     ) &&
     tags.some(tag =>
       [
@@ -2939,6 +2933,7 @@ const getCategoriesFromTags = metadata => {
             "3ª Edição da Mostra Cultural Eixo Baltazar",
             "34ª edição da entrega da Láurea Engenheiro do ano da Sociedade de Engenharia do Rio Grande do Sul",
             "34ª Feira de Natal do Bom Fim",
+            "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
             "86 anos do Viaduto Otávio Rocha",
             "Acampamento Farroupilha",
             "Assembleia de Verão da Famurs 2025",
@@ -2995,6 +2990,7 @@ const getCategoriesFromTags = metadata => {
           "Cadastro Único",
           "Caminhada",
           "Campanha do Brinquedo Solidário",
+          "Campanha do Cabide Solidário",
           "Capacitação",
           "Casa de Festas Brincalhão",
           "Casamento",
@@ -3081,6 +3077,7 @@ const getCategoriesFromTags = metadata => {
           "Programação Cultural",
           "Projeto Kilombinho de Verão",
           "Projeto Mais Comunidade",
+          "Projeto Salseando e Bachateando",
           "Proposta orçamentária 2019",
           "Saint Patrick's Day",
           "Sanção da Lei das Antenas",
@@ -3194,6 +3191,7 @@ const getCategoriesFromTags = metadata => {
             "34ª Feira de Natal do Bom Fim",
             "34ª Festa do Pêssego Municipal",
             "48º Troféu Seival e 29ª Regata Farroupilha",
+            "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
             "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso",
             "8ª Semana Municipal da Água",
             "86 anos do Viaduto Otávio Rocha",
@@ -3239,7 +3237,6 @@ const getCategoriesFromTags = metadata => {
             "Seminário POA 2020",
             "Seminário Povos Indígenas e Saúde: Um Corpo São",
             "Sétimo encontro de Medicina Tradicional Kaingang",
-            "SMC - 1ª Invernada Farroupilha Paixão Cortes 2018 Mostra de Dança",
             "STU Pro-Tur 2025",
             "Top de Marketing ADVB/RS",
             "Troféu “Atitudes que dão show”",
@@ -3247,7 +3244,6 @@ const getCategoriesFromTags = metadata => {
             "Viagem à Holanda",
             "VIII Seminário de Saúde e Segurança no Trabalho",
             "XI Prêmio EPTC de Educação para o Trânsito",
-            "XVº Congresso Internacional de Cidades Educadoras",
             "XXVIII Colônia de Férias para Idosos",
           ].includes(tag)
         )

@@ -20,6 +20,7 @@ export const tagReplacements = {
   "Acampamento Farropilha": ["Acampamento Farroupilha"],
   "Ação Conjunta de Fiscalização": ["Fiscalização"],
   "Fiscalização do Transporte Resíduos da Construção Civil": ["Fiscalização"],
+  "Ação de Bloqueio de Transmissão Viral": "Bloqueio químico",
   "Ação de Pulverização de Inseticida": ["Bloqueio químico"],
   "Ação Mais Comunidade": ["Projeto Mais Comunidade"],
   "Programa Mais Comunidade": ["Projeto Mais Comunidade"],
@@ -31,6 +32,7 @@ export const tagReplacements = {
   "Auditório do prédio II da UFCSPA": ["Teatro Moacyr Scliar"],
   "Animal silvestre": ["Fauna"],
   "Apresentação Calendário Pagamento IPTU 2019": ["IPTU"],
+  "Apresentação do Balanço Financeiro 2018": ["Apresentação", "SMF"],
   "Guias de Pagamento de Tributos": ["IPTU"],
   "Repavimentação asfáltica": ["Pavimentação"],
   "Assembléia Legislativa": ["Assembleia Legislativa"],
@@ -206,6 +208,11 @@ export const tagReplacements = {
   "Obras e Infraestrutura": ["Smoi"],
   "Secretaria Municipal de Obras e Infraestrutura (SMOI)": ["Smoi"],
   "IST Aids": ["Aids"],
+
+  "Lançamento da Terceira Edição da Campanha Cabide Solidário": [
+    "Campanha do Cabide Solidário",
+    "Lançamento",
+  ],
   "Lançamento do Pacto Pela Inovação - Pacto Alegre": ["Pacto Alegre"],
   "Pacto Pela Inovação": ["Pacto Alegre"],
   "LGBTQIA+": ["LGBT"],
@@ -218,7 +225,13 @@ export const tagReplacements = {
   "Ministro de Estado da Infraestrutura Tarcísio Freitas": ["Tarcísio Freitas"],
   "Museu Iberê Camargo": ["Fundação Iberê Camargo"],
   "Museu Joaquim Felizardo": ["Museu de Porto Alegre Joaquim Felizardo"],
+
   "Obras de implantação da adutora da Estrada Antonio Borges": ["Obras"],
+  "Obras de Repavimentação Asfáltica da Avenida Wenceslau Escobar": [
+    "Av. Wenceslau Escobar",
+    "Pavimentação",
+  ],
+
   "Parcerias Estratégicas": ["Smpe"],
   "Parque Harmonia": ["Parque Maurício Sirotsky Sobrinho (Harmonia)"],
   "Parque Mascarenhas de Moraes": ["Parque Marechal Mascarenhas de Moraes"],
@@ -251,6 +264,8 @@ export const tagReplacements = {
   "Projeto Clássicos na Pinacoteca": ["Clássicos na Pinacoteca"],
   "Projeto Feira Fora da Feira": ["Feira Fora da Feira"],
   "Retratos Oficiais": ["Retrato"],
+  "Reunião almoço 1ª Menu POA 2019": "MenuPOA",
+  "Reunião-Almoço Menupoa": "MenuPOA",
 
   "Secretária Denise Russo": ["Denise Russo"],
   "secretária Juliana Castro": ["Juliana Castro"],
@@ -280,8 +295,9 @@ export const tagReplacements = {
   "Secretário da SMAMS, Maurício Fernandes": ["Maurício Fernandes"],
   "Secretário Eduardo Cidade": ["Eduardo Cidade"],
   "Secretário Estadual dos Transportes Juvir Costella": ["Juvir Costella"],
-  "Secretário municipal de Educação, Leonardo Pascoal": ["Leonardo Pascoal"],
   "Secretário Municipal da Educação (SMED), Maurício Cunha": ["Maurício Cunha"],
+  "Secretário Municipal de Educação Adriano Naves de Brito": "Adriano Naves",
+  "Secretário municipal de Educação, Leonardo Pascoal": ["Leonardo Pascoal"],
   "secretário municipal de Esporte e Lazer, Professor Tovi": ["Professor Tovi"],
   "Secretário-adjunto municipal de Governança Local e Coordenação Política, Luciano Marcantonio":
     "Luciano Marcantônio",
