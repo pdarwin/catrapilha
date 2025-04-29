@@ -429,6 +429,7 @@ export default function ItemDetail() {
                 fullWidth
                 multiline
                 minRows={8}
+                maxRows={30}
                 value={editableInfoPanel}
                 onChange={e => setEditableInfoPanel(e.target.value)}
                 variant="outlined"
