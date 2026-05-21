@@ -31,6 +31,8 @@ export const tagToCategoryMap = {
     "Secretaria Municipal dos Direitos Animais (Porto Alegre)",
   "Governança Local e Coordenação Política":
     "Secretaria Municipal de Governança Local e Coordenação Política (Porto Alegre)",
+  "Reunião com representantes da Secretaria de Governança e Gestão Estratégica do Estado":
+    "Secretaria de Governança e Gestão Estratégica do Estado (Porto Alegre)",
   Parcerias: "Secretaria Municipal de Parcerias (Porto Alegre)",
   "Secretaria Municipal de Parcerias (SMP)":
     "Secretaria Municipal de Parcerias (Porto Alegre)",
@@ -159,6 +161,8 @@ export const tagToCategoryMap = {
     "Divisão de Conservação de Vias Urbanas",
   "Centro de Atenção Psicossocial Álcool e Drogas 3 – Pernambuco":
     "CAPS AD III - Pernambuco",
+  "Centro de Atenção Psicossocial Álcool e Drogas Tipo 3 (Caps AD) da Região Noroeste / Humaitá / Navegantes / Ilhas":
+    "CAPS AD III - Pernambuco",
   "Centro de Atenção Psicossocial Álcool e Drogas 4 – Céu Aberto":
     "CAPS AD IV - Centro Céu Aberto (Farroupilha)",
   "Viveiro municipal de Porto Alegre": "Viveiro Municipal de Porto Alegre",
@@ -211,6 +215,9 @@ export const tagToCategoryMap = {
   "Primeira Infância Melhor no Contexto Prisional (Pim Prisional)":
     "Primeira Infância Melhor no Contexto Prisional",
   "Programa Start.edu": "Start.edu",
+  "Cerimônia de entrega da Medalha Cidade de Porto Alegre":
+    "Medalha Cidade de Porto Alegre",
+  "Baú de Histórias: Era uma Vez...": "Baú de Histórias",
 
   PGM: "Procuradoria-Geral do Município de Porto Alegre",
   Corregedoria: "Corregedoria-Geral do Município de Porto Alegre",
@@ -329,6 +336,7 @@ export const tagToCategoryMap = {
   "Escola Estadual de Ensino Fundamental Duque de Caxias":
     "EEEF Duque de Caxias",
   "Escola de Ensino Médio Raul Pilla": "EEEM Raul Pilla",
+  "Escola Estadual de Ensino Médio Almirante Barroso": "EEEM Almirante Barroso",
   "Escola Municipal de Ensino Fundamental José Loureiro da Silva":
     "EMEF José Loureiro da Silva",
   "Escola Municipal de Ensino Fundamental Nossa Senhora de Fátima":
@@ -346,6 +354,7 @@ export const tagToCategoryMap = {
   "Reunião com Supervisores das EMEFS":
     "Municipal elementary schools in Porto Alegre",
   "Escolas Preparatórias de Dança (EPDs)": "Escolas Preparatórias de Dança",
+  "Casa da Música": "Casa da Música (Porto Alegre)",
 
   "Sindicato dos Municipários de Porto Alegre (Simpa)":
     "Sindicato dos Municipários de Porto Alegre",
@@ -355,6 +364,7 @@ export const tagToCategoryMap = {
   "Sindicato Médico do Rio Grande do Sul (Simers)":
     "Sindicato Médico do Rio Grande do Sul",
 
+  //Música
   "Banda Municipal": "Banda Municipal de Porto Alegre",
   "Orquestra Vila Lobos": "Orquestra Villa-Lobos",
   "Orquestra Sinfônica de Porto Alegre (OSPA)":
@@ -364,6 +374,9 @@ export const tagToCategoryMap = {
     "Igreja Nossa Senhora das Dores (Porto Alegre)",
   "Santuário de Nossa Senhora do Rosário":
     "Igreja Nossa Senhora do Rosário (Porto Alegre)",
+
+  //Empresas
+  "Alvará de funcionamento para Empresa Kley Hertz": "Kley Hertz",
 
   "Ministério da Saúde": "Ministry of Health of Brazil",
   "Força Nacional do SUS": "Força Nacional do Sistema Único de Saúde",
@@ -402,6 +415,9 @@ export const tagToCategoryMap = {
   "TJ-RS": "Tribunal de Justiça do Estado do Rio Grande do Sul",
   "Tribunal Regional Eleitoral (TRE)": "Tribunal Regional Eleitoral RS",
   TART: "Tribunal Administrativo de Recursos Tributários",
+
+  "Inauguração da Estátua de Renato Portaluppi":
+    "Renato Gaúcho by Felizzola, Petrov & Fraga (bronze, 2019)",
 
   "Teatro da Santa Casa": "Teatro da Santa Casa (Porto Alegre)",
   "Teatro do Sesc": "Teatro do Sesc (Porto Alegre)",
@@ -444,7 +460,6 @@ export const tagToCategoryMap = {
   PoaHub: "Poa.Hub",
   "Chalé da Praça XV de Novembro": "Chalé da Praça XV",
   "Theatro São Pedro": "Theatro São Pedro (Porto Alegre)",
-  "Sala Aldo Locatelli": "Pinacoteca Aldo Locatelli",
   "Cemitério da Santa Casa de Misericórdia":
     "Cemitério da Santa Casa de Misericórdia (Porto Alegre)",
   "Centro Social Marista - CESMAR": "Centro Social Marista",
@@ -475,6 +490,7 @@ export const tagToCategoryMap = {
   "Crialab do Tecnopuc": "Tecnopuc Crialab",
   "Representantes do Movimento de Mulheres da Ocupação Mirabal":
     "Ocupação Mulheres Mirabal",
+  "UFO HUB Space Plaza": "UFO Space Plaza",
 
   "Fonte Talavera": "Fonte Talavera de La Reina",
   "Chafariz Imperial": "Fonte Francesa",
@@ -784,6 +800,7 @@ export const tagToCategoryMap = {
   "11ª edição Praia Acessível para Todos":
     "11ª Praia Acessível para Todos (2019)",
   "Exposição Deus Momo Vem Aí": "Deus Momo Vem Aí",
+  "Exposição SobrePoa": "SobrePoa",
   "Evento Mulheres em Ação": "Mulheres em Ação",
   "Lançamento da Edição 2019 do projeto Banco do Tênis":
     "Projeto Banco do Tênis 2019",
@@ -792,6 +809,7 @@ export const tagToCategoryMap = {
     "18º Torneio Aberto Internacional de Xadrez (2019)",
   "XXV Copa Cidade de Porto Alegre de Vela Oceano":
     "XXV Copa Cidade de Porto Alegre de Vela Oceano (2019)",
+  "5ª edição do Pedal das Chaminés": "5º Pedal das Chaminés (2019)",
 
   "Campanha do Agasalho": metadata =>
     `Campanha do Agasalho (${getYear(metadata.humanReadableDate)})`,
@@ -804,11 +822,11 @@ export const tagToCategoryMap = {
     `Semana de Porto Alegre ${getYear(metadata.humanReadableDate)}`,
   "Acampamento Farroupilha": metadata =>
     `Acampamento Farroupilha (Porto Alegre, ${getYear(
-      metadata.humanReadableDate
+      metadata.humanReadableDate,
     )})`,
   "Desfile Farroupilha 2018": metadata =>
     `Desfile Farroupilha (Porto Alegre, ${getYear(
-      metadata.humanReadableDate
+      metadata.humanReadableDate,
     )})`,
   "Top de Marketing ADVB/RS": metadata =>
     `Top de Marketing ADVB/RS ${getYear(metadata.humanReadableDate)}`,
@@ -820,12 +838,14 @@ export const tagToCategoryMap = {
     `POA Esporte Verão ${getYear(metadata.humanReadableDate)}`,
   "Festa de Nossa Senhora dos Navegantes": metadata =>
     `Festa de Nossa Senhora dos Navegantes (Porto Alegre, ${getYear(
-      metadata.humanReadableDate
+      metadata.humanReadableDate,
     )})`,
   "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço": metadata =>
     `Lavagem das escadarias do Paço Municipal do Porto Alegre (${getYear(
-      metadata.humanReadableDate
+      metadata.humanReadableDate,
     )})`,
+  "US food Experience Culinary Lab Porto Alegre":
+    "US Food Experience Culinary Lab Porto Alegre",
 
   "Viagem à Holanda": metadata =>
     `Missão Países Baixos ${getYear(metadata.humanReadableDate)}`,
@@ -869,11 +889,15 @@ export const tagToCategoryMap = {
   "Agente de Combate às Endemias (ACE)": "Agentes de Combate às Endemias",
   "Centro de Referência em Saúde do Trabalhador (Cerest)":
     "Centro de Referência em Saúde do Trabalhador",
+  "Comitê Internacional da Cruz Vermelha (CICV)":
+    "International Committee of the Red Cross",
   "Cruz Vermelha do Brasil": "Brazilian Red Cross",
   "Treinamento da Cruz Vermelha": "Brazilian Red Cross",
   "Grupo Experimental de Dança (GED)":
     "Grupo Experimental de Dança de Porto Alegre",
   "Reunião-almoço Tá Na Mesa": "Tá na Mesa",
+  "1ª Reunião Almoço 2019 da ADCE RS":
+    "Associação de Dirigentes Cristãos de Empresas de Porto Alegre",
   "Gre-nal de Todos": "Grenal",
   "Gre-Nal": "Grenal",
   "SMTC - Marco Regulatório das Organizações da Sociedade Civil":
@@ -913,6 +937,7 @@ export const tagToCategoryMap = {
   "Serviço de Convivência e Fortalecimento de Vínculos – SCFV":
     "Serviço de Convivência e Fortalecimento de Vínculos",
   "Projeto Manobra Solidária": "Manobra Solidária",
+  "Acesso Mais Seguro (AMS)": "Acesso Mais Seguro",
 
   Santander: "Banco Santander (Brasil)",
   "Banco Nacional de Desenvolvimento Econômico e Social (BNDES)":
@@ -926,6 +951,8 @@ export const tagToCategoryMap = {
     "Inter-American Development Bank",
   "Reunião no International Finance Corporation (IFC)":
     "International Finance Corporation",
+
+  "SBT Rio Grande - 2ª Edição": "SBT Rio Grande",
 
   Lazer: "Recreation in Porto Alegre",
   Farmácia: "Farmácias Distritais (Porto Alegre)",
@@ -978,7 +1005,6 @@ export const tagToCategoryMap = {
   Barcos: "Boats in Porto Alegre",
   Gasolina: "Gas stations in Porto Alegre",
   "Posto de Gasolina": "Gas stations in Porto Alegre",
-  Calçada: "Sidewalks in Porto Alegre",
   "Trabalho e Emprego": "Labour in Porto Alegre",
   "Vagas de Emprego": "Labour in Porto Alegre",
   "Indústria e Comércio": "Industry in Porto Alegre",
@@ -991,6 +1017,8 @@ export const tagToCategoryMap = {
   "parada de ônibus": "Bus stops in Porto Alegre",
   "Sinalização viária": "Road signs in Porto Alegre",
   "Arte Urbana": "Street art in Porto Alegre",
+  "Audiência Pública sobre PPP da Iluminação Pública":
+    "Street lights in Porto Alegre",
   "Iluminação Pública": "Street lights in Porto Alegre",
   "Lançamento do Projeto de Lei para PPP de Iluminação Pública":
     "Street lights in Porto Alegre",
@@ -1001,6 +1029,7 @@ export const tagToCategoryMap = {
   "Programação Cultural": "Culture of Porto Alegre",
   "Fim de tarde": "Sunsets of Porto Alegre",
   "Bolsa Família": "Poverty in Porto Alegre",
+  "Turismo Aquaviário": "Water transport in Porto Alegre",
   "Transporte fluvial de passageiros": "Water transport in Porto Alegre",
   "Plantio Sustentável do DMLU": "DMLU’s Sustainable Planting",
   "Estação Integrada de Compostagem":
@@ -1026,6 +1055,8 @@ export const tagToCategoryMap = {
   "Educação no Trânsito": "Road safety education in Porto Alegre",
   "Gráfico Década de Ação pela Segurança no Trânsito da ONU":
     "Road safety education in Porto Alegre",
+  "Inauguração da Delegacia de Polícia Especializada de repressão a Roubos em Transporte Coletivo - DRTC":
+    "Police stations in Porto Alegre",
 
   Páscoa: metadata =>
     `Easter ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -1177,7 +1208,6 @@ export const tagToCategoryMap = {
   "Escada rolante": "Escalators in Brazil",
   "Licitação para Manutenção Elevadores e Escadas Rolantes":
     "Escalators in Brazil",
-  "Exposição Fotográfica": "Photography exhibitions in Brazil",
   "Abandono de Veículos": "Abandoned vehicles in Brazil",
   "Estação Radio Base (ERBs)": "Mobile phone base stations in Brazil",
   "teatro de rua": "Street theatre in Brazil",
@@ -1199,10 +1229,12 @@ export const tagToCategoryMap = {
   "Doação de Guarda-Sóis": "Parasols in Brazil",
   "Serviço de Terraplanagem": "Earthworks in Brazil",
   "lixo eletrônico": "Electronic waste in Brazil",
+  "Realidade Virtual": "Virtual reality in Brazil",
+  "Calçada Sensorial": "Tactile paving in Brazil",
 
   "Dia internacional da Mulher": metadata =>
     `International Women's Day in ${getYear(
-      metadata.humanReadableDate
+      metadata.humanReadableDate,
     )} in Brazil`,
   Criança: metadata =>
     `Children of Brazil in ${getYear(metadata.humanReadableDate)}`,
@@ -1339,4 +1371,5 @@ export const tagToCategoryMap = {
   "Sine Lúdico e Sinoteca": "Toy and game libraries",
   pneu: "Tire reuse",
   "Lançamento da Pedra Fundamental": "Foundation stone laying ceremonies",
+  "Oficina de Contação de Histórias": "Children's storytelling",
 };

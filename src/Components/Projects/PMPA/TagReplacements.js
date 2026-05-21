@@ -102,7 +102,10 @@ export const normalizedTagGroups = [
   },
   {
     replacements: ["Apresentação", "SMF"],
-    tags: ["Apresentação do Balanço Financeiro 2018"],
+    tags: [
+      "Apresentação do Balanço Financeiro 2018",
+      "Entrega do do Balanço Financeiro de 2018",
+    ],
   },
   {
     replacements: ["Arroio Dilúvio", "Dragagem"],
@@ -116,6 +119,10 @@ export const normalizedTagGroups = [
     tags: ["12° Prêmio Açorianos de Artes Plásticas"],
   },
   {
+    replacements: ["Música", "Prêmio Açorianos"],
+    tags: ["Prêmio Açorianos de Música 2019"],
+  },
+  {
     replacements: ["Assembleia Legislativa"],
     tags: ["Assembléia Legislativa"],
   },
@@ -127,7 +134,16 @@ export const normalizedTagGroups = [
     replacements: ["Av. Wenceslau Escobar", "Pavimentação"],
     tags: ["Obras de Repavimentação Asfáltica da Avenida Wenceslau Escobar"],
   },
-
+  {
+    replacements: [
+      "Avenida Ipiranga",
+      "Termo de Adoção de Verde Complementar",
+      "PUCRS",
+    ],
+    tags: [
+      "Proposta de Adoção do canteiro central da Avenida Ipiranga pela PUCRS",
+    ],
+  },
   {
     replacements: ["Bairro Cel. Aparício Borges"],
     tags: ["Bairro Coronel Aparício Borges"],
@@ -166,6 +182,10 @@ export const normalizedTagGroups = [
   {
     replacements: ["Bombeiros"],
     tags: ["corpo de bombeiros"],
+  },
+  {
+    replacements: ["Cacique (magazine)", "Sarau"],
+    tags: ["Sarau da revista Cacique"],
   },
   {
     replacements: ["Campanha do Cabide Solidário", "Lançamento"],
@@ -224,6 +244,12 @@ export const normalizedTagGroups = [
     tags: [
       "Centro Integrado de Comando",
       "Centro Integrado de Comando da Cidade de Porto Alegre (CEIC)",
+    ],
+  },
+  {
+    replacements: ["CAPS AD III - Pernambuco", "Inauguração"],
+    tags: [
+      "Inauguração do Centro de Atenção Psicossocial Álcool e Drogas Tipo 3 (Caps AD) da Região Noroeste / Humaitá / Navegantes / Ilhas",
     ],
   },
   {
@@ -311,6 +337,7 @@ export const normalizedTagGroups = [
     ],
     tags: [
       "Consulta Pública para o projeto de Parceria Público- Privada (PPP) da Rede de Iluminação Pública de Porto Alegre",
+      "Audiência Pública sobre PPP da Iluminação Pública",
     ],
   },
   {
@@ -711,6 +738,7 @@ export const normalizedTagGroups = [
       "Evento do Pacto pela Inovação: - Warm Up - Constituição do Pacto Alegre",
       "Lançamento do Pacto Pela Inovação - Pacto Alegre",
       "Pacto Pela Inovação",
+      "Formação da Mesa do Pacto Alegre",
     ],
   },
   {
@@ -864,6 +892,10 @@ export const normalizedTagGroups = [
   {
     replacements: ["Romildo Bolzan Júnior"],
     tags: ["presidente do Grêmio Foot-Ball Porto Alegrense"],
+  },
+  {
+    replacements: ["Sala Aldo Locatelli"],
+    tags: ["Pinacoteca Aldo Locatelli"],
   },
   {
     replacements: ["Saint Patrick's Day"],

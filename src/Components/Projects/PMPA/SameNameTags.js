@@ -1,6 +1,7 @@
 // List of tags for which the category is the same
 export const sameNameTags = [
   "1ª Expo-Feira Náutica Almirante Tamandaré 2019",
+  "1° Circuito de Cambio de Porto Alegre",
 
   "A Cara da Obra",
   "A Flauta Mágica",
@@ -28,6 +29,7 @@ export const sameNameTags = [
   "Atelier Livre Xico Stockinger",
   "Asilo Padre Cacique",
   "Atenção Especializada à Saúde",
+  "Atracadouro do Gasômetro",
   "Auditório Araújo Vianna",
   "Auditório da Associação dos Delegados de Polícia",
   "Auditório da EPTC",
@@ -68,6 +70,7 @@ export const sameNameTags = [
   "Brechocão",
   "Brique da Redenção",
 
+  "Cacique (magazine)",
   "Cais Mauá",
   "Caixa Econômica Federal",
   "Câmara Rio-Grandense do Livro",
@@ -101,7 +104,9 @@ export const sameNameTags = [
   "Centro de Saúde Santa Marta",
   "Centro de Valorização da Vida",
   "Centro Logístico de Medicamentos Especiais",
+  "Centro POP III",
   "Chikungunya",
+  "Churrascaria Laçador",
   "Ciclo de Debates Barbara Starfield",
   "Cinemateca Capitólio",
   "Circuito Urbano EPTC",
@@ -277,6 +282,7 @@ export const sameNameTags = [
   "Operação Volta às Aulas 2019",
   "Orçamento Participativo 2018",
   "Orla de Ipanema",
+  "Orquestra Pequena Casa da Criança",
 
   "Pacto Alegre",
   "Parque Alim Pedro",
@@ -285,6 +291,7 @@ export const sameNameTags = [
   "Parque Germânia",
   "Parque Marinha do Brasil",
   "Parque Natural Municipal Morro do Osso",
+  "Pátio Cultural",
   "Pedestre Idoso",
   "Pier do Barra Shopping Sul",
   "Plano de Superação da Situação de Rua",
@@ -328,6 +335,7 @@ export const sameNameTags = [
   "Recanto Europeu",
   "Rede Calabria",
   "Rede Pampa de Comunicação",
+  "Regata de Aniversário de Porto Alegre",
   "Reserva Biológica do Lami José Lutzenberger",
   "Residencial São Guilherme",
   "Revista ECOS",
@@ -420,6 +428,7 @@ export const sameNameTags = [
   "Vila Jardim",
   "Vila Minuano",
   "Vila Monte Cristo",
+  "Visite o Laçador",
   "Viva o Centro a Pé",
   "Viva Porto Alegre a Pé",
 

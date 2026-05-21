@@ -56,12 +56,14 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
             id: page,
             title: metadata.description || "No Title",
             filename: `IBPA ${page} - ${processDescription(
-              metadata.description1
+              metadata.description1,
             )} - ${
               formatDateToISO(metadata.humanReadableDate) || "Unknown Date"
             } - ${
               metadata.authorship
-                ? metadata.authorship.replace(/\s*\/\s*/g, "-") // Replaces "/" with "-" and removes extra spaces around it
+                ? metadata.authorship
+                    .replace(/\s*\/\s*/g, "-") // Replaces "/" with "-" and removes extra spaces around it
+                    .replace(/:/g, "")
                 : "Unknown Author"
             }.${
               metadata.imagePath
@@ -82,7 +84,7 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
             description: `${
               metadata.description || "No Description"
             }<br/>Publicado em ${formatFriendlyDate(
-              metadata.publicationDate
+              metadata.publicationDate,
             )}<br/>${metadata.tags.map(tag => `#${tag}`).join(" ")}`,
             tags: metadata.tags || [], // Tags array
             categories: [
@@ -239,10 +241,12 @@ const processDescription = description => {
     .replace(/\n/g, " ")
     .replace(
       /P[oO][rR][tT][oO]\s\s?A[lL][eE][gG][rR][eE](,?\s?\/?RS)?,?\.?(\s*?B[Rr][Aa][Ss][iI][Ll])?,? -?\s*?\d{1,2}[°º]?[/.-]?\d{1,2}[/.-]?\d{4}\s?(Brasil)?:?\.?\s?-?\s?/,
-      ""
+      "",
     )
     .replace(/[/:]/g, "-")
-    .replace(/[#?]/g, "");
+    .replace(/["“”'<>[\]{}|#?%]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s+-\s+/g, " - ");
 
   // Truncate at the end of the 6th word with more than 3 characters
   const words = description.split(" ");
@@ -302,6 +306,7 @@ const getCategoriesFromTags = metadata => {
 
   // Tag groups
   const meetingTags = [
+    "1ª Reunião Almoço 2019 da ADCE RS",
     "Fórum",
     "Reunião",
     "MenuPOA",
@@ -320,6 +325,7 @@ const getCategoriesFromTags = metadata => {
     "Reunião com o Conselho do Orçamento Participativo",
     "Reunião com o Diretor regional da Caixa Econômica Federal",
     "Reunião com o Presidente da Câmara de Vereadores de Porto Alegre",
+    "Reunião com representantes da Secretaria de Governança e Gestão Estratégica do Estado",
     "Reunião com representantes das entidades e das associações de praças e parques",
     "Reunião com Representantes do Banco Mundial",
     "Reunião com Supervisores das EMEFS",
@@ -370,7 +376,7 @@ const getCategoriesFromTags = metadata => {
         "Abertura",
         "Lançamento do Lance de Craque 2018",
         "Temporada das Piscinas Comunitárias de Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     ) ||
     orTags.some(tag =>
       [
@@ -378,7 +384,7 @@ const getCategoriesFromTags = metadata => {
         "Lançamento do Pacto Pela Inovação - Pacto Alegre",
         "Lançamento Oficial da 64ª edição da Feira do Livro de Porto Alegre",
         "Lançamento oficial da Expodireto Cotrijal 2025",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Opening ceremonies in Brazil");
@@ -386,7 +392,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     orTags.some(tag =>
-      ["Encerramento da Missão Técnica do BNDES"].includes(tag)
+      ["Encerramento da Missão Técnica do BNDES"].includes(tag),
     ) ||
     tags.some(tag => ["Encerramento"].includes(tag))
   ) {
@@ -400,6 +406,8 @@ const getCategoriesFromTags = metadata => {
     "Assinatura",
     "Cerimônia",
     "Cerimônia de Apresentação de PLs de Concessão e Adoção",
+    "Cerimônia de entrega da Medalha Cidade de Porto Alegre",
+    "Cerimônia de Entrega do Novo Centro de Atenção Psicossocial Álcool e Drogas tipo 4 (Caps 4)",
     "Cerimônia de Passagem de Comando na Capitania Fluvial de Porto Alegre",
     "Lançamento",
     "Sessão Solene de outorga de Título de Cidadão de Porto Alegre ao Presidente Estadual da Assembleia de Deus Pastor Adalberto Santos Dutra",
@@ -415,7 +423,7 @@ const getCategoriesFromTags = metadata => {
         "Opening ceremonies in Brazil",
         "Closing ceremonies in Brazil",
         "Inaugurations in Brazil",
-      ].includes(cat)
+      ].includes(cat),
     );
 
   const isMeetingTag =
@@ -423,7 +431,7 @@ const getCategoriesFromTags = metadata => {
   const isSpecificMeetingTag = anyTagIncludes(specificMeetingTags);
   const isExecutiveTag =
     !tags.includes(
-      "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço"
+      "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
     ) && anyTagIncludes(executiveTags);
   const isInternalMeeting = anyTagIncludes(internalMeetingTags);
   const isVisit = tags.includes("Visita");
@@ -434,19 +442,19 @@ const getCategoriesFromTags = metadata => {
   if (atSalaoNobreMatch) {
     if (isAudience) {
       categories.push(
-        "Audiences at Salão Nobre do Paço Municipal de Porto Alegre"
+        "Audiences at Salão Nobre do Paço Municipal de Porto Alegre",
       );
     } else if (isMeetingTag || isSpecificMeetingTag) {
       categories.push(
-        "Meetings at Salão Nobre do Paço Municipal de Porto Alegre"
+        "Meetings at Salão Nobre do Paço Municipal de Porto Alegre",
       );
     } else if (isCeremony) {
       categories.push(
-        "Ceremonies at Salão Nobre do Paço Municipal de Porto Alegre"
+        "Ceremonies at Salão Nobre do Paço Municipal de Porto Alegre",
       );
     } else if (!isVisit) {
       categories.push(
-        "Events at Salão Nobre do Paço Municipal de Porto Alegre"
+        "Events at Salão Nobre do Paço Municipal de Porto Alegre",
       );
     } else {
       categories.push("Salão Nobre (Paço Municipal de Porto Alegre)");
@@ -462,7 +470,7 @@ const getCategoriesFromTags = metadata => {
   } else if (isCeremony) {
     if (atSalaoNobreMatch) {
       categories.push(
-        "Ceremonies at Salão Nobre do Paço Municipal de Porto Alegre"
+        "Ceremonies at Salão Nobre do Paço Municipal de Porto Alegre",
       );
     } else if (atPaco) {
       categories.push("Ceremonies at Paço Municipal de Porto Alegre");
@@ -476,13 +484,13 @@ const getCategoriesFromTags = metadata => {
       categories.push(
         atPaco
           ? "Meetings at Paço Municipal de Porto Alegre"
-          : "Meetings involving the Municipality of Porto Alegre"
+          : "Meetings involving the Municipality of Porto Alegre",
       );
     } else if (!isVisit) {
       categories.push(
         atPaco
           ? "Events at Paço Municipal de Porto Alegre"
-          : "Events involving the Municipality of Porto Alegre"
+          : "Events involving the Municipality of Porto Alegre",
       );
     }
   } else if (isMeetingTag) {
@@ -490,7 +498,7 @@ const getCategoriesFromTags = metadata => {
       categories.push(
         atPaco
           ? "Meetings at Paço Municipal de Porto Alegre"
-          : "Meetings involving the Municipality of Porto Alegre"
+          : "Meetings involving the Municipality of Porto Alegre",
       );
     } else {
       categories.push("Meetings in Porto Alegre");
@@ -507,7 +515,7 @@ const getCategoriesFromTags = metadata => {
         "Agentes de Trânsito",
         "Coordenação de Operações Especiais (COE)",
         "Prestação de serviços",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Municipal services in Porto Alegre");
@@ -519,7 +527,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Conselho Municipal de Saúde", "CMDUA", "COMTU", "Comui"].includes(tag)
+      ["Conselho Municipal de Saúde", "CMDUA", "COMTU", "Comui"].includes(tag),
     ) &&
     tags.includes("Conselhos Municipais")
   ) {
@@ -528,7 +536,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     orTags.some(tag =>
-      ["Benchmarking do Governo do Rio Grande do Norte"].includes(tag)
+      ["Benchmarking do Governo do Rio Grande do Norte"].includes(tag),
     )
   ) {
     categories.push("Government of Rio Grande do Norte");
@@ -539,10 +547,11 @@ const getCategoriesFromTags = metadata => {
       [
         "Exposição de Gravuras Portuguesas",
         "Exposição Maresia",
+        "Exposição SobrePoa",
         "Mostra Acústicos e Elétricos",
         "Porão do Paço",
         "Sala da Fonte",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Pinacoteca Aldo Locatelli")
   ) {
@@ -558,7 +567,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Salão Alberto Pasqualini", "Salão Negrinho do Pastoreio"].includes(tag)
+      ["Salão Alberto Pasqualini", "Salão Negrinho do Pastoreio"].includes(tag),
     ) &&
     tags.includes("Palácio Piratini")
   ) {
@@ -577,6 +586,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag =>
       [
         "Alvará",
+        "Alvará de funcionamento para Empresa Kley Hertz",
         "Decreto que Regulamenta a Lei Anticorrupção",
         "Cerimônia de Apresentação de PLs de Concessão e Adoção",
         "Contrato de concessão da Rodovia Integração Sul (RIS)",
@@ -591,7 +601,7 @@ const getCategoriesFromTags = metadata => {
         "Sanção da Lei das Antenas",
         "sanção de Projeto de Lei",
         "Termos de Permissão uso bares da Orla do Guaíba",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Law of Porto Alegre");
@@ -599,10 +609,10 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Jornada de Estudos em Defesa do Adolescente"].includes(tag)
+      ["Jornada de Estudos em Defesa do Adolescente"].includes(tag),
     ) &&
     (orTags.some(tag =>
-      ["Apresentação Calendário Pagamento IPTU 2019"].includes(tag)
+      ["Apresentação Calendário Pagamento IPTU 2019"].includes(tag),
     ) ||
       tags.some(tag => ["Apresentação", "Palestra"].includes(tag)))
   ) {
@@ -622,7 +632,7 @@ const getCategoriesFromTags = metadata => {
         "Educação no Trânsito",
         "Estação de Transbordo",
         "DIA SEM CARRO",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Road transport in Porto Alegre");
@@ -630,18 +640,18 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Transporte Público", "Transporte Coletivo"].includes(tag)
+      ["Transporte Público", "Transporte Coletivo"].includes(tag),
     )
   ) {
     categories.push("Public transport in Porto Alegre");
   }
 
   const isCarrisBus = tags.some(tag =>
-    ["Carris", "Papai e Mamãe Noel da Carris"].includes(tag)
+    ["Carris", "Papai e Mamãe Noel da Carris"].includes(tag),
   );
 
   const isGeneralBus = tags.some(tag =>
-    ["BRT's", "micro-ônibus", "Ônibus", "ônibus elétrico"].includes(tag)
+    ["BRT's", "micro-ônibus", "Ônibus", "ônibus elétrico"].includes(tag),
   );
 
   // Apply logic
@@ -663,8 +673,8 @@ const getCategoriesFromTags = metadata => {
   if (
     tags.some(tag =>
       ["1ª Faixa Reversível semafórica de Porto Alegre", "Semáforos"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Traffic lights in Porto Alegre");
@@ -707,8 +717,8 @@ const getCategoriesFromTags = metadata => {
           [
             "Posse Novos Secretários Municipais",
             "Secretário Municipal de Serviços Urbanos (SMSUrb)",
-          ].includes(tag)
-        )
+          ].includes(tag),
+        ),
     )
   ) {
     categories.push("Municipality secretaries of Porto Alegre");
@@ -728,7 +738,7 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.some(tag => ["IPTU"].includes(tag)) &&
     tags.some(tag =>
-      ["Arrecadação Fiscal", "Tarifa", "Tributação", "Imposto"].includes(tag)
+      ["Arrecadação Fiscal", "Tarifa", "Tributação", "Imposto"].includes(tag),
     )
   ) {
     categories.push("Taxation in Brazil");
@@ -740,7 +750,7 @@ const getCategoriesFromTags = metadata => {
         "Parcão",
         "Parque Marechal Mascarenhas de Moraes",
         "Praça Laurentino Zotis",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Praças e Parques")
   ) {
@@ -752,7 +762,7 @@ const getCategoriesFromTags = metadata => {
       [
         "Parque Marechal Mascarenhas de Moraes",
         "Termo de Adoção do Parque Marechal Mascarenhas de Moraes",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Parque Marechal Mascarenhas de Moraes");
@@ -763,7 +773,7 @@ const getCategoriesFromTags = metadata => {
       [
         "Arroio Dilúvio",
         "Dragagem do Segundo Trecho do Arroio Dilúvio",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Arroio Dilúvio");
@@ -794,7 +804,7 @@ const getCategoriesFromTags = metadata => {
         "Saúde da População Negra",
         "Seminário do Comitê de Aleitamento Materno e Alimentação Complementar Saudável de Porto Alegre",
         "Sétimo encontro de Medicina Tradicional Kaingang",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag =>
       [
@@ -802,7 +812,7 @@ const getCategoriesFromTags = metadata => {
         "Comitê Municipal de Transmissão Vertical do HIV e Sífilis Congênita",
         "Saúde",
         "SMS",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Secretaria Municipal de Saúde (Porto Alegre)");
@@ -810,17 +820,17 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Comissão de Saúde e Segurança no Trabalho"].includes(tag)
+      ["Comissão de Saúde e Segurança no Trabalho"].includes(tag),
     ) &&
     tags.some(tag =>
       [
         "Smri",
         "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      "Secretaria Municipal de Relações Institucionais (Porto Alegre)"
+      "Secretaria Municipal de Relações Institucionais (Porto Alegre)",
     );
   }
 
@@ -829,7 +839,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag => ["Smim"].includes(tag))
   ) {
     categories.push(
-      "Secretaria Municipal de Infraestrutura e Mobilidade (Porto Alegre)"
+      "Secretaria Municipal de Infraestrutura e Mobilidade (Porto Alegre)",
     );
   }
 
@@ -838,7 +848,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag => ["Smtc"].includes(tag))
   ) {
     categories.push(
-      "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)"
+      "Secretaria Municipal de Transparência e Controladoria (Porto Alegre)",
     );
   }
 
@@ -855,12 +865,12 @@ const getCategoriesFromTags = metadata => {
         "Projeto Esporte Verão",
         "Reunião Plenária do COMUI",
         "Comui",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag => ["Smdse"].includes(tag))
   ) {
     categories.push(
-      "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)"
+      "Secretaria Municipal de Desenvolvimento Social e Esporte (Porto Alegre)",
     );
   }
 
@@ -869,18 +879,18 @@ const getCategoriesFromTags = metadata => {
       [
         "Conferência Municipal do Meio Ambiente",
         "Viveiro municipal de Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag => ["Smamus"].includes(tag))
   ) {
     categories.push(
-      "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)"
+      "Secretaria Municipal de Meio Ambiente, Urbanismo e Sustentabilidade (Porto Alegre)",
     );
   }
 
   if (
     !tags.some(tag =>
-      ["Conferência Municipal do Meio Ambiente"].includes(tag)
+      ["Conferência Municipal do Meio Ambiente"].includes(tag),
     ) &&
     tags.some(tag => ["Meio Ambiente"].includes(tag))
   ) {
@@ -898,18 +908,33 @@ const getCategoriesFromTags = metadata => {
         "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
         "Show de Talentos da FASC",
         "XXVIII Colônia de Férias para Idosos",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag => ["Doação de Automóvel para a FASC", "Fasc"].includes(tag))
   ) {
     categories.push("Fundação de Assistência Social e Cidadania");
   }
 
-  if (tags.includes("Álcool  e Outras Drogas")) {
+  if (
+    tags.some(tag =>
+      [
+        "Álcool  e Outras Drogas",
+        "Cerimônia de Entrega do Novo Centro de Atenção Psicossocial Álcool e Drogas tipo 4 (Caps 4)",
+      ].includes(tag),
+    )
+  ) {
     categories.push("Alcoholism in Brazil");
   }
 
-  if (tags.includes("Álcool  e Outras Drogas") || tags.includes("Tabagismo")) {
+  if (
+    tags.some(tag =>
+      [
+        "Álcool  e Outras Drogas",
+        "Cerimônia de Entrega do Novo Centro de Atenção Psicossocial Álcool e Drogas tipo 4 (Caps 4)",
+        "Tabagismo",
+      ].includes(tag),
+    )
+  ) {
     categories.push("Substance dependence in Brazil");
   }
 
@@ -923,14 +948,14 @@ const getCategoriesFromTags = metadata => {
         "Festa Jovem do Programa de Trabalho Educativo (PTE)",
         "Oficina ‘Rabiscando Ideias: Da cabeça para o papel’",
         "Primeira Infância Melhor (PIM)",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag =>
       [
         "Secretária municipal da Educação (SMED)",
         "SMED",
         "Secretário Municipal da Educação (SMED)",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Secretaria Municipal de Educação (Porto Alegre)");
@@ -938,7 +963,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.includes(
-      "Primeira Infância Melhor no Contexto Prisional (Pim Prisional)"
+      "Primeira Infância Melhor no Contexto Prisional (Pim Prisional)",
     ) &&
     tags.includes("Primeira Infância Melhor (PIM)")
   ) {
@@ -953,7 +978,7 @@ const getCategoriesFromTags = metadata => {
         "Formação",
         "Treinamento",
         "Treinamento da Cruz Vermelha",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Trainings by the Municipality of Porto Alegre");
@@ -979,8 +1004,8 @@ const getCategoriesFromTags = metadata => {
       tag =>
         ["Direitos Humanos"].includes(tag) ||
         orTags.includes(
-          'Formação "O trabalho em Direitos Humanos na Educação Infantil"'
-        )
+          'Formação "O trabalho em Direitos Humanos na Educação Infantil"',
+        ),
     )
   ) {
     categories.push("Human rights in Brazil");
@@ -991,8 +1016,8 @@ const getCategoriesFromTags = metadata => {
       tag =>
         ["Educação Infantil"].includes(tag) ||
         orTags.includes(
-          'Formação "O trabalho em Direitos Humanos na Educação Infantil"'
-        )
+          'Formação "O trabalho em Direitos Humanos na Educação Infantil"',
+        ),
     )
   ) {
     categories.push("Educating children");
@@ -1023,7 +1048,7 @@ const getCategoriesFromTags = metadata => {
       [
         "Universidade do Vale do Rio dos Sinos (Porto Alegre campus)",
         "PUCRS",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Educação Superior")
   ) {
@@ -1043,12 +1068,13 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.some(tag =>
       [
+        "Baú de Histórias: Era uma Vez...",
         "Capacitação",
         "Curso de Formação",
         "Educação Superior",
         "Programa de Trabalho Educativo (PTE)",
         "Festa Jovem do Programa de Trabalho Educativo (PTE)",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag =>
       [
@@ -1069,7 +1095,7 @@ const getCategoriesFromTags = metadata => {
         "Oficina de Dança",
         "Prêmio MPT na Escola",
         "Volta às aulas",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Education in Porto Alegre");
@@ -1086,7 +1112,7 @@ const getCategoriesFromTags = metadata => {
         "Plantio de Árvores",
         "Podas de Árvores",
         "Remoção de árvore",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Trees in Porto Alegre");
@@ -1113,7 +1139,7 @@ const getCategoriesFromTags = metadata => {
         "Dia do Consumidor",
         "Direito do Consumidor",
         "Direitos do Consumidor",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Consumer protection in Porto Alegre");
@@ -1146,7 +1172,7 @@ const getCategoriesFromTags = metadata => {
         "Poa Em Cena",
         "Cultura Economia Criativa",
         "Viva o Centro a Pé",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag => ["Cultura", "Smc"].includes(tag))
   ) {
@@ -1176,7 +1202,7 @@ const getCategoriesFromTags = metadata => {
         "Fiscalização",
         "Vistoria",
         "Vistoria Obras Restaurante Panorâmico",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Inspections in Rio Grande do Sul");
@@ -1187,10 +1213,11 @@ const getCategoriesFromTags = metadata => {
       [
         "Aula aberta",
         "Oficina",
+        "Oficina de Inovação Urbana Resíduos Sólidos e Limpeza Urbana",
         "Oficinas Regionais sobre o Plano de Mobilidade Urbana (PMU)",
         "Workshop",
         "Workshop Gestão da Inovação na Administração Pública",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Workshops (meetings) in Brazil");
@@ -1216,7 +1243,7 @@ const getCategoriesFromTags = metadata => {
         "Videomonitoramento",
         "Vistoria",
         "Vistoria Obras Restaurante Panorâmico",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Law enforcement in Porto Alegre");
@@ -1227,7 +1254,7 @@ const getCategoriesFromTags = metadata => {
       "Anti-smoking",
       "Cigarette smuggling",
       "Cigarettes in Brazil",
-      "Customs services of Brazil"
+      "Customs services of Brazil",
     );
   }
 
@@ -1236,7 +1263,7 @@ const getCategoriesFromTags = metadata => {
       "Beaches of Porto Alegre",
       "Environmental problems in Rio Grande do Sul",
       "Reports",
-      "Water quality monitoring"
+      "Water quality monitoring",
     );
   }
 
@@ -1244,8 +1271,8 @@ const getCategoriesFromTags = metadata => {
     !tags.includes("Bloqueio químico") &&
     tags.some(tag =>
       ["Aedes aegypti", "Sala de monitoramento do Aedes da SES/RS"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Aedes aegypti");
@@ -1308,7 +1335,7 @@ const getCategoriesFromTags = metadata => {
         "Veículo Roubado",
         "Veículos",
         "Viaturas",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Automobiles in Porto Alegre");
@@ -1316,7 +1343,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Dia Internacional da Pessoa com Deficiência"].includes(tag)
+      ["Dia Internacional da Pessoa com Deficiência"].includes(tag),
     ) &&
     ((!tags.includes("Comui") && tags.includes("Idosos")) ||
       tags.some(tag =>
@@ -1329,7 +1356,7 @@ const getCategoriesFromTags = metadata => {
           "Social",
           "Trabalho e Emprego",
           "Transexualidade",
-        ].includes(tag)
+        ].includes(tag),
       ))
   ) {
     categories.push("Society of Porto Alegre");
@@ -1355,7 +1382,7 @@ const getCategoriesFromTags = metadata => {
           "Mulher",
           "Pessoa com Deficiência",
           "Servidor",
-        ].includes(tag)
+        ].includes(tag),
       ))
   ) {
     categories.push("People of Porto Alegre");
@@ -1368,13 +1395,13 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.includes("Dia Internacional da Pessoa com Deficiência") &&
     (orTags.includes(
-      "Fórum Social Mundial –População Idosa, Pessoas com Deficiência e Diversidades"
+      "Fórum Social Mundial –População Idosa, Pessoas com Deficiência e Diversidades",
     ) ||
       tags.some(tag =>
         [
           "Comissão da Pessoa com Deficiência",
           "Pessoa com Deficiência",
-        ].includes(tag)
+        ].includes(tag),
       ))
   ) {
     categories.push("Disability in Brazil");
@@ -1382,7 +1409,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Inclusão Em Cena", "Poa Em Cena", "teatro de rua"].includes(tag)
+      ["Inclusão Em Cena", "Poa Em Cena", "teatro de rua"].includes(tag),
     ) &&
     tags.includes("Teatro")
   ) {
@@ -1393,7 +1420,7 @@ const getCategoriesFromTags = metadata => {
     !tags.some(tag =>
       [
         "Seminário do Comitê de Aleitamento Materno e Alimentação Complementar Saudável de Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Teatro Moacyr Scliar")
   ) {
@@ -1408,7 +1435,7 @@ const getCategoriesFromTags = metadata => {
         "Mutirão de Limpeza",
         "Novo Layout Caminhões Coleta Seletiva",
         "remoção de lixo",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Waste collection in Porto Alegre");
@@ -1416,7 +1443,9 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Coleta Seletiva", "Novo Layout Caminhões Coleta Seletiva"].includes(tag)
+      ["Coleta Seletiva", "Novo Layout Caminhões Coleta Seletiva"].includes(
+        tag,
+      ),
     )
   ) {
     categories.push("Separate waste collection in Brazil");
@@ -1429,8 +1458,30 @@ const getCategoriesFromTags = metadata => {
     categories.push("Waste containers in Porto Alegre");
   }
 
-  if (tags.some(tag => ["Reciclagem", "Compostagem"].includes(tag))) {
+  if (tags.some(tag => ["Compostagem", "Reciclagem"].includes(tag))) {
     categories.push("Recycling in Porto Alegre");
+  }
+
+  if (
+    tags.some(tag =>
+      [
+        "Posto de Entrega Voluntária de Recicláveis (PEV)",
+        "Unidade de Destino Certo Câncio Gomes",
+        "Unidade de Destino Certo Carvalho de Freitas",
+        "Unidade de Destino Certo Cruzeiro do Sul",
+        "Unidade de Destino Certo Diário de Notícias",
+        "Unidade de Destino Certo Fátima Pinto",
+        "Unidade de Destino Certo Humaitá",
+        "Unidade de Destino Certo Princesa Isabel",
+        "Unidade de Destino Certo Tenente Alpoim",
+        "Unidade de Serviço Conceição",
+        "Unidade de Serviço Freitas e Castro",
+        "Unidade de Serviço Silva Só",
+        "Unidade de Serviço Zeferino Dias",
+      ].includes(tag),
+    )
+  ) {
+    categories.push("Recycling stations in Porto Alegre");
   }
 
   if (tags.includes("Drenagem")) {
@@ -1442,20 +1493,20 @@ const getCategoriesFromTags = metadata => {
       [
         "Piscinas Públicas",
         "Temporada das Piscinas Comunitárias de Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
       "Public swimming pools in Brazil",
-      "Swimming pools in Rio Grande do Sul"
+      "Swimming pools in Rio Grande do Sul",
     );
   }
 
   if (
     tags.some(tag =>
       ["Novo Espaço de Recreação Infantil da Praça Carlos Simão Arnt"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Playgrounds in Porto Alegre", "Praça Carlos Simão Arnt");
@@ -1464,7 +1515,7 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("Ciclovia")) {
     categories.push(
       "Cycle lanes in Brazil",
-      "Cycling infrastructure in Porto Alegre"
+      "Cycling infrastructure in Porto Alegre",
     );
   }
 
@@ -1474,12 +1525,12 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.includes(
-      "Posse da Delegada Andine Anflor como chefe da Polícia Civil do RS"
+      "Posse da Delegada Andine Anflor como chefe da Polícia Civil do RS",
     )
   ) {
     categories.push(
       "Oaths of office in Brazil",
-      "Polícia Civil do Estado do Rio Grande do Sul"
+      "Polícia Civil do Estado do Rio Grande do Sul",
     );
   }
 
@@ -1496,7 +1547,7 @@ const getCategoriesFromTags = metadata => {
         "macacos-prego",
         "Proteção Animal",
         "serpentes",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Animals of Porto Alegre");
@@ -1529,7 +1580,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Estúdios da Rádio Guaíba", "Estúdio de Rádio"].includes(tag)
+      ["Estúdios da Rádio Guaíba", "Estúdio de Rádio"].includes(tag),
     )
   ) {
     categories.push("Radio studios in Brazil");
@@ -1540,7 +1591,7 @@ const getCategoriesFromTags = metadata => {
       [
         "Seminário Boas Práticas na Gestão de Trânsito dos Municípios",
         "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Auditório da FAMURS")
   ) {
@@ -1549,7 +1600,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Fórum Desenvolvimento Sustentável no Sul"].includes(tag)
+      ["Fórum Desenvolvimento Sustentável no Sul"].includes(tag),
     ) &&
     tags.includes("Auditório do Ministério Público")
   ) {
@@ -1571,12 +1622,12 @@ const getCategoriesFromTags = metadata => {
         "UM DIA DE AGENTE DA EPTC",
         "Operação Viagem Segura",
         "Operação Volta às Aulas 2019",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("EPTC")
   ) {
     categories.push(
-      "Empresa Pública de Transporte e Circulação de Porto Alegre"
+      "Empresa Pública de Transporte e Circulação de Porto Alegre",
     );
   }
 
@@ -1585,12 +1636,12 @@ const getCategoriesFromTags = metadata => {
       [
         "Assembleia de Verão 2019 da Famurs",
         "Assembleia de Verão da Famurs 2025",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Famurs")
   ) {
     categories.push(
-      "Federação das Associações de Municípios do Rio Grande do Sul"
+      "Federação das Associações de Municípios do Rio Grande do Sul",
     );
   }
 
@@ -1608,7 +1659,7 @@ const getCategoriesFromTags = metadata => {
       [
         "Projeto do Trecho 3 da Orla do Guaíba",
         "Trecho 3 da Orla do Guaíba",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Trecho 3 da Orla do Guaíba");
@@ -1616,7 +1667,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Gre-nal de Todos", "Gre-Nal", "IberCup"].includes(tag)
+      ["Gre-nal de Todos", "Gre-Nal", "IberCup"].includes(tag),
     ) &&
     tags.some(tag => ["Futebol", "Futebol de Várzea"].includes(tag))
   ) {
@@ -1626,13 +1677,19 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("Futebol Feminino")) {
     categories.push(
       "Association football in Porto Alegre",
-      "Women's association football in Brazil"
+      "Women's association football in Brazil",
     );
   }
 
   if (
     !tags.some(tag => ["IberCup"].includes(tag)) &&
-    tags.some(tag => ["Campeonato", "Concurso"].includes(tag))
+    tags.some(tag =>
+      [
+        "Campeonato",
+        "Concurso",
+        "Primeiro Quiz Cultural na Ilha da Pintada",
+      ].includes(tag),
+    )
   ) {
     categories.push("Competitions in Brazil");
   }
@@ -1644,7 +1701,7 @@ const getCategoriesFromTags = metadata => {
         "Jogos dos Estudantes Surdos",
         "Mexatchê",
         "STU Pro-Tur 2025",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag =>
       [
@@ -1655,7 +1712,7 @@ const getCategoriesFromTags = metadata => {
         "Futsal",
         "Ginástica",
         "Vôlei",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Sports in Porto Alegre");
@@ -1663,7 +1720,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Computador", "Formulário", "Informatização"].includes(tag)
+      ["Computador", "Formulário", "Informatização"].includes(tag),
     )
   ) {
     categories.push(
@@ -1671,7 +1728,7 @@ const getCategoriesFromTags = metadata => {
       "Digital transformation",
       "Computing in Brazil",
       "E-Government in Brazil",
-      "Digital infrastructure"
+      "Digital infrastructure",
     );
   }
 
@@ -1683,10 +1740,11 @@ const getCategoriesFromTags = metadata => {
         "Formulário",
         "Informatização",
         "Internet",
+        "Realidade Virtual",
         "Reunião Sobre Sistemas Informatizados",
         "Robótica",
         "Tecnologia",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Technology in Porto Alegre");
@@ -1703,7 +1761,7 @@ const getCategoriesFromTags = metadata => {
         "Mutirão",
         "Mutirão de cirurgias",
         "Mutirão de Limpeza",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Task forces in Brazil");
@@ -1760,8 +1818,8 @@ const getCategoriesFromTags = metadata => {
     !(tags.includes("Dia D de Vacinação") || tags.includes("Gripe")) &&
     tags.some(tag =>
       ["multivacinação", "Vacinação", "vacina em animais", "Vacina"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Vaccinations in Brazil");
@@ -1796,7 +1854,7 @@ const getCategoriesFromTags = metadata => {
         "Saúde do Idoso",
         "Idosos",
         "Relatório das pré-Conferências Municipais dos direitos da Pessoa Idosa",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Geriatrics in Rio Grande do Sul");
@@ -1821,7 +1879,7 @@ const getCategoriesFromTags = metadata => {
         "Comitê Municipal de Transmissão Vertical do HIV e Sífilis Congênita",
         "IST Aids e Hepatites Virais",
         "teste rápido sífilis, hiv e hepatite C",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("AIDS in Brazil");
@@ -1833,7 +1891,7 @@ const getCategoriesFromTags = metadata => {
         "Sífilis",
         "Comitê Municipal de Transmissão Vertical do HIV e Sífilis Congênita",
         "teste rápido sífilis, hiv e hepatite C",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Syphilis in Brazil");
@@ -1846,7 +1904,7 @@ const getCategoriesFromTags = metadata => {
         "Comitê Municipal de Transmissão Vertical do HIV e Sífilis Congênita",
         "IST Aids e Hepatites Virais",
         "teste rápido sífilis, hiv e hepatite C",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Hepatitis C");
@@ -1859,8 +1917,12 @@ const getCategoriesFromTags = metadata => {
   if (tags.some(tag => ["Campanha de Prevenção as DSTs"].includes(tag))) {
     categories.push(
       "HIV/AIDS education and prevention in Brazil",
-      "Sexually transmitted disease prevention"
+      "Sexually transmitted disease prevention",
     );
+  }
+
+  if (tags.some(tag => ["Calçada", "Calçada Sensorial"].includes(tag))) {
+    categories.push("Sidewalks in Porto Alegre");
   }
 
   if (
@@ -1883,7 +1945,7 @@ const getCategoriesFromTags = metadata => {
         "Saúde LGBTQIAP+",
         "Saúde Mental",
         "Saúde Nutricional e Amamentação",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Health in Porto Alegre");
@@ -1914,7 +1976,7 @@ const getCategoriesFromTags = metadata => {
         "Saúde Prisional",
         "Serviços Ortopédicos",
         "Visita domiciliar",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Healthcare in Porto Alegre");
@@ -1922,7 +1984,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.includes(
-      "Centro Administrativo Municipal Guilherme Socias Villela"
+      "Centro Administrativo Municipal Guilherme Socias Villela",
     ) &&
     tags.includes("Centro Administrativo Municipal (CAM)")
   ) {
@@ -1945,7 +2007,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     orTags.includes(
-      "Capacitação e Gerenciamento de Projetos Prioritários de Governo"
+      "Capacitação e Gerenciamento de Projetos Prioritários de Governo",
     ) ||
     tags.some(tag =>
       [
@@ -1955,7 +2017,7 @@ const getCategoriesFromTags = metadata => {
         "Governança",
         "PPA",
         "Workshop Gestão da Inovação na Administração Pública",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Public administration in Porto Alegre");
@@ -1972,7 +2034,7 @@ const getCategoriesFromTags = metadata => {
           "DMAE",
           "DMLU",
           "Divisão de Conservação de Vias Urbanas (DCVU)",
-        ].includes(tag)
+        ].includes(tag),
       )
     ) &&
     tags.includes("SMSURB")
@@ -2001,10 +2063,10 @@ const getCategoriesFromTags = metadata => {
         "Estação Integrada de Compostagem do DMLU",
         "Plantio Sustentável do DMLU",
         "Seletiva no Contêiner",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag =>
-      ["DMLU", "Novo Layout Caminhões Coleta Seletiva"].includes(tag)
+      ["DMLU", "Novo Layout Caminhões Coleta Seletiva"].includes(tag),
     )
   ) {
     categories.push("Departamento Municipal de Limpeza Urbana (Porto Alegre)");
@@ -2016,7 +2078,7 @@ const getCategoriesFromTags = metadata => {
         "Operação Ferro-Velho",
         "Operação Jaguar",
         "Fórum de Justiça e Segurança do Centro",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Smseg")
   ) {
@@ -2026,7 +2088,11 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.some(tag => ["Linha Turismo", "Caminhos Rurais"].includes(tag)) &&
     tags.some(tag =>
-      ["evento turístico internacional", "Turismo"].includes(tag)
+      [
+        "evento turístico internacional",
+        "Turismo",
+        "Turismo Aquaviário",
+      ].includes(tag),
     )
   ) {
     categories.push("Tourism in Porto Alegre");
@@ -2035,7 +2101,7 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.includes("Semana de Porto Alegre") &&
     tags.some(tag =>
-      ["Aniversário", "Aniversário do Parque Moinhos de Vento"].includes(tag)
+      ["Aniversário", "Aniversário do Parque Moinhos de Vento"].includes(tag),
     )
   ) {
     categories.push("Anniversaries in Porto Alegre");
@@ -2047,8 +2113,8 @@ const getCategoriesFromTags = metadata => {
       tag =>
         ["Brinquedo"].includes(tag) ||
         orTags.includes(
-          "Entrega de kits de brinquedos doados pela Fundação Abrinq"
-        )
+          "Entrega de kits de brinquedos doados pela Fundação Abrinq",
+        ),
     )
   ) {
     categories.push("Toys in Brazil");
@@ -2060,7 +2126,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Caminhão", "Novo Layout Caminhões Coleta Seletiva"].includes(tag)
+      ["Caminhão", "Novo Layout Caminhões Coleta Seletiva"].includes(tag),
     )
   ) {
     categories.push("Municipal vehicles of Porto Alegre");
@@ -2074,8 +2140,8 @@ const getCategoriesFromTags = metadata => {
     !tags.some(tag => ["ROMU", "Operação Jaguar"].includes(tag)) &&
     tags.some(tag =>
       ["Guarda Municipal", "Novas Viaturas para a Guarda Municipal"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Guarda Municipal (Porto Alegre)");
@@ -2085,8 +2151,8 @@ const getCategoriesFromTags = metadata => {
     !tags.includes("Albergue Felipe Diehl") &&
     tags.some(tag =>
       ["Abrigos", "Albergues", "Albergue Municipal", "Acolhimento"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Shelters in Brazil");
@@ -2105,7 +2171,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["1ª Feira da Agricultura Familiar - Agrifam"].includes(tag)
+      ["1ª Feira da Agricultura Familiar - Agrifam"].includes(tag),
     ) &&
     tags.includes("Largo Glênio Peres")
   ) {
@@ -2125,7 +2191,7 @@ const getCategoriesFromTags = metadata => {
         "Comissão de Economia, Finanças, Orçamento e do Mercosul (Cefor)",
         "Plenário Ana Terra - CMPA",
         "Plenário Otávio Rocha",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.includes("Legislativo")
   ) {
@@ -2156,7 +2222,7 @@ const getCategoriesFromTags = metadata => {
         "Pavimentação",
         "Retomada das Obras da Rua Ernesto Neugebauer",
         "rolo compressor",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Roadworks in Porto Alegre");
@@ -2168,7 +2234,7 @@ const getCategoriesFromTags = metadata => {
         "Escritório de Reconstrução",
         "Manutenção",
         "Licitação para Manutenção Elevadores e Escadas Rolantes",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     if (
@@ -2198,7 +2264,7 @@ const getCategoriesFromTags = metadata => {
         "academias ao ar livre",
         "Piscinas Públicas",
         "Quadras de Beach Tennis",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Sports venues in Porto Alegre");
@@ -2223,7 +2289,7 @@ const getCategoriesFromTags = metadata => {
         "Representantes da CEF",
         "Reunião com o Diretor regional da Caixa Econômica Federal",
         "Termo de Cooperação Técnica",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Partnerships involving the Municipality of Porto Alegre");
@@ -2237,11 +2303,11 @@ const getCategoriesFromTags = metadata => {
         "Orçamento Participativo",
         "OP",
         "Reunião com o Conselho do Orçamento Participativo",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      "Participatory budgeting in the Municipality of Porto Alegre"
+      "Participatory budgeting in the Municipality of Porto Alegre",
     );
   }
 
@@ -2251,7 +2317,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Câncer", "Desafio do City Cancer Challenge"].includes(tag)
+      ["Câncer", "Desafio do City Cancer Challenge"].includes(tag),
     )
   ) {
     categories.push("Cancer in Brazil");
@@ -2265,7 +2331,7 @@ const getCategoriesFromTags = metadata => {
     !tags.includes("Acampamento Farroupilha") &&
     tags.includes(
       "Ato de Lançamento do Edital do PMI do Parque Mauricio Sirotsky Sobrinho - Parque Harmonia",
-      "Parque Maurício Sirotsky Sobrinho (Harmonia)"
+      "Parque Maurício Sirotsky Sobrinho (Harmonia)",
     )
   ) {
     categories.push("Parque Maurício Sirotski Sobrinho");
@@ -2287,7 +2353,7 @@ const getCategoriesFromTags = metadata => {
         "Doação de Guarda-Sóis",
         "doações de cestas básicas",
         "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Donations in Rio Grande do Sul");
@@ -2309,15 +2375,17 @@ const getCategoriesFromTags = metadata => {
   if (tags.includes("Adutora")) {
     categories.push(
       "Water pipelines in Brazil",
-      "Water supply infrastructure in Porto Alegre"
+      "Water supply infrastructure in Porto Alegre",
     );
   }
 
   if (
     !tags.some(tag =>
-      ["Clássicos na Pinacoteca", "Ópera-rock Revolução Farroupilha"].includes(
-        tag
-      )
+      [
+        "Clássicos na Pinacoteca",
+        "Ópera-rock Revolução Farroupilha",
+        "Orquestra Pequena Casa da Criança",
+      ].includes(tag),
     ) &&
     tags.some(tag =>
       [
@@ -2326,7 +2394,7 @@ const getCategoriesFromTags = metadata => {
         "Concerto Musical",
         "Conserto Didático da Banda Municipal de Porto Alegre",
         "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Music of Porto Alegre");
@@ -2355,12 +2423,12 @@ const getCategoriesFromTags = metadata => {
         "Praça da Alfândega",
         "Quadrilátero Central",
         "Viva o Centro a Pé",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag =>
       ["Centro Histórico", "Fórum de Justiça e Segurança do Centro"].includes(
-        tag
-      )
+        tag,
+      ),
     )
   ) {
     categories.push("Centro Histórico (Porto Alegre)");
@@ -2385,6 +2453,11 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag => ["Bairro Boa Vista"].includes(tag))
   ) {
     categories.push("Boa Vista (Porto Alegre)");
+  }
+
+  if (tags.some(tag => ["Nova Rótula da Avenida Icaraí"].includes(tag))) {
+    categories.push("Avenida Icaraí");
+    categories.push("Roundabouts in Brazil");
   }
 
   if (
@@ -2417,7 +2490,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.includes(
-      "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre"
+      "15ª Chegada do Papai Noel - Abertura oficial do Natal de Porto Alegre",
     ) &&
     tags.includes("Bairro Floresta")
   ) {
@@ -2447,7 +2520,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.includes(
-      "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)"
+      "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)",
     ) &&
     tags.includes("Ilha da Pintada")
   ) {
@@ -2460,7 +2533,7 @@ const getCategoriesFromTags = metadata => {
         "Casa de Festas Brincalhão",
         "Largo David Coimbra",
         "Praça Garibaldi",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag => ["Bairro Menino Deus", "Menino Deus"].includes(tag))
   ) {
@@ -2483,7 +2556,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     !tags.some(tag =>
-      ["Casa da Estrela", "Praça Mafalda Veríssimo", "uMov.me"].includes(tag)
+      ["Casa da Estrela", "Praça Mafalda Veríssimo", "uMov.me"].includes(tag),
     ) &&
     tags.includes("Petrópolis")
   ) {
@@ -2561,7 +2634,7 @@ const getCategoriesFromTags = metadata => {
         "Adoção de Monumentos",
         "Patrimônio Histórico e Cultural do município",
         "Prédios Históricos",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Cultural heritage monuments in Porto Alegre");
@@ -2579,7 +2652,7 @@ const getCategoriesFromTags = metadata => {
       [
         "Centro Cultural Multimeios Restinga",
         "Emef Vereador Carlos Pessoa de Brum",
-      ].includes(tag)
+      ].includes(tag),
     ) &&
     tags.some(tag => ["Bairro Restinga", "Obras Restinga 2018"].includes(tag))
   ) {
@@ -2592,7 +2665,7 @@ const getCategoriesFromTags = metadata => {
         "Consulado",
         "Cônsul da Ucrânia no Brasil",
         "Cônsul do Japão em Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Consulates in Porto Alegre");
@@ -2600,17 +2673,17 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Comissão de Saúde e Segurança no Trabalho"].includes(tag)
+      ["Comissão de Saúde e Segurança no Trabalho"].includes(tag),
     ) ||
     orTags.some(tag =>
       [
         "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI",
         "Cerimônia de posse da Comissão de Saúde e Segurança do Trabalho da PGM",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      "Comissões de Saúde e Segurança no Trabalho (Porto Alegre)"
+      "Comissões de Saúde e Segurança no Trabalho (Porto Alegre)",
     );
   }
 
@@ -2622,10 +2695,10 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.includes(
       "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)",
-      "Conselho Municipal de Assistência Social (CMAS)"
+      "Conselho Municipal de Assistência Social (CMAS)",
     ) &&
     tags.some(tag =>
-      ["Serviço Social", "Previdência", "Bolsa Família"].includes(tag)
+      ["Serviço Social", "Previdência", "Bolsa Família"].includes(tag),
     )
   ) {
     categories.push("Social services in Porto Alegre");
@@ -2634,17 +2707,17 @@ const getCategoriesFromTags = metadata => {
   if (
     !tags.includes("Conselho Municipal de Assistência Social (CMAS)") &&
     tags.some(tag =>
-      ["Secretaria Municipal de Assistência Social (SMAS)"].includes(tag)
+      ["Secretaria Municipal de Assistência Social (SMAS)"].includes(tag),
     )
   ) {
     categories.push(
-      "Secretaria Municipal de Assistência Social (Porto Alegre)"
+      "Secretaria Municipal de Assistência Social (Porto Alegre)",
     );
   }
 
   if (!tags.includes("Demhab") && tags.some(tag => ["SMHARF"].includes(tag))) {
     categories.push(
-      "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)"
+      "Secretaria Municipal de Habitação e Regularização Fundiária (Porto Alegre)",
     );
   }
 
@@ -2658,7 +2731,7 @@ const getCategoriesFromTags = metadata => {
         "Habitação",
         "Loteamento",
         "moradias temporárias",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Housing in Porto Alegre");
@@ -2667,14 +2740,19 @@ const getCategoriesFromTags = metadata => {
   if (tags.some(tag => ["horta"].includes(tag))) {
     categories.push(
       "Community gardens in Brazil",
-      "Agriculture in Porto Alegre"
+      "Agriculture in Porto Alegre",
     );
   }
 
   if (
-    tags.some(tag => ["Resíduos Sólidos"].includes(tag)) ||
+    tags.some(tag =>
+      [
+        "Oficina de Inovação Urbana Resíduos Sólidos e Limpeza Urbana",
+        "Resíduos Sólidos",
+      ].includes(tag),
+    ) ||
     orTags.some(tag =>
-      ["Fiscalização do Transporte Resíduos da Construção Civil"].includes(tag)
+      ["Fiscalização do Transporte Resíduos da Construção Civil"].includes(tag),
     )
   ) {
     categories.push("Solid waste management");
@@ -2682,7 +2760,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Terreno", "Loteamento", "Reintegração de Posse"].includes(tag)
+      ["Terreno", "Loteamento", "Reintegração de Posse"].includes(tag),
     )
   ) {
     categories.push("Real estate in Brazil");
@@ -2692,7 +2770,7 @@ const getCategoriesFromTags = metadata => {
     categories.push(
       "Overpass bridges in Brazil",
       "Footbridges in Brazil",
-      "Demolitions in Brazil"
+      "Demolitions in Brazil",
     );
   }
 
@@ -2707,13 +2785,13 @@ const getCategoriesFromTags = metadata => {
         "Retirada de Passarela",
         "Talude",
         "Vistoria Obras Restaurante Panorâmico",
-      ].includes(tag)
+      ].includes(tag),
     ) ||
     orTags.some(tag =>
       [
         "Fiscalização do Transporte Resíduos da Construção Civil",
         "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Construction in Porto Alegre");
@@ -2727,8 +2805,18 @@ const getCategoriesFromTags = metadata => {
     categories.push("Workers in Brazil");
   }
 
-  if (tags.some(tag => ["exposição", "Exposição Fotográfica"].includes(tag))) {
+  if (
+    !tags.includes("Exposição SobrePoa") &&
+    tags.some(tag => ["exposição", "Exposição Fotográfica"].includes(tag))
+  ) {
     categories.push("Exhibitions in Porto Alegre");
+  }
+
+  if (
+    !tags.includes("Exposição SobrePoa") &&
+    tags.some(tag => ["Exposição Fotográfica"].includes(tag))
+  ) {
+    categories.push("Photography exhibitions in Brazil");
   }
 
   categories.push(...getPplCategories(metadata, tags));
@@ -2755,7 +2843,7 @@ const getCategoriesFromTags = metadata => {
   if (tags.some(tag => ["Dia de Finados"].includes(tag))) {
     categories.push(
       "Day of the Dead in Brazil",
-      `Day of the Dead ${getYear(metadata.humanReadableDate)}`
+      `Day of the Dead ${getYear(metadata.humanReadableDate)}`,
     );
   }
 
@@ -2791,13 +2879,13 @@ const getCategoriesFromTags = metadata => {
         "Retirada de Passarela",
         "Talude",
         "Vistoria Obras Restaurante Panorâmico",
-      ].includes(tag)
+      ].includes(tag),
     ) ||
     orTags.some(tag =>
       [
         "Fiscalização do Transporte Resíduos da Construção Civil",
         "Montagem das Estruturas da 64ª Feira do Livro de Porto Alegre",
-      ].includes(tag)
+      ].includes(tag),
     ) ||
     categories.some(tag => ["Roadworks in Porto Alegre"].includes(tag))
   ) {
@@ -2817,7 +2905,9 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["Calor", "clima", "Estiagem", "Previsão do Tempo", "Tempo"].includes(tag)
+      ["Calor", "clima", "Estiagem", "Previsão do Tempo", "Tempo"].includes(
+        tag,
+      ),
     )
   ) {
     categories.push("Weather and climate of Porto Alegre");
@@ -2826,7 +2916,7 @@ const getCategoriesFromTags = metadata => {
   if (tags.some(tag => ["Estiagem"].includes(tag))) {
     categories.push(
       "Drought in Brazil",
-      `${getYear(metadata.humanReadableDate)} droughts`
+      `${getYear(metadata.humanReadableDate)} droughts`,
     );
   }
 
@@ -2834,12 +2924,20 @@ const getCategoriesFromTags = metadata => {
     categories.push("Demonstrations and protests in Porto Alegre");
     categories.push(
       `Demonstrations and protests in Brazil in ${getYear(
-        metadata.humanReadableDate
-      )}`
+        metadata.humanReadableDate,
+      )}`,
     );
   }
 
-  if (!tags.includes("Fórum da Liberdade") && tags.includes("Conferência")) {
+  if (
+    tags.some(tag =>
+      [
+        "Fórum da Liberdade",
+        "Conferência",
+        "Evento Caminhos para a Inovação",
+      ].includes(tag),
+    )
+  ) {
     categories.push("Conferences in Porto Alegre");
   }
 
@@ -2850,7 +2948,9 @@ const getCategoriesFromTags = metadata => {
         "Cerimônia de inaguração do Centro de Referência de Assistência Social (CRAS - ILHAS)",
         "Inauguração",
         "Inauguração Restaurante 360 POA GASTROBAR",
-      ].includes(tag)
+        "Inauguração da Estátua de Renato Portaluppi",
+        "Inauguração da Delegacia de Polícia Especializada de repressão a Roubos em Transporte Coletivo - DRTC",
+      ].includes(tag),
     )
   ) {
     categories.push("Inaugurations in Brazil");
@@ -2858,7 +2958,7 @@ const getCategoriesFromTags = metadata => {
 
   if (
     tags.some(tag =>
-      ["votação", "Votação do programa Família Acolhedora"].includes(tag)
+      ["votação", "Votação do programa Família Acolhedora"].includes(tag),
     )
   ) {
     categories.push("Voting in Brazil");
@@ -2875,7 +2975,7 @@ const getCategoriesFromTags = metadata => {
         "CRIPs",
         "Entrega dos Certificados aos Gestores dos CRIP's",
         "Seminário de Capacitação dos gestores dos CRIPS para o 156",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Centros de Relação Institucional Participativa");
@@ -2905,45 +3005,52 @@ const getCategoriesFromTags = metadata => {
         //"Orquestra Sinfônica de Porto Alegre (OSPA)",
         "Orquestra Vila Lobos",
         "Recital para Doação de um Piano para o Centro Cultural Multimeios Restinga",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      `${getYear(metadata.humanReadableDate)} concerts in Brazil`
+      `${getYear(metadata.humanReadableDate)} concerts in Brazil`,
     );
   }
 
   if (tags.some(tag => ["Cantata de Natal"].includes(tag))) {
     categories.push(
       "Christmas concerts in Brazil",
-      `${getYear(metadata.humanReadableDate)} Christmas concerts `
+      `${getYear(metadata.humanReadableDate)} Christmas concerts `,
     );
   }
 
   if (
     tags.some(tag =>
-      ["Transporte fluvial de passageiros", "Catamarã"].includes(tag)
+      ["Transporte fluvial de passageiros", "Catamarã"].includes(tag),
     )
   ) {
     categories.push(
-      `${getYear(metadata.humanReadableDate)} in water transport`
+      `${getYear(metadata.humanReadableDate)} in water transport`,
     );
   }
 
   if (tags.some(tag => ["Saint Patrick's Day"].includes(tag))) {
     categories.push(
       "Saint Patrick's Day in Brazil",
-      `Saint Patrick's Day ${getYear(metadata.humanReadableDate)}`
+      `Saint Patrick's Day ${getYear(metadata.humanReadableDate)}`,
     );
   }
 
   if (
     tags.some(tag =>
-      ["Carnaval", "Carnaval de Rua", "Descida da Borges"].includes(tag)
+      ["Carnaval", "Carnaval de Rua", "Descida da Borges"].includes(tag),
     )
   ) {
     categories.push(
-      `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`
+      `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`,
+    );
+  }
+
+  if (tags.some(tag => ["Sarau"].includes(tag))) {
+    categories.push(
+      "Cultural events in Rio Grande do Sul",
+      `${getYear(metadata.humanReadableDate)} cultural events in Brazil`,
     );
   }
 
@@ -2960,17 +3067,17 @@ const getCategoriesFromTags = metadata => {
         "Papai e Mamãe Noel da Carris",
         "Primeira edição do Natal Tri Demais",
         "Primeira Edição do Projeto Porto dos Natais",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`
+      `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
     );
   }
 
   if (tags.some(tag => ["Ano Novo"].includes(tag))) {
     categories.push(
-      `New Year ${getYear(metadata.humanReadableDate) + 1} in Brazil`
+      `New Year ${getYear(metadata.humanReadableDate) + 1} in Brazil`,
     );
   }
 
@@ -2994,69 +3101,76 @@ const getCategoriesFromTags = metadata => {
         "Semana Acadêmica da Escola de Engenharia",
         "Semana Farroupilha",
         "Semana do Japão",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`
+      `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`,
     );
   }
 
+  const year = getYear(metadata.humanReadableDate);
+
+  const eventCategories = [
+    `${year} festivals in Porto Alegre`,
+    `Carnival of Porto Alegre ${year}`,
+    `Christmas ${year} in Porto Alegre`,
+    `New Year ${year} in Brazil`,
+  ];
+
+  const eventTags = [
+    "1ª Feira da Agricultura Familiar - Agrifam",
+    "126 Anos da Guarda Municipal de Porto Alegre",
+    "2° Fórum de Logística Sustentável",
+    "2º Seminário de Comunicação da Prefeitura de Porto Alegre",
+    "3ª Edição da Mostra Cultural Eixo Baltazar",
+    "34ª edição da entrega da Láurea Engenheiro do ano da Sociedade de Engenharia do Rio Grande do Sul",
+    "34ª Feira de Natal do Bom Fim",
+    "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
+    "86 anos do Viaduto Otávio Rocha",
+    "Acampamento Farroupilha",
+    "Assembleia de Verão 2019 da Famurs",
+    "Assembleia de Verão da Famurs 2025",
+    "Baile da Cidade 2019",
+    "Evento Mulheres em Ação",
+    "Expo Favela RS 2024",
+    "Exposição SobrePoa",
+    "Exposição de Gravuras Portuguesas",
+    "Feira do Livro",
+    "Festa de Nossa Senhora dos Navegantes",
+    "Festival do Japão",
+    "Fórum da Liberdade",
+    "Fórum Desenvolvimento Sustentável no Sul",
+    "IberCup",
+    "Jantar de Confraternização com o General de Exército Edson Leal Pujol",
+    "Material Escolar",
+    "Missão Xangai 2018",
+    "Nós na Praça",
+    "Pokémon GO",
+    "Porto Verão Alegre",
+    "Posse do Governador Eduardo Leite",
+    "Prêmio Açorianos",
+    "Projeto Esporte Verão",
+    "Operação Volta às Aulas 2019",
+    "Salão Internacional de Desenho para Imprensa (Sidi)",
+    "Semana de Porto Alegre",
+    "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
+    "Seminário POA 2020",
+    "Top de Marketing ADVB/RS",
+    "Troféu “Atitudes que dão show”",
+    "Viagem à Holanda",
+    "XI Prêmio EPTC de Educação para o Trânsito",
+    "XXVIII Colônia de Férias para Idosos",
+  ];
+
+  const hasEventCategory = categories.some(category =>
+    eventCategories.includes(category),
+  );
+
+  const hasEventTag = tags.some(tag => eventTags.includes(tag));
+
   if (
-    !categories.some(
-      tag =>
-        [
-          `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`,
-          `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`,
-          `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
-          `New Year ${getYear(metadata.humanReadableDate)} in Brazil`,
-        ].includes(tag) ||
-        tags.some(tag =>
-          [
-            "1ª Feira da Agricultura Familiar - Agrifam",
-            "126 Anos da Guarda Municipal de Porto Alegre",
-            "2° Fórum de Logística Sustentável",
-            "2º Seminário de Comunicação da Prefeitura de Porto Alegre",
-            "3ª Edição da Mostra Cultural Eixo Baltazar",
-            "34ª edição da entrega da Láurea Engenheiro do ano da Sociedade de Engenharia do Rio Grande do Sul",
-            "34ª Feira de Natal do Bom Fim",
-            "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
-            "86 anos do Viaduto Otávio Rocha",
-            "Acampamento Farroupilha",
-            "Assembleia de Verão 2019 da Famurs",
-            "Assembleia de Verão da Famurs 2025",
-            "Baile da Cidade 2019",
-            "Evento Mulheres em Ação",
-            "Expo Favela RS 2024",
-            "Exposição de Gravuras Portuguesas",
-            "Feira do Livro",
-            "Festa de Nossa Senhora dos Navegantes",
-            "Festival do Japão",
-            "Fórum da Liberdade",
-            "Fórum Desenvolvimento Sustentável no Sul",
-            "IberCup",
-            "Jantar de Confraternização com o General de Exército Edson Leal Pujol",
-            "Material Escolar",
-            "Missão Xangai 2018",
-            "Nós na Praça",
-            "Pokémon GO",
-            "Porto Verão Alegre",
-            "Posse do Governador Eduardo Leite",
-            "Prêmio Açorianos",
-            "Projeto Esporte Verão",
-            "Operação Volta às Aulas 2019",
-            "Salão Internacional de Desenho para Imprensa (Sidi)",
-            "Semana de Porto Alegre",
-            "Seminário da Rede de Acolhimento Municipal – Criança e Adolescente",
-            "Seminário POA 2020",
-            "Top de Marketing ADVB/RS",
-            "Troféu “Atitudes que dão show”",
-            "Viagem à Holanda",
-            "XI Prêmio EPTC de Educação para o Trânsito",
-            "XXVIII Colônia de Férias para Idosos",
-          ].includes(tag)
-        )
-    ) &&
+    !(hasEventCategory || hasEventTag) &&
     (isExecutiveTag ||
       isMeetingTag ||
       isSpecificMeetingTag ||
@@ -3072,9 +3186,11 @@ const getCategoriesFromTags = metadata => {
           "Apresentação",
           "Ato de Entrega da Obras de Melhoria da Praça Argentina, e da Assinatura do Termo de Adoção da praça pela Santa Casa de Misericórdia de Porto Alegre",
           "Audiência",
+          "Audiência Pública sobre PPP da Iluminação Pública",
           "Auditório da FAMURS",
           "Auditório da SMED",
           "Aula Inaugural",
+          "Baú de Histórias: Era uma Vez...",
           "Blitz",
           "Bloqueio químico",
           "Bolsa Atleta Municipal",
@@ -3122,6 +3238,7 @@ const getCategoriesFromTags = metadata => {
           "Entrevista ao Programa Timeline",
           "Entrevista Coletiva",
           "Espetáculo O Rei da Vela",
+          "Evento Caminhos para a Inovação",
           "evento social",
           "evento turístico internacional",
           "Eventos Climáticos",
@@ -3132,6 +3249,7 @@ const getCategoriesFromTags = metadata => {
           "Feira de Serviços para as Mulheres",
           "Felicity/GIZ",
           "Fiscalização",
+          "Formação da Mesa do Pacto Alegre",
           "Formação de Multiplicadores",
           "Formatura",
           "Fórum Social Mundial da População Idosa",
@@ -3177,6 +3295,7 @@ const getCategoriesFromTags = metadata => {
           "Proposta orçamentária 2019",
           "Saint Patrick's Day",
           "Sanção da Lei das Antenas",
+          "Sarau",
           "Sarau Café com Letras",
           "Semana Cidade Limpa",
           "Semana da Água",
@@ -3201,13 +3320,13 @@ const getCategoriesFromTags = metadata => {
           "Viva o Centro a Pé",
           "Viva Porto Alegre a Pé",
           "Volta às aulas",
-        ].includes(tag)
+        ].includes(tag),
       ) ||
       orTags.some(tag =>
         [
           "Ação da Coordenação de Educação da EPTC",
           "Entrega da Lei Orçamentária Anual (LOA) 2019",
-        ].includes(tag)
+        ].includes(tag),
       ) ||
       categories.some(tag =>
         [
@@ -3225,24 +3344,24 @@ const getCategoriesFromTags = metadata => {
           "Trainings by the Municipality of Porto Alegre",
           "Voting in Brazil",
           "Workshops (meetings) in Brazil",
-        ].includes(tag)
+        ].includes(tag),
       ))
   ) {
     categories.push(
-      `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
+      `${getYear(metadata.humanReadableDate)} events in Porto Alegre`,
     );
   }
 
   if (
     categories.includes(
-      `${getYear(metadata.humanReadableDate)} events in Porto Alegre`
+      `${getYear(metadata.humanReadableDate)} events in Porto Alegre`,
     ) &&
     tags.some(tag =>
       [
         "Palácio Piratini",
         "Salão Alberto Pasqualini",
         "Salão Negrinho do Pastoreio",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push("Events at Palácio Piratini");
@@ -3260,11 +3379,11 @@ const getCategoriesFromTags = metadata => {
         "Maratona",
         "Mexatchê",
         "Vôlei",
-      ].includes(tag)
+      ].includes(tag),
     )
   ) {
     categories.push(
-      `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`
+      `${getYear(metadata.humanReadableDate)} sports events in Porto Alegre`,
     );
   }
 
@@ -3279,7 +3398,7 @@ const getCategoriesFromTags = metadata => {
           `${getYear(metadata.humanReadableDate)} events in Porto Alegre`,
           `${getYear(metadata.humanReadableDate)} festivals in Porto Alegre`,
           `${getYear(
-            metadata.humanReadableDate
+            metadata.humanReadableDate,
           )} sports events in Porto Alegre`,
           `Carnival of Porto Alegre ${getYear(metadata.humanReadableDate)}`,
           `Christmas ${getYear(metadata.humanReadableDate)} in Porto Alegre`,
@@ -3309,6 +3428,7 @@ const getCategoriesFromTags = metadata => {
             "34ª Festa do Pêssego Municipal",
             "48º Troféu Seival e 29ª Regata Farroupilha",
             "5ª Edição da Cerimônia de Lavagem das Escadarias do Paço",
+            "5ª edição do Pedal das Chaminés",
             "8ª Edição do Curso de Multiplicadores de Educação para o Trânsito sobre o Pedestre Idoso",
             "8ª Semana Municipal da Água",
             "86 anos do Viaduto Otávio Rocha",
@@ -3323,6 +3443,7 @@ const getCategoriesFromTags = metadata => {
             "Exposição de Gravuras Portuguesas",
             "Exposição Deus Momo Vem Aí",
             "Exposição Maresia",
+            "Exposição SobrePoa",
             "Feira do Livro",
             "Festa de Nossa Senhora dos Navegantes",
             "Festa Jovem do Programa de Trabalho Educativo (PTE)",
@@ -3369,8 +3490,8 @@ const getCategoriesFromTags = metadata => {
             "VIII Seminário de Saúde e Segurança no Trabalho",
             "XI Prêmio EPTC de Educação para o Trânsito",
             "XXVIII Colônia de Férias para Idosos",
-          ].includes(tag)
-        )
+          ].includes(tag),
+        ),
     )
   ) {
     categories.push(`${getYear(metadata.humanReadableDate)} in Porto Alegre`);
@@ -3413,7 +3534,7 @@ const getMappedCategories = (metadata, tags) => {
 const setReadyToUploadFlag = metadata => {
   if (!Array.isArray(metadata?.tags) || !Array.isArray(validTags)) {
     throw new Error(
-      "Invalid input: metadata.tags and validTags must be arrays."
+      "Invalid input: metadata.tags and validTags must be arrays.",
     );
   }
 

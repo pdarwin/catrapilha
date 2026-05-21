@@ -1,7 +1,6 @@
 import { getYear } from "../../../Utils/DateUtils";
 
-const keywordToCategoryMap = {
-  Marchezan: "Nelson Marchezan Júnior",
+const keywordToCategoryMap = metadata => ({
   Hamm: "Afonso Hamm",
   " Lula": "Luiz Inácio Lula da Silva",
   "Denise Ries Russo": "Denise Russo",
@@ -40,16 +39,25 @@ const keywordToCategoryMap = {
   "Aparecido Donizete": "Aparecido Donizete de Souza",
   "Diretor-geral do DMAE": "Bruno Vanuzzi",
   "Erno Harzhein": "Erno Harzheim",
+  "Claudia Santos da Rocha": "Claudia Rocha",
+  "Vice-governador Gabriel Souza": "Gabriel Souza",
+  "presidente da Bienal": "Gilberto Schwartsmann",
+  "Gustavo Paim": `Gustavo Paim in ${getYear(metadata.humanReadableDate)}`,
   Ibercup: "IberCup 2019",
   "Jorge Gerdau Johannpeter": "Jorge Gerdau",
   "José Paulo Dornelles Cairoli": "José Paulo Cairoli",
+  "Comandante do 5º Distrito Naval, Vice-Almirante Jose Renato de Oliveira":
+    "José Renato de Oliveira",
   "Juliana Castro": "Juliana Castro (politician)",
+  "Cônsul-Geral dos Estados Unidos, Juliana Harlan": "Juliana Harlan",
   "Luciano Marcantonio": "Luciano Marcantônio",
+  "Marcele Malta": "Marcelly Malta",
   "Monica Leal": "Mônica Leal",
   "Nádia Gerhard": "Comandante Nádia",
   "Nádia Gerhrad": "Comandante Nádia",
   "Nádia Rodrigues Silveira Gerhard": "Comandante Nádia",
-  "Marcele Malta": "Marcelly Malta",
+  Marchezan: `Nelson Marchezan Júnior in ${getYear(metadata.humanReadableDate)}`,
+  "Embaixador da França no Brasil Michel Miraillet": "Michel Miraillet",
   "Orestes de Andrade": "Orestes de Andrade Júnior",
   "Porto Verão Alegre": metadata =>
     `Porto Verão Alegre ${getYear(metadata.humanReadableDate) + 1}`,
@@ -60,17 +68,17 @@ const keywordToCategoryMap = {
   "Sessão Solene de outorga de Título de Cidadão de Porto Alegre ao Presidente Estadual da Assembleia de Deus Pastor Adalberto Santos Dutra":
     "Adalberto dos Santos Dutra",
   "Tarcísio Freitas": "Tarcísio de Freitas",
-  "Vice-governador Gabriel Souza": "Gabriel Souza",
   "Walter Nagelstein": "Valter Nagelstein",
   "Wambert Gomes Di Lorenzo": "Wambert Di Lorenzo",
   "Záchia Paludo": "Maria de Fátima Záchia Paludo",
-};
+});
 
 const sameNameKeywords = [
   "Abena Busia",
   "Adão Cândido",
   "Adão de Castro Júnior",
   "André Carús",
+  "Andreea Pal",
   "Adriano Bokerskis",
   "Adriano Naves de Brito",
   "Alexandre Aragon",
@@ -116,14 +124,15 @@ const sameNameKeywords = [
   "Gabriel Souza",
   "Germano Bremm",
   "Gilberto Occhi",
+  "Gilberto Schwartsmann",
   "Giovane Byl",
   "Gustavo Ferenci",
-  "Gustavo Paim",
   "Hamilton Sossmeier",
   "Helder Barbalho",
   "Helen Machado",
   "Hertz Pires do Nascimento",
   "Iara Wortmann",
+  "Ida Celina",
   "Idenir Cecchim",
   "Inacio Etges",
   "Isatir Antonio Bottin Filho",
@@ -371,7 +380,7 @@ function getPersonByPositionAndYear(position, year) {
   if (!mapping) return null; // Return null if position doesn't exist
 
   const person = mapping.find(
-    ({ years }) => year >= years.start && year <= years.end // Check if year falls within the range
+    ({ years }) => year >= years.start && year <= years.end, // Check if year falls within the range
   );
 
   return person ? person.name : null; // Return the person's name or null if not found
@@ -386,17 +395,19 @@ export const getPplCategories = (metadata, tags) => {
   const uniqueCategories = new Set();
 
   // Add categories from the map
-  Object.entries(keywordToCategoryMap).forEach(([keyword, category]) => {
-    const normalizedKeyword = normalizeString(keyword);
-    if (
-      tags.includes(normalizedKeyword) ||
-      description.includes(normalizedKeyword)
-    ) {
-      const value =
-        typeof category === "function" ? category(metadata) : category;
-      uniqueCategories.add(value);
-    }
-  });
+  Object.entries(keywordToCategoryMap(metadata)).forEach(
+    ([keyword, category]) => {
+      const normalizedKeyword = normalizeString(keyword);
+      if (
+        tags.includes(normalizedKeyword) ||
+        description.includes(normalizedKeyword)
+      ) {
+        const value =
+          typeof category === "function" ? category(metadata) : category;
+        uniqueCategories.add(value);
+      }
+    },
+  );
 
   sameNameKeywords.forEach(keyword => {
     const normalizedKeyword = normalizeString(keyword);
@@ -404,7 +415,7 @@ export const getPplCategories = (metadata, tags) => {
     const shouldExclude =
       keyword === "Eduardo Leite" &&
       tags.some(tag =>
-        normalizeString(tag).includes("posse do governador eduardo leite")
+        normalizeString(tag).includes("posse do governador eduardo leite"),
       );
 
     if (
@@ -420,7 +431,7 @@ export const getPplCategories = (metadata, tags) => {
   tags.forEach(tag => {
     const personName = getPersonByPositionAndYear(
       tag,
-      new Date(metadata.publicationDate).getFullYear()
+      new Date(metadata.publicationDate).getFullYear(),
     );
     if (personName) {
       uniqueCategories.add(personName); // Add the person's name as a category
