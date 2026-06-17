@@ -42,6 +42,16 @@ export const normalizedTagGroups = [
     tags: ["Acampamento 2018", "Acampamento Farropilha"],
   },
   {
+    replacements: [
+      "Assessibilidade",
+      "Atendimento Improvisado",
+      "Cadeira para descida de escada",
+      "Pessoa com Deficiência",
+      "Treinamento",
+    ],
+    tags: ["Treinamento para uso de cadeira para descida de escada"],
+  },
+  {
     replacements: ["Adote um Escritor"],
     tags: ["Programa Adote um Escritor", "Projeto Adote um Escritor"],
   },
@@ -357,6 +367,10 @@ export const normalizedTagGroups = [
     tags: ["Cultura e Economia Criativa"],
   },
   {
+    replacements: ["Curso", "LGBT", "Saúde", "Saúde LGBTQIAP+"],
+    tags: ["curso de promotores da saúde LGBT"],
+  },
+  {
     replacements: ["Defesa Civil"],
     tags: ["Defesa Cívil", "Defesa Civil de Porto Alegre-RS"],
   },
@@ -384,6 +398,10 @@ export const normalizedTagGroups = [
   {
     replacements: ["Dia da Criança"],
     tags: ["Celebração do Dia da Criança", "Dia das Crianças"],
+  },
+  {
+    replacements: ["Direitos Humanos", "Posse", "Smdse"],
+    tags: ["Posse do Diretor-Geral dos Direitos Humanos da SMDSE"],
   },
   {
     replacements: ["DMAE"],
@@ -820,6 +838,7 @@ export const normalizedTagGroups = [
     tags: [
       "Posse da  Comissão de Saúde e Segurança da Fasc",
       "Posse da Comissão de Saúde e Segurança do Trabalho da SMRI",
+      "Posse da Prefeita em Exercício, Mônica Leal",
       "Posse da Procuradora Municipal",
       "Posse Novos Procuradores-Gerais do Município",
       "Posse Novos Secretários Municipais",

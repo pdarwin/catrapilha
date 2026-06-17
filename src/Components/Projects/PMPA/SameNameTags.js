@@ -114,6 +114,7 @@ export const sameNameTags = [
   "Clube de Criação RS",
   "Clube dos Jangadeiros",
   "CMET Paulo Freire",
+  "Colégio Farroupilha",
   "Colégio Militar de Porto Alegre",
   "Colônia de Férias Geraldo Santana",
   "Colônia de Pescadores Z5",
@@ -230,10 +231,12 @@ export const sameNameTags = [
 
   "I Love Poa",
   "Instituto Caldeira",
+  "Instituto Estadual Dr. Carlos Augusto de Moura e Cunha",
   "Instituto Ling",
   "Instituto Penal Feminino de Porto Alegre",
 
   "Janeiro Branco",
+  "Jantar de Aniversário dos 110 Anos do Sport Club Internacional",
   "Jantar de Confraternização com o General de Exército Edson Leal Pujol",
   "Jardins do DMAE",
   "Jornada de Estudos em Defesa do Adolescente",
@@ -335,6 +338,7 @@ export const sameNameTags = [
   "Recanto Europeu",
   "Rede Calabria",
   "Rede Pampa de Comunicação",
+  "Redes pela Leitura",
   "Regata de Aniversário de Porto Alegre",
   "Reserva Biológica do Lami José Lutzenberger",
   "Residencial São Guilherme",

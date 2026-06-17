@@ -1466,6 +1466,7 @@ const getCategoriesFromTags = metadata => {
     tags.some(tag =>
       [
         "Posto de Entrega Voluntária de Recicláveis (PEV)",
+        "Unidade de Destino Certo Bernardino Silveira Amorim",
         "Unidade de Destino Certo Câncio Gomes",
         "Unidade de Destino Certo Carvalho de Freitas",
         "Unidade de Destino Certo Cruzeiro do Sul",
@@ -1476,6 +1477,8 @@ const getCategoriesFromTags = metadata => {
         "Unidade de Destino Certo Tenente Alpoim",
         "Unidade de Serviço Conceição",
         "Unidade de Serviço Freitas e Castro",
+        "Unidade de Serviço Iapi",
+        "Unidade de Serviço Restinga",
         "Unidade de Serviço Silva Só",
         "Unidade de Serviço Zeferino Dias",
       ].includes(tag),
@@ -1520,7 +1523,7 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (tags.some(tag => ["Posse", "Posse Deputados Estaduais"].includes(tag))) {
-    categories.push("Oaths of office in Brazil");
+    categories.push("Oaths of office in Rio Grande do Sul");
   }
 
   if (
@@ -1529,7 +1532,7 @@ const getCategoriesFromTags = metadata => {
     )
   ) {
     categories.push(
-      "Oaths of office in Brazil",
+      "Oaths of office in Rio Grande do Sul",
       "Polícia Civil do Estado do Rio Grande do Sul",
     );
   }
@@ -2564,7 +2567,9 @@ const getCategoriesFromTags = metadata => {
   }
 
   if (
-    !tags.includes("Unidade de Saúde Ramos") &&
+    !tags.some(tag =>
+      ["Unidade de Saúde Ramos", "Comunidade da Vila Nazaré"].includes(tag),
+    ) &&
     tags.includes("Bairro Rubem Berta")
   ) {
     categories.push("Rubem Berta (Porto Alegre)");
@@ -3142,6 +3147,7 @@ const getCategoriesFromTags = metadata => {
     "Fórum da Liberdade",
     "Fórum Desenvolvimento Sustentável no Sul",
     "IberCup",
+    "Jantar de Aniversário dos 110 Anos do Sport Club Internacional",
     "Jantar de Confraternização com o General de Exército Edson Leal Pujol",
     "Material Escolar",
     "Missão Xangai 2018",
@@ -3233,6 +3239,7 @@ const getCategoriesFromTags = metadata => {
           "Entrega de Matrículas de Imóveis da Vila Canadá",
           "Entrega de Matrículas de Regularização para Moradores da Zona Sul",
           "Entrega de Obras",
+          "Entrega do relatório de atividades do Conselho Municipal de Educação (CME)",
           "Entrega dos Certificados aos Gestores dos CRIP's",
           "entrevista",
           "Entrevista ao Programa Timeline",

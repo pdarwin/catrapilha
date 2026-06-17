@@ -227,6 +227,8 @@ export const tagToCategoryMap = {
   Vereadores: "City councillors of Porto Alegre",
   "Conselho Municipal de Assistência Social (CMAS)":
     "Conselho Municipal de Assistência Social (Porto Alegre)",
+  "Entrega do relatório de atividades do Conselho Municipal de Educação (CME)":
+    "Conselho Municipal de Educação (Porto Alegre)",
   "Conselho Municipal de Saúde": "Conselho Municipal de Saúde (Porto Alegre)",
   "Casa dos Conselhos": "Casa dos Conselhos (Porto Alegre)",
   COMTU: "Conselho Municipal de Transportes Urbanos (Porto Alegre)",
@@ -329,6 +331,7 @@ export const tagToCategoryMap = {
   "Emeef Elyseu Paglioli": "EMEEF Elyseu Paglioli",
   "Emei Ilha da Pintada": "EMEI Ilha da Pintada",
   "Emef Vereador Carlos Pessoa de Brum": "EMEF Vereador Carlos Pessoa de Brum",
+  "Ecei Criança Esperança": "ECEI Criança Esperança",
   "Escola Comunitária de Educação Infantil (Ecei) Madre Teresa":
     "ECEI Madre Teresa",
   "Escola Comunitária de Educação Infantil (Ecei) Tia Mariazinha":
@@ -502,6 +505,7 @@ export const tagToCategoryMap = {
   "Centro de Eventos": "Centro de Eventos de Porto Alegre",
 
   "Estúdios da Rádio Guaíba": "Rádio Guaíba",
+  "Programa Balanço Geral da Record RS": "Balanço Geral",
   "Programa Esfera Pública": "Esfera Pública",
   "Programa Jornal do Almoço": "Jornal do Almoço",
   "Jornal Correio do Povo": "Correio do Povo",
@@ -593,6 +597,7 @@ export const tagToCategoryMap = {
   "Bairro Praia de Belas": "Praia de Belas",
   "Bairro São Geraldo": "São Geraldo (Porto Alegre)",
   "Santa Cecília": "Santa Cecília (Porto Alegre)",
+  "Bairro Santa Rosa de Lima": "Santa Rosa de Lima (Porto Alegre)",
   "Bairro Santa Tereza": "Santa Tereza (Porto Alegre)",
   "Bairro Santo Antônio": "Santo Antônio (Porto Alegre)",
   "Bairro São José": "São José (Porto Alegre)",
@@ -605,6 +610,7 @@ export const tagToCategoryMap = {
   "Morro Santana": "Morro Santana (Porto Alegre)",
   "Santa Maria Goretti": "Santa Maria Goretti (Porto Alegre)",
   "Vila Ipiranga": "Vila Ipiranga (Porto Alegre)",
+  "Comunidade da Vila Nazaré": "Vila Nazaré",
   "Capital Gaúcha": "Porto Alegre",
   "Aldeia do Morro do Osso": "Ymã Tupen Pãn",
   "Entrega de Matrículas de Imóveis da Vila Canadá": "Vila Canadá",
@@ -1372,4 +1378,5 @@ export const tagToCategoryMap = {
   pneu: "Tire reuse",
   "Lançamento da Pedra Fundamental": "Foundation stone laying ceremonies",
   "Oficina de Contação de Histórias": "Children's storytelling",
+  "Cadeira para descida de escada": "Evacuation chairs",
 };
