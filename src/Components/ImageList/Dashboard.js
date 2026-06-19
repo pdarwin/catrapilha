@@ -105,6 +105,13 @@ export default function Dashboard({ stopRef }) {
     navigate(`/item/${item.id}`);
   };
 
+  const progress = dataState.listProgress || {};
+
+  const progressValue =
+    progress.totalPages && progress.page
+      ? Math.min(100, (progress.page / progress.totalPages) * 100)
+      : 0;
+
   return (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
       <div
@@ -153,13 +160,50 @@ export default function Dashboard({ stopRef }) {
               ))}
             </ImageList>
           ) : dataState.listLoading ? (
-            <Typography
-              variant="h5"
-              color="text.secondary"
-              sx={{ textAlign: "center" }}
+            <Box
+              sx={{
+                textAlign: "center",
+                width: "100%",
+                maxWidth: 800,
+                margin: "auto",
+              }}
             >
-              Preparando lista de imagens, aguarde por favor.
-            </Typography>
+              <Typography variant="h5" color="text.secondary" sx={{ mb: 2 }}>
+                {progress.message ||
+                  "Preparando lista de imagens, aguarde por favor."}
+              </Typography>
+
+              {progress.totalPages > 0 ? (
+                <>
+                  <LinearProgress
+                    variant="determinate"
+                    value={progressValue}
+                    sx={{ mb: 1 }}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    Página {progress.page} de {progress.totalPages}
+                  </Typography>
+                </>
+              ) : (
+                <LinearProgress sx={{ mb: 1 }} />
+              )}
+
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                Imagens encontradas: {progress.found || 0}
+                {progress.maxItems ? ` de ${progress.maxItems}` : ""}
+              </Typography>
+
+              {progress.currentId ? (
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
+                  Última imagem analisada: {progress.currentId}
+                  {progress.currentTitle ? ` — ${progress.currentTitle}` : ""}
+                </Typography>
+              ) : null}
+            </Box>
           ) : (
             <Typography
               variant="h5"

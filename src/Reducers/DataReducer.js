@@ -17,9 +17,44 @@ export const actionsD = {
   setFilter: "setFilter",
   setRoot: "setRoot",
   setTotalPages: "setTotalPages",
+  setListProgress: "setListProgress",
   setListLoading: "setListLoading",
   resetState: "resetState",
   finishProjectReset: "finishProjectReset",
+};
+
+const emptyItem = {
+  id: 0,
+  title: "",
+  filename: "",
+  originalFilename: "",
+  link: "",
+  linkhtml: "",
+  imagelink: "",
+  image: "",
+  content: "",
+  description: "",
+  author: "",
+  date: "",
+  license: "",
+  source: "",
+  infoPanel: "",
+  tags: [],
+  categories: [],
+  file: null,
+  readyToUpload: false,
+  needsDetail: false,
+};
+
+const emptyListProgress = {
+  message: "",
+  projectId: "",
+  page: 0,
+  totalPages: 0,
+  found: 0,
+  maxItems: 0,
+  currentId: null,
+  currentTitle: "",
 };
 
 export const initialStateD = {
@@ -34,26 +69,14 @@ export const initialStateD = {
   categories: "",
   license: "PD-old-100-expired",
   date: "",
-  item: {
-    id: 0,
-    title: "",
-    filename: "",
-    link: "",
-    linkhtml: "",
-    imagelink: "",
-    content: "",
-    description: "",
-    author: "",
-    date: "",
-    infoPanel: "",
-    file: null,
-  },
+  item: emptyItem,
   filter: "",
   root: 1,
   author: "",
   totalPages: 0,
   maxItems: 10,
   listLoading: false,
+  listProgress: emptyListProgress,
   items: [], // Initialize items as an empty array
   projectReseted: true,
 };
@@ -65,25 +88,63 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         projectId: action.payload,
+
         data: [],
+        initialCount: 0,
+        initialCountC: 0,
+        rev: 0,
+
         items: [],
+        item: emptyItem,
+
+        firstId: 0,
+        lastId: 0,
+        currentId: 0,
+        forward: true,
+
+        categories: "",
+        license: "PD-old-100-expired",
+        date: "",
+        author: "",
+
+        filter: "",
+        root: 1,
+        totalPages: 0,
+        listLoading: false,
+        listProgress: emptyListProgress,
+
         projectReseted: true,
       };
     case actionsD.finishProjectReset:
+      if (action.payload && action.payload !== state.projectId) {
+        return state;
+      }
+
       return {
         ...state,
         projectReseted: false,
       };
 
     // Data
-    case actionsD.updateIData:
+    case actionsD.updateIData: {
+      const projectId = action.payload?.projectId;
+      const data = action.payload?.data || [];
+
+      // Evita que uma resposta antiga de outro projecto sobrescreva o estado actual
+      if (projectId && projectId !== state.projectId) {
+        console.warn(
+          `Ignoring data for project ${projectId}, current project is ${state.projectId}`,
+        );
+        return state;
+      }
+
       return {
         ...state,
-        data: action.payload,
-        initialCount: action.payload.length,
-        initialCountC: action.payload.filter(element => element.status === "Y")
-          .length,
+        data,
+        initialCount: data.length,
+        initialCountC: data.filter(element => element.status === "Y").length,
       };
+    }
     case actionsD.updateData:
       return {
         ...state,
@@ -101,20 +162,7 @@ export const DataReducer = (state, action) => {
           state.items[
             state.items.findIndex(elem => elem.id === state.currentId) - 1
           ].id,
-        item: {
-          id: 0,
-          title: "",
-          filename: "",
-          link: "",
-          linkhtml: "",
-          imagelink: "",
-          content: "",
-          description: "",
-          author: "",
-          date: "",
-          infoPanel: "",
-          file: null,
-        },
+        item: emptyItem,
         forward: false,
       };
     case actionsD.moveForward:
@@ -124,40 +172,14 @@ export const DataReducer = (state, action) => {
           state.items[
             state.items.findIndex(elem => elem.id === state.currentId) + 1
           ].id,
-        item: {
-          id: 0,
-          title: "",
-          filename: "",
-          link: "",
-          linkhtml: "",
-          imagelink: "",
-          content: "",
-          description: "",
-          author: "",
-          date: "",
-          infoPanel: "",
-          file: null,
-        },
+        item: emptyItem,
         forward: true,
       };
     case actionsD.setCurrentId:
       return {
         ...state,
         currentId: action.payload,
-        item: {
-          id: 0,
-          title: "",
-          filename: "",
-          link: "",
-          linkhtml: "",
-          imagelink: "",
-          content: "",
-          description: "",
-          author: "",
-          date: "",
-          infoPanel: "",
-          file: null,
-        },
+        item: emptyItem,
       };
     case actionsD.setFirstId:
       return {
@@ -218,6 +240,14 @@ export const DataReducer = (state, action) => {
       return {
         ...state,
         listLoading: action.payload,
+      };
+    case actionsD.setListProgress:
+      return {
+        ...state,
+        listProgress: {
+          ...state.listProgress,
+          ...action.payload,
+        },
       };
     default:
       throw new Error();

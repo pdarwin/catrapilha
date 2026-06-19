@@ -23,13 +23,19 @@ export const getData = async (projectId, dataDispatch, modalDispatch) => {
 
   try {
     const res = await getDataAPI(projectId);
-    const parsedData = JSON.parse(res.data.parse.wikitext["*"])["data"];
+    const parsedData = JSON.parse(res.data.parse.wikitext["*"])["data"] || [];
+
     dataDispatch({
       type: actionsD.updateIData,
-      payload: parsedData || [],
+      payload: {
+        projectId,
+        data: parsedData,
+      },
     });
+
     dataDispatch({
       type: actionsD.finishProjectReset,
+      payload: projectId,
     });
   } catch (error) {
     console.error("getData() Error:", error);
@@ -62,7 +68,10 @@ export const sendData = async (dataState, modalDispatch, dataDispatch) => {
     if (data.edit.result === "Success") {
       dataDispatch({
         type: actionsD.updateIData,
-        payload: dataState.data || [],
+        payload: {
+          projectId: dataState.projectId,
+          data: dataState.data || [],
+        },
       });
       modalDispatch({
         type: actionsM.fireModal,

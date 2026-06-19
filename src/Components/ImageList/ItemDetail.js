@@ -19,7 +19,9 @@ import { actionsD } from "../../Reducers/DataReducer";
 import { useModalContext } from "../../Reducers/ModalContext";
 import { actionsM } from "../../Reducers/ModalReducer";
 import { uploadToCommons } from "../../Services/GeneralApis";
+import { buildProjectItemDetail } from "../../Utils/ProjectItemUtils";
 import { getProject } from "../../Utils/ProjectUtils";
+import ArqItemForm from "../Projects/ARQ/ArqItemForm";
 
 export default function ItemDetail() {
   const { dataState, dataDispatch } = useDataContext();
@@ -32,19 +34,75 @@ export default function ItemDetail() {
   const [loading, setLoading] = useState(false);
   const [localItems, setLocalItems] = useState([...dataState.items]);
   const [localData, setLocalData] = useState([...dataState.data]);
+  const [detailLoading, setDetailLoading] = useState(false);
 
   // Find the item in localItems
   const item = localItems.find(item => item.id === parseInt(id));
 
+  const isArqProject = dataState.projectId === "ARQ";
+
+  const displayItem =
+    isArqProject && dataState.item?.id === item?.id ? dataState.item : item;
+
   useEffect(() => {
-    //if (localItems.length === 0) {
-    dataDispatch({ type: actionsD.updateItems, payload: localItems });
-    dataDispatch({ type: actionsD.updateData, payload: localData });
-    //}
-  }, [localItems, localData, dataDispatch]);
+    const hydrateItem = async () => {
+      if (!item || !item.needsDetail) {
+        return;
+      }
+
+      try {
+        setDetailLoading(true);
+
+        const detailedItem = await buildProjectItemDetail(
+          dataState.projectId,
+          item,
+          dataState,
+        );
+
+        const updatedItems = localItems.map(localItem =>
+          localItem.id === detailedItem.id ? detailedItem : localItem,
+        );
+
+        setLocalItems(updatedItems);
+
+        dataDispatch({
+          type: actionsD.updateItems,
+          payload: updatedItems,
+        });
+
+        dataDispatch({
+          type: actionsD.updateItem,
+          payload: detailedItem,
+        });
+      } catch (error) {
+        console.error("Erro ao preparar detalhe do item:", error);
+        modalDispatch({
+          type: actionsM.fireModal,
+          payload: {
+            msg: "Erro ao preparar detalhe do item.",
+            level: "error",
+          },
+        });
+      } finally {
+        setDetailLoading(false);
+      }
+    };
+
+    hydrateItem();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item?.id, item?.needsDetail, dataState.projectId]);
+
+  useEffect(() => {
+    setLocalItems([...(dataState.items || [])]);
+    setLocalData([...(dataState.data || [])]);
+  }, [dataState.projectId, dataState.items, dataState.data]);
 
   const buildInfoPanel = item => {
     if (!item) return "No information available.";
+
+    if (item.infoPanel) {
+      return item.infoPanel;
+    }
 
     const categories = item.categories
       ? item.categories.map(category => `[[Category:${category}]]`).join("\n")
@@ -68,14 +126,14 @@ export default function ItemDetail() {
   };
 
   const [editableInfoPanel, setEditableInfoPanel] = useState(
-    item ? buildInfoPanel(item) : "No information available."
+    item ? buildInfoPanel(item) : "No information available.",
   );
 
   useEffect(() => {
-    if (item) {
-      setEditableInfoPanel(buildInfoPanel(item));
+    if (displayItem) {
+      setEditableInfoPanel(buildInfoPanel(displayItem));
     }
-  }, [item]);
+  }, [displayItem]);
 
   // Find the previous and next items
   // Ensure the items are sorted by ID
@@ -111,7 +169,7 @@ export default function ItemDetail() {
       const data = await uploadToCommons(
         updatedItem,
         ignoreWarnings,
-        project.uploadByLink
+        project.uploadByLink,
       );
 
       if (data.upload.result === "Warning") {
@@ -136,15 +194,12 @@ export default function ItemDetail() {
               },
             });
             // If we want auto-advance in 5s:
-            if (currentItem.readyToUpload) {
-              const timerId = setTimeout(() => {
-                // 1) close modal automatically
-                modalDispatch({ type: actionsM.closeModal });
-                // 2) remove item & go next
-                removeAndGoNext(currentItem.id, "Y", items, dataset);
-              }, 2000);
-              setAutoCloseTimer(timerId);
-            }
+            const timerId = setTimeout(() => {
+              modalDispatch({ type: actionsM.closeModal });
+              removeAndGoNext(currentItem.id, "Y", items, dataset);
+            }, 2000);
+
+            setAutoCloseTimer(timerId);
             break;
           case "duplicate":
             msg = "Imagem duplicada no Commons";
@@ -175,7 +230,7 @@ export default function ItemDetail() {
         }
       }
 
-      if (data.upload.result === "Success" && currentItem.readyToUpload) {
+      if (data.upload.result === "Success") {
         modalDispatch({
           type: actionsM.fireModal,
           payload: {
@@ -184,23 +239,18 @@ export default function ItemDetail() {
             link:
               "https://commons.wikimedia.org/wiki/File:" + data.upload.filename,
             onManualClose: () => {
-              // If user closes early
               if (autoCloseTimer) clearTimeout(autoCloseTimer);
               modalDispatch({ type: actionsM.closeModal });
-              // do NOT remove item => user has canceled the chain
             },
           },
         });
-        // If we want auto-advance in 5s:
-        if (currentItem.readyToUpload) {
-          const timerId = setTimeout(() => {
-            // 1) close modal automatically
-            modalDispatch({ type: actionsM.closeModal });
-            // 2) remove item & go next
-            removeAndGoNext(currentItem.id, "Y", items, dataset);
-          }, 2000);
-          setAutoCloseTimer(timerId);
-        }
+
+        const timerId = setTimeout(() => {
+          modalDispatch({ type: actionsM.closeModal });
+          removeAndGoNext(currentItem.id, "Y", items, dataset);
+        }, 2000);
+
+        setAutoCloseTimer(timerId);
       }
     } catch (error) {
       modalDispatch({
@@ -218,30 +268,47 @@ export default function ItemDetail() {
 
   const removeAndGoNext = (itemId, status, items, dataset) => {
     const updatedDataset = [...dataset, { id: itemId, status }];
-    setLocalData(updatedDataset);
-
-    // Update localItems
     const updatedItems = items.filter(it => it.id !== itemId);
-    setLocalItems(updatedItems); // Update local state
 
-    // Sort the updated local list
-    const sortedUpdated = updatedItems.sort((a, b) => a.id - b.id);
+    setLocalData(updatedDataset);
+    setLocalItems(updatedItems);
+
+    dataDispatch({
+      type: actionsD.updateData,
+      payload: updatedDataset,
+    });
+
+    dataDispatch({
+      type: actionsD.updateItems,
+      payload: updatedItems,
+    });
+
+    const sortedUpdated = [...updatedItems].sort((a, b) => a.id - b.id);
     const nextIndex = sortedUpdated.findIndex(it => it.id > itemId);
 
-    // Navigate using the updated local list
     if (nextIndex >= 0) {
       const nextCandidate = sortedUpdated[nextIndex];
+
       navigate(`/item/${nextCandidate.id}`);
+
       if (nextCandidate.readyToUpload) {
-        handleUpload(nextCandidate, updatedItems, updatedDataset); // Continue processing
+        handleUpload(nextCandidate, updatedItems, updatedDataset);
       }
     } else {
-      // Process ends, update global state
-      dataDispatch({ type: actionsD.updateItems, payload: updatedItems });
-      dataDispatch({ type: actionsD.updateData, payload: updatedDataset });
-      navigate("/"); // Navigate home
+      navigate("/List");
     }
   };
+
+  if (detailLoading || item?.needsDetail) {
+    return (
+      <Box sx={{ textAlign: "center", marginTop: 4 }}>
+        <CircularProgress />
+        <Typography variant="body1" sx={{ marginTop: 2 }}>
+          A preparar o item...
+        </Typography>
+      </Box>
+    );
+  }
 
   if (!item) {
     return (
@@ -249,7 +316,7 @@ export default function ItemDetail() {
         <Typography variant="h6" color="error">
           Item não encontrado.
         </Typography>
-        <Button variant="contained" onClick={() => navigate("/")}>
+        <Button variant="contained" onClick={() => navigate("/List")}>
           Voltar para a lista
         </Button>
       </Box>
@@ -294,8 +361,8 @@ export default function ItemDetail() {
             <CardMedia
               component="img"
               height="400"
-              image={item.imagelink || "fallback_image_url.jpg"}
-              alt={item.title || "Imagem"}
+              image={displayItem.imagelink || "fallback_image_url.jpg"}
+              alt={displayItem.title || "Imagem"}
               sx={{
                 borderRadius: 2,
                 boxShadow: 3,
@@ -326,7 +393,13 @@ export default function ItemDetail() {
                       type: actionsD.updateItems,
                       payload: localItems,
                     });
-                    navigate("/"); // Navigate home
+
+                    dataDispatch({
+                      type: actionsD.updateData,
+                      payload: localData,
+                    });
+
+                    navigate("/List");
                   }}
                   size="large"
                   sx={{ marginRight: 2 }}
@@ -347,7 +420,7 @@ export default function ItemDetail() {
                   variant="contained"
                   color="warning"
                   onClick={() =>
-                    removeAndGoNext(item.id, "N", localItems, localData)
+                    removeAndGoNext(displayItem.id, "N", localItems, localData)
                   }
                   size="large"
                   sx={{ marginRight: 2 }}
@@ -358,7 +431,7 @@ export default function ItemDetail() {
                   variant="contained"
                   color="warning"
                   onClick={() =>
-                    removeAndGoNext(item.id, "Y", localItems, localData)
+                    removeAndGoNext(displayItem.id, "Y", localItems, localData)
                   }
                   size="large"
                   sx={{ marginRight: 2 }}
@@ -369,14 +442,14 @@ export default function ItemDetail() {
                   variant="contained"
                   onClick={() =>
                     handleUpload(
-                      item,
+                      displayItem,
                       [...dataState.items],
-                      [...dataState.data]
+                      [...dataState.data],
                     )
                   }
                   size="large"
                   sx={{ marginRight: 2 }}
-                  disabled={loading} // Disable button while loading
+                  disabled={loading}
                   startIcon={
                     loading && <CircularProgress size={20} color="inherit" />
                   }
@@ -385,6 +458,25 @@ export default function ItemDetail() {
                 </Button>
               </Box>
             </Box>
+            {isArqProject && displayItem.linkhtml ? (
+              <Box
+                sx={{
+                  marginTop: 2,
+                  maxHeight: 600,
+                  overflow: "auto",
+                  border: "1px solid #ddd",
+                  borderRadius: 1,
+                  padding: 1,
+                  backgroundColor: "#fff",
+                }}
+              >
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: displayItem.linkhtml,
+                  }}
+                />
+              </Box>
+            ) : null}
           </Grid>
 
           {/* Fields on the right */}
@@ -398,46 +490,56 @@ export default function ItemDetail() {
               </Typography>
 
               <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>ID:</strong> {item.id}
+                <strong>ID:</strong> {displayItem.id}
               </Typography>
 
               <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Nome do Arquivo:</strong> {item.filename}
+                <strong>Nome do Arquivo:</strong> {displayItem.filename}
               </Typography>
 
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Descrição:</strong> {item.description}
-              </Typography>
+              {isArqProject ? (
+                <ArqItemForm />
+              ) : (
+                <>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Descrição:</strong> {displayItem.description}
+                  </Typography>
 
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Autor:</strong> {item.author || "Desconhecido"}
-              </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Autor:</strong>{" "}
+                    {displayItem.author || "Desconhecido"}
+                  </Typography>
 
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Data:</strong> {item.date || "Desconhecida"}
-              </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Data:</strong> {displayItem.date || "Desconhecida"}
+                  </Typography>
 
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Tags:</strong>{" "}
-                {item.tags.length > 0 ? item.tags.join(", ") : "Nenhuma"}
-              </Typography>
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Tags:</strong>{" "}
+                    {displayItem.tags?.length > 0
+                      ? displayItem.tags.join(", ")
+                      : "Nenhuma"}
+                  </Typography>
 
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Info Panel:</strong>
-              </Typography>
-              <TextField
-                fullWidth
-                multiline
-                minRows={8}
-                maxRows={30}
-                value={editableInfoPanel}
-                onChange={e => setEditableInfoPanel(e.target.value)}
-                variant="outlined"
-                sx={{
-                  backgroundColor: "#f9f9f9",
-                  borderRadius: "4px",
-                }}
-              />
+                  <Typography variant="body1" sx={{ marginBottom: 1 }}>
+                    <strong>Info Panel:</strong>
+                  </Typography>
+
+                  <TextField
+                    fullWidth
+                    multiline
+                    minRows={8}
+                    maxRows={30}
+                    value={editableInfoPanel}
+                    onChange={e => setEditableInfoPanel(e.target.value)}
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: "#f9f9f9",
+                      borderRadius: "4px",
+                    }}
+                  />
+                </>
+              )}
             </CardContent>
           </Grid>
         </Grid>

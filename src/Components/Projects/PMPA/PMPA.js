@@ -26,11 +26,39 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
     // Counter to track processed pages
     let processedPages = 0;
 
+    const updateProgress = payload => {
+      dataDispatch({
+        type: actionsD.setListProgress,
+        payload: {
+          projectId: dataState.projectId,
+          maxItems: dataState.maxItems,
+          ...payload,
+        },
+      });
+    };
+
+    updateProgress({
+      message: "A iniciar carregamento do Banco de Imagens de Porto Alegre",
+      page,
+      totalPages: 0,
+      found: 0,
+      currentId: null,
+      currentTitle: "",
+    });
+
     while (localItems.length < dataState.maxItems) {
       // Skip already fetched pages
       while (fetchedPages.has(page)) {
         page++;
       }
+
+      updateProgress({
+        message: "A consultar imagem de Porto Alegre",
+        page,
+        found: localItems.length,
+        currentId: page,
+        currentTitle: "",
+      });
 
       const res = await fetchPMPA1Page(page);
 
@@ -101,6 +129,15 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
           };
 
           localItems.push(item); // Add item to the localItems array
+
+          updateProgress({
+            message: "Imagem adicionada à lista",
+            page,
+            found: localItems.length,
+            currentId: item.id,
+            currentTitle: item.title || "",
+          });
+
           page++;
           processedPages++;
         }
@@ -137,6 +174,14 @@ export const getPMPA1ListItems = async (dataState, dataDispatch) => {
     dataDispatch({
       type: actionsD.updateData,
       payload: [...localDataset],
+    });
+
+    updateProgress({
+      message: "Lista de imagens pronta",
+      page,
+      found: localItems.length,
+      currentId: null,
+      currentTitle: "",
     });
 
     console.log(`Returning ${localItems.length} items.`);

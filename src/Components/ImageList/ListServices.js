@@ -1,10 +1,12 @@
 import { actionsD } from "../../Reducers/DataReducer";
-import { getArqListItems } from "../../Services/ArqAPIs";
+import { getArqListItems } from "../Projects/ARQ/Arq";
 import { getPMPA1ListItems } from "../Projects/PMPA/PMPA";
 
 export const fetchListItems = async (dataState, dataDispatch) => {
   try {
     dataDispatch({ type: actionsD.setListLoading, payload: true });
+
+    console.log("fetchListItems projectId:", dataState.projectId);
 
     if (dataState.projectId === "ARQ") {
       await getArqListItems(dataState, dataDispatch);

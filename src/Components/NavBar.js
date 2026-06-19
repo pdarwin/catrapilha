@@ -49,13 +49,15 @@ export default function NavBar({ stopRef }) {
   }, [modalDispatch]);
 
   useEffect(() => {
-    if (dataState.projectId) {
-      const fetchData = async () => {
-        await getData(dataState.projectId, dataDispatch, modalDispatch);
-      };
-
-      fetchData();
+    if (!dataState.projectId) {
+      return;
     }
+
+    const fetchData = async () => {
+      await getData(dataState.projectId, dataDispatch, modalDispatch);
+    };
+
+    fetchData();
 
     // eslint-disable-next-line
   }, [dataState.projectId]);
@@ -84,13 +86,24 @@ export default function NavBar({ stopRef }) {
   // Handle project selection change
   const handleProjectChange = e => {
     e.preventDefault();
+
     const selectedProjectId = e.target.value;
 
-    if (dataState.listLoading) {
-      dataDispatch({ type: actionsD.setListLoading, payload: false });
+    if (selectedProjectId === dataState.projectId) {
+      return;
     }
+
     stopRef.current = true;
-    // Dispatch the changeProject action
+
+    if (dataState.listLoading) {
+      dataDispatch({
+        type: actionsD.setListLoading,
+        payload: false,
+      });
+    }
+
+    navigate("/List", { replace: true });
+
     dataDispatch({
       type: actionsD.changeProject,
       payload: selectedProjectId,
@@ -99,8 +112,10 @@ export default function NavBar({ stopRef }) {
 
   const handleGetData = async () => {
     stopRef.current = true;
+
+    navigate("/List", { replace: true });
+
     await getData(dataState.projectId, dataDispatch, modalDispatch);
-    //findNaFotos(dataState);
   };
 
   // Memoize project options to prevent unnecessary re-renders
@@ -141,6 +156,12 @@ export default function NavBar({ stopRef }) {
                   if (dataState.listLoading) {
                     stopRef.current = true;
                   }
+
+                  dataDispatch({
+                    type: actionsD.setCurrentId,
+                    payload: 0,
+                  });
+
                   navigate("/List");
                 }}
                 sx={{ p: 0 }}
