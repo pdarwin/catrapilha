@@ -1,60 +1,75 @@
 import { HighlightOff, Search } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDataContext } from "../Reducers/DataContext";
 import { actionsD } from "../Reducers/DataReducer";
+import { fetchListItems } from "./ImageList/ListServices";
 
 export default function Filters({ stopRef }) {
   const { dataState, dataDispatch } = useDataContext();
-  const [query, setQuery] = useState("");
-  const [root, setRoot] = useState(1);
+
+  const [query, setQuery] = useState(dataState.filter || "");
+  const [root, setRoot] = useState(dataState.root || 1);
 
   useEffect(() => {
-    setQuery(dataState.filter);
-  }, [dataState.filter]);
+    setQuery(dataState.filter || "");
+    setRoot(dataState.root || 1);
+  }, [dataState.filter, dataState.root]);
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const runSearch = async (nextFilter, nextRoot) => {
+    const normalizedRoot = Number(nextRoot) || 1;
+
     if (dataState.listLoading) {
       stopRef.current = true;
+      dataDispatch({
+        type: actionsD.setListLoading,
+        payload: false,
+      });
     }
+
+    const nextState = {
+      ...dataState,
+      filter: nextFilter,
+      root: normalizedRoot,
+      items: [],
+    };
+
     dataDispatch({
       type: actionsD.updateItems,
       payload: [],
     });
+
+    dataDispatch({
+      type: actionsD.setCurrentId,
+      payload: 0,
+    });
+
     dataDispatch({
       type: actionsD.setFilter,
-      payload: query,
+      payload: nextFilter,
     });
+
     dataDispatch({
       type: actionsD.setRoot,
-      payload: root,
+      payload: normalizedRoot,
     });
-    if (dataState.filter) {
-      console.log(`Searching for ${dataState.filter}`);
-    }
+
+    await fetchListItems(nextState, dataDispatch);
   };
 
-  const handleClear = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    if (dataState.listLoading) {
-      stopRef.current = true;
-    }
-    dataDispatch({
-      type: actionsD.updateItems,
-      payload: [],
-    });
-    dataDispatch({
-      type: actionsD.setFilter,
-      payload: "/CLEAR/",
-    });
-    dataDispatch({
-      type: actionsD.setRoot,
-      payload: 1,
-    });
-    // Update the value of the textfield
-    document.getElementById("outlined-basic").value = "";
-    console.log(`Filter cleared`);
+
+    await runSearch(query.trim(), root);
+  };
+
+  const handleClear = async event => {
+    event.preventDefault();
+
+    setQuery("");
+    setRoot(1);
+
+    await runSearch("", 1);
   };
 
   return (
@@ -70,23 +85,21 @@ export default function Filters({ stopRef }) {
         alignItems: "flex-start",
       }}
     >
-      {/* First row with text input */}
       <Grid item xs={12}>
         <TextField
-          id="outlined-basic"
+          id="filter-query"
           label="Filtrar por:"
           variant="standard"
+          value={query}
           onChange={event => setQuery(event.target.value)}
-          defaultValue={query}
           sx={{
             color: "white",
             backgroundColor: "white",
-            width: "100%", // Take up the full width
+            width: "100%",
           }}
         />
       </Grid>
 
-      {/* Second row with centered buttons */}
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <Button
           variant="outlined"
@@ -97,11 +110,12 @@ export default function Filters({ stopRef }) {
             color: "white",
             width: "45%",
             height: "30px",
-            margin: "auto", // Center the button horizontally
+            margin: "auto",
           }}
         >
           Pesquisar
         </Button>
+
         <Button
           variant="outlined"
           startIcon={<HighlightOff />}
@@ -111,25 +125,22 @@ export default function Filters({ stopRef }) {
             color: "white",
             width: "45%",
             height: "30px",
-            margin: "auto", // Center the button horizontally
+            margin: "auto",
           }}
         >
           Limpar
         </Button>
       </Grid>
 
-      {/* Third row with text and text input wrapped in a single Grid item */}
       <Grid item xs={12}>
         <Grid container>
           <Grid item xs={6}>
-            {/* TextField with 70% width */}
             <TextField
-              id="outlined-basic"
+              id="filter-root"
               label="Raiz:"
               variant="standard"
-              // Adjust the width as needed
+              value={root}
               onChange={event => setRoot(event.target.value)}
-              defaultValue={root}
               sx={{
                 color: "white",
                 backgroundColor: "white",
@@ -137,10 +148,10 @@ export default function Filters({ stopRef }) {
               }}
             />
           </Grid>
+
           <Grid item xs={6} sx={{ marginTop: 2.5 }}>
-            {/* Typography with default width */}
-            <Typography variant="standard" color="text.secondary">
-              Iterações: {dataState.iterations}
+            <Typography variant="body2" color="text.secondary">
+              Iterações: {dataState.iterations || ""}
             </Typography>
           </Grid>
         </Grid>
