@@ -6,6 +6,12 @@ import {
   fetchArqListPage,
 } from "../../../Services/ArqAPIs";
 import { getProject } from "../../../Utils/ProjectUtils";
+import {
+  buildArqItemMetadata,
+  normalizeText,
+  sanitizeFilename,
+  stripHtml,
+} from "./ArqMetadataUtils";
 
 export const getArqListItems = async (dataState, dataDispatch) => {
   try {
@@ -19,6 +25,10 @@ export const getArqListItems = async (dataState, dataDispatch) => {
 
     let totalPages = null;
     let processedPages = 0;
+    const filterText = normalizeText(dataState.filter);
+    const isSearchActive = Boolean(filterText && filterText !== "/clear/");
+
+    let firstFoundPage = null;
 
     const updateProgress = payload => {
       dataDispatch({
@@ -72,9 +82,7 @@ export const getArqListItems = async (dataState, dataDispatch) => {
 
       let rawItems = res.data || [];
 
-      const filterText = normalizeText(dataState.filter);
-
-      if (filterText && filterText !== "/clear/") {
+      if (isSearchActive) {
         rawItems = rawItems.filter(item => {
           const titleStr = item.title?.rendered || "";
           const contentStr = item.content?.rendered || "";
@@ -106,6 +114,10 @@ export const getArqListItems = async (dataState, dataDispatch) => {
         const item = await processArqListItem(rawItem);
 
         if (item) {
+          if (firstFoundPage === null) {
+            firstFoundPage = page;
+          }
+
           localItems.push(item);
           existingIds.add(Number(rawItem.id));
 
@@ -138,6 +150,18 @@ export const getArqListItems = async (dataState, dataDispatch) => {
       currentId: null,
       currentTitle: "",
     });
+
+    if (
+      isSearchActive &&
+      localItems.length >= dataState.maxItems &&
+      firstFoundPage !== null &&
+      firstFoundPage !== Number(dataState.root || 1)
+    ) {
+      dataDispatch({
+        type: actionsD.setRoot,
+        payload: firstFoundPage,
+      });
+    }
 
     dataDispatch({
       type: actionsD.updateItems,
@@ -243,37 +267,6 @@ const getExtension = filename => {
   return filename.split(".").pop().split("?")[0].toLowerCase() || "jpg";
 };
 
-const stripHtml = html => {
-  if (!html) {
-    return "";
-  }
-
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&#8211;/g, "–")
-    .replace(/&#8212;/g, "—")
-    .replace(/&#8216;/g, "‘")
-    .replace(/&#8217;/g, "’")
-    .replace(/&#8220;/g, "“")
-    .replace(/&#8221;/g, "”")
-    .replace(/&amp;/g, "&")
-    .replace(/\s+/g, " ")
-    .trim();
-};
-
-const sanitizeFilename = text => {
-  if (!text) {
-    return "Sem título";
-  }
-
-  return text
-    .replace(/[/:*?"<>|[\]{}#%]/g, "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .substring(0, 120);
-};
-
 export const buildArqItemDetail = async (listItem, dataState) => {
   const fetchedItem = await fetchArqItemById(listItem.id);
   const linkhtml = await fetchArqItemHTML(fetchedItem.link || listItem.link);
@@ -285,20 +278,7 @@ export const buildArqItemDetail = async (listItem, dataState) => {
       ? stripHtml(fetchedItem.title.rendered)
       : listItem.title || "Untitled";
 
-  const description = buildArqDescription(
-    fetchedItem.content?.rendered || listItem.description || "",
-  );
-
-  const author = buildArqAuthor(
-    linkhtml,
-    description,
-    dataState.categories || "",
-  );
-
-  const date = buildArqDate(linkhtml, author, title);
-  const licenseValue = getArqLicense(author, date);
-
-  const item = {
+  const baseItem = {
     ...listItem,
     id: fetchedItem.id,
     title,
@@ -309,19 +289,19 @@ export const buildArqItemDetail = async (listItem, dataState) => {
     linkhtml,
     imagelink: imageData.imageUrl || listItem.imagelink,
     content: fetchedItem.content?.rendered || "",
-    description,
-    author,
-    date,
-    license: licenseValue,
+    description: fetchedItem.content?.rendered || listItem.description || "",
     source: `{{SourceArquipelagos|${fetchedItem.link || listItem.link}}}`,
-    categories: buildArqCategories(author, date, dataState.categories || ""),
     readyToUpload: false,
     needsDetail: false,
   };
 
-  item.infoPanel = buildArqInfoPanel(item, dataState);
-
-  return item;
+  return buildArqItemMetadata({
+    item: baseItem,
+    linkhtml,
+    categoriesText: dataState.categories || "",
+    dateOverride: dataState.date || "",
+    authorOverride: dataState.author || "",
+  });
 };
 
 const extractArqImageData = linkhtml => {
@@ -338,221 +318,4 @@ const extractArqImageData = linkhtml => {
     imageUrl,
     filename,
   };
-};
-
-const authorIsKnown = author => {
-  return (
-    author === "José Lemos Silva" ||
-    author === "Lemos Silva" ||
-    author === "{{creator:Rui Carita}}" ||
-    author === "Virgílio Gomes" ||
-    author === "Gilberto Garrido" ||
-    author === "João Carita"
-  );
-};
-
-const buildArqDescription = description => {
-  return description
-    .replace(/<p (.*?)>/gi, "<p>")
-    .replace(/<br \/>\n<\/strong>/gi, "</strong><br />\n")
-    .replace(/<b>(.*?)<\/b>/gi, "'''$1'''")
-    .replace(/<strong>(.*?)<\/strong>/gi, "'''$1'''")
-    .replace(/<a class="normalBlackFont1".*>(.*?)<\/a>/gi, "$1")
-    .replace(/<a name.*?>(.*?)<\/a>/gi, "$1")
-    .replace(/<em>(.*?)<\/em>/gi, "''$1''")
-    .replace(/<i>(.*?)<\/i>/gi, "''$1''")
-    .replace(/&#8211;/gi, "–")
-    .replace(/&#8216;/gi, "‘")
-    .replace(/&#8217;/gi, "’")
-    .replace(/&#8220;/gi, "“")
-    .replace(/&#8221;/gi, "”")
-    .replace(/&#8230;/gi, "…")
-    .replace(/<span .*?>(.*?)<\/span>/gi, "$1")
-    .replace(/<span .*?>/gi, "")
-    .replace(/<\/span>/gi, "")
-    .replace(/'''\s'''/gi, " ")
-    .replace(/''''''/gi, '"')
-    .trim();
-};
-
-const buildArqAuthor = (linkhtml, description, categoriesText) => {
-  const author = extractArqField(linkhtml, "Autor da Imagem");
-  const author2 = extractArqField(linkhtml, "Autor");
-
-  if (author === "Rui Carita" || author === "Perestrellos Photographos") {
-    return "{{creator:" + author + "}}";
-  }
-
-  if (author === "Fotografia Vicentes" || author2 === "Vicentes Photographos") {
-    return "{{creator:Photographia Vicente}}";
-  }
-
-  if (
-    author === "Perestellos Fotógrafos" ||
-    author === "ABM/ARM/Perestrellos" ||
-    author === "Foto Perestrellos" ||
-    description.indexOf("Fotografia ''Perestrellos''") !== -1
-  ) {
-    return "{{creator:Perestrellos Photographos}}";
-  }
-
-  if (author === "Foto Figueiras") {
-    return "{{creator:Foto Figueiras}}";
-  }
-
-  if (author === "ABM/ARM") {
-    return description;
-  }
-
-  if (
-    author === "Arquivo Regional da Madeira" ||
-    author === "Privado" ||
-    author === "Museu Militar da Madeira" ||
-    author === "Museu da Quinta das Cruzes" ||
-    author === "MASF"
-  ) {
-    return author2;
-  }
-
-  if (authorIsKnown(author)) {
-    return author;
-  }
-
-  if (
-    categoriesText.indexOf("[[Category:Diário de Notícias (Madeira)]]") !== -1
-  ) {
-    return "Diário de Notícias (Madeira)";
-  }
-
-  return author || "Desconhecido";
-};
-
-const buildArqDate = (linkhtml, author, title) => {
-  const datePattern = /.*Data da Peça.*?text-left"\s?>(.*?)(<\/div>)/s;
-  const dateMatch = datePattern.exec(linkhtml);
-
-  if (!dateMatch || dateMatch.length < 2) {
-    return "Unknown Date";
-  }
-
-  let date = dateMatch[1].replace(" 00:00:00", "").trim();
-
-  if (date.includes("-00-00")) {
-    date = date.replace("-00-00", "");
-  }
-
-  if (title.includes("(c.)") && !authorIsKnown(author)) {
-    date = "{{circa|" + date + "}}";
-  }
-
-  return date;
-};
-
-const getArqLicense = (author, date) => {
-  const currentYear = new Date().getFullYear();
-
-  const dateYear = parseInt(
-    String(date).replace("{{circa|", "").replace("}}", "").substring(0, 4),
-    10,
-  );
-
-  if (authorIsKnown(author)) {
-    return "CC-BY-SA 4.0";
-  }
-
-  if (!Number.isNaN(dateYear) && currentYear - dateYear < 95) {
-    return "PD-Portugal-URAA";
-  }
-
-  return "PD-old-100-expired";
-};
-
-const buildArqCategories = (author, date, categoriesText) => {
-  const categories = ["Uploaded with Catrapilha"];
-
-  if (author === "{{creator:Rui Carita}}") {
-    categories.push("Photographs by Rui Carita");
-  } else if (author === "José Lemos Silva" || author === "Lemos Silva") {
-    categories.push("Photographs by José Lemos Silva");
-  } else if (author === "Virgílio Gomes") {
-    categories.push("Photographs by Virgílio Gomes");
-  } else if (author === "{{creator:Perestrellos Photographos}}") {
-    categories.push("Photographs by Perestrellos Photographos in ABM");
-  }
-
-  if (
-    categoriesText.indexOf("[[Category:Diário de Notícias (Madeira)]]") !== -1
-  ) {
-    categories.push(`Diário de Notícias (Madeira)|${date}`);
-    categories.push(date);
-  }
-
-  return categories;
-};
-
-const buildArqInfoPanel = (item, dataState) => {
-  const extraCategories = item.categories
-    .map(category => `[[Category:${category}]]`)
-    .join("\n");
-
-  const licenseTemplate =
-    item.license === "CC-BY-SA 4.0"
-      ? "{{Arquipelagos license|}}"
-      : `{{Arquipelagos license|${item.license}}}`;
-
-  return (
-    "=={{int:filedesc}}==\n{{Information\n|description={{pt|1=" +
-    item.description +
-    "}}\n|date=" +
-    (dataState.date === "" ? item.date : dataState.date) +
-    "\n|source={{SourceArquipelagos|" +
-    item.link +
-    "}}\n|author=" +
-    (dataState.author === "" ? item.author : dataState.author) +
-    "\n|permission=\n|other versions=\n}}\n\n" +
-    "=={{int:license-header}}==\n" +
-    licenseTemplate +
-    "\n\n" +
-    extraCategories +
-    "\n"
-  );
-};
-
-const cleanExtractedHtml = value => {
-  if (!value) {
-    return "";
-  }
-
-  return value
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/\s+/g, " ")
-    .trim();
-};
-
-const escapeRegExp = value => {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-};
-
-const extractArqField = (linkhtml, label) => {
-  const escapedLabel = escapeRegExp(label);
-
-  const pattern = new RegExp(
-    `<div[^>]*>\\s*${escapedLabel}:?\\s*<\\/div>\\s*` +
-      `<div[^>]*class=["'][^"']*text-left[^"']*["'][^>]*>\\s*([\\s\\S]*?)\\s*<\\/div>`,
-    "i",
-  );
-
-  const match = pattern.exec(linkhtml);
-
-  return match ? cleanExtractedHtml(match[1]) : "";
-};
-
-const normalizeText = value => {
-  return String(value || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .trim();
 };

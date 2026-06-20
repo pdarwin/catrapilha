@@ -36,6 +36,9 @@ export default function ItemDetail() {
   const [localData, setLocalData] = useState([...dataState.data]);
   const [detailLoading, setDetailLoading] = useState(false);
 
+  const SUCCESS_MODAL_DELAY_MS = 4000;
+  const WARNING_MODAL_DELAY_MS = 5000;
+
   // Find the item in localItems
   const item = localItems.find(item => item.id === parseInt(id));
 
@@ -151,6 +154,10 @@ export default function ItemDetail() {
       return;
     }
 
+    if (autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      setAutoCloseTimer(null);
+    }
     setLoading(true); // Signal that the upload has started
 
     try {
@@ -197,7 +204,7 @@ export default function ItemDetail() {
             const timerId = setTimeout(() => {
               modalDispatch({ type: actionsM.closeModal });
               removeAndGoNext(currentItem.id, "Y", items, dataset);
-            }, 2000);
+            }, WARNING_MODAL_DELAY_MS);
 
             setAutoCloseTimer(timerId);
             break;
@@ -248,7 +255,7 @@ export default function ItemDetail() {
         const timerId = setTimeout(() => {
           modalDispatch({ type: actionsM.closeModal });
           removeAndGoNext(currentItem.id, "Y", items, dataset);
-        }, 2000);
+        }, SUCCESS_MODAL_DELAY_MS);
 
         setAutoCloseTimer(timerId);
       }
@@ -406,6 +413,7 @@ export default function ItemDetail() {
                 >
                   Voltar
                 </Button>
+
                 <FormControlLabel
                   control={
                     <Checkbox

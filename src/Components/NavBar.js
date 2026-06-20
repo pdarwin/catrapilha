@@ -1,4 +1,4 @@
-import { FileDownload, UploadFile } from "@mui/icons-material";
+import { FileDownload, PlaylistRemove, UploadFile } from "@mui/icons-material";
 import {
   AppBar,
   Avatar,
@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
@@ -81,6 +82,31 @@ export default function NavBar({ stopRef }) {
         },
       });
     }
+  };
+
+  const canRemoveLastQueuedItem =
+    Array.isArray(dataState.data) &&
+    dataState.data.length > Number(dataState.initialCount || 0);
+
+  const handleRemoveLastQueuedItem = () => {
+    if (!canRemoveLastQueuedItem) {
+      return;
+    }
+
+    const lastQueuedRecord = dataState.data[dataState.data.length - 1];
+
+    dataDispatch({
+      type: actionsD.updateData,
+      payload: dataState.data.slice(0, -1),
+    });
+
+    modalDispatch({
+      type: actionsM.fireModal,
+      payload: {
+        msg: `Item ${lastQueuedRecord.id} retirado da fila de envio.`,
+        level: "info",
+      },
+    });
   };
 
   // Handle project selection change
@@ -189,7 +215,31 @@ export default function NavBar({ stopRef }) {
             >
               Enviar dados
             </Button>
-
+            <Tooltip
+              title={
+                canRemoveLastQueuedItem
+                  ? `Retirar da fila o item ${dataState.data[dataState.data.length - 1].id}`
+                  : "Não há itens novos na fila"
+              }
+            >
+              <span>
+                <IconButton
+                  aria-label="Retirar último item da fila"
+                  onClick={handleRemoveLastQueuedItem}
+                  disabled={!canRemoveLastQueuedItem}
+                  size="small"
+                  sx={{
+                    color: "white",
+                    width: 30,
+                    height: 30,
+                    ml: -0.5,
+                    mr: 1,
+                  }}
+                >
+                  <PlaylistRemove fontSize="small" />
+                </IconButton>
+              </span>
+            </Tooltip>
             {/* Project Selection */}
             <Select
               value={dataState.projectId}
