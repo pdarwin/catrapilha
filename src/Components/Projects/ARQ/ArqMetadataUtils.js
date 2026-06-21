@@ -227,6 +227,62 @@ export const buildArqAuthor = ({
   return candidate || author || "Desconhecido";
 };
 
+const PORTUGUESE_MONTHS = {
+  janeiro: "01",
+  fevereiro: "02",
+  marco: "03",
+  abril: "04",
+  maio: "05",
+  junho: "06",
+  julho: "07",
+  agosto: "08",
+  setembro: "09",
+  outubro: "10",
+  novembro: "11",
+  dezembro: "12",
+};
+
+export const extractArqPhotographDate = description => {
+  const text = stripHtml(description);
+
+  const textDatePattern =
+    /\b(?:fotografia|foto)\b[^.\n]{0,160}?\b(?:de|em)\s*(\d{1,2})\s+de\s+([A-Za-zÀ-ÖØ-öø-ÿ]+)\s+de\s+(\d{4})\b/i;
+
+  const textDateMatch = textDatePattern.exec(text);
+
+  if (textDateMatch) {
+    const [, rawDay, rawMonth, year] = textDateMatch;
+    const month = PORTUGUESE_MONTHS[normalizeText(rawMonth)];
+    const day = Number(rawDay);
+
+    if (month && day >= 1 && day <= 31) {
+      return `${year}-${month}-${String(day).padStart(2, "0")}`;
+    }
+  }
+
+  const numericDatePattern = new RegExp(
+    String.raw`\b(?:fotografia|foto)\b[^.\n]{0,160}?\b(?:de|em)\s*(\d{1,2})(?:/|\.|-)(\d{1,2})(?:/|\.|-)(\d{4})\b`,
+    "i",
+  );
+
+  const numericDateMatch = numericDatePattern.exec(text);
+
+  if (numericDateMatch) {
+    const [, rawDay, rawMonth, year] = numericDateMatch;
+    const day = Number(rawDay);
+    const month = Number(rawMonth);
+
+    if (day >= 1 && day <= 31 && month >= 1 && month <= 12) {
+      return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
+        2,
+        "0",
+      )}`;
+    }
+  }
+
+  return "";
+};
+
 export const buildArqDate = (linkhtml, author, title = "") => {
   let date =
     extractArqField(linkhtml, "Data da Peça") ||
@@ -388,7 +444,10 @@ export const buildArqItemMetadata = ({
     categoriesText,
   });
 
+  const photographDate = extractArqPhotographDate(updatedItem.description);
+
   updatedItem.date =
+    photographDate ||
     updatedItem.date ||
     buildArqDate(html, updatedItem.author, updatedItem.title);
 

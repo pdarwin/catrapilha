@@ -36,7 +36,7 @@ export default function ItemDetail() {
   const [localData, setLocalData] = useState([...dataState.data]);
   const [detailLoading, setDetailLoading] = useState(false);
 
-  const SUCCESS_MODAL_DELAY_MS = 4000;
+  const SUCCESS_MODAL_DELAY_MS = 3000;
   const WARNING_MODAL_DELAY_MS = 5000;
 
   // Find the item in localItems

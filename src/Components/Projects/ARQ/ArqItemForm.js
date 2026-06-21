@@ -55,64 +55,129 @@ export default function ArqItemForm() {
     });
   };
 
-  const buildFilename1 = () => {
-    let item = dataState.item;
-    let testFilename = new RegExp('<h5 class="card-title">(.*?)</h5>');
-
-    let filename = testFilename
-      .exec(dataState.item.linkhtml)[1]
-      .replace(", ilha da Madeira", "")
-      .replace(/:/gi, " -")
-      .replace("  ", " ")
-      .trim();
-
-    item.filename = (filename + " - Image " + item.id + ".jpg").replace(
-      /\.\s-/gi,
-      " -",
+  const getSourceTitleForFilename = linkhtml => {
+    const titlePattern = new RegExp(
+      String.raw`<h5[^>]*class=["'][^"']*card-title[^"']*["'][^>]*>([\s\S]*?)</h5>`,
+      "i",
     );
+
+    const match = titlePattern.exec(linkhtml || "");
+
+    if (!match) {
+      return "";
+    }
+
+    return match[1]
+      .replace(/<[^>]*>/g, "")
+      .replace(/,\s*ilha da Madeira(?:\s*[,.;:])*\s*$/i, "")
+      .replace(/:/g, " -")
+      .replace(/\s+/g, " ")
+      .trim();
+  };
+
+  const getDescriptionTitleForFilename = description => {
+    const source = String(description || "");
+
+    const wikiBoldMatch = /'''([\s\S]*?)'''/.exec(source);
+
+    const htmlBoldPattern = new RegExp(
+      String.raw`<(?:b|strong)>([\s\S]*?)</(?:b|strong)>`,
+      "i",
+    );
+
+    const htmlBoldMatch = htmlBoldPattern.exec(source);
+
+    const title =
+      (wikiBoldMatch && wikiBoldMatch[1]) ||
+      (htmlBoldMatch && htmlBoldMatch[1]) ||
+      source.split(new RegExp(String.raw`<br\s*/?>|\n`, "i"))[0];
+
+    return String(title || "")
+      .replace(/<[^>]*>/g, "")
+      .replace(/''/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/[,\s]+$/, "");
+  };
+
+  const getLocationTailFromSourceTitle = sourceTitle => {
+    const parts = String(sourceTitle || "")
+      .split(",")
+      .map(part => part.trim())
+      .filter(Boolean);
+
+    let datePartIndex = -1;
+
+    parts.forEach((part, index) => {
+      if (/\b\d{3,4}\b/.test(part)) {
+        datePartIndex = index;
+      }
+    });
+
+    if (datePartIndex === -1 || datePartIndex >= parts.length - 1) {
+      return "";
+    }
+
+    return parts.slice(datePartIndex + 1).join(", ");
+  };
+
+  const formatDateForFilename = date => {
+    const value = String(date || "").trim();
+
+    const normalized = value.toLowerCase();
+
+    if (normalized.startsWith("{{circa|") && value.endsWith("}}")) {
+      const innerValue = value
+        .slice("{{circa|".length, -2)
+        .split("|")[0]
+        .trim();
+
+      return innerValue ? `c. ${innerValue}` : "";
+    }
+
+    return value;
+  };
+
+  const buildFilename1 = () => {
+    const item = { ...dataState.item };
+    const sourceTitle = getSourceTitleForFilename(item.linkhtml);
+
+    if (!sourceTitle) {
+      return;
+    }
+
+    item.filename = `${sourceTitle} - Image ${item.id}.jpg`;
+
     dataDispatch({
       type: actionsD.updateItem,
       payload: item,
     });
   };
 
-  const formatDateForFilename = date => {
-    const value = String(date || "").trim();
-
-    const circaMatch = /^\{\{\s*(?:circa|c\.?)\s*\|\s*([^|}]+).*?\}\}$/i.exec(
-      value,
-    );
-
-    if (circaMatch) {
-      return `c. ${circaMatch[1].trim()}`;
-    }
-
-    return value;
-  };
-
   const buildFilename2 = () => {
     const item = { ...dataState.item };
 
-    const title = item.description.includes("<p><b>")
-      ? item.description.substring(6, item.description.indexOf("<br"))
-      : item.description.substring(
-          item.description.indexOf("'''") + 3,
-          item.description.indexOf("'''", item.description.indexOf("'''") + 3),
-        );
+    const descriptionTitle = getDescriptionTitleForFilename(item.description);
+    const sourceTitle = getSourceTitleForFilename(item.linkhtml);
+    const locationTail = getLocationTailFromSourceTitle(sourceTitle);
+
+    const titleAlreadyHasLocation =
+      locationTail &&
+      descriptionTitle
+        .toLocaleLowerCase("pt-PT")
+        .includes(locationTail.toLocaleLowerCase("pt-PT"));
+
+    const filenameTitle =
+      descriptionTitle && locationTail && !titleAlreadyHasLocation
+        ? `${descriptionTitle}, ${locationTail}`
+        : descriptionTitle || sourceTitle || "Sem título";
 
     const filenameDate = formatDateForFilename(dataState.date || item.date);
 
-    item.filename =
-      title
-        .replace(".", "")
-        .replace(/^''/gm, "")
-        .replace(/<\/i>/gm, "")
-        .trim() +
-      " - " +
-      filenameDate +
-      " - Image " +
-      item.id +
-      ".jpg";
+    item.filename = [filenameTitle, filenameDate, `Image ${item.id}`]
+      .filter(Boolean)
+      .join(" - ")
+      .concat(".jpg");
 
     dataDispatch({
       type: actionsD.updateItem,
