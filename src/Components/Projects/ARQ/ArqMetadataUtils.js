@@ -1,6 +1,7 @@
 const KNOWN_CC_AUTHORS = new Set([
   "José Lemos Silva",
   "Lemos Silva",
+  "{{creator:Álvaro Nascimento Figueira}}",
   "{{creator:Rui Carita}}",
   "Virgílio Gomes",
   "Gilberto Garrido",
@@ -159,33 +160,102 @@ const isPerestrellos = value => {
 };
 
 const isVicentes = value => {
-  const normalized = normalizeText(value);
+  const normalized = normalizeText(value).replace(/[’']/g, "");
 
   return (
-    normalized === "fotografia vicentes" ||
-    normalized === "vicentes photographos" ||
-    normalized === "vicentes fotografos"
+    normalized.includes("atelier vicente") ||
+    normalized.includes("fotografia vicentes") ||
+    normalized.includes("photographia museu vicentes") ||
+    normalized.includes("photographia-museu vicentes") ||
+    normalized.includes("museu vicentes") ||
+    normalized.includes("vicentes photographos") ||
+    normalized.includes("vicentes fotografos")
   );
+};
+
+const hasVicentesCreditInDescription = description => {
+  const firstParagraph = String(description || "").split(
+    new RegExp(String.raw`</p>`, "i"),
+  )[0];
+
+  const lineBreakPattern = new RegExp(String.raw`<br\s*/?>|\r?\n`, "i");
+
+  const lines = firstParagraph
+    .split(lineBreakPattern)
+    .map(cleanExtractedHtml)
+    .filter(Boolean)
+    .slice(0, 12);
+
+  return lines.some(line => {
+    const isCreditLine = /^(?:photographia|fotografia|atelier|museu)\b/i.test(
+      line.trim(),
+    );
+
+    return isCreditLine && isVicentes(line);
+  });
+};
+
+const hasPerestrellosCreditInDescription = description => {
+  const firstParagraph = String(description || "").split(
+    new RegExp(String.raw`</p>`, "i"),
+  )[0];
+
+  const lineBreakPattern = new RegExp(String.raw`<br\s*/?>|\r?\n`, "i");
+
+  const lines = firstParagraph
+    .split(lineBreakPattern)
+    .map(cleanExtractedHtml)
+    .filter(Boolean)
+    .slice(0, 12);
+
+  return lines.some(line => {
+    const isCreditLine = /^fotografia\b/i.test(line.trim());
+
+    return isCreditLine && isPerestrellos(line);
+  });
+};
+
+const isAlvaroNascimentoFigueira = value => {
+  return normalizeText(value).includes("alvaro nascimento figueira");
+};
+
+const isFranciscoFranco = value => {
+  const normalized = normalizeText(value)
+    .replace(/[.,;:]+$/g, "")
+    .trim();
+
+  return normalized === "francisco franco";
+};
+
+const formatAuthorForCommons = author => {
+  const value = String(author || "").trim();
+
+  if (isFranciscoFranco(value)) {
+    return "{{creator:Francisco Franco}}";
+  }
+
+  return value;
 };
 
 export const buildArqAuthor = ({
   linkhtml = "",
   description = "",
   categoriesText = "",
+  preferWorkAuthor = false,
 } = {}) => {
   const imageAuthor = extractArqField(linkhtml, "Autor da Imagem");
   const author = extractArqField(linkhtml, "Autor");
 
-  const candidate = imageAuthor || author;
+  const candidate = preferWorkAuthor && author ? author : imageAuthor || author;
+
   const normalizedDescription = normalizeText(description);
 
-  if (normalizeText(candidate) === "rui carita") {
-    return "{{creator:Rui Carita}}";
-  }
+  const normalizedCandidate = normalizeText(candidate);
 
   if (
     isPerestrellos(candidate) ||
     isPerestrellos(author) ||
+    hasPerestrellosCreditInDescription(description) ||
     normalizedDescription.includes("fotografia perestrellos") ||
     normalizedDescription.includes("colecao perestrellos") ||
     normalizedDescription.includes("coleccao perestrellos")
@@ -193,7 +263,19 @@ export const buildArqAuthor = ({
     return "{{creator:Perestrellos Photographos}}";
   }
 
-  if (isVicentes(candidate) || isVicentes(author)) {
+  if (normalizedCandidate === "rui carita") {
+    return "{{creator:Rui Carita}}";
+  }
+
+  if (isFranciscoFranco(candidate)) {
+    return "{{creator:Francisco Franco}}";
+  }
+
+  if (
+    isVicentes(candidate) ||
+    isVicentes(author) ||
+    hasVicentesCreditInDescription(description)
+  ) {
     return "{{creator:Photographia Vicente}}";
   }
 
@@ -201,17 +283,35 @@ export const buildArqAuthor = ({
     return "{{creator:Foto Figueiras}}";
   }
 
+  if (
+    isAlvaroNascimentoFigueira(candidate) ||
+    isAlvaroNascimentoFigueira(author)
+  ) {
+    return "{{creator:Álvaro Nascimento Figueira}}";
+  }
+
   if (authorIsKnown(candidate)) {
     return candidate;
   }
 
   const institutionalAuthors = new Set([
-    "arquivo regional da madeira",
-    "privado",
-    "museu militar da madeira",
-    "museu da quinta das cruzes",
-    "masf",
+    "abm",
     "abm/arm",
+    "arquivo regional da madeira",
+    "associacao academica da universidade da madeira",
+    "biblioteca municipal do funchal",
+    "bnl",
+    "cam",
+    "drac",
+    "direcao regional da cultura",
+    "direccao regional da cultura",
+    "hemeroteca digital",
+    "museu da quinta das cruzes",
+    "museu henrique e francisco franco",
+    "museu militar da madeira",
+    "museu nacional de arte contemporanea",
+    "masf",
+    "privado",
   ]);
 
   if (institutionalAuthors.has(normalizeText(candidate))) {
@@ -246,7 +346,7 @@ export const extractArqPhotographDate = description => {
   const text = stripHtml(description);
 
   const textDatePattern =
-    /\b(?:fotografia|foto)\b[^.\n]{0,160}?\b(?:de|em)\s*(\d{1,2})\s+de\s+([A-Za-zÀ-ÖØ-öø-ÿ]+)\s+de\s+(\d{4})\b/i;
+    /\b(?:fotografia|foto)\b[^.\n]{0,160}?(?:\b(?:de|em)\s*)?(\d{1,2})\s+de\s+([A-Za-zÀ-ÖØ-öø-ÿ]+)\s+de\s+(\d{4})\b/i;
 
   const textDateMatch = textDatePattern.exec(text);
 
@@ -261,7 +361,7 @@ export const extractArqPhotographDate = description => {
   }
 
   const numericDatePattern = new RegExp(
-    String.raw`\b(?:fotografia|foto)\b[^.\n]{0,160}?\b(?:de|em)\s*(\d{1,2})(?:/|\.|-)(\d{1,2})(?:/|\.|-)(\d{4})\b`,
+    String.raw`\b(?:fotografia|foto)\b[^.\n]{0,160}?(?:\b(?:de|em)\s*)?(\d{1,2})(?:/|\.|-)(\d{1,2})(?:/|\.|-)(\d{4})\b`,
     "i",
   );
 
@@ -280,10 +380,93 @@ export const extractArqPhotographDate = description => {
     }
   }
 
+  const photographMonthYearOnlyPattern = new RegExp(
+    String.raw`\b(?:fotografia|foto)\b\s+(?:de|em)\s+([A-Za-zÀ-ÖØ-öø-ÿ]+)\s+de\s+((?:18|19|20)\d{2})(?:\s*\(\s*(c\.)\s*\))?`,
+    "i",
+  );
+
+  const photographMonthYearOnlyMatch =
+    photographMonthYearOnlyPattern.exec(text);
+
+  if (photographMonthYearOnlyMatch) {
+    const [, rawMonth, year, circaMarker] = photographMonthYearOnlyMatch;
+
+    const month = PORTUGUESE_MONTHS[normalizeText(rawMonth)];
+
+    if (month) {
+      const date = `${year}-${month}`;
+
+      return circaMarker ? `{{circa|${date}}}` : date;
+    }
+  }
+
+  const photographerMonthYearPattern = new RegExp(
+    String.raw`\b(?:fotografia|foto)\b\s+de\s+[^,.\n]{1,160},\s*([A-Za-zÀ-ÖØ-öø-ÿ]+)\s+de\s+((?:18|19|20)\d{2})(?:\s*\(\s*(c\.)\s*\))?`,
+    "i",
+  );
+
+  const photographerMonthYearMatch = photographerMonthYearPattern.exec(text);
+
+  if (photographerMonthYearMatch) {
+    const [, rawMonth, year, circaMarker] = photographerMonthYearMatch;
+
+    const month = PORTUGUESE_MONTHS[normalizeText(rawMonth)];
+
+    if (month) {
+      const date = `${year}-${month}`;
+
+      return circaMarker ? `{{circa|${date}}}` : date;
+    }
+  }
+
+  const photographerYearPattern = new RegExp(
+    String.raw`\b(?:fotografia|foto)\b\s+de\s+[^,.\n]{1,160},\s*((?:18|19|20)\d{2})(?:\s*\(\s*(c\.)\s*\))?`,
+    "i",
+  );
+
+  const photographerYearMatch = photographerYearPattern.exec(text);
+
+  if (photographerYearMatch) {
+    const [, year, circaMarker] = photographerYearMatch;
+
+    return circaMarker ? `{{circa|${year}}}` : year;
+  }
+
+  const perestrellosDatePattern = new RegExp(
+    String.raw`\bfotografia\s+(?:de\s+)?["“']?perestrellos(?:\s+photographos)?["”']?\s*,?\s*((?:18|19|20)\d{2})(?:\s*\(\s*(c\.)\s*\))?`,
+    "i",
+  );
+
+  const perestrellosDateMatch = perestrellosDatePattern.exec(text);
+
+  if (perestrellosDateMatch) {
+    const [, year, circaMarker] = perestrellosDateMatch;
+
+    return circaMarker ? `{{circa|${year}}}` : year;
+  }
+
+  const yearOnlyPattern = new RegExp(
+    String.raw`\b(?:fotografia|foto)\b\s*(?:de|em)\s*((?:18|19|20)\d{2})(?:\s*\(\s*(c\.)\s*\))?`,
+    "i",
+  );
+
+  const yearOnlyMatch = yearOnlyPattern.exec(text);
+
+  if (yearOnlyMatch) {
+    const [, year, circaMarker] = yearOnlyMatch;
+
+    return circaMarker ? `{{circa|${year}}}` : year;
+  }
+
   return "";
 };
 
-export const buildArqDate = (linkhtml, author, title = "") => {
+export const buildArqDate = (
+  linkhtml,
+  author,
+  title = "",
+  description = "",
+) => {
   let date =
     extractArqField(linkhtml, "Data da Peça") ||
     extractArqField(linkhtml, "Data de Publicação");
@@ -298,8 +481,19 @@ export const buildArqDate = (linkhtml, author, title = "") => {
     date = date.replace("-00-00", "");
   }
 
-  if (String(title).includes("(c.)") && !authorIsKnown(author)) {
-    date = "{{circa|" + date + "}}";
+  const yearMatch = /^(\d{4})/.exec(date);
+  const year = yearMatch ? yearMatch[1] : "";
+
+  const firstParagraph = String(description || "").split(
+    new RegExp(String.raw`</p>`, "i"),
+  )[0];
+
+  const circaPattern = year
+    ? new RegExp(`${escapeRegExp(year)}\\s*\\(\\s*c\\.\\s*\\)`, "i")
+    : null;
+
+  if (circaPattern && circaPattern.test(`${title}\n${firstParagraph}`)) {
+    return `{{circa|${date}}}`;
   }
 
   return date;
@@ -321,20 +515,40 @@ export const normalizeArqLicenseValue = license => {
   return value;
 };
 
-export const getArqLicense = (author, date) => {
+export const getArqLicense = date => {
+  const value = String(date || "")
+    .replace("{{circa|", "")
+    .replace("}}", "")
+    .trim();
+
+  const match = /^(\d{4})(?:-(\d{2})-(\d{2}))?/.exec(value);
+
+  if (!match) {
+    return "PD-old-100-expired";
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2] || 0);
+  const day = Number(match[3] || 0);
+
   const currentYear = new Date().getFullYear();
+  const urraStartYear = currentYear - 95;
+  const old70StartYear = currentYear - 100;
 
-  const dateYear = parseInt(
-    String(date).replace("{{circa|", "").replace("}}", "").substring(0, 4),
-    10,
-  );
+  const isAfterUrraLimit =
+    year > 1970 ||
+    (year === 1970 && month && day && (month > 7 || (month === 7 && day >= 1)));
 
-  if (authorIsKnown(author)) {
+  if (isAfterUrraLimit) {
     return "CC-BY-SA 4.0";
   }
 
-  if (!Number.isNaN(dateYear) && currentYear - dateYear < 95) {
+  if (year >= urraStartYear) {
     return "PD-Portugal-URAA";
+  }
+
+  if (year >= old70StartYear) {
+    return "PD-old-70-expired";
   }
 
   return "PD-old-100-expired";
@@ -348,7 +562,7 @@ export const formatArqLicenseTemplate = license => {
     : `{{Arquipelagos license|${licenseValue}}}`;
 };
 
-export const buildArqCategories = author => {
+export const buildArqCategories = (author, linkhtml = "") => {
   const categories = ["Uploaded with Catrapilha"];
 
   if (author === "{{creator:Rui Carita}}") {
@@ -360,9 +574,21 @@ export const buildArqCategories = author => {
   } else if (author === "{{creator:Perestrellos Photographos}}") {
     categories.push("Photographs by Perestrellos Photographos in ABM");
   } else if (author === "{{creator:Photographia Vicente}}") {
-    categories.push("Photographs by Photographia Vicente");
+    categories.push("Photographs by Photographia Vicente in ABM");
   } else if (author === "{{creator:Foto Figueiras}}") {
     categories.push("Photographs by Foto Figueiras");
+  } else if (author === "{{creator:Álvaro Nascimento Figueira}}") {
+    categories.push("Photographs by Álvaro Nascimento Figueira in ABM");
+  }
+
+  const imageOwner = extractArqField(linkhtml, "Proprietário da Imagem");
+
+  const pieceOwner = extractArqField(linkhtml, "Proprietário da Peça");
+
+  if (isVicentes(imageOwner) || isVicentes(pieceOwner)) {
+    categories.push(
+      "Photographs in Arquivo Regional e Biblioteca Pública da Madeira",
+    );
   }
 
   return categories;
@@ -391,9 +617,12 @@ export const buildArqInfoPanel = (
   { dateOverride = "", authorOverride = "", categoriesText = "" } = {},
 ) => {
   const effectiveDate = dateOverride === "" ? item.date : dateOverride;
-  const effectiveAuthor = authorOverride === "" ? item.author : authorOverride;
 
-  const autoCategories = buildArqCategories(item.author)
+  const rawAuthor = authorOverride === "" ? item.author : authorOverride;
+
+  const effectiveAuthor = formatAuthorForCommons(rawAuthor);
+
+  const autoCategories = buildArqCategories(item.author, item.linkhtml)
     .map(category => `[[Category:${category}]]`)
     .join("\n");
 
@@ -438,28 +667,69 @@ export const buildArqItemMetadata = ({
     updatedItem.description || updatedItem.content || "",
   );
 
-  updatedItem.author = buildArqAuthor({
+  const manualLicense = normalizeArqLicenseValue(updatedItem.manualLicense);
+
+  const normalizedManualLicense = normalizeText(manualLicense).replace(
+    /\s+/g,
+    "",
+  );
+
+  const isArtLicense =
+    normalizedManualLicense === "art" || normalizedManualLicense === "art70";
+
+  const automaticAuthor = buildArqAuthor({
     linkhtml: html,
     description: updatedItem.description,
     categoriesText,
+    preferWorkAuthor: isArtLicense,
   });
+
+  const manualAuthor = String(authorOverride || "").trim();
+
+  const hasManualAuthor =
+    Object.prototype.hasOwnProperty.call(updatedItem, "manualAuthor") ||
+    manualAuthor !== "";
+
+  if (hasManualAuthor) {
+    updatedItem.manualAuthor = manualAuthor;
+  }
+
+  updatedItem.author = manualAuthor
+    ? formatAuthorForCommons(manualAuthor)
+    : automaticAuthor;
+
+  const pieceDate = buildArqDate(
+    html,
+    updatedItem.author,
+    updatedItem.title,
+    updatedItem.description,
+  );
 
   const photographDate = extractArqPhotographDate(updatedItem.description);
 
-  updatedItem.date =
-    photographDate ||
-    updatedItem.date ||
-    buildArqDate(html, updatedItem.author, updatedItem.title);
+  const automaticDate = photographDate || pieceDate;
 
-  updatedItem.license =
-    normalizeArqLicenseValue(updatedItem.license) ||
-    getArqLicense(updatedItem.author, updatedItem.date);
+  updatedItem.license = manualLicense || getArqLicense(automaticDate);
 
-  updatedItem.categories = buildArqCategories(updatedItem.author);
+  const manualDate = String(dateOverride || "").trim();
+
+  const hasManualDate =
+    Object.prototype.hasOwnProperty.call(updatedItem, "manualDate") ||
+    manualDate !== "";
+
+  if (hasManualDate) {
+    updatedItem.manualDate = manualDate;
+  }
+
+  updatedItem.date = manualDate
+    ? manualDate
+    : isArtLicense
+      ? pieceDate || automaticDate
+      : photographDate || pieceDate || updatedItem.date || "Unknown Date";
+
+  updatedItem.categories = buildArqCategories(updatedItem.author, html);
 
   updatedItem.infoPanel = buildArqInfoPanel(updatedItem, {
-    dateOverride,
-    authorOverride,
     categoriesText,
   });
 

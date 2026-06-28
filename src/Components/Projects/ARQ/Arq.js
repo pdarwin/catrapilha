@@ -13,15 +13,45 @@ import {
   stripHtml,
 } from "./ArqMetadataUtils";
 
+const getLatestStatusById = dataset => {
+  const statusById = new Map();
+
+  (dataset || []).forEach(record => {
+    if (record && record.id !== undefined && record.id !== null) {
+      statusById.set(Number(record.id), record.status);
+    }
+  });
+
+  return statusById;
+};
+
+const matchesArqFilter = (rawItem, filterText) => {
+  if (!filterText) {
+    return true;
+  }
+
+  const title = rawItem.title?.rendered || "";
+  const content = rawItem.content?.rendered || "";
+
+  return normalizeText(`${title} ${content}`).includes(filterText);
+};
+
 export const getArqListItems = async (dataState, dataDispatch) => {
   try {
     const project = getProject(dataState.projectId);
     let page = Number(dataState.root || project.root || 1);
 
     const localDataset = [...(dataState.data || [])];
-    const localItems = [];
+    const localItems = [...(dataState.items || [])];
 
-    const existingIds = new Set(localDataset.map(item => Number(item.id)));
+    const latestStatusById = getLatestStatusById(localDataset);
+    const addedIds = new Set(localItems.map(item => Number(item.id)));
+
+    const shownItemIds = new Set(
+      (dataState.shownItemIds || []).map(id => Number(id)),
+    );
+
+    const includeNotTransferred = Boolean(dataState.includeNotTransferred);
 
     let totalPages = null;
     let processedPages = 0;
@@ -83,14 +113,7 @@ export const getArqListItems = async (dataState, dataDispatch) => {
       let rawItems = res.data || [];
 
       if (isSearchActive) {
-        rawItems = rawItems.filter(item => {
-          const titleStr = item.title?.rendered || "";
-          const contentStr = item.content?.rendered || "";
-
-          const searchableText = normalizeText(`${titleStr} ${contentStr}`);
-
-          return searchableText.includes(filterText);
-        });
+        rawItems = rawItems.filter(item => matchesArqFilter(item, filterText));
       }
 
       for (const rawItem of rawItems) {
@@ -98,7 +121,19 @@ export const getArqListItems = async (dataState, dataDispatch) => {
           break;
         }
 
-        if (existingIds.has(Number(rawItem.id))) {
+        const rawItemId = Number(rawItem.id);
+
+        const previousStatus = String(
+          latestStatusById.get(rawItemId) || "",
+        ).toUpperCase();
+
+        const isReviewItem = includeNotTransferred && previousStatus === "N";
+
+        if (
+          addedIds.has(rawItemId) ||
+          shownItemIds.has(rawItemId) ||
+          (previousStatus && !isReviewItem)
+        ) {
           continue;
         }
 
@@ -118,8 +153,11 @@ export const getArqListItems = async (dataState, dataDispatch) => {
             firstFoundPage = page;
           }
 
-          localItems.push(item);
-          existingIds.add(Number(rawItem.id));
+          localItems.push({
+            ...item,
+            reviewStatus: isReviewItem ? "N" : null,
+          });
+          addedIds.add(Number(rawItem.id));
 
           updateProgress({
             message: "Imagem adicionada à lista",
@@ -162,6 +200,11 @@ export const getArqListItems = async (dataState, dataDispatch) => {
         payload: firstFoundPage,
       });
     }
+
+    dataDispatch({
+      type: actionsD.addShownItemIds,
+      payload: localItems.map(item => item.id),
+    });
 
     dataDispatch({
       type: actionsD.updateItems,
@@ -216,6 +259,7 @@ const processArqListItem = async rawItem => {
       readyToUpload: false,
 
       needsDetail: true,
+      reviewStatus: null,
     };
   } catch (error) {
     console.error("processArqListItem Error for item ID:", rawItem.id, error);
@@ -299,8 +343,16 @@ export const buildArqItemDetail = async (listItem, dataState) => {
     item: baseItem,
     linkhtml,
     categoriesText: dataState.categories || "",
-    dateOverride: dataState.date || "",
-    authorOverride: dataState.author || "",
+    dateOverride: Object.prototype.hasOwnProperty.call(listItem, "manualDate")
+      ? listItem.manualDate
+      : dataState.date || "",
+
+    authorOverride: Object.prototype.hasOwnProperty.call(
+      listItem,
+      "manualAuthor",
+    )
+      ? listItem.manualAuthor
+      : dataState.author || "",
   });
 };
 

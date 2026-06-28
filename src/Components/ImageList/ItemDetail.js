@@ -47,6 +47,26 @@ export default function ItemDetail() {
   const displayItem =
     isArqProject && dataState.item?.id === item?.id ? dataState.item : item;
 
+  const isReviewNotTransferred = displayItem?.reviewStatus === "N";
+
+  const replaceLatestStatus = (dataset, itemId, status) => {
+    const updatedDataset = [...(dataset || [])];
+    const targetId = Number(itemId);
+
+    for (let index = updatedDataset.length - 1; index >= 0; index--) {
+      if (Number(updatedDataset[index].id) === targetId) {
+        updatedDataset[index] = {
+          ...updatedDataset[index],
+          status,
+        };
+
+        return updatedDataset;
+      }
+    }
+
+    return [...updatedDataset, { id: itemId, status }];
+  };
+
   useEffect(() => {
     const hydrateItem = async () => {
       if (!item || !item.needsDetail) {
@@ -99,6 +119,21 @@ export default function ItemDetail() {
     setLocalItems([...(dataState.items || [])]);
     setLocalData([...(dataState.data || [])]);
   }, [dataState.projectId, dataState.items, dataState.data]);
+
+  useEffect(() => {
+    if (!isArqProject || !item) {
+      return;
+    }
+
+    if (Number(dataState.item?.id) !== Number(item.id)) {
+      dataDispatch({
+        type: actionsD.updateItem,
+        payload: item,
+      });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isArqProject, item?.id]);
 
   const buildInfoPanel = item => {
     if (!item) return "No information available.";
@@ -274,7 +309,13 @@ export default function ItemDetail() {
   };
 
   const removeAndGoNext = (itemId, status, items, dataset) => {
-    const updatedDataset = [...dataset, { id: itemId, status }];
+    const reviewedItem = items.find(item => Number(item.id) === Number(itemId));
+
+    const updatedDataset =
+      reviewedItem?.reviewStatus === "N"
+        ? replaceLatestStatus(dataset, itemId, status)
+        : [...dataset, { id: itemId, status }];
+
     const updatedItems = items.filter(it => it.id !== itemId);
 
     setLocalData(updatedDataset);
@@ -302,6 +343,11 @@ export default function ItemDetail() {
         handleUpload(nextCandidate, updatedItems, updatedDataset);
       }
     } else {
+      dataDispatch({
+        type: actionsD.updateItems,
+        payload: [],
+      });
+
       navigate("/List");
     }
   };
@@ -449,11 +495,7 @@ export default function ItemDetail() {
                 <Button
                   variant="contained"
                   onClick={() =>
-                    handleUpload(
-                      displayItem,
-                      [...dataState.items],
-                      [...dataState.data],
-                    )
+                    handleUpload(displayItem, localItems, localData)
                   }
                   size="large"
                   sx={{ marginRight: 2 }}
@@ -462,8 +504,19 @@ export default function ItemDetail() {
                     loading && <CircularProgress size={20} color="inherit" />
                   }
                 >
-                  Carregar no Commons
+                  {isReviewNotTransferred
+                    ? "Transferir para Commons"
+                    : "Carregar no Commons"}
                 </Button>
+                {isReviewNotTransferred ? (
+                  <Typography
+                    variant="body2"
+                    sx={{ marginTop: 1, color: "warning.main" }}
+                  >
+                    Item marcado anteriormente como não transferido. Uma
+                    transferência bem-sucedida alterará o estado para Y.
+                  </Typography>
+                ) : null}
               </Box>
             </Box>
             {isArqProject && displayItem.linkhtml ? (

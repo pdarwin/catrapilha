@@ -72,21 +72,33 @@ export default function Dashboard({ stopRef }) {
   };
 
   const init = async () => {
+    if (dataState.filter === "/CLEAR/") {
+      dataDispatch({
+        type: actionsD.setFilter,
+        payload: "",
+      });
+
+      return;
+    }
+
+    const hasCompleteList =
+      Array.isArray(dataState.items) &&
+      dataState.items.length >= dataState.maxItems;
+
+    if (hasCompleteList) {
+      return;
+    }
+
     isInitRunning.current = true;
+
     try {
       await initVariables();
-      if (dataState.filter === "/CLEAR/") {
-        dataDispatch({
-          type: actionsD.setFilter,
-          payload: "",
-        });
-      } else {
-        await fetchListItems(dataState, dataDispatch);
-      }
+
+      await fetchListItems(dataState, dataDispatch);
     } catch (error) {
       console.error("Error in init():", error);
     } finally {
-      isInitRunning.current = false; // Always reset the flag
+      isInitRunning.current = false;
     }
   };
 
@@ -223,7 +235,7 @@ export default function Dashboard({ stopRef }) {
           </Typography>
         )}
 
-        {dataState.data &&
+        {dataState.listLoading &&
         state.listItems.length > 0 &&
         state.listItems.length < dataState.maxItems ? (
           <Box

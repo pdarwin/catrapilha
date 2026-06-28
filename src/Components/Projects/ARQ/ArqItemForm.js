@@ -25,21 +25,37 @@ export default function ArqItemForm() {
   }, [dataState.item?.id, dataState.item?.linkhtml]);
 
   const buildInfo = (itemOverride = null, extraState = {}) => {
-    const categoriesText =
-      extraState.categories !== undefined
-        ? extraState.categories
-        : dataState.categories;
-
-    const dateOverride =
-      extraState.date !== undefined ? extraState.date : dataState.date;
-
-    const authorOverride =
-      extraState.author !== undefined ? extraState.author : dataState.author;
-
     const baseItem = {
       ...dataState.item,
       ...(itemOverride || {}),
     };
+
+    if (Object.prototype.hasOwnProperty.call(extraState, "date")) {
+      baseItem.manualDate = String(extraState.date || "").trim();
+    }
+
+    if (Object.prototype.hasOwnProperty.call(extraState, "author")) {
+      baseItem.manualAuthor = String(extraState.author || "").trim();
+    }
+
+    const dateOverride = Object.prototype.hasOwnProperty.call(
+      baseItem,
+      "manualDate",
+    )
+      ? baseItem.manualDate
+      : dataState.date || "";
+
+    const authorOverride = Object.prototype.hasOwnProperty.call(
+      baseItem,
+      "manualAuthor",
+    )
+      ? baseItem.manualAuthor
+      : dataState.author || "";
+
+    const categoriesText =
+      extraState.categories !== undefined
+        ? String(extraState.categories || "")
+        : dataState.categories || "";
 
     const item = buildArqItemMetadata({
       item: baseItem,
@@ -47,6 +63,15 @@ export default function ArqItemForm() {
       categoriesText,
       dateOverride,
       authorOverride,
+    });
+
+    const updatedItems = (dataState.items || []).map(listItem =>
+      Number(listItem.id) === Number(item.id) ? item : listItem,
+    );
+
+    dataDispatch({
+      type: actionsD.updateItems,
+      payload: updatedItems,
     });
 
     dataDispatch({
@@ -118,7 +143,10 @@ export default function ArqItemForm() {
       return "";
     }
 
-    return parts.slice(datePartIndex + 1).join(", ");
+    return parts
+      .slice(datePartIndex + 1)
+      .join(", ")
+      .replace(/[.,;:\s]+$/, "");
   };
 
   const formatDateForFilename = date => {
@@ -172,7 +200,7 @@ export default function ArqItemForm() {
         ? `${descriptionTitle}, ${locationTail}`
         : descriptionTitle || sourceTitle || "Sem título";
 
-    const filenameDate = formatDateForFilename(dataState.date || item.date);
+    const filenameDate = formatDateForFilename(item.date);
 
     item.filename = [filenameTitle, filenameDate, `Image ${item.id}`]
       .filter(Boolean)
@@ -190,8 +218,7 @@ export default function ArqItemForm() {
       .replace("{{circa|", "")
       .replace("}}", "");
 
-    buildInfo({
-      ...dataState.item,
+    buildInfo(null, {
       date: "{{circa|" + cleanDate + "}}",
     });
   };
@@ -274,6 +301,7 @@ export default function ArqItemForm() {
                   const item = {
                     ...dataState.item,
                     license: e.target.value,
+                    manualLicense: e.target.value,
                   };
 
                   dataDispatch({
@@ -289,7 +317,9 @@ export default function ArqItemForm() {
                 <MenuItem value="PD-old-100-expired">
                   PD-old-100-expired
                 </MenuItem>
+                <MenuItem value="PD-old-70-expired">PD-old-70-expired</MenuItem>
                 <MenuItem value="Art">Art</MenuItem>
+                <MenuItem value="Art70">Art 70</MenuItem>
                 <MenuItem value="PD-Portugal-URAA">URAA</MenuItem>
                 <MenuItem value="CC-BY-SA 4.0">CC-BY-SA 4.0</MenuItem>
                 <MenuItem value="textlogo">Textlogo</MenuItem>
@@ -303,7 +333,14 @@ export default function ArqItemForm() {
               </Typography>
 
               <TextField
-                value={dataState.date}
+                value={
+                  Object.prototype.hasOwnProperty.call(
+                    dataState.item || {},
+                    "manualDate",
+                  )
+                    ? dataState.item.manualDate
+                    : dataState.date || ""
+                }
                 onChange={e => {
                   const newDate = e.target.value;
 
@@ -312,7 +349,9 @@ export default function ArqItemForm() {
                     payload: newDate,
                   });
 
-                  buildInfo(null, { date: newDate });
+                  buildInfo(null, {
+                    date: newDate,
+                  });
                 }}
                 fullWidth
                 type="text"
@@ -327,7 +366,14 @@ export default function ArqItemForm() {
               </Typography>
 
               <TextField
-                value={dataState.author}
+                value={
+                  Object.prototype.hasOwnProperty.call(
+                    dataState.item || {},
+                    "manualAuthor",
+                  )
+                    ? dataState.item.manualAuthor
+                    : dataState.author || ""
+                }
                 onChange={e => {
                   const newAuthor = e.target.value;
 
@@ -336,7 +382,9 @@ export default function ArqItemForm() {
                     payload: newAuthor,
                   });
 
-                  buildInfo(null, { author: newAuthor });
+                  buildInfo(null, {
+                    author: newAuthor,
+                  });
                 }}
                 fullWidth
                 type="text"
@@ -369,7 +417,9 @@ export default function ArqItemForm() {
                   payload: newCategories,
                 });
 
-                buildInfo(null, { categories: newCategories });
+                buildInfo(null, {
+                  categories: newCategories,
+                });
               }}
               fullWidth
               type="text"

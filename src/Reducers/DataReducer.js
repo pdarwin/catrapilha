@@ -21,6 +21,9 @@ export const actionsD = {
   setListLoading: "setListLoading",
   resetState: "resetState",
   finishProjectReset: "finishProjectReset",
+  setIncludeNotTransferred: "setIncludeNotTransferred",
+  setShownItemIds: "setShownItemIds",
+  addShownItemIds: "addShownItemIds",
 };
 
 const emptyItem = {
@@ -44,6 +47,8 @@ const emptyItem = {
   file: null,
   readyToUpload: false,
   needsDetail: false,
+  reviewStatus: null,
+  shownItemIds: [],
 };
 
 const emptyListProgress = {
@@ -72,6 +77,7 @@ export const initialStateD = {
   item: emptyItem,
   filter: "",
   root: 1,
+  includeNotTransferred: false,
   author: "",
   totalPages: 0,
   maxItems: 10,
@@ -95,6 +101,7 @@ export const DataReducer = (state, action) => {
         rev: 0,
 
         items: [],
+        shownItemIds: [],
         item: emptyItem,
 
         firstId: 0,
@@ -109,6 +116,8 @@ export const DataReducer = (state, action) => {
 
         filter: "",
         root: 1,
+        includeNotTransferred: false,
+
         totalPages: 0,
         listLoading: false,
         listProgress: emptyListProgress,
@@ -221,6 +230,11 @@ export const DataReducer = (state, action) => {
         ...state,
         filter: action.payload,
       };
+    case actionsD.setIncludeNotTransferred:
+      return {
+        ...state,
+        includeNotTransferred: Boolean(action.payload),
+      };
     case actionsD.setRoot:
       return {
         ...state,
@@ -249,6 +263,24 @@ export const DataReducer = (state, action) => {
           ...action.payload,
         },
       };
+    case actionsD.setShownItemIds:
+      return {
+        ...state,
+        shownItemIds: Array.isArray(action.payload) ? action.payload : [],
+      };
+
+    case actionsD.addShownItemIds: {
+      const existingIds = new Set(state.shownItemIds || []);
+
+      (action.payload || []).forEach(id => {
+        existingIds.add(Number(id));
+      });
+
+      return {
+        ...state,
+        shownItemIds: [...existingIds],
+      };
+    }
     default:
       throw new Error();
   }

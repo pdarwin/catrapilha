@@ -1,5 +1,12 @@
 import { HighlightOff, Search } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDataContext } from "../Reducers/DataContext";
 import { actionsD } from "../Reducers/DataReducer";
@@ -10,13 +17,17 @@ export default function Filters({ stopRef }) {
 
   const [query, setQuery] = useState(dataState.filter || "");
   const [root, setRoot] = useState(dataState.root || 1);
+  const [includeNotTransferred, setIncludeNotTransferred] = useState(
+    Boolean(dataState.includeNotTransferred),
+  );
 
   useEffect(() => {
     setQuery(dataState.filter || "");
     setRoot(dataState.root || 1);
-  }, [dataState.filter, dataState.root]);
+    setIncludeNotTransferred(Boolean(dataState.includeNotTransferred));
+  }, [dataState.filter, dataState.root, dataState.includeNotTransferred]);
 
-  const runSearch = async (nextFilter, nextRoot) => {
+  const runSearch = async (nextFilter, nextRoot, nextIncludeNotTransferred) => {
     const normalizedRoot = Number(nextRoot) || 1;
 
     if (dataState.listLoading) {
@@ -31,7 +42,9 @@ export default function Filters({ stopRef }) {
       ...dataState,
       filter: nextFilter,
       root: normalizedRoot,
+      includeNotTransferred: nextIncludeNotTransferred,
       items: [],
+      shownItemIds: [],
     };
 
     dataDispatch({
@@ -50,8 +63,18 @@ export default function Filters({ stopRef }) {
     });
 
     dataDispatch({
+      type: actionsD.setIncludeNotTransferred,
+      payload: nextIncludeNotTransferred,
+    });
+
+    dataDispatch({
       type: actionsD.setRoot,
       payload: normalizedRoot,
+    });
+
+    dataDispatch({
+      type: actionsD.setShownItemIds,
+      payload: [],
     });
 
     await fetchListItems(nextState, dataDispatch);
@@ -60,7 +83,7 @@ export default function Filters({ stopRef }) {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    await runSearch(query.trim(), root);
+    await runSearch(query.trim(), root, includeNotTransferred);
   };
 
   const handleClear = async event => {
@@ -68,8 +91,9 @@ export default function Filters({ stopRef }) {
 
     setQuery("");
     setRoot(1);
+    setIncludeNotTransferred(false);
 
-    await runSearch("", 1);
+    await runSearch("", 1, false);
   };
 
   return (
@@ -130,6 +154,18 @@ export default function Filters({ stopRef }) {
         >
           Limpar
         </Button>
+      </Grid>
+      <Grid item xs={12}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              size="small"
+              checked={includeNotTransferred}
+              onChange={event => setIncludeNotTransferred(event.target.checked)}
+            />
+          }
+          label="Incluir não transferidos (N)"
+        />
       </Grid>
 
       <Grid item xs={12}>
